@@ -1,0 +1,6 @@
+.md_3024{ padding:10px 0px;}
+.md_3024 .mod_cont{ margin:0px 50px;}
+.md_3024 h2{ padding-left:2em; font-weight:normal; margin-bottom:15px;}
+.md_3024 h2 i.buy{ position:absolute; left:0; top:0.25em; display:inline-block; width:1.5em; height:1.5em; border-radius:1.5em;background-image:url(/public/mod/img/3014/buy.png); background-repeat:no-repeat; background-position:center center;}
+
+.md_3024.notitle h2{ display:none;}

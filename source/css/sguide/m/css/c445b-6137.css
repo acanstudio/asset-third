@@ -1,0 +1,7 @@
+.md_4017{ padding:20px 30px;}
+.md_4017 .md_cont{}
+.md_4017 .md_cont li{ text-align:center; line-height:1.5em;}
+.md_4017 .md_cont li:last-child{display:none;}
+.md_4017 .md_cont .md_li{ display:inline-block; padding:0.25em 1em;  margin:0.5em 0; border-radius:1em; line-height:2em;}
+.md_4017 .md_cont .md_b{ border-width:0 6px 6px 0; border-style:solid; display:inline-block; width:1em;height:1em;
+margin:0 0 0.35em 0;}

@@ -1,0 +1,38 @@
+#t_container{ width:750px; overflow:hidden; margin:0 auto; background-repeat:repeat;}
+#t_container *{box-sizing:inherit;}
+#t_container .modelbox{ max-width:none; width: inherit;}
+#t_container p{ text-indent:2em; line-height:inherit; margin:0;}
+a{ display:inline;}
+
+.articlecont{ font-size:28px;}
+.articlecont .font12,.articlecont .font12 a{ font-size:24px;}
+.articlecont .font14,.articlecont .font14 a{ font-size:28px;}
+.articlecont .font16,.articlecont .font16 a{ font-size:32px;}
+.articlecont .font18,.articlecont .font18 a{ font-size:36px;}
+.articlecont .font20,.articlecont .font20 a{ font-size:40px;}
+.articlecont .font22,.articlecont .font22 a{ font-size:44px;}
+.articlecont .font24,.articlecont .font24 a{ font-size:48px;}
+.articlecont .font26,.articlecont .font26 a{ font-size:52px;}
+.articlecont .font28,.articlecont .font28 a{ font-size:56px;}
+.articlecont .font30,.articlecont .font30 a{ font-size:60px;}
+.articlecont .font32,.articlecont .font32 a{ font-size:64px;}
+.articlecont .font34,.articlecont .font34 a{ font-size:68px;}
+.articlecont .font36,.articlecont .font36 a{ font-size:73px;}
+.articlecont .font42,.articlecont .font42 a{ font-size:84px;}
+.articlecont .font48,.articlecont .font48 a{ font-size:96px;}
+.articlecont .font50,.articlecont .font50 a{ font-size:100px;}
+.articlecont .font60,.articlecont .font60 a{ font-size:120px;}
+
+.mod_thead{ position:relative;padding: 0.8em;}
+.mod_thead .mod_zhijiao{width: 17px;height: 17px;position: absolute;}
+.mod_thead .mod_zhijiao.lt{ left:0px; top:0px; border-left-width:5px; border-top-width:5px; border-left-style:solid; border-top-style:solid;}
+.mod_thead .mod_zhijiao.rt{ right:0px; top:0px; border-right-width:5px; border-top-width:5px; border-right-style:solid; border-top-style:solid;}
+.mod_thead .mod_zhijiao.lb{ left:0px; bottom:0px; border-left-width:5px; border-bottom-width:5px; border-left-style:solid; border-bottom-style:solid;}
+.mod_thead .mod_zhijiao.rb{ right:0px; bottom:0px; border-right-width:5px; border-bottom-width:5px; border-right-style:solid; border-bottom-style:solid;}
+.mod_thead .mod_cont{padding:1em;}
+.mod_thead .mod_cont.bdcolor{border-width:1px; border-style:solid;}
+
+.mod_tfoot{position:relative;padding-top: 1em;}
+.mod_tfoot .mod_bg{ display:inline-block; line-height:1.8em; padding:0px 2em;position: absolute;top: 0px;left: 50%;margin-left: -3em;}
+.mod_tfoot .mod_cont{ padding:1.6em 1em 0.6em 1em;}
+.mod_tfoot .mod_cont.bdcolor{border-bottom-width:1px; border-bottom-style:solid;border-top-width:1px; border-top-style:solid;}

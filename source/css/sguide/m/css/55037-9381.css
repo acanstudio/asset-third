@@ -1,0 +1,7 @@
+.md_3022{ padding:20px 30px;}
+.md_3022 .mod_cont li{ width:49.5%; float:left; margin-bottom:20px; background:#dedbdb}
+.md_3022 .mod_cont li:nth-child(2n){ float:right;}
+.md_3022 .mod_cont .mod_img{ width:100%; font-size:0; overflow:hidden;}
+.md_3022 .mod_cont .mod_img img{ width:100%; }
+.md_3022 .mod_cont .mod_desc{ padding:20px 0.5em;}
+.md_3022 .mod_cont .mod_line{ display:inline-block; margin:0 auto; width:20%; height:0.2em; background:#000;}

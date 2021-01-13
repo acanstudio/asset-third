@@ -1,0 +1,8 @@
+
+.md_4015{ padding:10px 50px; overflow:hidden;}
+.md_4015 .mod_cont{ border-width:3px; border-style:solid; padding:6px;}
+.md_4015 .mod_cont .mod_border{ border-width:1px; border-style:solid; padding:9px;}
+
+.full .md_4015, #fullcontent .md_4015{ padding:10px 0px;}
+.full .md_4015 .mod_body .mod_cont, #fullcontent .md_4015 .mod_body .mod_cont{ margin:0px 50px;}
+

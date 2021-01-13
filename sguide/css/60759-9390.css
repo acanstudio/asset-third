@@ -1,0 +1,24 @@
+#t_container{ width:100%; margin:0 auto; background-repeat:repeat; font-size:14px; font-family:Arial,Microsoft Yahei;/*word-break: break-all;word-wrap: break-word;*/}
+/* background-color:#fff; 不定义背景色，否则会影响很多自定义样式*/
+#t_container p{ text-indent:2em; line-height:inherit; margin:0;}
+.content a{ text-decoration:none;}
+
+.font12,.font12 a{ font-size:12px;}
+.font14,.font14 a{ font-size:14px;}
+.font16,.font16 a{ font-size:16px;}
+.font18,.font18 a{ font-size:18px;}
+.font20,.font20 a{ font-size:20px;}
+.font22,.font22 a{ font-size:22px;}
+.font24,.font24 a{ font-size:24px;}
+.font26,.font26 a{ font-size:26px;}
+.font28,.font28 a{ font-size:28px;}
+.font30,.font30 a{ font-size:30px;}
+.font32,.font32 a{ font-size:32px;}
+.font34,.font34 a{ font-size:34px;}
+.font36,.font36 a{ font-size:36px;}
+.font42,.font42 a{ font-size:42px;}
+.font48,.font48 a{ font-size:48px;}
+.font50,.font50 a{ font-size:50px;}
+.font60,.font60 a{ font-size:60px;}
+
+.loading{ text-align:center; margin:10px 0px;}

@@ -1,0 +1,21 @@
+.md_3026{ padding:10px 0px;}
+.md_3026 .mod_contdata{ margin:0px 50px;}
+.md_3026 .mod_list{}
+.md_3026 .mod_img{ width:400px; }
+.md_3026 .mod_img img{ max-width:400px; }
+.md_3026 .mod_cont{ width:420px;}
+
+.md_3026 .mod_leftpic .mod_img{ float:left;}
+.md_3026 .mod_leftpic .mod_cont{ float:right;}
+.md_3026 .mod_rightpic .mod_img{ float:right;}
+.md_3026 .mod_rightpic .mod_cont{ float:left;}
+
+.md_3026 .huanrao .mod_img{ float:left; margin-right:1em; position:relative; z-index:1;}
+.md_3026 .mod_rightpic.huanrao .mod_img{ float:right; margin-left:1em;}
+
+.md_3026.notitle .mod_cont .md_title{ display:none;}
+.md_3026.notitle .mod_cont .md_desc{ margin-top:0px;}
+
+.md_3026 .mod_cont .md_desc{ padding-right:10px;}
+
+#fullcontent .md_3026 .mod_cont,.full .md_3026 .mod_cont{ width:800px;} 

@@ -1,0 +1,9 @@
+.md_4004{ padding:20px 30px;}
+.md_4004 ul{counter-reset: li;}
+.md_4004 li{}
+.md_4004 li .bgcolor{ height:1.5em; width:1.5em; position:absolute; left:0px; top:20px; z-index:2;-webkit-box-shadow: 6px 6px 4px #333;-moz-box-shadow: 6px 6px 4px #333;-o-box-shadow: 6px 6px 4px #333;box-shadow: 6px 6px 4px #333;}
+.md_4004 li .bgcolor::before{content: counter(li);counter-increment: li; z-index:3; color:#FFF; position:absolute;line-height: 1.5em;text-align: center;width: 1.5em; }
+.md_4004 li .md_title{ margin-left:1.5em;line-height:1.5em; border-bottom-style:solid; border-bottom-width:2px;}
+
+
+
