@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!--STATUS OK-->
 <html>
     
     <head>
@@ -14,17 +15,17 @@
         <meta content="telephone=no" name="format-detection" />
         <meta name="applicable-device" content="mobile">
         <link href="/favicon.ico" rel="shortcut icon" />
-        <link href="https://at.alicdn.com/t/font_989362_542opn2gp6w.css" type="text/css" rel="stylesheet" />
-        <link href="/public/css/mobile/v2019/inc.css?t=1609400834" type="text/css" rel="stylesheet" />
-        <link href="/public/mod/css/inc.css?t=1605067157" type="text/css" rel="stylesheet" />
+        <link href="https://at.alicdn.com/t/font_989362_uykezb61ug.css" type="text/css" rel="stylesheet" />
+        <link href="/public/css/mobile/v2019/inc.css?t=1614673790" type="text/css" rel="stylesheet" />
+        <link href="/public/mod/css/inc.css?t=1611127981" type="text/css" rel="stylesheet" />
         <link href="/public/mod/css/mobile/mobile.css?t=1605067157" type="text/css" rel="stylesheet" />
         <link href="/public/mod/css/mobile/4013p.css?t=1605067157" type="text/css" rel="stylesheet" />
         <link href="/public/mod/css/mobile/1010p.css?t=1605067157" type="text/css" rel="stylesheet" />
         <link href="/public/mod/css/mobile/4017p.css?t=1605067157" type="text/css" rel="stylesheet" />
         <link href="/public/mod/css/mobile/3026p.css?t=1605067157" type="text/css" rel="stylesheet" />
         <link href="/public/mod/css/mobile/3032p.css?t=1605067157" type="text/css" rel="stylesheet" />
-        <link href="/public/mod/css/mobile/datamodel/databrandp.css?t=1608018235" type="text/css" rel="stylesheet" />
-        <link href="/public/css/mobile/cache/zhaoshang_show_d9c1f36bb27e12b2b7e246304e68a27d.css?t=1608953041" type="text/css" rel="stylesheet" />
+        <link href="/public/mod/css/mobile/datamodel/databrandp.css?t=1611303536" type="text/css" rel="stylesheet" />
+        <link href="/public/css/mobile/cache/zhaoshang_show_d9c1f36bb27e12b2b7e246304e68a27d.css?t=1614224775" type="text/css" rel="stylesheet" />
         <style type="text/css">/* 模块需调整 */ .brand_more{background:#cd0000;} .md_3032 .brand_more a{color:#fff;}.md_3026 .md_desc{padding:0 0 20px 0;line-height:1.8em;} .md_3026 .md_title{color:#cd0000;} .mobile .md_3026 .md_title{text-align:center;}.md_4013 .md_desc{line-height:1.8em;}</style>
         <script src="https://cdn.staticfile.org/jquery/1.11.3/jquery.min.js" type="text/javascript"></script>
     </head>
@@ -65,7 +66,7 @@
                                         <a href="https://m.maigoo.com/maigoo/151wj_index.html" class="c666 dhidden">文具用品</a>
                                         <a href="https://m.maigoo.com/maigoo/785bi_index.html" class="c666 dhidden">中性笔</a>
                                         <a href="https://m.maigoo.com/maigoo/1342lb_index.html" class="c666 dhidden">蜡笔</a>
-                                        <a href="https://m.maigoo.com/maigoo/1265blt_index.html" class="c666 dhidden">便签纸</a>
+                                        <a href="https://m.maigoo.com/maigoo/1265blt_index.html" class="c666 dhidden">便签</a>
                                         <a href="https://m.maigoo.com/maigoo/786mkb_index.html" class="c666 dhidden">马克笔</a>
                                         <a href="https://m.maigoo.com/maigoo/577jsj_index.html" class="c666 dhidden">计算器</a>
                                         <a href="https://m.maigoo.com/maigoo/585dkj_index.html" class="c666 dhidden">打孔机</a>
@@ -87,9 +88,9 @@
                                         <a href="https://m.maigoo.com/maigoocms/special/qinzi/154chenguang.html" class="c666 dhidden">晨光文具M&G</a>
                                         <a href="https://m.maigoo.com/maigoocms/special/qinzi/151deli.html" class="c666 dhidden">得力DELI</a>
                                         <a href="https://m.maigoo.com/maigoocms/special/qinzi/151lemei.html" class="c666 dhidden">真彩TrueColor</a>
-                                        <a href="https://m.maigoo.com/maigoocms/special/qinzi/151qixin.html" class="c666 dhidden">齐心COMIX</a>
+                                        <a href="https://m.maigoo.com/maigoocms/special/qinzi/151qixin.html" class="c666 dhidden">齐心办公COMIX</a>
                                         <a href="https://m.maigoo.com/maigoocms/special/qinzi/152AIHAO.html" class="c666 dhidden">爱好AIHAO</a>
-                                        <a href="https://m.maigoo.com/maigoocms/special/qinzi/151baixue.html" class="c666 dhidden">白雪Snowhite</a>
+                                        <a href="https://m.maigoo.com/maigoocms/special/qinzi/151baixue.html" class="c666 dhidden">白雪文具Snowhite</a>
                                         <a href="https://m.maigoo.com/maigoocms/special/qinzi/151beifa.html" class="c666 dhidden">贝发BEIFA</a>
                                         <a href="https://m.maigoo.com/maigoocms/special/bggj/151gb.html" class="c666 dhidden">广博GuangBo</a>
                                         <a href="https://m.maigoo.com/maigoocms/special/bggj/151SUNWOOD.html" class="c666 dhidden">三木SUNWOOD</a>
@@ -161,8 +162,8 @@
                                         <em>专卖店加盟 区域代理商</em></li>
                                     <li class="w50 dhidden">联系人：
                                         <em>加盟部</em></li>
-                                    <li class="dhidden">官网电话：
-                                        <em class="Tel">021-57474488</em></li>
+                                    <li class="dhidden">招商电话：
+                                        <em class="Tel">021-31597900</em></li>
                                     <li class="dhidden">品牌官网：
                                         <a rel="nofollow" class="color1" href="https://m.maigoo.com/link.php?url=http%3A%2F%2Fwww.mg-pen.com">http://www.mg-pen.com</a></li>
                                 </ul>
@@ -539,130 +540,13 @@
                             <li>
                                 <div class="tablecell">
                                     <div class="img">
-                                        <img src="/public/images/cnpp/userpic/other/1.jpg" /></div>
-                                </div>
-                                <div class="tablecell">
-                                    <div class="info">
-                                        <span class="name c999">李女士</span>
-                                        <span class="c999">
-                                            <i class="iconfont icon-diqu"></i>加盟地区 - 广东 广州</span>
-                                        <div class="jmttl dhidden">想加盟晨光文具M&G品牌，请与我联系！</div></div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="tablecell">
-                                    <div class="img">
-                                        <img src="/public/images/cnpp/userpic/other/8.jpg" /></div>
-                                </div>
-                                <div class="tablecell">
-                                    <div class="info">
-                                        <span class="name c999">马</span>
-                                        <span class="c999">
-                                            <i class="iconfont icon-diqu"></i>加盟地区 - 浙江 金华</span>
-                                        <div class="jmttl dhidden">想加盟晨光文具M&G品牌，请与我联系！</div></div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="tablecell">
-                                    <div class="img">
-                                        <img src="/public/images/cnpp/userpic/other/8.jpg" /></div>
-                                </div>
-                                <div class="tablecell">
-                                    <div class="info">
-                                        <span class="name c999">唐'R</span>
-                                        <span class="c999">
-                                            <i class="iconfont icon-diqu"></i>加盟地区 - 江苏 苏州</span>
-                                        <div class="jmttl dhidden">想加盟晨光文具M&G品牌，请与我联系！</div></div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="tablecell">
-                                    <div class="img">
-                                        <img src="/public/images/cnpp/userpic/other/3.jpg" /></div>
-                                </div>
-                                <div class="tablecell">
-                                    <div class="info">
-                                        <span class="name c999">陈立朋</span>
-                                        <span class="c999">
-                                            <i class="iconfont icon-diqu"></i>加盟地区 - 上海</span>
-                                        <div class="jmttl dhidden">想加盟晨光文具M&G品牌</div></div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="tablecell">
-                                    <div class="img">
-                                        <img src="/public/images/cnpp/userpic/other/1.jpg" /></div>
-                                </div>
-                                <div class="tablecell">
-                                    <div class="info">
-                                        <span class="name c999">刘鹏亮</span>
-                                        <span class="c999">
-                                            <i class="iconfont icon-diqu"></i>加盟地区 - 河北 邯郸</span>
-                                        <div class="jmttl dhidden">想加盟晨光文具M&G品牌，请与我联系！</div></div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="tablecell">
-                                    <div class="img">
                                         <img src="/public/images/cnpp/userpic/other/2.jpg" /></div>
                                 </div>
                                 <div class="tablecell">
                                     <div class="info">
-                                        <span class="name c999">谢先生</span>
+                                        <span class="name c999">张</span>
                                         <span class="c999">
-                                            <i class="iconfont icon-diqu"></i>加盟地区 - 宁夏 银川</span>
-                                        <div class="jmttl dhidden">想加盟晨光文具M&G品牌，请与我联系！</div></div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="tablecell">
-                                    <div class="img">
-                                        <img src="/public/images/cnpp/userpic/other/8.jpg" /></div>
-                                </div>
-                                <div class="tablecell">
-                                    <div class="info">
-                                        <span class="name c999">孙海波</span>
-                                        <span class="c999">
-                                            <i class="iconfont icon-diqu"></i>加盟地区 - 湖北 黄冈</span>
-                                        <div class="jmttl dhidden">想加盟晨光文具M&G品牌，请与我联系！</div></div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="tablecell">
-                                    <div class="img">
-                                        <img src="https://thirdwx.qlogo.cn/mmopen/vi_32/hibuXibONPLHICbdicwgWC3cSquhxjY2eDTm10Mhh2RAFK1sic9g3bM0Dx0HsvI5U3D5j09W5f0KgChLWecMdaTHsA/132" /></div>
-                                </div>
-                                <div class="tablecell">
-                                    <div class="info">
-                                        <span class="name c999">于钰泷</span>
-                                        <span class="c999">
-                                            <i class="iconfont icon-diqu"></i>加盟地区 - 河南 许昌</span>
-                                        <div class="jmttl dhidden">想加盟晨光文具M&G品牌，请与我联系！</div></div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="tablecell">
-                                    <div class="img">
-                                        <img src="/public/images/cnpp/userpic/other/1.jpg" /></div>
-                                </div>
-                                <div class="tablecell">
-                                    <div class="info">
-                                        <span class="name c999">陈</span>
-                                        <span class="c999">
-                                            <i class="iconfont icon-diqu"></i>加盟地区 - 湖南 张家界</span>
-                                        <div class="jmttl dhidden">想加盟晨光文具M&G品牌，请与我联系！</div></div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="tablecell">
-                                    <div class="img">
-                                        <img src="/public/images/cnpp/userpic/other/5.jpg" /></div>
-                                </div>
-                                <div class="tablecell">
-                                    <div class="info">
-                                        <span class="name c999">丁先生</span>
-                                        <span class="c999">
-                                            <i class="iconfont icon-diqu"></i>加盟地区 - 江苏 徐州</span>
+                                            <i class="iconfont icon-diqu"></i>加盟地区 - 新疆 乌鲁木齐</span>
                                         <div class="jmttl dhidden">想加盟晨光文具M&G品牌，请与我联系！</div></div>
                                 </div>
                             </li>
@@ -673,48 +557,9 @@
                                 </div>
                                 <div class="tablecell">
                                     <div class="info">
-                                        <span class="name c999">马先生</span>
+                                        <span class="name c999">徐先生</span>
                                         <span class="c999">
-                                            <i class="iconfont icon-diqu"></i>加盟地区 - 宁夏 中卫</span>
-                                        <div class="jmttl dhidden">想加盟晨光文具M&G品牌，请与我联系！</div></div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="tablecell">
-                                    <div class="img">
-                                        <img src="/public/images/cnpp/userpic/other/4.jpg" /></div>
-                                </div>
-                                <div class="tablecell">
-                                    <div class="info">
-                                        <span class="name c999">王春兰</span>
-                                        <span class="c999">
-                                            <i class="iconfont icon-diqu"></i>加盟地区 - 陕西 西安</span>
-                                        <div class="jmttl dhidden">想加盟晨光文具M&G品牌，请与我联系！</div></div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="tablecell">
-                                    <div class="img">
-                                        <img src="/public/images/cnpp/userpic/other/7.jpg" /></div>
-                                </div>
-                                <div class="tablecell">
-                                    <div class="info">
-                                        <span class="name c999">黄先生</span>
-                                        <span class="c999">
-                                            <i class="iconfont icon-diqu"></i>加盟地区 - 湖北 黄冈</span>
-                                        <div class="jmttl dhidden">想加盟晨光文具M&G品牌</div></div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="tablecell">
-                                    <div class="img">
-                                        <img src="/public/images/cnpp/userpic/other/10.jpg" /></div>
-                                </div>
-                                <div class="tablecell">
-                                    <div class="info">
-                                        <span class="name c999">黄先生</span>
-                                        <span class="c999">
-                                            <i class="iconfont icon-diqu"></i>加盟地区 - 湖北 黄冈</span>
+                                            <i class="iconfont icon-diqu"></i>加盟地区 - 山东 青岛</span>
                                         <div class="jmttl dhidden">想加盟晨光文具M&G品牌，请与我联系！</div></div>
                                 </div>
                             </li>
@@ -725,9 +570,165 @@
                                 </div>
                                 <div class="tablecell">
                                     <div class="info">
-                                        <span class="name c999">杨</span>
+                                        <span class="name c999">袁老师</span>
                                         <span class="c999">
-                                            <i class="iconfont icon-diqu"></i>加盟地区 - 宁夏 中卫</span>
+                                            <i class="iconfont icon-diqu"></i>加盟地区 - 江苏 徐州</span>
+                                        <div class="jmttl dhidden">想加盟晨光文具M&G品牌，请与我联系！</div></div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="tablecell">
+                                    <div class="img">
+                                        <img src="/public/images/cnpp/userpic/other/4.jpg" /></div>
+                                </div>
+                                <div class="tablecell">
+                                    <div class="info">
+                                        <span class="name c999">周女士</span>
+                                        <span class="c999">
+                                            <i class="iconfont icon-diqu"></i>加盟地区 - 四川 成都</span>
+                                        <div class="jmttl dhidden">想加盟晨光文具M&G品牌，请与我联系！</div></div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="tablecell">
+                                    <div class="img">
+                                        <img src="/public/images/cnpp/userpic/other/4.jpg" /></div>
+                                </div>
+                                <div class="tablecell">
+                                    <div class="info">
+                                        <span class="name c999">徐小姐</span>
+                                        <span class="c999">
+                                            <i class="iconfont icon-diqu"></i>加盟地区 - 江苏 苏州</span>
+                                        <div class="jmttl dhidden">想加盟晨光文具M&G品牌，请与我联系！</div></div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="tablecell">
+                                    <div class="img">
+                                        <img src="/public/images/cnpp/userpic/other/8.jpg" /></div>
+                                </div>
+                                <div class="tablecell">
+                                    <div class="info">
+                                        <span class="name c999">李</span>
+                                        <span class="c999">
+                                            <i class="iconfont icon-diqu"></i>加盟地区 - 天津 辖</span>
+                                        <div class="jmttl dhidden">想加盟晨光文具M&G品牌，请与我联系！</div></div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="tablecell">
+                                    <div class="img">
+                                        <img src="/public/images/cnpp/userpic/other/8.jpg" /></div>
+                                </div>
+                                <div class="tablecell">
+                                    <div class="info">
+                                        <span class="name c999">温子情</span>
+                                        <span class="c999">
+                                            <i class="iconfont icon-diqu"></i>加盟地区 - 广东 清远</span>
+                                        <div class="jmttl dhidden">想加盟晨光文具M&G品牌，请与我联系！</div></div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="tablecell">
+                                    <div class="img">
+                                        <img src="/public/images/cnpp/userpic/other/4.jpg" /></div>
+                                </div>
+                                <div class="tablecell">
+                                    <div class="info">
+                                        <span class="name c999">李智隆</span>
+                                        <span class="c999">
+                                            <i class="iconfont icon-diqu"></i>加盟地区 - 贵州 铜仁</span>
+                                        <div class="jmttl dhidden">想加盟晨光文具M&G品牌，请与我联系！</div></div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="tablecell">
+                                    <div class="img">
+                                        <img src="/public/images/cnpp/userpic/other/3.jpg" /></div>
+                                </div>
+                                <div class="tablecell">
+                                    <div class="info">
+                                        <span class="name c999">周女士</span>
+                                        <span class="c999">
+                                            <i class="iconfont icon-diqu"></i>加盟地区 - 江苏 镇江</span>
+                                        <div class="jmttl dhidden">想加盟晨光文具M&G品牌，请与我联系！</div></div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="tablecell">
+                                    <div class="img">
+                                        <img src="/public/images/cnpp/userpic/other/9.jpg" /></div>
+                                </div>
+                                <div class="tablecell">
+                                    <div class="info">
+                                        <span class="name c999">马建立</span>
+                                        <span class="c999">
+                                            <i class="iconfont icon-diqu"></i>加盟地区 - 云南 德宏傣族景颇族</span>
+                                        <div class="jmttl dhidden">想加盟晨光文具M&G品牌，请与我联系！</div></div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="tablecell">
+                                    <div class="img">
+                                        <img src="/public/images/cnpp/userpic/other/5.jpg" /></div>
+                                </div>
+                                <div class="tablecell">
+                                    <div class="info">
+                                        <span class="name c999">廖碧莲</span>
+                                        <span class="c999">
+                                            <i class="iconfont icon-diqu"></i>加盟地区 - 广东 揭阳</span>
+                                        <div class="jmttl dhidden">晨光文具M&G很好，请尽快联系我详谈！</div></div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="tablecell">
+                                    <div class="img">
+                                        <img src="/public/images/cnpp/userpic/other/5.jpg" /></div>
+                                </div>
+                                <div class="tablecell">
+                                    <div class="info">
+                                        <span class="name c999">王</span>
+                                        <span class="c999">
+                                            <i class="iconfont icon-diqu"></i>加盟地区 - 浙江 绍兴</span>
+                                        <div class="jmttl dhidden">想加盟晨光文具M&G品牌，请与我联系！</div></div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="tablecell">
+                                    <div class="img">
+                                        <img src="/public/images/cnpp/userpic/other/7.jpg" /></div>
+                                </div>
+                                <div class="tablecell">
+                                    <div class="info">
+                                        <span class="name c999">黄伟锦</span>
+                                        <span class="c999">
+                                            <i class="iconfont icon-diqu"></i>加盟地区 - 江西 宜春</span>
+                                        <div class="jmttl dhidden">想加盟晨光文具M&G品牌</div></div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="tablecell">
+                                    <div class="img">
+                                        <img src="/public/images/cnpp/userpic/other/3.jpg" /></div>
+                                </div>
+                                <div class="tablecell">
+                                    <div class="info">
+                                        <span class="name c999">高</span>
+                                        <span class="c999">
+                                            <i class="iconfont icon-diqu"></i>加盟地区 - 陕西 榆林</span>
+                                        <div class="jmttl dhidden">想加盟晨光文具M&G品牌，请与我联系！</div></div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="tablecell">
+                                    <div class="img">
+                                        <img src="/public/images/cnpp/userpic/other/8.jpg" /></div>
+                                </div>
+                                <div class="tablecell">
+                                    <div class="info">
+                                        <span class="name c999">齐</span>
+                                        <span class="c999">
+                                            <i class="iconfont icon-diqu"></i>加盟地区 - 山东 威海</span>
                                         <div class="jmttl dhidden">想加盟晨光文具M&G品牌，请与我联系！</div></div>
                                 </div>
                             </li>
@@ -736,11 +737,12 @@
                 </div>
                 <div class="bline bline1"></div>
                 <div class="articlepraise bottombd" id="articlepraise">
+                    <!--点赞-->
                     <div class="tubiao">
                         <div class="dianzhan">
-                            <a href="/ajaxstream/praise/?action=addpraise&block=zhaoshang&id=862" class="addpraise" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).find('.addnum'))">
+                            <a href="/ajaxstream/praise/?action=addpraise&block=zhaoshang&id=862" class="addpraise" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$('.addpraisenum'))">
                                 <i class="iconfont icon-dianzan"></i>赞
-                                <i class="addnum getajaxdata" url="https://s.maigoo.com/ajaxstream/praise/?action=getpraise&block=zhaoshang&id=862&type=add"></i></a>
+                                <i class="addpraisenum getajaxdata" url="https://s.maigoo.com/ajaxstream/praise/?action=getpraise&block=zhaoshang&id=862&type=add"></i></a>
                         </div>
                         <div class="xiajiang c999">
                             <a href="/ajaxstream/praise/?action=cutpraise&block=zhaoshang&id=862" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).find('.addnum'))" class="cutpraise">
@@ -776,7 +778,7 @@
                             <a class="color1" href="javascript:;" onclick="window.open('https://m.maigoo.com/user/login/');">注册登录>></a></div>
                     </div>
                     <div class="moremzsm">
-                        <img src="/public/images/icon/addmore.gif" onclick="$('#mzsmcontent').find('.mzsm').css('height','auto');$(this).parent().remove();" /></div>
+                        <img src="https://s.maigoo.com/public/images/icon/addmore.gif" onclick="$('#mzsmcontent').find('.mzsm').css('height','auto');$(this).parent().remove();" /></div>
                 </div>
                 <div class="articlecomment bottombd" id="pos_articlecomment">
                     <div class="commentinputbox" id="commentinputbox">
@@ -808,9 +810,6 @@
                                     <span class="left c999 nickname">
                                         <i class="name">云中的Ange...</i>&nbsp;&nbsp;11-20 11:23</span>
                                     <span class="right">
-                                        <a class="jubao link c999" href="https://m.maigoo.com/submit/tousu/">
-                                            <i class="iconfont icon-jubao"></i>
-                                        </a>
                                         <a class="c999" href="javascript:void(0);" commentid="948757" onclick="commentreply(this);">
                                             <i class="iconfont icon-liuyan"></i>
                                         </a>
@@ -834,9 +833,6 @@
                                     <span class="left c999 nickname">
                                         <i class="name">开心一点点，就...</i>&nbsp;&nbsp;03-06 13:50</span>
                                     <span class="right">
-                                        <a class="jubao link c999" href="https://m.maigoo.com/submit/tousu/">
-                                            <i class="iconfont icon-jubao"></i>
-                                        </a>
                                         <a class="c999" href="javascript:void(0);" commentid="938472" onclick="commentreply(this);">
                                             <i class="iconfont icon-liuyan"></i>
                                         </a>
@@ -852,7 +848,7 @@
                         <div class="usersay">
                             <div class="picbox">
                                 <div class="userpic">
-                                    <img src="/public/images/cnpp/userpic/other/6.jpg" /></div>
+                                    <img src="/public/images/cnpp/userpic/other/3.jpg" /></div>
                             </div>
                             <div class="commentbox">
                                 <div class="commenttxt line18em" id="con906801">要怎么代理呢</div>
@@ -860,9 +856,6 @@
                                     <span class="left c999 nickname">
                                         <i class="name">网友 (121.57.*.*)</i>&nbsp;&nbsp;07-09 00:32</span>
                                     <span class="right">
-                                        <a class="jubao link c999" href="https://m.maigoo.com/submit/tousu/">
-                                            <i class="iconfont icon-jubao"></i>
-                                        </a>
                                         <a class="c999" href="javascript:void(0);" commentid="906801" onclick="commentreply(this);">
                                             <i class="iconfont icon-liuyan"></i>
                                         </a>
@@ -924,8 +917,8 @@
                                             <span class="c666">投资预算：</span>
                                             <span class="red b">10-20万元</span></div>
                                         <div class="phone dhidden c666">
-                                            <span>电话：</span>
-                                            <span>021-57474488</span></div>
+                                            <span>招商电话：</span>
+                                            <span>021-31597900</span></div>
                                     </a>
                                     <div class="btn">
                                         <a target="_blank" href="https://m.maigoo.com/zhaoshang/862.html" class="fff bgorange font14">查看招商</a>
@@ -948,7 +941,7 @@
                                             <span class="c666">投资预算：</span>
                                             <span class="red b">25-45万元</span></div>
                                         <div class="phone dhidden c666">
-                                            <span>电话：</span>
+                                            <span>招商电话：</span>
                                             <span>400-185-0555</span></div>
                                     </a>
                                     <div class="btn">
@@ -967,13 +960,13 @@
                                     <a href="https://m.maigoo.com/zhaoshang/1765.html">
                                         <div class="brandname">
                                             <span class="numb num3"></span>
-                                            <span class="name dhidden b c333 ">齐心COMIX</span></div>
+                                            <span class="name dhidden b c333 ">齐心办公COMIX</span></div>
                                         <div class="yusu dhidden">
                                             <span class="c666">投资预算：</span>
                                             <span class="red b">25-35万元</span></div>
                                         <div class="phone dhidden c666">
-                                            <span>电话：</span>
-                                            <span>400-606-3282</span></div>
+                                            <span>招商电话：</span>
+                                            <span>400-700-8688</span></div>
                                     </a>
                                     <div class="btn">
                                         <a target="_blank" href="https://m.maigoo.com/zhaoshang/1765.html" class="fff bgorange font14">查看招商</a>
@@ -996,7 +989,7 @@
                                             <span class="c666">投资预算：</span>
                                             <span class="red b">5-10万元</span></div>
                                         <div class="phone dhidden c666">
-                                            <span>电话：</span>
+                                            <span>招商电话：</span>
                                             <span>0512-57276666</span></div>
                                     </a>
                                     <div class="btn">
@@ -1015,65 +1008,17 @@
                                     <a href="https://m.maigoo.com/zhaoshang/861.html">
                                         <div class="brandname">
                                             <span class="numb num5"></span>
-                                            <span class="name dhidden b c333 ">白雪Snowhite</span></div>
+                                            <span class="name dhidden b c333 ">白雪文具Snowhite</span></div>
                                         <div class="yusu dhidden">
                                             <span class="c666">投资预算：</span>
                                             <span class="red b">5-10万元</span></div>
                                         <div class="phone dhidden c666">
-                                            <span>电话：</span>
+                                            <span>招商电话：</span>
                                             <span>0532-83716797</span></div>
                                     </a>
                                     <div class="btn">
                                         <a target="_blank" href="https://m.maigoo.com/zhaoshang/861.html" class="fff bgorange font14">查看招商</a>
                                         <a target="_blank" href="https://m.maigoo.com/zhaoshang/861.html#possqjm" class="fff bg1 font14">申请加盟</a></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="img tablecell">
-                                <a href="https://m.maigoo.com/zhaoshang/4323.html">
-                                    <img width="300" height="185" src="https://image.maigoo.com/upload/images/20200420/13362374641_750x463.jpg" /></a>
-                            </div>
-                            <div class="cont font14 tablecell lineem">
-                                <div class="desc">
-                                    <a href="https://m.maigoo.com/zhaoshang/4323.html">
-                                        <div class="brandname">
-                                            <span class="numb num6"></span>
-                                            <span class="name dhidden b c333 ">三木SUNWOOD</span></div>
-                                        <div class="yusu dhidden">
-                                            <span class="c666">投资预算：</span>
-                                            <span class="red b">20-50万元</span></div>
-                                        <div class="phone dhidden c666">
-                                            <span>电话：</span>
-                                            <span>0576 - 87115999</span></div>
-                                    </a>
-                                    <div class="btn">
-                                        <a target="_blank" href="https://m.maigoo.com/zhaoshang/4323.html" class="fff bgorange font14">查看招商</a>
-                                        <a target="_blank" href="https://m.maigoo.com/zhaoshang/4323.html#possqjm" class="fff bg1 font14">申请加盟</a></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="img tablecell">
-                                <a href="https://m.maigoo.com/zhaoshang/514494.html">
-                                    <img width="300" height="185" src="https://image.maigoo.com/upload/images/20200411/18075086347_750x463.jpg" /></a>
-                            </div>
-                            <div class="cont font14 tablecell lineem">
-                                <div class="desc">
-                                    <a href="https://m.maigoo.com/zhaoshang/514494.html">
-                                        <div class="brandname">
-                                            <span class="numb num7"></span>
-                                            <span class="name dhidden b c333 ">联众UME</span></div>
-                                        <div class="yusu dhidden">
-                                            <span class="c666">投资预算：</span>
-                                            <span class="red b">10-20万元</span></div>
-                                        <div class="phone dhidden c666">
-                                            <span>电话：</span>
-                                            <span>8009-991-212</span></div>
-                                    </a>
-                                    <div class="btn">
-                                        <a target="_blank" href="https://m.maigoo.com/zhaoshang/514494.html" class="fff bgorange font14">查看招商</a>
-                                        <a target="_blank" href="https://m.maigoo.com/zhaoshang/514494.html#possqjm" class="fff bg1 font14">申请加盟</a></div>
                                 </div>
                             </div>
                         </div>
@@ -1086,13 +1031,13 @@
                                 <div class="desc">
                                     <a href="https://m.maigoo.com/zhaoshang/888.html">
                                         <div class="brandname">
-                                            <span class="numb num8"></span>
+                                            <span class="numb num6"></span>
                                             <span class="name dhidden b c333 ">金万年KNOW</span></div>
                                         <div class="yusu dhidden">
                                             <span class="c666">投资预算：</span>
                                             <span class="red b">5-10万元</span></div>
                                         <div class="phone dhidden c666">
-                                            <span>电话：</span>
+                                            <span>招商电话：</span>
                                             <span>0754-87792401</span></div>
                                     </a>
                                     <div class="btn">
@@ -1110,13 +1055,13 @@
                                 <div class="desc">
                                     <a href="https://m.maigoo.com/zhaoshang/878.html">
                                         <div class="brandname">
-                                            <span class="numb num9"></span>
+                                            <span class="numb num7"></span>
                                             <span class="name dhidden b c333 ">贝发BEIFA</span></div>
                                         <div class="yusu dhidden">
                                             <span class="c666">投资预算：</span>
                                             <span class="red b">5-10万元</span></div>
                                         <div class="phone dhidden c666">
-                                            <span>电话：</span>
+                                            <span>招商电话：</span>
                                             <span>0574-56786515</span></div>
                                     </a>
                                     <div class="btn">
@@ -1134,18 +1079,66 @@
                                 <div class="desc">
                                     <a href="https://m.maigoo.com/zhaoshang/1056.html">
                                         <div class="brandname">
-                                            <span class="numb num10"></span>
+                                            <span class="numb num8"></span>
                                             <span class="name dhidden b c333 ">智高ZHIGAO</span></div>
                                         <div class="yusu dhidden">
                                             <span class="c666">投资预算：</span>
                                             <span class="red b">20-50万元</span></div>
                                         <div class="phone dhidden c666">
-                                            <span>电话：</span>
+                                            <span>招商电话：</span>
                                             <span>0769-87028825</span></div>
                                     </a>
                                     <div class="btn">
                                         <a target="_blank" href="https://m.maigoo.com/zhaoshang/1056.html" class="fff bgorange font14">查看招商</a>
                                         <a target="_blank" href="https://m.maigoo.com/zhaoshang/1056.html#possqjm" class="fff bg1 font14">申请加盟</a></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="img tablecell">
+                                <a href="https://m.maigoo.com/zhaoshang/6085.html">
+                                    <img width="300" height="185" src="https://image.maigoo.com/upload/images/20200410/18121471909_750x463.jpg" /></a>
+                            </div>
+                            <div class="cont font14 tablecell lineem">
+                                <div class="desc">
+                                    <a href="https://m.maigoo.com/zhaoshang/6085.html">
+                                        <div class="brandname">
+                                            <span class="numb num9"></span>
+                                            <span class="name dhidden b c333 ">Maped马培德</span></div>
+                                        <div class="yusu dhidden">
+                                            <span class="c666">投资预算：</span>
+                                            <span class="red b">10-15万元</span></div>
+                                        <div class="phone dhidden c666">
+                                            <span>招商电话：</span>
+                                            <span>0512-57371508</span></div>
+                                    </a>
+                                    <div class="btn">
+                                        <a target="_blank" href="https://m.maigoo.com/zhaoshang/6085.html" class="fff bgorange font14">查看招商</a>
+                                        <a target="_blank" href="https://m.maigoo.com/zhaoshang/6085.html#possqjm" class="fff bg1 font14">申请加盟</a></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="img tablecell">
+                                <a href="https://m.maigoo.com/zhaoshang/1763.html">
+                                    <img width="300" height="185" src="https://image.maigoo.com/upload/images/20201224/18180576702_750x463.jpg" /></a>
+                            </div>
+                            <div class="cont font14 tablecell lineem">
+                                <div class="desc">
+                                    <a href="https://m.maigoo.com/zhaoshang/1763.html">
+                                        <div class="brandname">
+                                            <span class="numb num10"></span>
+                                            <span class="name dhidden b c333 ">可得优KW-triO</span></div>
+                                        <div class="yusu dhidden">
+                                            <span class="c666">投资预算：</span>
+                                            <span class="red b">25-50万元</span></div>
+                                        <div class="phone dhidden c666">
+                                            <span>招商电话：</span>
+                                            <span>021-5485 7060</span></div>
+                                    </a>
+                                    <div class="btn">
+                                        <a target="_blank" href="https://m.maigoo.com/zhaoshang/1763.html" class="fff bgorange font14">查看招商</a>
+                                        <a target="_blank" href="https://m.maigoo.com/zhaoshang/1763.html#possqjm" class="fff bg1 font14">申请加盟</a></div>
                                 </div>
                             </div>
                         </div>
@@ -1224,7 +1217,7 @@
             issm = '';
             var authorpiclist = [];</script>
         <script type="text/javascript" src="https://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
-        <script type="text/javascript" src="/public/mod/js/public.js?t=1605067158"></script>
+        <script type="text/javascript" src="/public/mod/js/public.js?t=1609986684"></script>
         <script type="text/javascript" src="/public/mod/js/1010p.js?t=1605067158"></script>
         <script type="text/javascript" src="/public/js/mobile/cache/zhaoshang_show_fc9a0f0de3232f76fafa48114f80acd2.js?t=1608193483"></script>
         <script>var _hmt = _hmt || []; (function() {

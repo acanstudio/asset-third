@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!--STATUS OK-->
 <html>
     
     <head>
@@ -14,8 +15,8 @@
         <meta content="telephone=no" name="format-detection" />
         <meta name="applicable-device" content="mobile">
         <link href="/favicon.ico" rel="shortcut icon" />
-        <link href="https://at.alicdn.com/t/font_989362_542opn2gp6w.css" type="text/css" rel="stylesheet" />
-        <link href="/public/css/mobile/v2019/inc.css?t=1609400834" type="text/css" rel="stylesheet" />
+        <link href="https://at.alicdn.com/t/font_989362_uykezb61ug.css" type="text/css" rel="stylesheet" />
+        <link href="/public/css/mobile/v2019/inc.css?t=1614673790" type="text/css" rel="stylesheet" />
         <link href="/public/css/mobile/cache/shop_list_9d9d846e1570d1d31a0d1d9111dbd2fb.css?t=1608953130" type="text/css" rel="stylesheet" />
         <script src="https://cdn.staticfile.org/jquery/1.11.3/jquery.min.js" type="text/javascript"></script>
     </head>
@@ -72,9 +73,9 @@
                                         <a href="https://m.maigoo.com/brand/shop_2411.html" class="c666 dhidden">晨光文具M&G</a>
                                         <a href="https://m.maigoo.com/brand/shop_2418.html" class="c666 dhidden">得力DELI</a>
                                         <a href="https://m.maigoo.com/brand/shop_2413.html" class="c666 dhidden">真彩TrueColor</a>
-                                        <a href="https://m.maigoo.com/brand/shop_2476.html" class="c666 dhidden">齐心COMIX</a>
+                                        <a href="https://m.maigoo.com/brand/shop_2476.html" class="c666 dhidden">齐心办公COMIX</a>
                                         <a href="https://m.maigoo.com/maigoocms/special/qinzi/152AIHAO.html" class="c666 dhidden">爱好AIHAO</a>
-                                        <a href="https://m.maigoo.com/maigoocms/special/qinzi/151baixue.html" class="c666 dhidden">白雪Snowhite</a>
+                                        <a href="https://m.maigoo.com/maigoocms/special/qinzi/151baixue.html" class="c666 dhidden">白雪文具Snowhite</a>
                                         <a href="https://m.maigoo.com/maigoocms/special/qinzi/151beifa.html" class="c666 dhidden">贝发BEIFA</a>
                                         <a href="https://m.maigoo.com/brand/shop_2555.html" class="c666 dhidden">广博GuangBo</a>
                                         <a href="https://m.maigoo.com/brand/shop_2516.html" class="c666 dhidden">三木SUNWOOD</a>
@@ -243,8 +244,8 @@
                                         <a class="leval color1 dhidden " href="https://m.maigoo.com/shop/search/?catid=797&brandid=2411&dynamic=1" data-action="searchlist" data-brandid="2411">晨光文具M&G</a>
                                         <a class="leval color1 dhidden " href="https://m.maigoo.com/shop/search/?catid=797&brandid=2418&dynamic=1" data-action="searchlist" data-brandid="2418">得力DELI</a>
                                         <a class="leval color1 dhidden " href="https://m.maigoo.com/shop/search/?catid=797&brandid=2413&dynamic=1" data-action="searchlist" data-brandid="2413">真彩TrueColor</a>
-                                        <a class="leval color1 dhidden " href="https://m.maigoo.com/shop/search/?catid=797&brandid=2476&dynamic=1" data-action="searchlist" data-brandid="2476">齐心COMIX</a>
-                                        <a class="leval color1 dhidden " href="https://m.maigoo.com/shop/search/?catid=797&brandid=2414&dynamic=1" data-action="searchlist" data-brandid="2414">白雪Snowhite</a>
+                                        <a class="leval color1 dhidden " href="https://m.maigoo.com/shop/search/?catid=797&brandid=2476&dynamic=1" data-action="searchlist" data-brandid="2476">齐心办公COMIX</a>
+                                        <a class="leval color1 dhidden " href="https://m.maigoo.com/shop/search/?catid=797&brandid=2414&dynamic=1" data-action="searchlist" data-brandid="2414">白雪文具Snowhite</a>
                                         <a class="leval color1 dhidden " href="https://m.maigoo.com/shop/search/?catid=797&brandid=2416&dynamic=1" data-action="searchlist" data-brandid="2416">贝发BEIFA</a>
                                         <a class="leval color1 dhidden " href="https://m.maigoo.com/shop/search/?catid=797&brandid=2555&dynamic=1" data-action="searchlist" data-brandid="2555">广博GuangBo</a>
                                         <a class="leval color1 dhidden " href="https://m.maigoo.com/shop/search/?catid=797&brandid=2516&dynamic=1" data-action="searchlist" data-brandid="2516">三木SUNWOOD</a>
@@ -440,10 +441,10 @@
                                                                 <em class="brandname dhidden color1 font14">真彩</em></a>
                                                         </div>
                                                         <div class="item">
-                                                            <a href="https://m.maigoo.com/brand/webshop_2476.html?dynamic=1&catid=797" title="齐心">
+                                                            <a href="https://m.maigoo.com/brand/webshop_2476.html?dynamic=1&catid=797" title="齐心办公">
                                                                 <div class="img">
                                                                     <img src="https://image.maigoo.com/upload/images/20150318/11402394026_207x90.gif" /></div>
-                                                                <em class="brandname dhidden color1 font14">齐心</em></a>
+                                                                <em class="brandname dhidden color1 font14">齐心办公</em></a>
                                                         </div>
                                                         <div class="item">
                                                             <a href="https://m.maigoo.com/brand/webshop_2415.html?dynamic=1&catid=797" title="爱好">
@@ -452,10 +453,10 @@
                                                                 <em class="brandname dhidden color1 font14">爱好</em></a>
                                                         </div>
                                                         <div class="item">
-                                                            <a href="https://m.maigoo.com/brand/webshop_2414.html?dynamic=1&catid=797" title="白雪">
+                                                            <a href="https://m.maigoo.com/brand/webshop_2414.html?dynamic=1&catid=797" title="白雪文具">
                                                                 <div class="img">
                                                                     <img src="https://image.maigoo.com/upload/images/20200420/13363574387_207x90.gif" /></div>
-                                                                <em class="brandname dhidden color1 font14">白雪</em></a>
+                                                                <em class="brandname dhidden color1 font14">白雪文具</em></a>
                                                         </div>
                                                         <div class="item">
                                                             <a href="https://m.maigoo.com/brand/webshop_2416.html?dynamic=1&catid=797" title="贝发">
@@ -543,7 +544,7 @@
                                                         <div class="item">
                                                             <a href="https://m.maigoo.com/brand/webshop_57959.html?dynamic=1&catid=797" title="国誉">
                                                                 <div class="img">
-                                                                    <img src="https://image.maigoo.com/upload/images/20160705/16564097043_207x90.gif" /></div>
+                                                                    <img src="https://image.maigoo.com/upload/images/20210105/13492531171_207x90.gif" /></div>
                                                                 <em class="brandname dhidden color1 font14">国誉</em></a>
                                                         </div>
                                                         <div class="item">
@@ -576,16 +577,16 @@
                                                 <li class="">
                                                     <div class="slice">
                                                         <div class="item">
+                                                            <a href="https://m.maigoo.com/brand/webshop_2483.html?dynamic=1&catid=797" title="马利画材">
+                                                                <div class="img">
+                                                                    <img src="https://image.maigoo.com/upload/images/20200508/11391777739_207x90.gif" /></div>
+                                                                <em class="brandname dhidden color1 font14">马利画材</em></a>
+                                                        </div>
+                                                        <div class="item">
                                                             <a href="https://m.maigoo.com/brand/webshop_2400.html?dynamic=1&catid=797" title="派克">
                                                                 <div class="img">
                                                                     <img src="https://image.maigoo.com/upload/images/20190928/18071221029_207x90.gif" /></div>
                                                                 <em class="brandname dhidden color1 font14">派克</em></a>
-                                                        </div>
-                                                        <div class="item">
-                                                            <a href="https://m.maigoo.com/brand/webshop_2483.html?dynamic=1&catid=797" title="马利">
-                                                                <div class="img">
-                                                                    <img src="https://image.maigoo.com/upload/images/20200508/11391777739_207x90.gif" /></div>
-                                                                <em class="brandname dhidden color1 font14">马利</em></a>
                                                         </div>
                                                         <div class="item">
                                                             <a href="https://m.maigoo.com/brand/webshop_2406.html?dynamic=1&catid=797" title="凌美">
@@ -660,7 +661,7 @@
                             <div class="blockinfo brandimgnavlist col4">
                                 <div class="itembox">
                                     <div class="ajaxload" data-action="brandlist" data-subaction="brand_1" data-thirdaction="" data-page="1" data-start="" data-defaultids="" data-sort="" data-postdata="">
-                                        <img src="/public/images/icon/loading_100x100.gif" /></div>
+                                        <img src="/public/images/icon/loading_small.gif?202101" /></div>
                                 </div>
                             </div>
                         </div>
@@ -668,7 +669,7 @@
                             <div class="blockinfo brandimgnavlist col4">
                                 <div class="itembox">
                                     <div class="ajaxload" data-action="brandlist" data-subaction="brand_2" data-thirdaction="" data-page="1" data-start="" data-defaultids="" data-sort="" data-postdata="">
-                                        <img src="/public/images/icon/loading_100x100.gif" /></div>
+                                        <img src="/public/images/icon/loading_small.gif?202101" /></div>
                                 </div>
                             </div>
                         </div>

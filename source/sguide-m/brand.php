@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!--STATUS OK-->
 <html>
     
     <head>
@@ -14,9 +15,9 @@
         <meta content="telephone=no" name="format-detection" />
         <meta name="applicable-device" content="mobile">
         <link href="/favicon.ico" rel="shortcut icon" />
-        <link href="https://at.alicdn.com/t/font_989362_542opn2gp6w.css" type="text/css" rel="stylesheet" />
-        <link href="/public/css/mobile/v2019/inc.css?t=1609400834" type="text/css" rel="stylesheet" />
-        <link href="/public/css/mobile/cache/brand_show_80e9c5206620305359168e65bbd2a20e.css?t=1608953067" type="text/css" rel="stylesheet" />
+        <link href="https://at.alicdn.com/t/font_989362_uykezb61ug.css" type="text/css" rel="stylesheet" />
+        <link href="/public/css/mobile/v2019/inc.css?t=1614673790" type="text/css" rel="stylesheet" />
+        <link href="/public/css/mobile/cache/brand_show_80e9c5206620305359168e65bbd2a20e.css?t=1614224951" type="text/css" rel="stylesheet" />
         <script src="https://cdn.staticfile.org/jquery/1.11.3/jquery.min.js" type="text/javascript"></script>
     </head>
     
@@ -56,7 +57,7 @@
                                         <a href="https://m.maigoo.com/maigoo/151wj_index.html" class="c666 dhidden">文具用品</a>
                                         <a href="https://m.maigoo.com/maigoo/785bi_index.html" class="c666 dhidden">中性笔</a>
                                         <a href="https://m.maigoo.com/maigoo/1342lb_index.html" class="c666 dhidden">蜡笔</a>
-                                        <a href="https://m.maigoo.com/maigoo/1265blt_index.html" class="c666 dhidden">便签纸</a>
+                                        <a href="https://m.maigoo.com/maigoo/1265blt_index.html" class="c666 dhidden">便签</a>
                                         <a href="https://m.maigoo.com/maigoo/786mkb_index.html" class="c666 dhidden">马克笔</a>
                                         <a href="https://m.maigoo.com/maigoo/577jsj_index.html" class="c666 dhidden">计算器</a>
                                         <a href="https://m.maigoo.com/maigoo/585dkj_index.html" class="c666 dhidden">打孔机</a>
@@ -117,16 +118,7 @@
                     </div>
                     <div class="brandname line18em">
                         <div class="b font16 line18em">晨光文具M&G</div>
-                        <div class="cname font14">上海晨光文具股份有限公司</div>
-                        <span class="vpsc">
-                            <div class="brandud big" brandid="2411">
-                                <i class="iconfont icon-jiantou-xiangxia vote c999"></i>
-                                <i class="iconfont icon-jiantou-xiangxia praise c999"></i>
-                                <i class="iconfont icon-jiantou-xiangxia share c999"></i>
-                                <i class="iconfont icon-jiantou-xiangxia comment c999"></i>
-                            </div>
-                        </span>
-                    </div>
+                        <div class="cname font14">上海晨光文具股份有限公司</div></div>
                     <div class="btnlist col4">
                         <a rel="nofollow" isconvert="1" href="https://s.click.taobao.com/t?e=m%3D2%26s%3DR4vOR9ws3kccQipKwQzePDAVflQIoZepyK8Cckff7TVRAdhuF14FMV8qrMWjnlXA1aH1Hk3GeOhQGJRg6iVmCsG9%2B3Bhuj2rTcGYdUd9A5PNo%2B4dndBAMe%2FBas0tvb4eZz42eVlqqJTBwBLHPsOVpfdFsh68tKJtDoIsMWFLM5HbuH8uTeg4ExbqKVbTskvgIYULNg46oBA%3D&union_lens=lensId:TAPI@1603075636@0b588f48_194f_1753ec0fe46_a68d@01" class="btn">旗舰店></a>
                         <a rel="nofollow" isconvert="1" href="https://union-click.jd.com/jdc?e=&p=AyIGZRprFQMTBlQaWxUHEDcRRANLXSJeEF4aVwkMGQtBRE5XDVULR0VJHEpYAE8SCQITBlQaWhUCFwVKQh5JXyJAFXpba1FXTjZuXHJQEmQ2bANTGFl3WRdrFgoUBV0TWx0AIg9dEloVBxc3ZRtaJVR8B1QaWhQDEgdQGWsXAxMEUR1dHAYTN1UfUxYKEA9WHlIcAxU3UhtSJQIQAFcbXB0GFQ5SdRolMiIEZStrFjISNwpfBkgyEAZUH1I%3D" class="btn">JD自营店></a>
@@ -196,35 +188,102 @@
                                     <span class="c999">推荐指数</span>
                                     <div class="u-tjzs">
                                         <div class="u-tjzs-out">
-                                            <div class="u-tjzs-in" style="width:93%;">&nbsp;</div>&nbsp;</div></div>
+                                            <div class="u-tjzs-in" style="width:96%;">&nbsp;</div>&nbsp;</div></div>
                                     <em>
                                         <a href="#poscommentlist" class="c666">
                                             <i class="iconfont icon-pinglun1 color1"></i>评论 38 条</a>
                                     </em>
                                 </li>
+                                <li class="oitem">
+                                    <a href="https://www.cnpp.cn/answer/168.html" class="scorenum color1">
+                                        <i class="iconfont icon-xinyong font20"></i>
+                                        <em>4820</em>
+                                        <span class="u-star" title="信用指数:4820">
+                                            <img width='32' height='32' src="/public/images/icon/zhishu/ic_score_company2_m.gif?2020" />
+                                            <img width='32' height='32' src="/public/images/icon/zhishu/ic_score_company2_m.gif?2020" /></span>
+                                    </a>
+                                    <span class="pimg"></span>
+                                    <a href="https://www.cnpp.cn/answer/313.html" class="acont color1">
+                                        <i class="iconfont icon-xinyongzhishu1"></i>
+                                        <em>116502</em>
+                                        <span class="attention" title="关注指数：116502">
+                                            <img src="/public/images/icon/zhishu/ic_attenton2_m.gif" />
+                                            <img src="/public/images/icon/zhishu/ic_attenton2_m.gif" /></span>
+                                    </a>
+                                </li>
+                                <li class="oitem">
+                                    <img src="/public/images/mobile/v2019/zz.png" width="67" height="40" />
+                                    <img src="/public/images/mobile/v2019/sf.png" width="67" height="40" />
+                                    <a href="https://www.cnpp.cn/answer/51.html" class="manager c999">
+                                        <i class="iconfont icon-yiyourenguanli font18"></i>
+                                        <span>暂无人管理</span>
+                                        <i class="song">>></i></a>
+                                </li>
                                 <div class="clear"></div>
                             </ul>
+                            <div class="urllist">
+                                <span class="btnstyle font16 c999">
+                                    <i class="iconfont icon-redianjujiao1"></i>
+                                    <span>热点聚焦</span>
+                                    <em class="mgcontl">30</em></span>
+                                <a class="btnstyle font16 linkcolor" href="https://m.maigoo.com/brand/webshop_2411.html">
+                                    <i class="iconfont icon-wangdian"></i>
+                                    <span>网店</span>
+                                    <em class="mgcontl">56</em></a>
+                                <a class="btnstyle font16 linkcolor" href="https://m.maigoo.com/brand/product_2411.html">
+                                    <i class="iconfont icon-chanpin1"></i>
+                                    <span>产品</span>
+                                    <em class="mgcontl">117</em></a>
+                                <a class="btnstyle font16 linkcolor" href="https://m.maigoo.com/brand/shop_2411.html">
+                                    <i class="iconfont icon-wangdian2"></i>
+                                    <span>网点</span>
+                                    <em class="mgcontl">26</em></a>
+                                <a class="btnstyle font16 linkcolor" href="https://m.maigoo.com/maigoocms/special/qinzi/154chenguang.html#posvotecat">
+                                    <i class="iconfont icon-depiao1"></i>
+                                    <span>得票</span>
+                                    <em class="mgcontl">83288</em>
+                                    <i class="iconmg iconfont icon-jiantou-xiangshang"></i>
+                                </a>
+                                <a class="btnstyle font16 linkcolor" href="https://m.maigoo.com/maigoocms/special/qinzi/154chenguang.html#poscommentlist">
+                                    <i class="iconfont icon-pinglun2"></i>
+                                    <span>评论</span>
+                                    <em class="mgcontl">38</em>
+                                    <i class="iconmg iconfont icon-jiantou-xiangxia c999"></i>
+                                </a>
+                                <a class="btnstyle font16 linkcolor" href="/ajaxstream/praise/?action=addpraise&block=brand&id=2411" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$('.addpraisenum'));">
+                                    <i class="iconfont icon-dianzan2"></i>
+                                    <span>点赞</span>
+                                    <em class="addpraisenum mgcontl getajaxdata" url="https://s.maigoo.com/ajaxstream/praise/?action=getpraise&block=brand&id=2411&type=add"></em>
+                                    <i class="iconmg iconfont icon-jiantou-xiangshang"></i>
+                                </a>
+                                <a class="btnstyle font16 linkcolor" href="javascript:;" onclick="share(this);" brandid="2411">
+                                    <i class="iconfont icon-fenxiang1"></i>
+                                    <span>分享</span>
+                                    <em class="mgcontl">921</em>
+                                    <i class="iconmg iconfont icon-jiantou-xiangxia c999"></i>
+                                </a>
+                            </div>
                             <div class="rongyulist">
                                 <div class="li s1 img bgimg2">
-                                    <a class="" target="_blank" href="https://m.maigoo.com/maigoo/151wj_index.html">
+                                    <a href="https://m.maigoo.com/maigoo/151wj_index.html">
                                         <div class="img">
                                             <img width="60" height="60" src="/public/images/icon/v2019/brand10.png" /></div>
                                         <div class="name c666 font14">行业领军</div></a>
                                 </div>
                                 <div class="li s2 img bgimg2">
-                                    <a class="" target="_blank" href="https://m.maigoo.com/brand/search/?catid=797&brandlevel=2729&dynamic=1">
+                                    <a href="https://m.maigoo.com/brand/search/?catid=797&brandlevel=2729&dynamic=1">
                                         <div class="img">
                                             <img width="60" height="60" src="/public/images/icon/v2019/brand2729.png" /></div>
                                         <div class="name c666 font14">大品牌</div></a>
                                 </div>
                                 <div class="li s3 img bgimg2">
-                                    <a class="" target="_blank" href="https://m.maigoo.com/brand/search/?catid=797&brandlevel=2732&dynamic=1">
+                                    <a href="https://m.maigoo.com/brand/search/?catid=797&brandlevel=2732&dynamic=1">
                                         <div class="img">
                                             <img width="60" height="60" src="/public/images/icon/v2019/brand2732.png?20201019" /></div>
                                         <div class="name c666 font14">上市公司</div></a>
                                 </div>
                                 <div class="li s4 img bgimg2">
-                                    <a class="" target="_blank" href="https://m.maigoo.com/brand/search/?catid=797&brandlevel=2730&dynamic=1">
+                                    <a href="https://m.maigoo.com/brand/search/?catid=797&brandlevel=2730&dynamic=1">
                                         <div class="img">
                                             <img width="60" height="60" src="/public/images/icon/v2019/brand2730.png" /></div>
                                         <div class="name c666 font14">驰名商标</div></a>
@@ -232,27 +291,25 @@
                                 <div class="li s6 img bgimg2">
                                     <div class="img">
                                         <img width="60" height="60" src="/public/images/icon/v2019/brandcx.png" /></div>
-                                    <div class="name c666 font14">诚信</div></a>
-                                </div>
+                                    <div class="name c666 font14">诚信</div></div>
                                 <div class="li s7 img bgimg2">
                                     <div class="img">
                                         <img width="60" height="60" src="/public/images/icon/v2019/brandyz.png" /></div>
-                                    <div class="name c666 font14">优质</div></a>
-                                </div>
+                                    <div class="name c666 font14">优质</div></div>
                                 <div class="li s9 img bgimg2">
-                                    <a class="" target="_blank" href="https://m.maigoo.com/brand/search/?catid=797&brandlevel=4636&dynamic=1">
+                                    <a href="https://m.maigoo.com/brand/search/?catid=797&brandlevel=4636&dynamic=1">
                                         <div class="img">
                                             <img width="60" height="60" src="/public/images/icon/v2019/brand4636.png" /></div>
                                         <div class="name c666 font14">著名商标</div></a>
                                 </div>
                                 <div class="li s10 img bgimg2">
-                                    <a class="" target="_blank" href="https://m.maigoo.com/brand/search/?catid=797&brandlevel=4635&dynamic=1">
+                                    <a href="https://m.maigoo.com/brand/search/?catid=797&brandlevel=4635&dynamic=1">
                                         <div class="img">
                                             <img width="60" height="60" src="/public/images/icon/v2019/brand4635.png" /></div>
                                         <div class="name c666 font14">省市名牌</div></a>
                                 </div>
                                 <div class="li s5 img bgimg2">
-                                    <a class="" target="_blank" href="https://m.maigoo.com/brand/search/?catid=797&brandlevel=4813&dynamic=1">
+                                    <a href="https://m.maigoo.com/brand/search/?catid=797&brandlevel=4813&dynamic=1">
                                         <div class="img">
                                             <img width="60" height="60" src="/public/images/icon/v2019/brand4813grey.png" /></div>
                                         <div class="name c666 font14">500强</div></a>
@@ -265,50 +322,52 @@
                                         <a class="leveimg" href="https://www.cnpp.cn/answer/218.html">
                                             <img height="32" src="/public/images/maigoo/v2019/brandlevel1_big.png?20201214"></a>
                                         <span class="c999">十大品牌：</span></div>
-                                    <a target="_blank" href="https://m.maigoo.com/maigoo/151wj_index.html" class="bcat color1 dhidden">文具用品</a>
-                                    <a target="_blank" href="https://m.maigoo.com/maigoo/785bi_index.html" class="bcat color1 dhidden">中性笔</a>
-                                    <a target="_blank" href="https://m.maigoo.com/maigoo/1342lb_index.html" class="bcat color1 dhidden">蜡笔</a>
-                                    <a target="_blank" href="https://m.maigoo.com/maigoo/1265blt_index.html" class="bcat color1 dhidden">便签纸</a>
-                                    <a target="_blank" href="https://m.maigoo.com/maigoo/786mkb_index.html" class="bcat color1 dhidden">马克笔</a>
-                                    <a target="_blank" href="https://m.maigoo.com/maigoo/577jsj_index.html" class="bcat color1 dhidden">计算器</a>
-                                    <a target="_blank" href="https://m.maigoo.com/maigoo/585dkj_index.html" class="bcat color1 dhidden">打孔机</a>
-                                    <a target="_blank" href="https://m.maigoo.com/maigoo/5071jsb_index.html" class="bcat color1 dhidden">记事本</a>
-                                    <a target="_blank" href="https://m.maigoo.com/maigoo/581sfj_index.html" class="bcat color1 dhidden">塑封机</a>
-                                    <a target="_blank" href="https://m.maigoo.com/maigoo/5108qb_index.html" class="bcat color1 dhidden">铅笔</a>
-                                    <a target="_blank" href="https://m.maigoo.com/maigoo/7145scb_index.html" class="bcat color1 dhidden">水彩笔</a>
-                                    <a target="_blank" href="https://m.maigoo.com/maigoo/7478wjj_index.html" class="bcat color1 dhidden">文件夹</a>
-                                    <a target="_blank" href="https://m.maigoo.com/maigoo/8014tmjd_index.html" class="bcat color1 dhidden">透明胶带</a>
-                                    <a target="_blank" href="https://m.maigoo.com/maigoo/7327tl_index.html" class="bcat color1 dhidden">台历</a>
-                                    <a target="_blank" href="https://m.maigoo.com/maigoo/7375xp_index.html" class="bcat color1 dhidden">橡皮</a>
-                                    <a target="_blank" href="https://m.maigoo.com/maigoo/8071hxz_index.html" class="bcat color1 dhidden">回形针</a>
-                                    <a target="_blank" href="https://m.maigoo.com/maigoo/7379wjh_index.html" class="bcat color1 dhidden">文具盒</a>
-                                    <a target="_blank" href="https://m.maigoo.com/maigoo/7382bt_index.html" class="bcat color1 dhidden">笔筒</a>
-                                    <a target="_blank" href="https://m.maigoo.com/maigoo/7130mgb_index.html" class="bcat color1 dhidden">美工笔</a>
-                                    <a target="_blank" href="https://m.maigoo.com/maigoo/7209yzb_index.html" class="bcat color1 dhidden">圆珠笔</a>
-                                    <a target="_blank" href="https://m.maigoo.com/maigoo/8146dqy_index.html" class="bcat color1 dhidden">地球仪</a>
-                                    <a target="_blank" href="https://m.maigoo.com/maigoo/8112xpj_index.html" class="bcat color1 dhidden">橡皮筋</a>
-                                    <a target="_blank" href="https://m.maigoo.com/maigoo/8100cwj_index.html" class="bcat color1 dhidden">长尾夹</a>
-                                    <a target="_blank" href="https://m.maigoo.com/maigoo/8425cqnt_index.html" class="bcat color1 dhidden">超轻粘土</a>
-                                    <a target="_blank" href="https://m.maigoo.com/maigoo/8424xpn_index.html" class="bcat color1 dhidden">橡皮泥</a>
-                                    <a target="_blank" href="https://m.maigoo.com/maigoo/7027mgd_index.html" class="bcat color1 dhidden">美工刀</a>
-                                    <a target="_blank" href="https://m.maigoo.com/maigoo/8515yhb_index.html" class="bcat color1 dhidden">油画棒</a>
-                                    <a target="_blank" href="https://m.maigoo.com/maigoo/8543xzd_index.html" class="bcat color1 dhidden">修正带</a></li>
+                                    <a href="https://m.maigoo.com/maigoo/151wj_index.html" class="bcat color1 dhidden">文具用品</a>
+                                    <a href="https://m.maigoo.com/maigoo/785bi_index.html" class="bcat color1 dhidden">中性笔</a>
+                                    <a href="https://m.maigoo.com/maigoo/1342lb_index.html" class="bcat color1 dhidden">蜡笔</a>
+                                    <a href="https://m.maigoo.com/maigoo/1265blt_index.html" class="bcat color1 dhidden">便签</a>
+                                    <a href="https://m.maigoo.com/maigoo/786mkb_index.html" class="bcat color1 dhidden">马克笔</a>
+                                    <a href="https://m.maigoo.com/maigoo/577jsj_index.html" class="bcat color1 dhidden">计算器</a>
+                                    <a href="https://m.maigoo.com/maigoo/585dkj_index.html" class="bcat color1 dhidden">打孔机</a>
+                                    <a href="https://m.maigoo.com/maigoo/5071jsb_index.html" class="bcat color1 dhidden">记事本</a>
+                                    <a href="https://m.maigoo.com/maigoo/581sfj_index.html" class="bcat color1 dhidden">塑封机</a>
+                                    <a href="https://m.maigoo.com/maigoo/5108qb_index.html" class="bcat color1 dhidden">铅笔</a>
+                                    <a href="https://m.maigoo.com/maigoo/7145scb_index.html" class="bcat color1 dhidden">水彩笔</a>
+                                    <a href="https://m.maigoo.com/maigoo/7478wjj_index.html" class="bcat color1 dhidden">文件夹</a>
+                                    <a href="https://m.maigoo.com/maigoo/8014tmjd_index.html" class="bcat color1 dhidden">透明胶带</a>
+                                    <a href="https://m.maigoo.com/maigoo/7327tl_index.html" class="bcat color1 dhidden">台历</a>
+                                    <a href="https://m.maigoo.com/maigoo/7375xp_index.html" class="bcat color1 dhidden">橡皮</a>
+                                    <a href="https://m.maigoo.com/maigoo/8071hxz_index.html" class="bcat color1 dhidden">回形针</a>
+                                    <a href="https://m.maigoo.com/maigoo/7379wjh_index.html" class="bcat color1 dhidden">文具盒</a>
+                                    <a href="https://m.maigoo.com/maigoo/7382bt_index.html" class="bcat color1 dhidden">笔筒</a>
+                                    <a href="https://m.maigoo.com/maigoo/7130mgb_index.html" class="bcat color1 dhidden">美工笔</a>
+                                    <a href="https://m.maigoo.com/maigoo/7209yzb_index.html" class="bcat color1 dhidden">圆珠笔</a>
+                                    <a href="https://m.maigoo.com/maigoo/8146dqy_index.html" class="bcat color1 dhidden">地球仪</a>
+                                    <a href="https://m.maigoo.com/maigoo/8112xpj_index.html" class="bcat color1 dhidden">橡皮筋</a>
+                                    <a href="https://m.maigoo.com/maigoo/8100cwj_index.html" class="bcat color1 dhidden">长尾夹</a>
+                                    <a href="https://m.maigoo.com/maigoo/8425cqnt_index.html" class="bcat color1 dhidden">超轻粘土</a>
+                                    <a href="https://m.maigoo.com/maigoo/8424xpn_index.html" class="bcat color1 dhidden">橡皮泥</a>
+                                    <a href="https://m.maigoo.com/maigoo/7027mgd_index.html" class="bcat color1 dhidden">美工刀</a>
+                                    <a href="https://m.maigoo.com/maigoo/8515yhb_index.html" class="bcat color1 dhidden">油画棒</a>
+                                    <a href="https://m.maigoo.com/maigoo/8543xzd_index.html" class="bcat color1 dhidden">修正带</a>
+                                    <a href="https://m.maigoo.com/maigoo/7239kcb_index.html" class="bcat color1 dhidden">可擦笔</a></li>
                                 <li class="bcatlist up">
                                     <div class="levelname bcat">
                                         <a class="leveimg" href="https://www.cnpp.cn/answer/218.html">
                                             <img height="32" src="/public/images/maigoo/v2019/brandlevel2_big.png?20201214"></a>
                                         <span class="c999">品牌金凤冠：</span></div>
-                                    <a target="_blank" href="https://m.maigoo.com/maigoo/152gb_index.html" class="bcat color1 dhidden">钢笔</a>
-                                    <a target="_blank" href="https://m.maigoo.com/maigoo/266art_index.html" class="bcat color1 dhidden">美术用品</a>
-                                    <a target="_blank" href="https://m.maigoo.com/maigoo/576dyj_index.html" class="bcat color1 dhidden">打印纸</a>
-                                    <a target="_blank" href="https://m.maigoo.com/maigoo/787mos_index.html" class="bcat color1 dhidden">墨水</a>
-                                    <a target="_blank" href="https://m.maigoo.com/maigoo/578kqj_index.html" class="bcat color1 dhidden">考勤机</a>
-                                    <a target="_blank" href="https://m.maigoo.com/maigoo/1465szj_index.html" class="bcat color1 dhidden">碎纸机</a>
-                                    <a target="_blank" href="https://m.maigoo.com/maigoo/6932jd_index.html" class="bcat color1 dhidden">剪刀</a></li>
+                                    <a href="https://m.maigoo.com/maigoo/152gb_index.html" class="bcat color1 dhidden">钢笔</a>
+                                    <a href="https://m.maigoo.com/maigoo/266art_index.html" class="bcat color1 dhidden">美术用品</a>
+                                    <a href="https://m.maigoo.com/maigoo/576dyj_index.html" class="bcat color1 dhidden">打印纸</a>
+                                    <a href="https://m.maigoo.com/maigoo/787mos_index.html" class="bcat color1 dhidden">墨水</a>
+                                    <a href="https://m.maigoo.com/maigoo/578kqj_index.html" class="bcat color1 dhidden">考勤机</a>
+                                    <a href="https://m.maigoo.com/maigoo/1465szj_index.html" class="bcat color1 dhidden">碎纸机</a>
+                                    <a href="https://m.maigoo.com/maigoo/6932jd_index.html" class="bcat color1 dhidden">剪刀</a>
+                                    <a href="https://m.maigoo.com/maigoo/8571msyl_index.html" class="bcat color1 dhidden">美术颜料</a></li>
                                 <div class="clear"></div>
                             </ul>
                             <div class="more">
-                                <img src="/public/images/icon/addmore.gif" onclick="if($(this).parents('.infobox').find('.brandlevel').hasClass('h146')){$(this).parents('.infobox').find('.brandlevel').removeClass('h146');$(this).parent().addClass('shut');}
+                                <img src="https://s.maigoo.com/public/images/icon/addmore.gif" onclick="if($(this).parents('.infobox').find('.brandlevel').hasClass('h146')){$(this).parents('.infobox').find('.brandlevel').removeClass('h146');$(this).parent().addClass('shut');}
                                 else{$(this).parents('.infobox').find('.brandlevel').addClass('h146');$(this).parent().removeClass('shut');}">
                             </div>
                         </div>
@@ -394,7 +453,7 @@
                                         <a href="https://m.maigoo.com/vote/list_797.html" class="color1">文具用品</a></td>
                                     <td align="center" class="sort c999">
                                         <img height="50" src="/public/images/mobile/v2019/brand10top1.png"></td>
-                                    <td align="center" class="c999">3,575</td>
+                                    <td align="center" class="c999">4,369</td>
                                     <td align="center">
                                         <a class="votebtn bd1 color1 font12" href="/ajaxstream/vote/?action=vote&brandid=2411&catid=797" onclick="return !$(this).hasClass('hov')&&$(this).addClass('hov')&&$(this).removeClass('color1')&&$(this).html('已投票')&&ajaxlinka(this,$(this).parents('tr').find('.count'));">投票</a></td>
                                 </tr>
@@ -403,7 +462,7 @@
                                         <a href="https://m.maigoo.com/vote/list_784.html" class="color1">中性笔</a></td>
                                     <td align="center" class="sort c999">
                                         <img height="50" src="/public/images/mobile/v2019/brand10top1.png"></td>
-                                    <td align="center" class="c999">2,630</td>
+                                    <td align="center" class="c999">3,253</td>
                                     <td align="center">
                                         <a class="votebtn bd1 color1 font12" href="/ajaxstream/vote/?action=vote&brandid=2411&catid=784" onclick="return !$(this).hasClass('hov')&&$(this).addClass('hov')&&$(this).removeClass('color1')&&$(this).html('已投票')&&ajaxlinka(this,$(this).parents('tr').find('.count'));">投票</a></td>
                                 </tr>
@@ -412,16 +471,16 @@
                                         <a href="https://m.maigoo.com/vote/list_4742.html" class="color1">蜡笔</a></td>
                                     <td align="center" class="sort c999">
                                         <img height="50" src="/public/images/mobile/v2019/brand10top1.png"></td>
-                                    <td align="center" class="c999">7,002</td>
+                                    <td align="center" class="c999">7,442</td>
                                     <td align="center">
                                         <a class="votebtn bd1 color1 font12" href="/ajaxstream/vote/?action=vote&brandid=2411&catid=4742" onclick="return !$(this).hasClass('hov')&&$(this).addClass('hov')&&$(this).removeClass('color1')&&$(this).html('已投票')&&ajaxlinka(this,$(this).parents('tr').find('.count'));">投票</a></td>
                                 </tr>
                                 <tr class="">
                                     <td align="left">
-                                        <a href="https://m.maigoo.com/vote/list_4528.html" class="color1">便签纸</a></td>
+                                        <a href="https://m.maigoo.com/vote/list_4528.html" class="color1">便签</a></td>
                                     <td align="center" class="sort c999">
                                         <img height="50" src="/public/images/mobile/v2019/brand10top2.png"></td>
-                                    <td align="center" class="c999">3,838</td>
+                                    <td align="center" class="c999">4,148</td>
                                     <td align="center">
                                         <a class="votebtn bd1 color1 font12" href="/ajaxstream/vote/?action=vote&brandid=2411&catid=4528" onclick="return !$(this).hasClass('hov')&&$(this).addClass('hov')&&$(this).removeClass('color1')&&$(this).html('已投票')&&ajaxlinka(this,$(this).parents('tr').find('.count'));">投票</a></td>
                                 </tr>
@@ -430,7 +489,7 @@
                                         <a href="https://m.maigoo.com/vote/list_776.html" class="color1">马克笔</a></td>
                                     <td align="center" class="sort c999">
                                         <img height="50" src="/public/images/mobile/v2019/brand10top3.png"></td>
-                                    <td align="center" class="c999">2,681</td>
+                                    <td align="center" class="c999">2,851</td>
                                     <td align="center">
                                         <a class="votebtn bd1 color1 font12" href="/ajaxstream/vote/?action=vote&brandid=2411&catid=776" onclick="return !$(this).hasClass('hov')&&$(this).addClass('hov')&&$(this).removeClass('color1')&&$(this).html('已投票')&&ajaxlinka(this,$(this).parents('tr').find('.count'));">投票</a></td>
                                 </tr>
@@ -439,7 +498,7 @@
                                         <a href="https://m.maigoo.com/vote/list_1480.html" class="color1">计算器</a></td>
                                     <td align="center" class="sort c999">
                                         <i class="sort font12">7</i></td>
-                                    <td align="center" class="c999">2,631</td>
+                                    <td align="center" class="c999">2,789</td>
                                     <td align="center">
                                         <a class="votebtn bd1 color1 font12" href="/ajaxstream/vote/?action=vote&brandid=2411&catid=1480" onclick="return !$(this).hasClass('hov')&&$(this).addClass('hov')&&$(this).removeClass('color1')&&$(this).html('已投票')&&ajaxlinka(this,$(this).parents('tr').find('.count'));">投票</a></td>
                                 </tr>
@@ -448,7 +507,7 @@
                                         <a href="https://m.maigoo.com/vote/list_1478.html" class="color1">打孔机</a></td>
                                     <td align="center" class="sort c999">
                                         <img height="50" src="/public/images/mobile/v2019/brand10top3.png"></td>
-                                    <td align="center" class="c999">2,265</td>
+                                    <td align="center" class="c999">2,425</td>
                                     <td align="center">
                                         <a class="votebtn bd1 color1 font12" href="/ajaxstream/vote/?action=vote&brandid=2411&catid=1478" onclick="return !$(this).hasClass('hov')&&$(this).addClass('hov')&&$(this).removeClass('color1')&&$(this).html('已投票')&&ajaxlinka(this,$(this).parents('tr').find('.count'));">投票</a></td>
                                 </tr>
@@ -457,7 +516,7 @@
                                         <a href="https://m.maigoo.com/vote/list_5071.html" class="color1">记事本</a></td>
                                     <td align="center" class="sort c999">
                                         <i class="sort font12">8</i></td>
-                                    <td align="center" class="c999">1,161</td>
+                                    <td align="center" class="c999">1,322</td>
                                     <td align="center">
                                         <a class="votebtn bd1 color1 font12" href="/ajaxstream/vote/?action=vote&brandid=2411&catid=5071" onclick="return !$(this).hasClass('hov')&&$(this).addClass('hov')&&$(this).removeClass('color1')&&$(this).html('已投票')&&ajaxlinka(this,$(this).parents('tr').find('.count'));">投票</a></td>
                                 </tr>
@@ -466,7 +525,7 @@
                                         <a href="https://m.maigoo.com/vote/list_1463.html" class="color1">塑封机</a></td>
                                     <td align="center" class="sort c999">
                                         <i class="sort font12">4</i></td>
-                                    <td align="center" class="c999">1,030</td>
+                                    <td align="center" class="c999">1,190</td>
                                     <td align="center">
                                         <a class="votebtn bd1 color1 font12" href="/ajaxstream/vote/?action=vote&brandid=2411&catid=1463" onclick="return !$(this).hasClass('hov')&&$(this).addClass('hov')&&$(this).removeClass('color1')&&$(this).html('已投票')&&ajaxlinka(this,$(this).parents('tr').find('.count'));">投票</a></td>
                                 </tr>
@@ -475,7 +534,7 @@
                                         <a href="https://m.maigoo.com/vote/list_5108.html" class="color1">铅笔</a></td>
                                     <td align="center" class="sort c999">
                                         <i class="sort font12">7</i></td>
-                                    <td align="center" class="c999">1,144</td>
+                                    <td align="center" class="c999">1,306</td>
                                     <td align="center">
                                         <a class="votebtn bd1 color1 font12" href="/ajaxstream/vote/?action=vote&brandid=2411&catid=5108" onclick="return !$(this).hasClass('hov')&&$(this).addClass('hov')&&$(this).removeClass('color1')&&$(this).html('已投票')&&ajaxlinka(this,$(this).parents('tr').find('.count'));">投票</a></td>
                                 </tr>
@@ -484,7 +543,7 @@
                                         <a href="https://m.maigoo.com/vote/list_7145.html" class="color1">水彩笔</a></td>
                                     <td align="center" class="sort c999">
                                         <img height="50" src="/public/images/mobile/v2019/brand10top1.png"></td>
-                                    <td align="center" class="c999">670</td>
+                                    <td align="center" class="c999">829</td>
                                     <td align="center">
                                         <a class="votebtn bd1 color1 font12" href="/ajaxstream/vote/?action=vote&brandid=2411&catid=7145" onclick="return !$(this).hasClass('hov')&&$(this).addClass('hov')&&$(this).removeClass('color1')&&$(this).html('已投票')&&ajaxlinka(this,$(this).parents('tr').find('.count'));">投票</a></td>
                                 </tr>
@@ -493,7 +552,7 @@
                                         <a href="https://m.maigoo.com/vote/list_7478.html" class="color1">文件夹</a></td>
                                     <td align="center" class="sort c999">
                                         <img height="50" src="/public/images/mobile/v2019/brand10top3.png"></td>
-                                    <td align="center" class="c999">1,295</td>
+                                    <td align="center" class="c999">1,456</td>
                                     <td align="center">
                                         <a class="votebtn bd1 color1 font12" href="/ajaxstream/vote/?action=vote&brandid=2411&catid=7478" onclick="return !$(this).hasClass('hov')&&$(this).addClass('hov')&&$(this).removeClass('color1')&&$(this).html('已投票')&&ajaxlinka(this,$(this).parents('tr').find('.count'));">投票</a></td>
                                 </tr>
@@ -502,7 +561,7 @@
                                         <a href="https://m.maigoo.com/vote/list_8014.html" class="color1">透明胶带</a></td>
                                     <td align="center" class="sort c999">
                                         <img height="50" src="/public/images/mobile/v2019/brand10top3.png"></td>
-                                    <td align="center" class="c999">1,469</td>
+                                    <td align="center" class="c999">1,630</td>
                                     <td align="center">
                                         <a class="votebtn bd1 color1 font12" href="/ajaxstream/vote/?action=vote&brandid=2411&catid=8014" onclick="return !$(this).hasClass('hov')&&$(this).addClass('hov')&&$(this).removeClass('color1')&&$(this).html('已投票')&&ajaxlinka(this,$(this).parents('tr').find('.count'));">投票</a></td>
                                 </tr>
@@ -511,7 +570,7 @@
                                         <a href="https://m.maigoo.com/vote/list_7327.html" class="color1">台历</a></td>
                                     <td align="center" class="sort c999">
                                         <i class="sort font12">5</i></td>
-                                    <td align="center" class="c999">298</td>
+                                    <td align="center" class="c999">453</td>
                                     <td align="center">
                                         <a class="votebtn bd1 color1 font12" href="/ajaxstream/vote/?action=vote&brandid=2411&catid=7327" onclick="return !$(this).hasClass('hov')&&$(this).addClass('hov')&&$(this).removeClass('color1')&&$(this).html('已投票')&&ajaxlinka(this,$(this).parents('tr').find('.count'));">投票</a></td>
                                 </tr>
@@ -520,7 +579,7 @@
                                         <a href="https://m.maigoo.com/vote/list_7375.html" class="color1">橡皮</a></td>
                                     <td align="center" class="sort c999">
                                         <img height="50" src="/public/images/mobile/v2019/brand10top1.png"></td>
-                                    <td align="center" class="c999">679</td>
+                                    <td align="center" class="c999">843</td>
                                     <td align="center">
                                         <a class="votebtn bd1 color1 font12" href="/ajaxstream/vote/?action=vote&brandid=2411&catid=7375" onclick="return !$(this).hasClass('hov')&&$(this).addClass('hov')&&$(this).removeClass('color1')&&$(this).html('已投票')&&ajaxlinka(this,$(this).parents('tr').find('.count'));">投票</a></td>
                                 </tr>
@@ -529,7 +588,7 @@
                                         <a href="https://m.maigoo.com/vote/list_8071.html" class="color1">回形针</a></td>
                                     <td align="center" class="sort c999">
                                         <img height="50" src="/public/images/mobile/v2019/brand10top2.png"></td>
-                                    <td align="center" class="c999">397</td>
+                                    <td align="center" class="c999">557</td>
                                     <td align="center">
                                         <a class="votebtn bd1 color1 font12" href="/ajaxstream/vote/?action=vote&brandid=2411&catid=8071" onclick="return !$(this).hasClass('hov')&&$(this).addClass('hov')&&$(this).removeClass('color1')&&$(this).html('已投票')&&ajaxlinka(this,$(this).parents('tr').find('.count'));">投票</a></td>
                                 </tr>
@@ -538,7 +597,7 @@
                                         <a href="https://m.maigoo.com/vote/list_7379.html" class="color1">文具盒</a></td>
                                     <td align="center" class="sort c999">
                                         <img height="50" src="/public/images/mobile/v2019/brand10top2.png"></td>
-                                    <td align="center" class="c999">402</td>
+                                    <td align="center" class="c999">561</td>
                                     <td align="center">
                                         <a class="votebtn bd1 color1 font12" href="/ajaxstream/vote/?action=vote&brandid=2411&catid=7379" onclick="return !$(this).hasClass('hov')&&$(this).addClass('hov')&&$(this).removeClass('color1')&&$(this).html('已投票')&&ajaxlinka(this,$(this).parents('tr').find('.count'));">投票</a></td>
                                 </tr>
@@ -547,7 +606,7 @@
                                         <a href="https://m.maigoo.com/vote/list_7382.html" class="color1">笔筒</a></td>
                                     <td align="center" class="sort c999">
                                         <img height="50" src="/public/images/mobile/v2019/brand10top2.png"></td>
-                                    <td align="center" class="c999">477</td>
+                                    <td align="center" class="c999">639</td>
                                     <td align="center">
                                         <a class="votebtn bd1 color1 font12" href="/ajaxstream/vote/?action=vote&brandid=2411&catid=7382" onclick="return !$(this).hasClass('hov')&&$(this).addClass('hov')&&$(this).removeClass('color1')&&$(this).html('已投票')&&ajaxlinka(this,$(this).parents('tr').find('.count'));">投票</a></td>
                                 </tr>
@@ -556,7 +615,7 @@
                                         <a href="https://m.maigoo.com/vote/list_7130.html" class="color1">美工笔</a></td>
                                     <td align="center" class="sort c999">
                                         <i class="sort font12">9</i></td>
-                                    <td align="center" class="c999">102</td>
+                                    <td align="center" class="c999">107</td>
                                     <td align="center">
                                         <a class="votebtn bd1 color1 font12" href="/ajaxstream/vote/?action=vote&brandid=2411&catid=7130" onclick="return !$(this).hasClass('hov')&&$(this).addClass('hov')&&$(this).removeClass('color1')&&$(this).html('已投票')&&ajaxlinka(this,$(this).parents('tr').find('.count'));">投票</a></td>
                                 </tr>
@@ -565,7 +624,7 @@
                                         <a href="https://m.maigoo.com/vote/list_7209.html" class="color1">圆珠笔</a></td>
                                     <td align="center" class="sort c999">
                                         <img height="50" src="/public/images/mobile/v2019/brand10top1.png"></td>
-                                    <td align="center" class="c999">359</td>
+                                    <td align="center" class="c999">519</td>
                                     <td align="center">
                                         <a class="votebtn bd1 color1 font12" href="/ajaxstream/vote/?action=vote&brandid=2411&catid=7209" onclick="return !$(this).hasClass('hov')&&$(this).addClass('hov')&&$(this).removeClass('color1')&&$(this).html('已投票')&&ajaxlinka(this,$(this).parents('tr').find('.count'));">投票</a></td>
                                 </tr>
@@ -575,7 +634,7 @@
                                     <td align="center" class="sort c999">
                                         <b>—</b>
                                     </td>
-                                    <td align="center" class="c999">1,183</td>
+                                    <td align="center" class="c999">1,190</td>
                                     <td align="center">
                                         <a class="votebtn bd1 color1 font12" href="/ajaxstream/vote/?action=vote&brandid=2411&catid=783" onclick="return !$(this).hasClass('hov')&&$(this).addClass('hov')&&$(this).removeClass('color1')&&$(this).html('已投票')&&ajaxlinka(this,$(this).parents('tr').find('.count'));">投票</a></td>
                                 </tr>
@@ -585,7 +644,7 @@
                                     <td align="center" class="sort c999">
                                         <b>—</b>
                                     </td>
-                                    <td align="center" class="c999">1,230</td>
+                                    <td align="center" class="c999">1,233</td>
                                     <td align="center">
                                         <a class="votebtn bd1 color1 font12" href="/ajaxstream/vote/?action=vote&brandid=2411&catid=796" onclick="return !$(this).hasClass('hov')&&$(this).addClass('hov')&&$(this).removeClass('color1')&&$(this).html('已投票')&&ajaxlinka(this,$(this).parents('tr').find('.count'));">投票</a></td>
                                 </tr>
@@ -595,7 +654,7 @@
                                     <td align="center" class="sort c999">
                                         <b>—</b>
                                     </td>
-                                    <td align="center" class="c999">1,586</td>
+                                    <td align="center" class="c999">1,593</td>
                                     <td align="center">
                                         <a class="votebtn bd1 color1 font12" href="/ajaxstream/vote/?action=vote&brandid=2411&catid=1449" onclick="return !$(this).hasClass('hov')&&$(this).addClass('hov')&&$(this).removeClass('color1')&&$(this).html('已投票')&&ajaxlinka(this,$(this).parents('tr').find('.count'));">投票</a></td>
                                 </tr>
@@ -605,7 +664,7 @@
                                     <td align="center" class="sort c999">
                                         <b>—</b>
                                     </td>
-                                    <td align="center" class="c999">84</td>
+                                    <td align="center" class="c999">90</td>
                                     <td align="center">
                                         <a class="votebtn bd1 color1 font12" href="/ajaxstream/vote/?action=vote&brandid=2411&catid=790" onclick="return !$(this).hasClass('hov')&&$(this).addClass('hov')&&$(this).removeClass('color1')&&$(this).html('已投票')&&ajaxlinka(this,$(this).parents('tr').find('.count'));">投票</a></td>
                                 </tr>
@@ -615,7 +674,7 @@
                                     <td align="center" class="sort c999">
                                         <b>—</b>
                                     </td>
-                                    <td align="center" class="c999">109</td>
+                                    <td align="center" class="c999">110</td>
                                     <td align="center">
                                         <a class="votebtn bd1 color1 font12" href="/ajaxstream/vote/?action=vote&brandid=2411&catid=1483" onclick="return !$(this).hasClass('hov')&&$(this).addClass('hov')&&$(this).removeClass('color1')&&$(this).html('已投票')&&ajaxlinka(this,$(this).parents('tr').find('.count'));">投票</a></td>
                                 </tr>
@@ -625,7 +684,7 @@
                                     <td align="center" class="sort c999">
                                         <b>—</b>
                                     </td>
-                                    <td align="center" class="c999">32</td>
+                                    <td align="center" class="c999">34</td>
                                     <td align="center">
                                         <a class="votebtn bd1 color1 font12" href="/ajaxstream/vote/?action=vote&brandid=2411&catid=1465" onclick="return !$(this).hasClass('hov')&&$(this).addClass('hov')&&$(this).removeClass('color1')&&$(this).html('已投票')&&ajaxlinka(this,$(this).parents('tr').find('.count'));">投票</a></td>
                                 </tr>
@@ -635,7 +694,7 @@
                                     <td align="center" class="sort c999">
                                         <b>—</b>
                                     </td>
-                                    <td align="center" class="c999">71</td>
+                                    <td align="center" class="c999">77</td>
                                     <td align="center">
                                         <a class="votebtn bd1 color1 font12" href="/ajaxstream/vote/?action=vote&brandid=2411&catid=6932" onclick="return !$(this).hasClass('hov')&&$(this).addClass('hov')&&$(this).removeClass('color1')&&$(this).html('已投票')&&ajaxlinka(this,$(this).parents('tr').find('.count'));">投票</a></td>
                                 </tr>
@@ -645,7 +704,7 @@
                                     <td align="center" class="sort c999">
                                         <b>—</b>
                                     </td>
-                                    <td align="center" class="c999">315</td>
+                                    <td align="center" class="c999">384</td>
                                     <td align="center">
                                         <a class="votebtn bd1 color1 font12" href="/ajaxstream/vote/?action=vote&brandid=2411&catid=2769" onclick="return !$(this).hasClass('hov')&&$(this).addClass('hov')&&$(this).removeClass('color1')&&$(this).html('已投票')&&ajaxlinka(this,$(this).parents('tr').find('.count'));">投票</a></td>
                                 </tr>
@@ -654,7 +713,7 @@
                                         <a href="https://m.maigoo.com/vote/list_8146.html" class="color1">地球仪</a></td>
                                     <td align="center" class="sort c999">
                                         <i class="sort font12">5</i></td>
-                                    <td align="center" class="c999">380</td>
+                                    <td align="center" class="c999">542</td>
                                     <td align="center">
                                         <a class="votebtn bd1 color1 font12" href="/ajaxstream/vote/?action=vote&brandid=2411&catid=8146" onclick="return !$(this).hasClass('hov')&&$(this).addClass('hov')&&$(this).removeClass('color1')&&$(this).html('已投票')&&ajaxlinka(this,$(this).parents('tr').find('.count'));">投票</a></td>
                                 </tr>
@@ -663,7 +722,7 @@
                                         <a href="https://m.maigoo.com/vote/list_8112.html" class="color1">橡皮筋</a></td>
                                     <td align="center" class="sort c999">
                                         <img height="50" src="/public/images/mobile/v2019/brand10top2.png"></td>
-                                    <td align="center" class="c999">359</td>
+                                    <td align="center" class="c999">515</td>
                                     <td align="center">
                                         <a class="votebtn bd1 color1 font12" href="/ajaxstream/vote/?action=vote&brandid=2411&catid=8112" onclick="return !$(this).hasClass('hov')&&$(this).addClass('hov')&&$(this).removeClass('color1')&&$(this).html('已投票')&&ajaxlinka(this,$(this).parents('tr').find('.count'));">投票</a></td>
                                 </tr>
@@ -672,7 +731,7 @@
                                         <a href="https://m.maigoo.com/vote/list_8100.html" class="color1">长尾夹</a></td>
                                     <td align="center" class="sort c999">
                                         <img height="50" src="/public/images/mobile/v2019/brand10top3.png"></td>
-                                    <td align="center" class="c999">334</td>
+                                    <td align="center" class="c999">492</td>
                                     <td align="center">
                                         <a class="votebtn bd1 color1 font12" href="/ajaxstream/vote/?action=vote&brandid=2411&catid=8100" onclick="return !$(this).hasClass('hov')&&$(this).addClass('hov')&&$(this).removeClass('color1')&&$(this).html('已投票')&&ajaxlinka(this,$(this).parents('tr').find('.count'));">投票</a></td>
                                 </tr>
@@ -681,7 +740,7 @@
                                         <a href="https://m.maigoo.com/vote/list_8425.html" class="color1">超轻粘土</a></td>
                                     <td align="center" class="sort c999">
                                         <img height="50" src="/public/images/mobile/v2019/brand10top2.png"></td>
-                                    <td align="center" class="c999">387</td>
+                                    <td align="center" class="c999">547</td>
                                     <td align="center">
                                         <a class="votebtn bd1 color1 font12" href="/ajaxstream/vote/?action=vote&brandid=2411&catid=8425" onclick="return !$(this).hasClass('hov')&&$(this).addClass('hov')&&$(this).removeClass('color1')&&$(this).html('已投票')&&ajaxlinka(this,$(this).parents('tr').find('.count'));">投票</a></td>
                                 </tr>
@@ -690,7 +749,7 @@
                                         <a href="https://m.maigoo.com/vote/list_8424.html" class="color1">橡皮泥</a></td>
                                     <td align="center" class="sort c999">
                                         <i class="sort font12">5</i></td>
-                                    <td align="center" class="c999">345</td>
+                                    <td align="center" class="c999">506</td>
                                     <td align="center">
                                         <a class="votebtn bd1 color1 font12" href="/ajaxstream/vote/?action=vote&brandid=2411&catid=8424" onclick="return !$(this).hasClass('hov')&&$(this).addClass('hov')&&$(this).removeClass('color1')&&$(this).html('已投票')&&ajaxlinka(this,$(this).parents('tr').find('.count'));">投票</a></td>
                                 </tr>
@@ -699,7 +758,7 @@
                                         <a href="https://m.maigoo.com/vote/list_7027.html" class="color1">美工刀</a></td>
                                     <td align="center" class="sort c999">
                                         <i class="sort font12">9</i></td>
-                                    <td align="center" class="c999">270</td>
+                                    <td align="center" class="c999">433</td>
                                     <td align="center">
                                         <a class="votebtn bd1 color1 font12" href="/ajaxstream/vote/?action=vote&brandid=2411&catid=7027" onclick="return !$(this).hasClass('hov')&&$(this).addClass('hov')&&$(this).removeClass('color1')&&$(this).html('已投票')&&ajaxlinka(this,$(this).parents('tr').find('.count'));">投票</a></td>
                                 </tr>
@@ -708,7 +767,7 @@
                                         <a href="https://m.maigoo.com/vote/list_8515.html" class="color1">油画棒</a></td>
                                     <td align="center" class="sort c999">
                                         <i class="sort font12">4</i></td>
-                                    <td align="center" class="c999">177</td>
+                                    <td align="center" class="c999">337</td>
                                     <td align="center">
                                         <a class="votebtn bd1 color1 font12" href="/ajaxstream/vote/?action=vote&brandid=2411&catid=8515" onclick="return !$(this).hasClass('hov')&&$(this).addClass('hov')&&$(this).removeClass('color1')&&$(this).html('已投票')&&ajaxlinka(this,$(this).parents('tr').find('.count'));">投票</a></td>
                                 </tr>
@@ -717,13 +776,32 @@
                                         <a href="https://m.maigoo.com/vote/list_8543.html" class="color1">修正带</a></td>
                                     <td align="center" class="sort c999">
                                         <img height="50" src="/public/images/mobile/v2019/brand10top1.png"></td>
-                                    <td align="center" class="c999">152</td>
+                                    <td align="center" class="c999">311</td>
                                     <td align="center">
                                         <a class="votebtn bd1 color1 font12" href="/ajaxstream/vote/?action=vote&brandid=2411&catid=8543" onclick="return !$(this).hasClass('hov')&&$(this).addClass('hov')&&$(this).removeClass('color1')&&$(this).html('已投票')&&ajaxlinka(this,$(this).parents('tr').find('.count'));">投票</a></td>
                                 </tr>
+                                <tr class="dn">
+                                    <td align="left">
+                                        <a href="https://m.maigoo.com/vote/list_7239.html" class="color1">可擦笔</a></td>
+                                    <td align="center" class="sort c999">
+                                        <img height="50" src="/public/images/mobile/v2019/brand10top2.png"></td>
+                                    <td align="center" class="c999">150</td>
+                                    <td align="center">
+                                        <a class="votebtn bd1 color1 font12" href="/ajaxstream/vote/?action=vote&brandid=2411&catid=7239" onclick="return !$(this).hasClass('hov')&&$(this).addClass('hov')&&$(this).removeClass('color1')&&$(this).html('已投票')&&ajaxlinka(this,$(this).parents('tr').find('.count'));">投票</a></td>
+                                </tr>
+                                <tr class="dn">
+                                    <td align="left">
+                                        <a href="https://m.maigoo.com/vote/list_8571.html" class="color1">美术颜料</a></td>
+                                    <td align="center" class="sort c999">
+                                        <b>—</b>
+                                    </td>
+                                    <td align="center" class="c999">151</td>
+                                    <td align="center">
+                                        <a class="votebtn bd1 color1 font12" href="/ajaxstream/vote/?action=vote&brandid=2411&catid=8571" onclick="return !$(this).hasClass('hov')&&$(this).addClass('hov')&&$(this).removeClass('color1')&&$(this).html('已投票')&&ajaxlinka(this,$(this).parents('tr').find('.count'));">投票</a></td>
+                                </tr>
                             </table>
                             <div class="more">
-                                <img src="/public/images/icon/addmore.gif" onclick="if($(this).parent().hasClass('shut')){$(this).parents('.itembox').find('.tablebg').each(function(){$(this).find('tr:gt(5)').addClass('dn');});$(this).parents('.itembox').find('div.more').removeClass('shut');$('html,body').animate({scrollTop:$('#pos_votecat').offset().top},{duration:300});}else{$(this).parents('.itembox').find('tr').removeClass('dn');$(this).parents('.itembox').find('div.more').addClass('shut');}"></div>
+                                <img src="https://s.maigoo.com/public/images/icon/addmore.gif" onclick="if($(this).parent().hasClass('shut')){$(this).parents('.itembox').find('.tablebg').each(function(){$(this).find('tr:gt(5)').addClass('dn');});$(this).parents('.itembox').find('div.more').removeClass('shut');$('html,body').animate({scrollTop:$('#pos_votecat').offset().top},{duration:300});}else{$(this).parents('.itembox').find('tr').removeClass('dn');$(this).parents('.itembox').find('div.more').addClass('shut');}"></div>
                         </div>
                         <div class="desc font12">本页面投票数据有延迟，以点击行业名称去到的投票页面为准</div></div>
                 </div>
@@ -747,7 +825,7 @@
                                 <div class="img">
                                     <a href="https://m.maigoo.com/brand/57560.html">
                                         <div class="imgbox">
-                                            <img width="207" height="90" src="https://image.maigoo.com/upload/images/20160606/09113029987_207x90.gif" /></div>
+                                            <img width="207" height="90" src="https://image.maigoo.com/upload/images/20210113/09113676863_207x90.gif" /></div>
                                         <em class="font14 dhidden color1">科力普COLIPU</em></a>
                                 </div>
                                 <div class="info font14">
@@ -776,7 +854,7 @@
                 <div class="blockinfo webshopcol " id="pos_webshoplist">
                     <div class="blocktitle font20 ccc style1 ">
                         <span class="color1">
-                            <em class="dhidden">网店（55个）</em>
+                            <em class="dhidden">网店（56个）</em>
                             <i class="l bg1">
                                 <i class="bg2"></i>
                             </i>
@@ -802,7 +880,7 @@
                                             <img src="/public/images/mobile/webshop/s.gif" />
                                             <em class="c999">顶级卖家</em>
                                             <span class="typename font12">旗舰店</span></li>
-                                        <li class="c999 font14 line15em">关注指数 &nbsp;29236</li>
+                                        <li class="c999 font14 line15em">关注指数 &nbsp;29406</li>
                                         <li class="buybtn">
                                             <a isconvert=1 rel="nofollow" href="https://s.click.taobao.com/t?e=m%3D2%26s%3DR4vOR9ws3kccQipKwQzePDAVflQIoZepyK8Cckff7TVRAdhuF14FMV8qrMWjnlXA1aH1Hk3GeOhQGJRg6iVmCsG9%2B3Bhuj2rTcGYdUd9A5PNo%2B4dndBAMe%2FBas0tvb4eZz42eVlqqJTBwBLHPsOVpfdFsh68tKJtDoIsMWFLM5HbuH8uTeg4ExbqKVbTskvgIYULNg46oBA%3D&union_lens=lensId:TAPI@1603075636@0b588f48_194f_1753ec0fe46_a68d@01" class="font12">进店逛一逛></a></li>
                                     </ul>
@@ -822,7 +900,7 @@
                                             <img src="https://image.maigoo.com/upload/images/20190412/10215624041_120x48.gif" />
                                             <em class="c999">初级卖家</em>
                                             <span class="typename font12">自营</span></li>
-                                        <li class="c999 font14 line15em">关注指数 &nbsp;1416</li>
+                                        <li class="c999 font14 line15em">关注指数 &nbsp;1436</li>
                                         <li class="buybtn">
                                             <a isconvert=1 rel="nofollow" href="https://union-click.jd.com/jdc?e=&p=AyIGZRprFQMTBlQaWxUHEDcRRANLXSJeEF4aVwkMGQtBRE5XDVULR0VJHEpYAE8SCQITBlQaWhUCFwVKQh5JXyJAFXpba1FXTjZuXHJQEmQ2bANTGFl3WRdrFgoUBV0TWx0AIg9dEloVBxc3ZRtaJVR8B1QaWhQDEgdQGWsXAxMEUR1dHAYTN1UfUxYKEA9WHlIcAxU3UhtSJQIQAFcbXB0GFQ5SdRolMiIEZStrFjISNwpfBkgyEAZUH1I%3D" class="font12">进店逛一逛></a></li>
                                     </ul>
@@ -842,7 +920,7 @@
                 <div class="blockinfo productcol " id="pos_productlist">
                     <div class="blocktitle font20 ccc style1 ">
                         <span class="color1">
-                            <em class="dhidden">产品（116个）</em>
+                            <em class="dhidden">产品（117个）</em>
                             <i class="l bg1">
                                 <i class="bg2"></i>
                             </i>
@@ -867,8 +945,8 @@
                                         </em>
                                         <a isconvert=1 href="https://s.click.taobao.com/t?e=m%3D2%26s%3DBYsFtcklsWocQipKwQzePOeEDrYVVa64yK8Cckff7TVRAdhuF14FMSTWk%2Bh1KPX61aH1Hk3GeOhQGJRg6iVmCsG9%2B3Bhuj2rh74dnMJXmKgyny9FmT8FF%2B%2FBas0tvb4eZz42eVlqqJTf1lozC%2BSXTPdFsh68tKJtDoIsMWFLM5EAau22YySsnuCTnndEcWujlRhccCC0JrrfrqiUh6%2BzmjgcfVNdTNN6%2FBkYmbRsMn%2BiZ%2BQMlGz6FQ%3D%3D&union_lens=lensId:TAPI@1594891926@0b1af7c8_0e9d_17356f77c4e_7158@01" class="c333">晨光文具中性笔 风速Q7水笔 学习办公用品</a></div>
                                     <div class="other">
-                                        <div class="price font16">￥9.6</div>
-                                        <div class="salenum">月销:1.7万+</div></div>
+                                        <div class="price font16">￥12.2</div>
+                                        <div class="salenum">月销:9000+</div></div>
                                     <div class="clear"></div>
                                     <div class="shopurl hasbj">
                                         <a isconvert=1 href="https://s.click.taobao.com/t?e=m%3D2%26s%3DR4vOR9ws3kccQipKwQzePDAVflQIoZepyK8Cckff7TVRAdhuF14FMV8qrMWjnlXA1aH1Hk3GeOhQGJRg6iVmCsG9%2B3Bhuj2rTcGYdUd9A5PNo%2B4dndBAMe%2FBas0tvb4eZz42eVlqqJTBwBLHPsOVpfdFsh68tKJtDoIsMWFLM5HbuH8uTeg4ExbqKVbTskvgIYULNg46oBA%3D&union_lens=lensId:TAPI@1603075636@0b588f48_194f_1753ec0fe46_a68d@01" class="dhidden color1">
@@ -881,13 +959,13 @@
                                     <div class="li dhidden">
                                         <a isconvert=1 href="https://s.click.taobao.com/t?e=m%3D2%26s%3DR4vOR9ws3kccQipKwQzePDAVflQIoZepyK8Cckff7TVRAdhuF14FMV8qrMWjnlXA1aH1Hk3GeOhQGJRg6iVmCsG9%2B3Bhuj2rTcGYdUd9A5PNo%2B4dndBAMe%2FBas0tvb4eZz42eVlqqJTBwBLHPsOVpfdFsh68tKJtDoIsMWFLM5HbuH8uTeg4ExbqKVbTskvgIYULNg46oBA%3D&union_lens=lensId:TAPI@1603075636@0b588f48_194f_1753ec0fe46_a68d@01" class="fff dhidden shopname">晨光旗舰店</a>
                                         <a isconvert=1 href="https://s.click.taobao.com/t?e=m%3D2%26s%3DBYsFtcklsWocQipKwQzePOeEDrYVVa64yK8Cckff7TVRAdhuF14FMSTWk%2Bh1KPX61aH1Hk3GeOhQGJRg6iVmCsG9%2B3Bhuj2rh74dnMJXmKgyny9FmT8FF%2B%2FBas0tvb4eZz42eVlqqJTf1lozC%2BSXTPdFsh68tKJtDoIsMWFLM5EAau22YySsnuCTnndEcWujlRhccCC0JrrfrqiUh6%2BzmjgcfVNdTNN6%2FBkYmbRsMn%2BiZ%2BQMlGz6FQ%3D%3D&union_lens=lensId:TAPI@1594891926@0b1af7c8_0e9d_17356f77c4e_7158@01">
-                                            <em class="mprice">￥9.6</em>
+                                            <em class="mprice">￥12.2</em>
                                             <em class="c999">（1支）</em></a>
                                     </div>
                                     <div class="li dhidden">
                                         <a isconvert=1 href="https://union-click.jd.com/jdc?e=&p=AyIGZRprFQMTBlQaWxUHEDcRRANLXSJeEF4aVwkMGQtBRE5XDVULR0VJHEpYAE8SCQITBlQaWhUCFwVKQh5JXyJAFXpba1FXTjZuXHJQEmQ2bANTGFl3WRdrFgoUBV0TWx0AIg9dEloVBxc3ZRtaJVR8B1QaWhQDEgdQGWsXAxMEUR1dHAYTN1UfUxYKEA9WHlIcAxU3UhtSJQIQAFcbXB0GFQ5SdRolMiIEZStrFjISNwpfBkgyEAZUH1I%3D" class="fff dhidden shopname">晨光自营旗舰店</a>
                                         <a isconvert=1 href="https://union-click.jd.com/jdc?e=&p=AyIGZRJTHAsTB10TUiUBFwdVE1slRk1fC0RrTEdXRhcQRQtaV1MJBABAHUBZCQVYEAISD1UEAlBeTzc0EicWe2hZN34uFkoMRTRHRUFkW1QDF1clARoBVxNTFQoQN10TUhQCFwJlK1sUMkRpVRpaFAMTB1UeWSUAFAFXHlgUBBo3VR9TEAsaAVQdWBwGGzdVE18lAhAAVxtcHQYVDlJ1GiUyIgRlK2sVMhE3C3VaRVJGBFVPC3tYQFkLQA5DC3wCXR5cEAUXDmUZWhQAEA%3D%3D">
-                                            <em class="mprice">￥23.5</em>
+                                            <em class="mprice">￥26.9</em>
                                             <em class="c999">（12支）</em></a>
                                     </div>
                                 </div>
@@ -905,7 +983,7 @@
                                         <a isconvert=1 href="https://s.click.taobao.com/t?e=m%3D2%26s%3DPm2LJ9JCJdQcQipKwQzePOeEDrYVVa64yK8Cckff7TVRAdhuF14FMSTWk%2Bh1KPX61aH1Hk3GeOhQGJRg6iVmCsG9%2B3Bhuj2rh74dnMJXmKgyny9FmT8FF%2B%2FBas0tvb4eZz42eVlqqJTf1lozC%2BSXTPdFsh68tKJtDoIsMWFLM5EAau22YySsnuCTnndEcWujlRhccCC0JroQNiG9fXMmKDgcfVNdTNN6%2FBkYmbRsMn%2BiZ%2BQMlGz6FQ%3D%3D&union_lens=lensId:TAPI@1594891926@0b1af7c8_0e9d_17356f77c4e_7171@01" class="c333">晨光文具中性笔 动中性笔 办公学习用品</a></div>
                                     <div class="other">
                                         <div class="price font16">￥15.9</div>
-                                        <div class="salenum">月销:2.3万+</div></div>
+                                        <div class="salenum">月销:1.4万+</div></div>
                                     <div class="clear"></div>
                                     <div class="shopurl hasbj">
                                         <a isconvert=1 href="https://s.click.taobao.com/t?e=m%3D2%26s%3DR4vOR9ws3kccQipKwQzePDAVflQIoZepyK8Cckff7TVRAdhuF14FMV8qrMWjnlXA1aH1Hk3GeOhQGJRg6iVmCsG9%2B3Bhuj2rTcGYdUd9A5PNo%2B4dndBAMe%2FBas0tvb4eZz42eVlqqJTBwBLHPsOVpfdFsh68tKJtDoIsMWFLM5HbuH8uTeg4ExbqKVbTskvgIYULNg46oBA%3D&union_lens=lensId:TAPI@1603075636@0b588f48_194f_1753ec0fe46_a68d@01" class="dhidden color1">
@@ -941,11 +1019,12 @@
                 </div>
                 <div class="bline bline1"></div>
                 <div class="articlepraise bottombd" id="articlepraise">
+                    <!--点赞-->
                     <div class="tubiao">
                         <div class="dianzhan">
-                            <a href="/ajaxstream/praise/?action=addpraise&block=brand&id=2411" class="addpraise" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).find('.addnum'))">
+                            <a href="/ajaxstream/praise/?action=addpraise&block=brand&id=2411" class="addpraise" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$('.addpraisenum'))">
                                 <i class="iconfont icon-dianzan"></i>赞
-                                <i class="addnum getajaxdata" url="https://s.maigoo.com/ajaxstream/praise/?action=getpraise&block=brand&id=2411&type=add"></i></a>
+                                <i class="addpraisenum getajaxdata" url="https://s.maigoo.com/ajaxstream/praise/?action=getpraise&block=brand&id=2411&type=add"></i></a>
                         </div>
                         <div class="xiajiang c999">
                             <a href="/ajaxstream/praise/?action=cutpraise&block=brand&id=2411" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).find('.addnum'))" class="cutpraise">
@@ -976,7 +1055,7 @@
                         <div class="usersay">
                             <div class="picbox">
                                 <div class="userpic">
-                                    <img src="/public/images/cnpp/userpic/other/8.jpg" /></div>
+                                    <img src="/public/images/cnpp/userpic/other/2.jpg" /></div>
                             </div>
                             <div class="commentbox">
                                 <div class="commenttxt line18em" id="con933675">很喜欢上海晨光这个品牌，其实我小学的名字也叫晨光，可能有莫名的亲切感，自然也比较喜欢这个品牌，而且晨光的产品还挺广的，有大品牌的风范</div>
@@ -984,9 +1063,6 @@
                                     <span class="left c999 nickname">
                                         <i class="name">网友 (220.170.*.*)</i>&nbsp;&nbsp;11-25 17:10</span>
                                     <span class="right">
-                                        <a class="jubao link c999" href="https://m.maigoo.com/submit/tousu/">
-                                            <i class="iconfont icon-jubao"></i>
-                                        </a>
                                         <a class="c999" href="javascript:void(0);" commentid="933675" onclick="commentreply(this);">
                                             <i class="iconfont icon-liuyan"></i>
                                         </a>
@@ -1002,7 +1078,7 @@
                         <div class="usersay">
                             <div class="picbox">
                                 <div class="userpic">
-                                    <img src="/public/images/cnpp/userpic/other/10.jpg" /></div>
+                                    <img src="/public/images/cnpp/userpic/other/9.jpg" /></div>
                             </div>
                             <div class="commentbox">
                                 <div class="commenttxt line18em" id="con933674">晨光文具在国内还是非常有名的，我平时有的很多文具产品也都是这个品牌，办公设备我也是比较信赖晨光</div>
@@ -1010,9 +1086,6 @@
                                     <span class="left c999 nickname">
                                         <i class="name">网友 (220.170.*.*)</i>&nbsp;&nbsp;11-15 16:05</span>
                                     <span class="right">
-                                        <a class="jubao link c999" href="https://m.maigoo.com/submit/tousu/">
-                                            <i class="iconfont icon-jubao"></i>
-                                        </a>
                                         <a class="c999" href="javascript:void(0);" commentid="933674" onclick="commentreply(this);">
                                             <i class="iconfont icon-liuyan"></i>
                                         </a>
@@ -1036,9 +1109,6 @@
                                     <span class="left c999 nickname">
                                         <i class="name">田小不懂</i>&nbsp;&nbsp;08-18 10:12</span>
                                     <span class="right">
-                                        <a class="jubao link c999" href="https://m.maigoo.com/submit/tousu/">
-                                            <i class="iconfont icon-jubao"></i>
-                                        </a>
                                         <a class="c999" href="javascript:void(0);" commentid="909166" onclick="commentreply(this);">
                                             <i class="iconfont icon-liuyan"></i>
                                         </a>
@@ -1079,7 +1149,7 @@
                             <a class="color1" href="javascript:;" onclick="window.open('https://m.maigoo.com/user/login/');">注册登录>></a></div>
                     </div>
                     <div class="moremzsm">
-                        <img src="/public/images/icon/addmore.gif" onclick="$('#mzsmcontent').find('.mzsm').css('height','auto');$(this).parent().remove();" /></div>
+                        <img src="https://s.maigoo.com/public/images/icon/addmore.gif" onclick="$('#mzsmcontent').find('.mzsm').css('height','auto');$(this).parent().remove();" /></div>
                 </div>
                 <div class="pagecss" data-css="/public/css/mobile/v2019/color.css,/public/css/mobile/v2019/weui.min.css,/public/css/mobile/v2019/brand/show.css,/public/css/mobile/v2019/block/jiameng/jiamengadd.css,/public/css/mobile/v2019/block/brand/brandinfo.css,/public/css/mobile/v2019/block/brand/zhaoshang.css,/public/css/mobile/v2019/block/brand/votecatlist.css,/public/css/mobile/v2019/block/brand/col1.css,/public/css/mobile/v2019/block/webshop/col.css,/public/css/mobile/v2019/block/product/col.css,/public/css/mobile/v2019/block/publicblock/articlepraise.css,/public/css/mobile/v2019/block/publicblock/articlecomment.css,/public/css/mobile/v2019/block/comment/commentlist.css,/public/css/mobile/v2019/block/publicblock/mzsm.css"></div>
                 <div class="pagejs" data-js="/public/js/mobile/v2019/public.js,/public/js/mobile/v2019/event.js,/public/js/mobile/v2019/weUI.js,/public/js/mobile/v2019/block/jiameng/jiamengadd.js,/public/js/mobile/v2019/block/publicblock/articlecomment.js,/public/js/mobile/v2019/block/comment/commentlist.js"></div>

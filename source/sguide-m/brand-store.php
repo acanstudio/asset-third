@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!--STATUS OK-->
 <html>
     
     <head>
@@ -14,8 +15,8 @@
         <meta content="telephone=no" name="format-detection" />
         <meta name="applicable-device" content="mobile">
         <link href="/favicon.ico" rel="shortcut icon" />
-        <link href="https://at.alicdn.com/t/font_989362_542opn2gp6w.css" type="text/css" rel="stylesheet" />
-        <link href="/public/css/mobile/v2019/inc.css?t=1609400834" type="text/css" rel="stylesheet" />
+        <link href="https://at.alicdn.com/t/font_989362_uykezb61ug.css" type="text/css" rel="stylesheet" />
+        <link href="/public/css/mobile/v2019/inc.css?t=1614673790" type="text/css" rel="stylesheet" />
         <link href="/public/css/mobile/cache/brand_shop_71eafa63fe197d54f475aefcc8f5df33.css?t=1608953055" type="text/css" rel="stylesheet" />
         <script src="https://cdn.staticfile.org/jquery/1.11.3/jquery.min.js" type="text/javascript"></script>
     </head>
@@ -56,7 +57,7 @@
                                         <a href="https://m.maigoo.com/maigoo/151wj_index.html" class="c666 dhidden">文具用品</a>
                                         <a href="https://m.maigoo.com/maigoo/785bi_index.html" class="c666 dhidden">中性笔</a>
                                         <a href="https://m.maigoo.com/maigoo/1342lb_index.html" class="c666 dhidden">蜡笔</a>
-                                        <a href="https://m.maigoo.com/maigoo/1265blt_index.html" class="c666 dhidden">便签纸</a>
+                                        <a href="https://m.maigoo.com/maigoo/1265blt_index.html" class="c666 dhidden">便签</a>
                                         <a href="https://m.maigoo.com/maigoo/786mkb_index.html" class="c666 dhidden">马克笔</a>
                                         <a href="https://m.maigoo.com/maigoo/577jsj_index.html" class="c666 dhidden">计算器</a>
                                         <a href="https://m.maigoo.com/maigoo/585dkj_index.html" class="c666 dhidden">打孔机</a>
@@ -189,14 +190,10 @@
                     </div>
                     <div class="blockinfo shopcol ">
                         <ul class="itembox">
-                            <li class="item ">
+                            <li class="item nopic">
                                 <a href="https://m.maigoo.com/shop/364840.html">
                                     <div class="name line15em dhidden font14 color1">
                                         <span class="numb num1 "></span>晨光文具联系电话 晨光文具服务网点</div>
-                                </a>
-                                <div class="img">
-                                    <a href="https://m.maigoo.com/shop/364840.html">
-                                        <img src="https://image.maigoo.com/upload/images/20191219/16533198852_500x312.jpg" width="240" height="154" /></div>
                                 </a>
                                 <div class="cont font12 c999">
                                     <div class="type dhidden">
@@ -405,14 +402,10 @@
                                         <span>（来自官网 ）</span></div>
                                 </div>
                             </li>
-                            <li class="item ">
+                            <li class="item nopic">
                                 <a href="https://m.maigoo.com/shop/314191.html">
                                     <div class="name line15em dhidden font14 color1">
                                         <span class="numb num10 "></span>福州三美晨光文具礼品销售有限公司</div>
-                                </a>
-                                <div class="img">
-                                    <a href="https://m.maigoo.com/shop/314191.html">
-                                        <img src="https://image.maigoo.com/upload/images/20191219/16533198852_500x312.jpg" width="240" height="154" /></div>
                                 </a>
                                 <div class="cont font12 c999">
                                     <div class="type dhidden">
@@ -469,7 +462,7 @@
                                             <img src="/public/images/mobile/webshop/s.gif" />
                                             <em class="c999">顶级卖家</em>
                                             <span class="typename font12">旗舰店</span></li>
-                                        <li class="c999 font14 line15em">关注指数 &nbsp;29236</li>
+                                        <li class="c999 font14 line15em">关注指数 &nbsp;29406</li>
                                         <li class="buybtn">
                                             <a isconvert=1 rel="nofollow" href="https://s.click.taobao.com/t?e=m%3D2%26s%3DR4vOR9ws3kccQipKwQzePDAVflQIoZepyK8Cckff7TVRAdhuF14FMV8qrMWjnlXA1aH1Hk3GeOhQGJRg6iVmCsG9%2B3Bhuj2rTcGYdUd9A5PNo%2B4dndBAMe%2FBas0tvb4eZz42eVlqqJTBwBLHPsOVpfdFsh68tKJtDoIsMWFLM5HbuH8uTeg4ExbqKVbTskvgIYULNg46oBA%3D&union_lens=lensId:TAPI@1603075636@0b588f48_194f_1753ec0fe46_a68d@01" class="font12">进店逛一逛></a></li>
                                     </ul>
@@ -489,7 +482,7 @@
                                             <img src="https://image.maigoo.com/upload/images/20190412/10215624041_120x48.gif" />
                                             <em class="c999">初级卖家</em>
                                             <span class="typename font12">自营</span></li>
-                                        <li class="c999 font14 line15em">关注指数 &nbsp;1416</li>
+                                        <li class="c999 font14 line15em">关注指数 &nbsp;1436</li>
                                         <li class="buybtn">
                                             <a isconvert=1 rel="nofollow" href="https://union-click.jd.com/jdc?e=&p=AyIGZRprFQMTBlQaWxUHEDcRRANLXSJeEF4aVwkMGQtBRE5XDVULR0VJHEpYAE8SCQITBlQaWhUCFwVKQh5JXyJAFXpba1FXTjZuXHJQEmQ2bANTGFl3WRdrFgoUBV0TWx0AIg9dEloVBxc3ZRtaJVR8B1QaWhQDEgdQGWsXAxMEUR1dHAYTN1UfUxYKEA9WHlIcAxU3UhtSJQIQAFcbXB0GFQ5SdRolMiIEZStrFjISNwpfBkgyEAZUH1I%3D" class="font12">进店逛一逛></a></li>
                                     </ul>
@@ -509,7 +502,7 @@
                                             <img src="https://image.maigoo.com/upload/images/20190412/10215624041_120x48.gif" />
                                             <em class="c999">顶级卖家</em>
                                             <span class="typename font12">旗舰店</span></li>
-                                        <li class="c999 font14 line15em">关注指数 &nbsp;58</li>
+                                        <li class="c999 font14 line15em">关注指数 &nbsp;85</li>
                                         <li class="buybtn">
                                             <a isconvert=1 rel="nofollow" href="https://union-click.jd.com/jdc?e=&p=AyIGZRprHAUSBlAYa1FdSlkKKwJQR1NFXgVFS1gNXAAECUteDFtLQwRAVlsbXBxbFAcRGAxeB0gyaFVUayNJZWRlPn0gfQsaAB1HKFxrVAtZK1gdBBAPXRtTFzIaD1waWxAHIjdVGmtUbBIGVBhZHAUXN1caWhYGFAFcH1olAhYPVhNeHQARBVQdWiUFEg5lG1kSABIAXR9cHAV8RmUraxYyIjdWK1slXVZaCCtZFAMWDg%3D%3D" class="font12">进店逛一逛></a></li>
                                     </ul>
@@ -529,7 +522,7 @@
                                             <img src="https://image.maigoo.com/upload/images/20150717/11390854807_120x48.gif" />
                                             <em class="c999">初级卖家</em>
                                             <span class="typename font12">自营</span></li>
-                                        <li class="c999 font14 line15em">关注指数 &nbsp;139</li>
+                                        <li class="c999 font14 line15em">关注指数 &nbsp;152</li>
                                         <li class="buybtn">
                                             <a isconvert=1 rel="nofollow" href="https://tb.jiuxinban.com/c?w=795388&c=17532&i=41052&pf=gzh&e=&t=https://shop.m.suning.com/30001754.html" class="font12">进店逛一逛></a></li>
                                     </ul>
@@ -549,7 +542,7 @@
                                             <img src="/public/images/mobile/webshop/s.gif" />
                                             <em class="c999">成熟卖家</em>
                                             <span class="typename font12">专卖店</span></li>
-                                        <li class="c999 font14 line15em">关注指数 &nbsp;348</li>
+                                        <li class="c999 font14 line15em">关注指数 &nbsp;358</li>
                                         <li class="buybtn">
                                             <a isconvert=1 rel="nofollow" href="https://s.click.taobao.com/t?e=m%3D2%26s%3Dq3uQ4BJtX1scQipKwQzePDAVflQIoZepyK8Cckff7TVRAdhuF14FMfQ72%2B6uzF8%2F1aH1Hk3GeOhQGJRg6iVmCsG9%2B3Bhuj2rTcGYdUd9A5PNo%2B4dndBAMe%2FBas0tvb4eZz42eVlqqJTBwBLHPsOVpfdFsh68tKJt1gqeg6tY9x1dVnJFbl7J%2BSwRStI7Ole2cSpj5qSCmbA%3D&union_lens=lensId:TAPI@1603079226@0b1db85a_231d_1753ef7c3cd_d859@01" class="font12">进店逛一逛></a></li>
                                     </ul>
@@ -580,7 +573,7 @@
                             <span class="">未收到货物先让您转账/汇款的通常为骗子，收到异常订单短信一般是诈骗，任何冒充本网站销售产品或交易的都是骗子！</span></div>
                     </div>
                     <div class="moremzsm">
-                        <img src="/public/images/icon/addmore.gif" onclick="$('#mzsmcontent').find('.mzsm').css('height','auto');$(this).parent().remove();" /></div>
+                        <img src="https://s.maigoo.com/public/images/icon/addmore.gif" onclick="$('#mzsmcontent').find('.mzsm').css('height','auto');$(this).parent().remove();" /></div>
                 </div>
                 <div class="pagecss" data-css="/public/css/mobile/v2019/color.css,/public/css/mobile/v2019/weui.min.css,/public/css/mobile/v2019/block/publicblock/searchselect.css,/public/css/mobile/v2019/block/shop/col.css,/public/css/mobile/v2019/block/webshop/col.css,/public/css/mobile/v2019/block/publicblock/mzsm.css"></div>
                 <div class="pagejs" data-js="/public/js/mobile/v2019/public.js,/public/js/mobile/v2019/event.js,/public/js/mobile/v2019/weUI.js,/public/js/mobile/v2019/block/publicblock/searchselect.js"></div>

@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!--STATUS OK-->
 <html>
     
     <head>
@@ -10,15 +11,9 @@
         <meta name="description" content="文具用品知识大讲堂|买购网为您推荐文具用品的种类、文具用品的用途、文具用品的标准、文具用品图片、文具用品的选购知识等，是您了解文具用品知识的参考网站。" />
         <meta name="mobile-agent" content="format=html5;url=https://m.maigoo.com/goomai/list_797.html">
         <link href="/favicon.ico" rel="shortcut icon" />
-        <link href="https://at.alicdn.com/t/font_989362_qoujb5hyyi9.css" type="text/css" rel="stylesheet" />
-        <link href="/public/css/maigoo/v2019/inc.css?t=1609407935" type="text/css" rel="stylesheet" />
-        <link href="/public/css/maigoo/cache/zhishi_list_e65a91b18dd047867fdb99b8e8dbc29a.css?t=1607671343" type="text/css" rel="stylesheet" />
-        <script>function clicksear(e) {
-                var url = $(e).attr('url');
-                var q = $('input.search').val();
-                url += url.indexOf('?') !== -1 ? '&q=' + q: '?q=' + q;
-                window.location.href = url;
-            }</script>
+        <link href="https://at.alicdn.com/t/font_989362_uykezb61ug.css" type="text/css" rel="stylesheet" />
+        <link href="/public/css/maigoo/v2019/inc.css?t=1614673149" type="text/css" rel="stylesheet" />
+        <link href="/public/css/maigoo/cache/zhishi_list_d318efe44caa98a841ce9c24ab3fbdde.css?t=1614224729" type="text/css" rel="stylesheet" />
         <script src="https://cdn.staticfile.org/jquery/1.11.3/jquery.min.js" type="text/javascript"></script>
         <script src="https://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js" type="text/javascript"></script>
         <!--[if lt IE 9]>
@@ -29,7 +24,12 @@
         <header>
             <div class="headlist">
                 <a class="logo" href="https://www.maigoo.com/">
-                    <img src="/public/images/maigoo/v2019/brand10/newlist/logo.png?2020" /></a>
+                    <img src="/public/images/maigoo/v2019/brand10/newlist/logo.png?2021" /></a>
+                <a class="phoneqrcode color1 fenlei" href="/category/zhishi/#poscat1name5196" target="_blank">
+                    <i class="iconfont icon-fenlei2"></i>
+                    <span>网站分类</span>
+                    <div class="clear"></div>
+                </a>
                 <div class="searchnames">
                     <div id="searchbox" class="bd1 nosearch">
                         <form class="searchbox" action="/search/" method="get">
@@ -49,9 +49,7 @@
                 </div>
                 <div class="userbox font12">
                     <a class="color1" href="https://www.cnpp.cn/android/maigooapp/" target="_blank">
-                        <img src="/public/images/maigoo/v2019/brand10/newlist/appdown.png" height="20" />买购APP</a>&nbsp;
-                    <a class="phoneqrcode color1" href="/category/zhishi/#poscat1name5196" target="_blank">
-                        <i class="iconfont icon-fenlei3"></i>网站分类</a>
+                        <img src="https://s.maigoo.com/public/images/maigoo/v2019/brand10/newlist/appdown.png?2021" height="20" />买购APP</a>
                     <div class="userinfo orange center">
                         <i class="iconfont icon-denglu"></i>
                         <a class="color1 loginin" href="javascript:;" onclick="cnpplogin(this)">登录</a>|
@@ -77,10 +75,10 @@
                         <a class="fff font20 line2em cffff00 vote" href="https://www.maigoo.com/vote/list_797.html">投票</a>
                         <div class="clear"></div>
                         <div class="navright">
-                            <i class="iconfont icon-fenlei2 fff font24"></i>
+                            <i class="iconfont icon-fenlei3 fff font24"></i>
                         </div>
                     </div>
-                    <div class="headblockcont getajaxdata" url="/ajaxstream/headblockcont/?catid=797"></div>
+                    <div class="headblockcont getajaxdata" url="https://s.maigoo.com/ajaxstream/headblockcont/?catid=797"></div>
                 </div>
             </div>
             <div class="webshoplogo">
@@ -96,13 +94,13 @@
                         <em class="dhidden">真彩</em></a>
                     <a target="_blank" href="https://www.maigoo.com/webshop/334555.html">
                         <img width="83" height="37" src="https://image.maigoo.com/upload/images/20150721/22555659033_83x37.png" />
-                        <em class="dhidden">齐心</em></a>
+                        <em class="dhidden">齐心办公</em></a>
                     <a target="_blank" href="https://www.maigoo.com/webshop/317825.html">
                         <img width="83" height="37" src="https://image.maigoo.com/upload2/images/20131113/mbrand__2415_logo.png" />
                         <em class="dhidden">爱好</em></a>
                     <a target="_blank" href="https://www.maigoo.com/webshop/230909.html">
                         <img width="83" height="37" src="https://image.maigoo.com/upload2/images/20131113/mbrand__2414_logo.png" />
-                        <em class="dhidden">白雪</em></a>
+                        <em class="dhidden">白雪文具</em></a>
                     <a target="_blank" href="https://www.maigoo.com/webshop/271998.html">
                         <img width="83" height="37" src="https://image.maigoo.com/upload/images/20150402/17574922295_83x37.png" />
                         <em class="dhidden">贝发</em></a>
@@ -122,6 +120,83 @@
             <div id="container">
                 <div class="leftlay">
                     <div class="artcontent">
+                        <div class="blockinfo categorycol4 col3 hei" id="pos_xgcategory">
+                            <div class="itembox">
+                                <div class="item color1 ">
+                                    <a class="font16 dhidden" target="_blank" href="https://www.maigoo.com/maigoo/7209yzb_index.html" title="圆珠笔">圆珠笔</a></div>
+                                <div class="item color1 ">
+                                    <a class="font16 dhidden" target="_blank" href="https://www.maigoo.com/maigoo/7376xz_index.html" title="宣纸">宣纸</a></div>
+                                <div class="item color1 ">
+                                    <a class="font16 dhidden" target="_blank" href="https://www.maigoo.com/maigoo/7377mb_index.html" title="毛笔">毛笔</a></div>
+                                <div class="item color1 ">
+                                    <a class="font16 dhidden" target="_blank" href="https://www.maigoo.com/maigoo/7382bt_index.html" title="笔筒">笔筒</a></div>
+                                <div class="item color1 ">
+                                    <a class="font16 dhidden" target="_blank" href="https://www.maigoo.com/maigoo/7379wjh_index.html" title="文具盒">文具盒</a></div>
+                                <div class="item color1 ">
+                                    <a class="font16 dhidden" target="_blank" href="https://www.maigoo.com/maigoo/8071hxz_index.html" title="回形针">回形针</a></div>
+                                <div class="item color1 ">
+                                    <a class="font16 dhidden" target="_blank" href="https://www.maigoo.com/maigoo/8165zt_index.html" title="字帖">字帖</a></div>
+                                <div class="item color1 ">
+                                    <a class="font16 dhidden" target="_blank" href="https://www.maigoo.com/maigoo/7962bzb_index.html" title="宝珠笔">宝珠笔</a></div>
+                                <div class="item color1 ">
+                                    <a class="font16 dhidden" target="_blank" href="https://www.maigoo.com/maigoo/8301mz_index.html" title="墨汁">墨汁</a></div>
+                                <div class="item color1 ">
+                                    <a class="font16 dhidden" target="_blank" href="https://www.maigoo.com/maigoo/8112xpj_index.html" title="橡皮筋">橡皮筋</a></div>
+                                <div class="item color1 ">
+                                    <a class="font16 dhidden" target="_blank" href="https://www.maigoo.com/maigoo/7239kcb_index.html" title="可擦笔">可擦笔</a></div>
+                                <div class="item color1 ">
+                                    <a class="font16 dhidden" target="_blank" href="https://www.maigoo.com/maigoo/8100cwj_index.html" title="长尾夹">长尾夹</a></div>
+                                <div class="item color1 ">
+                                    <a class="font16 dhidden" target="_blank" href="https://www.maigoo.com/maigoo/152gb_index.html" title="钢笔">钢笔</a></div>
+                                <div class="item color1 ">
+                                    <a class="font16 dhidden" target="_blank" href="https://www.maigoo.com/maigoo/5108qb_index.html" title="铅笔">铅笔</a></div>
+                                <div class="item color1 ">
+                                    <a class="font16 dhidden" target="_blank" href="https://www.maigoo.com/maigoo/7375xp_index.html" title="橡皮">橡皮</a></div>
+                                <div class="item color1 ">
+                                    <a class="font16 dhidden" target="_blank" href="https://www.maigoo.com/maigoo/1342lb_index.html" title="蜡笔">蜡笔</a></div>
+                                <div class="item color1 ">
+                                    <a class="font16 dhidden" target="_blank" href="https://www.maigoo.com/maigoo/7478wjj_index.html" title="文件夹">文件夹</a></div>
+                                <div class="item color1 ">
+                                    <a class="font16 dhidden" target="_blank" href="https://www.maigoo.com/maigoo/1265blt_index.html" title="便签">便签</a></div>
+                                <div class="item color1 ">
+                                    <a class="font16 dhidden" target="_blank" href="https://www.maigoo.com/maigoo/786mkb_index.html" title="马克笔">马克笔</a></div>
+                                <div class="item color1 hide ">
+                                    <a class="font16 dhidden" target="_blank" href="https://www.maigoo.com/maigoo/787mos_index.html" title="墨水">墨水</a></div>
+                                <div class="item color1 hide ">
+                                    <a class="font16 dhidden" target="_blank" href="https://www.maigoo.com/maigoo/266art_index.html" title="美术用品">美术用品</a></div>
+                                <div class="item color1 hide ">
+                                    <a class="font16 dhidden" target="_blank" href="https://www.maigoo.com/maigoo/5071jsb_index.html" title="记事本">记事本</a></div>
+                                <div class="item color1 hide ">
+                                    <a class="font16 dhidden" target="_blank" href="https://www.maigoo.com/maigoo/218xx_index.html" title="学习机">学习机</a></div>
+                                <div class="item color1 hide ">
+                                    <a class="font16 dhidden" target="_blank" href="https://www.maigoo.com/maigoo/4545ddj_index.html" title="点读机">点读机</a></div>
+                                <div class="item color1 hide ">
+                                    <a class="font16 dhidden" target="_blank" href="https://www.maigoo.com/maigoo/781study_index.html" title="点读笔">点读笔</a></div>
+                                <div class="item color1 hide ">
+                                    <a class="font16 dhidden" target="_blank" href="https://www.maigoo.com/maigoo/577jsj_index.html" title="计算器">计算器</a></div>
+                                <div class="item color1 hide ">
+                                    <a class="font16 dhidden" target="_blank" href="https://www.maigoo.com/maigoo/783study_index.html" title="电子书">电子书</a></div>
+                                <div class="item color1 hide ">
+                                    <a class="font16 dhidden" target="_blank" href="https://www.maigoo.com/maigoo/782study_index.html" title="电子词典">电子词典</a></div>
+                                <div class="item color1 hide ">
+                                    <a class="font16 dhidden" target="_blank" href="https://www.maigoo.com/maigoo/4787zjji_index.html" title="早教机">早教机</a></div>
+                                <div class="item color1 hide ">
+                                    <a class="font16 dhidden" target="_blank" href="https://www.maigoo.com/maigoo/779study_index.html" title="复读机">复读机</a></div>
+                                <div class="item color1 hide ">
+                                    <a class="font16 dhidden" target="_blank" href="https://www.maigoo.com/maigoo/7130mgb_index.html" title="美工笔">美工笔</a></div>
+                                <div class="item color1 hide ">
+                                    <a class="font16 dhidden" target="_blank" href="https://www.maigoo.com/maigoo/8146dqy_index.html" title="地球仪">地球仪</a></div>
+                                <div class="item color1 hide ">
+                                    <a class="font16 dhidden" target="_blank" href="https://www.maigoo.com/maigoo/8425cqnt_index.html" title="超轻粘土">超轻粘土</a></div>
+                                <div class="item color1 hide ">
+                                    <a class="font16 dhidden" target="_blank" href="https://www.maigoo.com/maigoo/8543xzd_index.html" title="修正带">修正带</a></div>
+                                <div class="item color1">
+                                    <a class="font16 openbtn" href="javascript:;" onclick="openclose(this)"></a>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                        <div class="bline bline1"></div>
                         <div class="tab blockinfo style1 col4" id="pos_searchlist">
                             <div class="blocktitle font26 ccc style1 ">
                                 <span class="color1">
@@ -155,23 +230,23 @@
                                             <li class="item ">
                                                 <div class="tablecell">
                                                     <div class="contbox">
-                                                        <a target="_blank" class="title font20 c333 b dhidden" href="https://www.maigoo.com/goomai/156571.html">【文具百科】文具用品有哪些 学生文具如何安全选购</a>
-                                                        <div class="description c999 line18em font14">虽然现在很多时候传统的文房四宝正在被键盘鼠标所取代，但是文具用品仍然是我们生活中必不可少的物品，尤其是对学生而言。现在的文具形态、种类各异，...</div>
+                                                        <a target="_blank" class="title font20 c333 b dhidden" href="https://www.maigoo.com/goomai/155195.html">尺子的种类有哪些 学生文具尺子是什么材质的</a>
+                                                        <div class="description c999 line18em font14">在日常生活中，尺子的使用非常常见，不论作为学生用具，还是木工、办公等，都是必不可少的用具。尺子又称尺子、间尺子，是用来画线段(尤其是直的)、...</div>
                                                         <div class='other font13'>
-                                                            <span class="isyuan bg2 color1 bq">MAIGOO原创</span>
-                                                            <a target="_blank" class="biaoqian color5 bq" href="https://www.maigoo.com/maigoo/151wj_index.html">文具用品</a>
-                                                            <a target="_blank" class="biaoqian color5 bq" href="https://www.maigoo.com/maigoo/2493sf_index.html">书房</a>
-                                                            <span class="alevel font20 orange">★★★</span>
+                                                            <a target="_blank" class="biaoqian color5 bq" href="https://www.maigoo.com/biaoqian/22.html">文具用品</a>
+                                                            <a target="_blank" class="biaoqian color5 bq" href="https://www.maigoo.com/biaoqian/153969.html">文具/学习</a>
                                                             <div class="attention ccc">
                                                                 <span>
-                                                                    <i class="iconfont icon-chakan"></i>2358</span>
+                                                                    <i class="iconfont icon-chakan"></i>1.3万</span>
+                                                                <span>
+                                                                    <i class="iconfont icon-dianzan1"></i>186</span>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="img ">
-                                                    <a target="_blank" href="https://www.maigoo.com/goomai/156571.html">
-                                                        <img src="https://image.maigoo.com/upload/images/20171208/13532883593_500x312.jpg_220_135.jpg" /></a>
+                                                    <a target="_blank" href="https://www.maigoo.com/goomai/155195.html">
+                                                        <img src="https://image.maigoo.com/upload/images/20191221/14540446390_500x312.jpg_220_135.jpg" /></a>
                                                 </div>
                                             </li>
                                             <li class="item ">
@@ -185,9 +260,9 @@
                                                             <a target="_blank" class="biaoqian color5 bq" href="https://www.maigoo.com/biaoqian/22.html">文具用品</a>
                                                             <div class="attention ccc">
                                                                 <span>
-                                                                    <i class="iconfont icon-chakan"></i>492</span>
+                                                                    <i class="iconfont icon-chakan"></i>559</span>
                                                                 <span>
-                                                                    <i class="iconfont icon-dianzan1"></i>20</span>
+                                                                    <i class="iconfont icon-dianzan1"></i>22</span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -200,23 +275,23 @@
                                             <li class="item ">
                                                 <div class="tablecell">
                                                     <div class="contbox">
-                                                        <a target="_blank" class="title font20 c333 b dhidden" href="https://www.maigoo.com/goomai/155195.html">尺子的种类有哪些 学生文具尺子是什么材质的</a>
-                                                        <div class="description c999 line18em font14">在日常生活中，尺子的使用非常常见，不论作为学生用具，还是木工、办公等，都是必不可少的用具。尺子又称尺子、间尺子，是用来画线段(尤其是直的)、...</div>
+                                                        <a target="_blank" class="title font20 c333 b dhidden" href="https://www.maigoo.com/goomai/156571.html">【文具百科】文具用品有哪些 学生文具如何安全选购</a>
+                                                        <div class="description c999 line18em font14">虽然现在很多时候传统的文房四宝正在被键盘鼠标所取代，但是文具用品仍然是我们生活中必不可少的物品，尤其是对学生而言。现在的文具形态、种类各异，...</div>
                                                         <div class='other font13'>
-                                                            <a target="_blank" class="biaoqian color5 bq" href="https://www.maigoo.com/biaoqian/22.html">文具用品</a>
-                                                            <a target="_blank" class="biaoqian color5 bq" href="https://www.maigoo.com/biaoqian/153969.html">文具/学习</a>
+                                                            <span class="isyuan bg2 color1 bq">MAIGOO原创</span>
+                                                            <a target="_blank" class="biaoqian color5 bq" href="https://www.maigoo.com/maigoo/151wj_index.html">文具用品</a>
+                                                            <a target="_blank" class="biaoqian color5 bq" href="https://www.maigoo.com/maigoo/2493sf_index.html">书房</a>
+                                                            <span class="alevel font20 orange">★★★</span>
                                                             <div class="attention ccc">
                                                                 <span>
-                                                                    <i class="iconfont icon-chakan"></i>1.2万</span>
-                                                                <span>
-                                                                    <i class="iconfont icon-dianzan1"></i>181</span>
+                                                                    <i class="iconfont icon-chakan"></i>2469</span>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="img ">
-                                                    <a target="_blank" href="https://www.maigoo.com/goomai/155195.html">
-                                                        <img src="https://image.maigoo.com/upload/images/20191221/14540446390_500x312.jpg_220_135.jpg" /></a>
+                                                    <a target="_blank" href="https://www.maigoo.com/goomai/156571.html">
+                                                        <img src="https://image.maigoo.com/upload/images/20171208/13532883593_500x312.jpg_220_135.jpg" /></a>
                                                 </div>
                                             </li>
                                             <li class="item ">
@@ -229,9 +304,9 @@
                                                             <a target="_blank" class="biaoqian color5 bq" href="https://www.maigoo.com/biaoqian/289.html">中性笔</a>
                                                             <div class="attention ccc">
                                                                 <span>
-                                                                    <i class="iconfont icon-chakan"></i>4079</span>
+                                                                    <i class="iconfont icon-chakan"></i>4126</span>
                                                                 <span>
-                                                                    <i class="iconfont icon-dianzan1"></i>65</span>
+                                                                    <i class="iconfont icon-dianzan1"></i>66</span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -253,11 +328,11 @@
                                                             <span class="alevel font20 orange">★★★</span>
                                                             <div class="attention ccc">
                                                                 <span>
-                                                                    <i class="iconfont icon-chakan"></i>11万</span>
+                                                                    <i class="iconfont icon-chakan"></i>12万</span>
                                                                 <span>
                                                                     <i class="iconfont icon-pinglun"></i>8</span>
                                                                 <span>
-                                                                    <i class="iconfont icon-dianzan1"></i>391</span>
+                                                                    <i class="iconfont icon-dianzan1"></i>399</span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -301,7 +376,7 @@
                                                             <span class="alevel font20 orange">★★★★</span>
                                                             <div class="attention ccc">
                                                                 <span>
-                                                                    <i class="iconfont icon-chakan"></i>1689</span>
+                                                                    <i class="iconfont icon-chakan"></i>1736</span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -336,29 +411,6 @@
                                             <li class="item ">
                                                 <div class="tablecell">
                                                     <div class="contbox">
-                                                        <a target="_blank" class="title font20 c333 b dhidden" href="https://www.maigoo.com/goomai/178415.html">【钢笔知识百科】钢笔正确的握笔姿势 钢笔什么牌子的好</a>
-                                                        <div class="description c999 line18em font14">除了书写必备，钢笔如今也成了送礼佳品，深受商务人士的喜爱。钢笔写字，不仅字迹有力，更有风韵意境美，这依赖于书写者的功力，也离不开钢笔的质量。...</div>
-                                                        <div class='other font13'>
-                                                            <span class="isyuan bg2 color1 bq">MAIGOO原创</span>
-                                                            <a target="_blank" class="biaoqian color5 bq" href="https://www.maigoo.com/biaoqian/208.html">钢笔</a>
-                                                            <a target="_blank" class="biaoqian color5 bq" href="https://www.maigoo.com/biaoqian/22.html">文具用品</a>
-                                                            <div class="attention ccc">
-                                                                <span>
-                                                                    <i class="iconfont icon-chakan"></i>3995</span>
-                                                                <span>
-                                                                    <i class="iconfont icon-dianzan1"></i>135</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="img ">
-                                                    <a target="_blank" href="https://www.maigoo.com/goomai/178415.html">
-                                                        <img src="https://image.maigoo.com/upload/images/20180131/14454425148_500x312.jpg_220_135.jpg" /></a>
-                                                </div>
-                                            </li>
-                                            <li class="item ">
-                                                <div class="tablecell">
-                                                    <div class="contbox">
                                                         <a target="_blank" class="title font20 c333 b dhidden" href="https://www.maigoo.com/goomai/97322.html">钢笔字帖练字方法 怎样练好钢笔字</a>
                                                         <div class="description c999 line18em font14">书法艺术是中国的传统艺术，是中华民族文化的精华。我们不可能人人都成为书法家，但通过学习和不断的练习，写一手好字这个要求还是不高的，目标也是不...</div>
                                                         <div class='other font13'>
@@ -366,9 +418,9 @@
                                                             <a target="_blank" class="biaoqian color5 bq" href="https://www.maigoo.com/biaoqian/208.html">钢笔</a>
                                                             <div class="attention ccc">
                                                                 <span>
-                                                                    <i class="iconfont icon-chakan"></i>5319</span>
+                                                                    <i class="iconfont icon-chakan"></i>5358</span>
                                                                 <span>
-                                                                    <i class="iconfont icon-dianzan1"></i>63</span>
+                                                                    <i class="iconfont icon-dianzan1"></i>66</span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -388,7 +440,7 @@
                                                             <a target="_blank" class="biaoqian color5 bq" href="https://www.maigoo.com/biaoqian/475.html">办公用品</a>
                                                             <div class="attention ccc">
                                                                 <span>
-                                                                    <i class="iconfont icon-chakan"></i>5131</span>
+                                                                    <i class="iconfont icon-chakan"></i>5387</span>
                                                                 <span>
                                                                     <i class="iconfont icon-dianzan1"></i>117</span>
                                                             </div>
@@ -403,6 +455,29 @@
                                             <li class="item ">
                                                 <div class="tablecell">
                                                     <div class="contbox">
+                                                        <a target="_blank" class="title font20 c333 b dhidden" href="https://www.maigoo.com/goomai/178415.html">【钢笔知识百科】钢笔正确的握笔姿势 钢笔什么牌子的好</a>
+                                                        <div class="description c999 line18em font14">除了书写必备，钢笔如今也成了送礼佳品，深受商务人士的喜爱。钢笔写字，不仅字迹有力，更有风韵意境美，这依赖于书写者的功力，也离不开钢笔的质量。...</div>
+                                                        <div class='other font13'>
+                                                            <span class="isyuan bg2 color1 bq">MAIGOO原创</span>
+                                                            <a target="_blank" class="biaoqian color5 bq" href="https://www.maigoo.com/biaoqian/208.html">钢笔</a>
+                                                            <a target="_blank" class="biaoqian color5 bq" href="https://www.maigoo.com/biaoqian/22.html">文具用品</a>
+                                                            <div class="attention ccc">
+                                                                <span>
+                                                                    <i class="iconfont icon-chakan"></i>4069</span>
+                                                                <span>
+                                                                    <i class="iconfont icon-dianzan1"></i>138</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="img ">
+                                                    <a target="_blank" href="https://www.maigoo.com/goomai/178415.html">
+                                                        <img src="https://image.maigoo.com/upload/images/20180131/14454425148_500x312.jpg_220_135.jpg" /></a>
+                                                </div>
+                                            </li>
+                                            <li class="item ">
+                                                <div class="tablecell">
+                                                    <div class="contbox">
                                                         <a target="_blank" class="title font20 c333 b dhidden" href="https://www.maigoo.com/goomai/221640.html">【铅笔知识百科】铅笔2b和hb有什么区别 铅笔的种类_选择_使用</a>
                                                         <div class="description c999 line18em font14">铅笔，是一种用来书写以及绘画素描专用的笔类，其中，绘画素描的铅笔分为诸多类型，它分成三个发展阶段，分为石墨、木制笔杆、带帽铅笔。生活中我们常...</div>
                                                         <div class='other font13'>
@@ -411,9 +486,9 @@
                                                             <a target="_blank" class="biaoqian color5 bq" href="https://www.maigoo.com/biaoqian/372.html">美术用品</a>
                                                             <div class="attention ccc">
                                                                 <span>
-                                                                    <i class="iconfont icon-chakan"></i>757</span>
+                                                                    <i class="iconfont icon-chakan"></i>845</span>
                                                                 <span>
-                                                                    <i class="iconfont icon-dianzan1"></i>10</span>
+                                                                    <i class="iconfont icon-dianzan1"></i>14</span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -421,28 +496,6 @@
                                                 <div class="img ">
                                                     <a target="_blank" href="https://www.maigoo.com/goomai/221640.html">
                                                         <img src="https://image.maigoo.com/upload/images/20191018/09050196655_500x312.jpg_220_135.jpg" /></a>
-                                                </div>
-                                            </li>
-                                            <li class="item ">
-                                                <div class="tablecell">
-                                                    <div class="contbox">
-                                                        <a target="_blank" class="title font20 c333 b dhidden" href="https://www.maigoo.com/goomai/217336.html">书信的格式是什么 书信的写作技巧与注意事项</a>
-                                                        <div class="description c999 line18em font14">我国历史文化悠久，是有名的礼仪之邦。人们的社会交往和思想感情交流，大多通过一定的礼仪形式和一定的文化活动方式来进行。书信作为一种向特定对象传...</div>
-                                                        <div class='other font13'>
-                                                            <a target="_blank" class="biaoqian color5 bq" href="https://www.maigoo.com/biaoqian/650.html">礼品</a>
-                                                            <a target="_blank" class="biaoqian color5 bq" href="https://www.maigoo.com/biaoqian/22.html">文具用品</a>
-                                                            <div class="attention ccc">
-                                                                <span>
-                                                                    <i class="iconfont icon-chakan"></i>805</span>
-                                                                <span>
-                                                                    <i class="iconfont icon-dianzan1"></i>10</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="img ">
-                                                    <a target="_blank" href="https://www.maigoo.com/goomai/217336.html">
-                                                        <img src="https://image.maigoo.com/upload/images/20190702/17361067019_500x312.jpg_220_135.jpg" /></a>
                                                 </div>
                                             </li>
                                             <li class="item ">
@@ -457,9 +510,9 @@
                                                             <span class="alevel font20 orange">★★★</span>
                                                             <div class="attention ccc">
                                                                 <span>
-                                                                    <i class="iconfont icon-chakan"></i>8144</span>
+                                                                    <i class="iconfont icon-chakan"></i>8236</span>
                                                                 <span>
-                                                                    <i class="iconfont icon-dianzan1"></i>86</span>
+                                                                    <i class="iconfont icon-dianzan1"></i>87</span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -472,23 +525,23 @@
                                             <li class="item ">
                                                 <div class="tablecell">
                                                     <div class="contbox">
-                                                        <a target="_blank" class="title font20 c333 b dhidden" href="https://www.maigoo.com/goomai/224673.html">戒尺的戒意思是什么 戒尺打孩子好不好 打孩子怎么打</a>
-                                                        <div class="description c999 line18em font14">戒尺有两种解释，其一是指佛教的一种法器；另外一种是指旧时私塾先生对学生施行体罚所用的木板。打孩子这类事，不同时代，不同文化传统，不同阶层出身...</div>
+                                                        <a target="_blank" class="title font20 c333 b dhidden" href="https://www.maigoo.com/goomai/217336.html">书信的格式是什么 书信的写作技巧与注意事项</a>
+                                                        <div class="description c999 line18em font14">我国历史文化悠久，是有名的礼仪之邦。人们的社会交往和思想感情交流，大多通过一定的礼仪形式和一定的文化活动方式来进行。书信作为一种向特定对象传...</div>
                                                         <div class='other font13'>
+                                                            <a target="_blank" class="biaoqian color5 bq" href="https://www.maigoo.com/biaoqian/650.html">礼品</a>
                                                             <a target="_blank" class="biaoqian color5 bq" href="https://www.maigoo.com/biaoqian/22.html">文具用品</a>
-                                                            <a target="_blank" class="biaoqian color5 bq" href="https://www.maigoo.com/biaoqian/414.html">母婴健康</a>
                                                             <div class="attention ccc">
                                                                 <span>
-                                                                    <i class="iconfont icon-chakan"></i>2088</span>
+                                                                    <i class="iconfont icon-chakan"></i>858</span>
                                                                 <span>
-                                                                    <i class="iconfont icon-dianzan1"></i>13</span>
+                                                                    <i class="iconfont icon-dianzan1"></i>11</span>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="img ">
-                                                    <a target="_blank" href="https://www.maigoo.com/goomai/224673.html">
-                                                        <img src="https://image.maigoo.com/upload/images/20191221/16483480634_500x312.jpg_220_135.jpg" /></a>
+                                                    <a target="_blank" href="https://www.maigoo.com/goomai/217336.html">
+                                                        <img src="https://image.maigoo.com/upload/images/20190702/17361067019_500x312.jpg_220_135.jpg" /></a>
                                                 </div>
                                             </li>
                                             <li class="item ">
@@ -501,11 +554,11 @@
                                                             <a target="_blank" class="biaoqian color5 bq" href="https://www.maigoo.com/biaoqian/22.html">文具用品</a>
                                                             <div class="attention ccc">
                                                                 <span>
-                                                                    <i class="iconfont icon-chakan"></i>4478</span>
+                                                                    <i class="iconfont icon-chakan"></i>4605</span>
                                                                 <span>
                                                                     <i class="iconfont icon-pinglun"></i>4</span>
                                                                 <span>
-                                                                    <i class="iconfont icon-dianzan1"></i>107</span>
+                                                                    <i class="iconfont icon-dianzan1"></i>109</span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -518,6 +571,52 @@
                                             <li class="item ">
                                                 <div class="tablecell">
                                                     <div class="contbox">
+                                                        <a target="_blank" class="title font20 c333 b dhidden" href="https://www.maigoo.com/goomai/224673.html">戒尺的戒意思是什么 戒尺打孩子好不好 打孩子怎么打</a>
+                                                        <div class="description c999 line18em font14">戒尺有两种解释，其一是指佛教的一种法器；另外一种是指旧时私塾先生对学生施行体罚所用的木板。打孩子这类事，不同时代，不同文化传统，不同阶层出身...</div>
+                                                        <div class='other font13'>
+                                                            <a target="_blank" class="biaoqian color5 bq" href="https://www.maigoo.com/biaoqian/22.html">文具用品</a>
+                                                            <a target="_blank" class="biaoqian color5 bq" href="https://www.maigoo.com/biaoqian/414.html">母婴健康</a>
+                                                            <div class="attention ccc">
+                                                                <span>
+                                                                    <i class="iconfont icon-chakan"></i>2291</span>
+                                                                <span>
+                                                                    <i class="iconfont icon-dianzan1"></i>14</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="img ">
+                                                    <a target="_blank" href="https://www.maigoo.com/goomai/224673.html">
+                                                        <img src="https://image.maigoo.com/upload/images/20191221/16483480634_500x312.jpg_220_135.jpg" /></a>
+                                                </div>
+                                            </li>
+                                            <li class="item ">
+                                                <div class="tablecell">
+                                                    <div class="contbox">
+                                                        <a target="_blank" class="title font20 c333 b dhidden" href="https://www.maigoo.com/goomai/165588.html">【炫彩棒】炫彩棒和油画棒的区别 炫彩棒是什么 炫彩棒怎么用</a>
+                                                        <div class="description c999 line18em font14">炫彩棒是什么？炫彩棒又叫水溶彩棒，水溶彩棒一般有一个塑料外壳，多采用口红式旋转方式，相比传统的蜡笔和油画棒，水溶彩棒绘画时阻力小，涂层更佳，...</div>
+                                                        <div class='other font13'>
+                                                            <span class="isyuan bg2 color1 bq">MAIGOO原创</span>
+                                                            <a target="_blank" class="biaoqian color5 bq" href="https://www.maigoo.com/biaoqian/1343.html">蜡笔</a>
+                                                            <a target="_blank" class="biaoqian color5 bq" href="https://www.maigoo.com/biaoqian/3079.html">美术</a>
+                                                            <span class="alevel font20 orange">★★★</span>
+                                                            <div class="attention ccc">
+                                                                <span>
+                                                                    <i class="iconfont icon-chakan"></i>4.4万</span>
+                                                                <span>
+                                                                    <i class="iconfont icon-dianzan1"></i>88</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="img ">
+                                                    <a target="_blank" href="https://www.maigoo.com/goomai/165588.html">
+                                                        <img src="https://image.maigoo.com/upload/images/20180724/14481198513_500x312.jpg_220_135.jpg" /></a>
+                                                </div>
+                                            </li>
+                                            <li class="item ">
+                                                <div class="tablecell">
+                                                    <div class="contbox">
                                                         <a target="_blank" class="title font20 c333 b dhidden" href="https://www.maigoo.com/goomai/221524.html">文房四宝指的是哪四样东西 文房四宝之外的文房用品还有哪些</a>
                                                         <div class="description c999 line18em font14">文房四宝之名，起源于南北朝时期。最典型的是被称为“文房四宝”的书写工具：纸、笔、墨、砚。历史上，“文房四宝”所指之物屡有变化。在南唐时，“文...</div>
                                                         <div class='other font13'>
@@ -525,9 +624,9 @@
                                                             <a target="_blank" class="biaoqian color5 bq" href="https://www.maigoo.com/biaoqian/153969.html">文具/学习</a>
                                                             <div class="attention ccc">
                                                                 <span>
-                                                                    <i class="iconfont icon-chakan"></i>410</span>
+                                                                    <i class="iconfont icon-chakan"></i>595</span>
                                                                 <span>
-                                                                    <i class="iconfont icon-dianzan1"></i>9</span>
+                                                                    <i class="iconfont icon-dianzan1"></i>11</span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -549,7 +648,7 @@
                                                                 <span>
                                                                     <i class="iconfont icon-chakan"></i>1.7万</span>
                                                                 <span>
-                                                                    <i class="iconfont icon-dianzan1"></i>115</span>
+                                                                    <i class="iconfont icon-dianzan1"></i>118</span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -562,54 +661,30 @@
                                             <li class="item ">
                                                 <div class="tablecell">
                                                     <div class="contbox">
-                                                        <a target="_blank" class="title font20 c333 b dhidden" href="https://www.maigoo.com/goomai/165588.html">【炫彩棒】炫彩棒和油画棒的区别 炫彩棒是什么 炫彩棒怎么用</a>
-                                                        <div class="description c999 line18em font14">炫彩棒是什么？炫彩棒又叫水溶彩棒，水溶彩棒一般有一个塑料外壳，多采用口红式旋转方式，相比传统的蜡笔和油画棒，水溶彩棒绘画时阻力小，涂层更佳，...</div>
+                                                        <a target="_blank" class="title font20 c333 b dhidden" href="https://www.maigoo.com/goomai/193352.html">学习用品清单大全 孩子上学要准备哪些学习用品？你买齐了吗？</a>
+                                                        <div class="description c999 line18em font14">随着社会经济以及现代电子科技的飞速发展，现在学生的学习用品的种类越来越丰富，除了传统的文具用品、书包、笔类，点读机、学习机等电子学习用品受到...</div>
                                                         <div class='other font13'>
                                                             <span class="isyuan bg2 color1 bq">MAIGOO原创</span>
-                                                            <a target="_blank" class="biaoqian color5 bq" href="https://www.maigoo.com/biaoqian/1343.html">蜡笔</a>
-                                                            <a target="_blank" class="biaoqian color5 bq" href="https://www.maigoo.com/biaoqian/3079.html">美术</a>
+                                                            <a target="_blank" class="biaoqian color5 bq" href="https://www.maigoo.com/biaoqian/22.html">文具用品</a>
+                                                            <a target="_blank" class="biaoqian color5 bq" href="https://www.maigoo.com/biaoqian/2115.html">书桌</a>
                                                             <span class="alevel font20 orange">★★★</span>
                                                             <div class="attention ccc">
                                                                 <span>
-                                                                    <i class="iconfont icon-chakan"></i>4.3万</span>
+                                                                    <i class="iconfont icon-chakan"></i>1.2万</span>
                                                                 <span>
-                                                                    <i class="iconfont icon-dianzan1"></i>87</span>
+                                                                    <i class="iconfont icon-dianzan1"></i>132</span>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="img ">
-                                                    <a target="_blank" href="https://www.maigoo.com/goomai/165588.html">
-                                                        <img src="https://image.maigoo.com/upload/images/20180724/14481198513_500x312.jpg_220_135.jpg" /></a>
-                                                </div>
-                                            </li>
-                                            <li class="item ">
-                                                <div class="tablecell">
-                                                    <div class="contbox">
-                                                        <a target="_blank" class="title font20 c333 b dhidden" href="https://www.maigoo.com/goomai/99054.html">画板尺寸为多大 美术生画板怎么用</a>
-                                                        <div class="description c999 line18em font14">画板绘画时用来垫画纸的平板 ，有的自带夹子，通常为木制，大小随使用者要求而定，美术用品店有售，亦可自制。另有一种塑料画板，直接在板上绘画，可...</div>
-                                                        <div class='other font13'>
-                                                            <a target="_blank" class="biaoqian color5 bq" href="https://www.maigoo.com/biaoqian/157066.html">画板</a>
-                                                            <a target="_blank" class="biaoqian color5 bq" href="https://www.maigoo.com/biaoqian/372.html">美术用品</a>
-                                                            <div class="attention ccc">
-                                                                <span>
-                                                                    <i class="iconfont icon-chakan"></i>2.5万</span>
-                                                                <span>
-                                                                    <i class="iconfont icon-dianzan1"></i>174</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="img ">
-                                                    <a target="_blank" href="https://www.maigoo.com/goomai/99054.html">
-                                                        <img src="https://image.maigoo.com/upload/images/20191015/10490237480_500x312.jpg_220_135.jpg" /></a>
+                                                    <a target="_blank" href="https://www.maigoo.com/goomai/193352.html">
+                                                        <img src="https://image.maigoo.com/upload/images/20171211/11403558621_500x312.jpg_220_135.jpg" /></a>
                                                 </div>
                                             </li>
                                         </ul>
                                         <div class="ads" style=" min-height:20px;margin-bottom:-20px;">
-                                            <script type="text/javascript">/*840*200多彩 2020-11-28*/
-                                                var cpro_id = "u6366290";</script>
-                                            <script type="text/javascript" src="https://cpro.baidustatic.com/cpro/ui/c.js"></script>
+                                            <script type="text/javascript" src="//a.maigoo.com/site/q/production/lkdk-k/a/openjs/nm.js"></script>
                                         </div>
                                         <div class="blockmorebox font16 ">
                                             <div class="morebtn c333 ajaxload" data-action="searchlist" data-subaction="specs_0" data-thirdaction="" data-page="2" data-start="" data-defaultids="" data-sort="" data-tabnum="" data-maxpage="" onclick="getData(this)">
@@ -624,39 +699,24 @@
                                     <div class="blockinfo articlelist " id="pos_specs_3156">
                                         <ul class="itembox ">
                                             <div class="ajaxload" data-action="searchlist" data-subaction="specs_3156" data-thirdaction="" data-page="1" data-start="" data-defaultids="" data-sort="" data-postdata="">
-                                                <img src="/public/images/icon/loading_100x100.gif" /></div>
+                                                <img src="/public/images/icon/loading_small.gif?202101" /></div>
                                         </ul>
-                                        <div class="ads" style=" min-height:20px;margin-bottom:-20px;">
-                                            <script type="text/javascript">/*840*200多彩 2020-11-28*/
-                                                var cpro_id = "u6366290";</script>
-                                            <script type="text/javascript" src="https://cpro.baidustatic.com/cpro/ui/c.js"></script>
-                                        </div>
                                     </div>
                                 </div>
                                 <div class="licont dn" action="specs_1795">
                                     <div class="blockinfo articlelist " id="pos_specs_1795">
                                         <ul class="itembox ">
                                             <div class="ajaxload" data-action="searchlist" data-subaction="specs_1795" data-thirdaction="" data-page="1" data-start="" data-defaultids="" data-sort="" data-postdata="">
-                                                <img src="/public/images/icon/loading_100x100.gif" /></div>
+                                                <img src="/public/images/icon/loading_small.gif?202101" /></div>
                                         </ul>
-                                        <div class="ads" style=" min-height:20px;margin-bottom:-20px;">
-                                            <script type="text/javascript">/*840*200多彩 2020-11-28*/
-                                                var cpro_id = "u6366290";</script>
-                                            <script type="text/javascript" src="https://cpro.baidustatic.com/cpro/ui/c.js"></script>
-                                        </div>
                                     </div>
                                 </div>
                                 <div class="licont dn" action="specs_1796">
                                     <div class="blockinfo articlelist " id="pos_specs_1796">
                                         <ul class="itembox ">
                                             <div class="ajaxload" data-action="searchlist" data-subaction="specs_1796" data-thirdaction="" data-page="1" data-start="" data-defaultids="" data-sort="" data-postdata="">
-                                                <img src="/public/images/icon/loading_100x100.gif" /></div>
+                                                <img src="/public/images/icon/loading_small.gif?202101" /></div>
                                         </ul>
-                                        <div class="ads" style=" min-height:20px;margin-bottom:-20px;">
-                                            <script type="text/javascript">/*840*200多彩 2020-11-28*/
-                                                var cpro_id = "u6366290";</script>
-                                            <script type="text/javascript" src="https://cpro.baidustatic.com/cpro/ui/c.js"></script>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -680,9 +740,9 @@
                                     <a class="color1" href="javascript:;" onclick="window.open('https://www.maigoo.com/user/login/');">注册登录>></a></div>
                             </div>
                             <div class="moremzsm">
-                                <img src="/public/images/icon/addmore.gif" onclick="$('#mzsmcontent').find('.mzsm').css('height','auto');$(this).parent().remove();" /></div>
+                                <img src="https://s.maigoo.com/public/images/icon/addmore.gif" onclick="$('#mzsmcontent').find('.mzsm').css('height','auto');$(this).parent().remove();" /></div>
                         </div>
-                        <div class="pagecss" data-css="/public/css/maigoo/v2019/color.css,/public/css/maigoo/v2019/weui.min.css,/public/css/maigoo/v2019/zhishi/list.css,/public/css/maigoo/v2019/block/publicblock/articlelist.css,/public/css/maigoo/v2019/block/publicblock/mzsm.css"></div>
+                        <div class="pagecss" data-css="/public/css/maigoo/v2019/color.css,/public/css/maigoo/v2019/weui.min.css,/public/css/maigoo/v2019/zhishi/list.css,/public/css/maigoo/v2019/block/category/col4.css,/public/css/maigoo/v2019/block/publicblock/articlelist.css,/public/css/maigoo/v2019/block/publicblock/mzsm.css"></div>
                         <div class="pagejs" data-js="/public/js/maigoo/v2019/public.js,/public/js/maigoo/v2019/event.js,/public/js/maigoo/v2019/weUI.js,/public/js/maigoo/v2019/block/publicblock/articlelist.js"></div>
                     </div>
                 </div>
@@ -751,9 +811,9 @@
                                             <div class="dhidden line18em">文件夹</div></a>
                                     </li>
                                     <li>
-                                        <a href="https://www.maigoo.com/goomai/list_4528.html" title="便签纸" target="_blank" class="c333">
-                                            <img width="80" height="80" src="https://image.maigoo.com/upload/images/20170929/14034588609_300x300.png" width="100" />
-                                            <div class="dhidden line18em">便签纸</div></a>
+                                        <a href="https://www.maigoo.com/goomai/list_4528.html" title="便签" target="_blank" class="c333">
+                                            <img width="80" height="80" src="https://image.maigoo.com/upload/images/20210301/10265396052_300x300.png" width="100" />
+                                            <div class="dhidden line18em">便签</div></a>
                                     </li>
                                     <li>
                                         <a href="https://www.maigoo.com/goomai/list_776.html" title="马克笔" target="_blank" class="c333">
@@ -838,48 +898,48 @@
                             <dd>
                                 <ul>
                                     <li>
-                                        <a target="_blank" href="" class="c333">
-                                            <img src="/public/images/icon/v2019/brand2729.png?20201019" width="60" height="60" />
+                                        <a target="_blank" href="https://www.maigoo.com/maigoo/2729sd_index.html" class="c333">
+                                            <img src="https://s.maigoo.com/public/images/icon/v2019/brand2729.png?20201019" width="60" height="60" />
                                             <div class="dhidden line18em">大品牌</div></a>
                                     </li>
                                     <li>
-                                        <a target="_blank" href="" class="c333">
-                                            <img src="/public/images/icon/v2019/brand2730.png?20201019" width="60" height="60" />
+                                        <a target="_blank" href="https://www.maigoo.com/maigoo/2730cmsb_index.html" class="c333">
+                                            <img src="https://s.maigoo.com/public/images/icon/v2019/brand2730.png?20201019" width="60" height="60" />
                                             <div class="dhidden line18em">驰名保护</div></a>
                                     </li>
                                     <li>
-                                        <a target="_blank" href="" class="c333">
-                                            <img src="/public/images/icon/v2019/brand4630.png?20201019" width="60" height="60" />
+                                        <a target="_blank" href="https://www.maigoo.com/maigoo/4630gjqy_index.html" class="c333">
+                                            <img src="https://s.maigoo.com/public/images/icon/v2019/brand4630.png?20201019" width="60" height="60" />
                                             <div class="dhidden line18em">高新企业</div></a>
                                     </li>
                                     <li>
-                                        <a target="_blank" href="" class="c333">
-                                            <img src="/public/images/icon/v2019/brand2732.png?20201019" width="60" height="60" />
+                                        <a target="_blank" href="https://www.maigoo.com/maigoo/2733ss_index.html" class="c333">
+                                            <img src="https://s.maigoo.com/public/images/icon/v2019/brand2732.png?20201019" width="60" height="60" />
                                             <div class="dhidden line18em">上市公司</div></a>
                                     </li>
                                     <li>
-                                        <a target="_blank" href="" class="c333">
-                                            <img src="/public/images/icon/v2019/brand4813.png?20201019" width="60" height="60" />
+                                        <a target="_blank" href="https://www.maigoo.com/maigoo/4813qqy_index.html" class="c333">
+                                            <img src="https://s.maigoo.com/public/images/icon/v2019/brand4813.png?20201019" width="60" height="60" />
                                             <div class="dhidden line18em">500强企业</div></a>
                                     </li>
                                     <li>
-                                        <a target="_blank" href="" class="c333">
-                                            <img src="/public/images/icon/v2019/brand4635.png?20201019" width="60" height="60" />
+                                        <a target="_blank" href="https://www.maigoo.com/maigoo/4635ssmp_index.html" class="c333">
+                                            <img src="https://s.maigoo.com/public/images/icon/v2019/brand4635.png?20201019" width="60" height="60" />
                                             <div class="dhidden line18em">名牌产品</div></a>
                                     </li>
                                     <li>
-                                        <a target="_blank" href="" class="c333">
-                                            <img src="/public/images/icon/v2019/brand4636.png?20201019" width="60" height="60" />
+                                        <a target="_blank" href="https://www.maigoo.com/maigoo/4636zmsb_index.html" class="c333">
+                                            <img src="https://s.maigoo.com/public/images/icon/v2019/brand4636.png?20201019" width="60" height="60" />
                                             <div class="dhidden line18em">著名商标</div></a>
                                     </li>
                                     <li>
-                                        <a target="_blank" href="" class="c333">
-                                            <img src="/public/images/icon/v2019/brand2733.png?20201019" width="60" height="60" />
+                                        <a target="_blank" href="https://www.maigoo.com/maigoo/2733zxqy_index.html" class="c333">
+                                            <img src="https://s.maigoo.com/public/images/icon/v2019/brand2733.png?20201019" width="60" height="60" />
                                             <div class="dhidden line18em">中小企业</div></a>
                                     </li>
                                     <li>
                                         <a target="_blank" href="/brand/search/?isopen=py" class="c333">
-                                            <img src="/public/images/icon/v2019/brand3020.png?2020" width="60" height="60" />
+                                            <img src="https://s.maigoo.com/public/images/icon/v2019/brand3020.png?2020" width="60" height="60" />
                                             <div class="dhidden line18em">首字母</div></a>
                                     </li>
                                 </ul>
@@ -894,76 +954,76 @@
                                 <span class="">知识分类</span></dt>
                             <dd class="contbox">
                                 <div class="cont hotsearch">
-                                    <a href="https://www.maigoo.com/search/?q=保暖内衣&dynamic=1" target="_blank">
+                                    <a href="https://www.maigoo.com/search/?q=干衣机&dynamic=1" target="_blank">
                                         <i class="num c999">1</i>
-                                        <span class="name c333 dhidden">保暖内衣</span>
+                                        <span class="name c333 dhidden">干衣机</span>
                                         <span class="colorline">
                                             <i style="width:100%"></i>
                                         </span>
-                                        <span class="counts font12 c999">89,256</span></a>
-                                    <a href="https://www.maigoo.com/search/?q=羽绒服&dynamic=1" target="_blank">
+                                        <span class="counts font12 c999">86,654</span></a>
+                                    <a href="https://www.maigoo.com/search/?q=除湿机&dynamic=1" target="_blank">
                                         <i class="num c999">2</i>
-                                        <span class="name c333 dhidden">羽绒服</span>
+                                        <span class="name c333 dhidden">除湿机</span>
                                         <span class="colorline">
                                             <i style="width:95%"></i>
                                         </span>
-                                        <span class="counts font12 c999">89,225</span></a>
-                                    <a href="https://www.maigoo.com/search/?q=手机&dynamic=1" target="_blank">
+                                        <span class="counts font12 c999">85,214</span></a>
+                                    <a href="https://www.maigoo.com/search/?q=春装&dynamic=1" target="_blank">
                                         <i class="num c999">3</i>
-                                        <span class="name c333 dhidden">手机</span>
+                                        <span class="name c333 dhidden">春装</span>
                                         <span class="colorline">
                                             <i style="width:90%"></i>
                                         </span>
-                                        <span class="counts font12 c999">73,009</span></a>
-                                    <a href="https://www.maigoo.com/search/?q=护肤品&dynamic=1" target="_blank">
+                                        <span class="counts font12 c999">82,358</span></a>
+                                    <a href="https://www.maigoo.com/search/?q=青团&dynamic=1" target="_blank">
                                         <i class="num c999">4</i>
-                                        <span class="name c333 dhidden">护肤品</span>
+                                        <span class="name c333 dhidden">青团</span>
                                         <span class="colorline">
                                             <i style="width:85%"></i>
                                         </span>
-                                        <span class="counts font12 c999">69,870</span></a>
-                                    <a href="https://www.maigoo.com/search/?q=地板&dynamic=1" target="_blank">
+                                        <span class="counts font12 c999">81,322</span></a>
+                                    <a href="https://www.maigoo.com/search/?q=手机&dynamic=1" target="_blank">
                                         <i class="num c999">5</i>
-                                        <span class="name c333 dhidden">地板</span>
+                                        <span class="name c333 dhidden">手机</span>
                                         <span class="colorline">
                                             <i style="width:80%"></i>
                                         </span>
-                                        <span class="counts font12 c999">66,990</span></a>
-                                    <a href="https://www.maigoo.com/search/?q=集成灶&dynamic=1" target="_blank">
+                                        <span class="counts font12 c999">73,009</span></a>
+                                    <a href="https://www.maigoo.com/search/?q=护肤品&dynamic=1" target="_blank">
                                         <i class="num c999">6</i>
-                                        <span class="name c333 dhidden">集成灶</span>
+                                        <span class="name c333 dhidden">护肤品</span>
                                         <span class="colorline">
                                             <i style="width:75%"></i>
                                         </span>
-                                        <span class="counts font12 c999">66,601</span></a>
-                                    <a href="https://www.maigoo.com/search/?q=家具&dynamic=1" target="_blank">
+                                        <span class="counts font12 c999">69,870</span></a>
+                                    <a href="https://www.maigoo.com/search/?q=地板&dynamic=1" target="_blank">
                                         <i class="num c999">7</i>
-                                        <span class="name c333 dhidden">家具</span>
+                                        <span class="name c333 dhidden">地板</span>
                                         <span class="colorline">
                                             <i style="width:70%"></i>
                                         </span>
-                                        <span class="counts font12 c999">65,000</span></a>
-                                    <a href="https://www.maigoo.com/search/?q=女鞋&dynamic=1" target="_blank">
+                                        <span class="counts font12 c999">66,990</span></a>
+                                    <a href="https://www.maigoo.com/search/?q=集成灶&dynamic=1" target="_blank">
                                         <i class="num c999">8</i>
-                                        <span class="name c333 dhidden">女鞋</span>
+                                        <span class="name c333 dhidden">集成灶</span>
                                         <span class="colorline">
                                             <i style="width:65%"></i>
                                         </span>
-                                        <span class="counts font12 c999">60,845</span></a>
-                                    <a href="https://www.maigoo.com/search/?q=电动车&dynamic=1" target="_blank">
+                                        <span class="counts font12 c999">66,601</span></a>
+                                    <a href="https://www.maigoo.com/search/?q=家具&dynamic=1" target="_blank">
                                         <i class="num c999">9</i>
-                                        <span class="name c333 dhidden">电动车</span>
+                                        <span class="name c333 dhidden">家具</span>
                                         <span class="colorline">
                                             <i style="width:60%"></i>
                                         </span>
-                                        <span class="counts font12 c999">55,996</span></a>
-                                    <a href="https://www.maigoo.com/search/?q=智能家居&dynamic=1" target="_blank">
+                                        <span class="counts font12 c999">65,000</span></a>
+                                    <a href="https://www.maigoo.com/search/?q=女鞋&dynamic=1" target="_blank">
                                         <i class="num c999">10</i>
-                                        <span class="name c333 dhidden">智能家居</span>
+                                        <span class="name c333 dhidden">女鞋</span>
                                         <span class="colorline">
                                             <i style="width:55%"></i>
                                         </span>
-                                        <span class="counts font12 c999">55,100</span></a>
+                                        <span class="counts font12 c999">60,845</span></a>
                                     <div class="clear"></div>
                                 </div>
                                 <div class="cont bg2 bd1 dn">
@@ -994,9 +1054,7 @@
                                     <a class="item dhidden color1" href="" target="_blank">润滑油</a>
                                     <a class="item dhidden color1" href="" target="_blank">学习桌</a>
                                     <a class="item dhidden color1" href="" target="_blank">麻将机</a>
-                                    <a class="item dhidden color1" href="" target="_blank">暖气片</a>
                                     <a class="item dhidden color1" href="" target="_blank">即热式热水器</a>
-                                    <a class="item dhidden color1" href="" target="_blank">羽绒服</a>
                                     <div class="clear"></div>
                                 </div>
                                 <div class="cont bg2 bd1 dn">
@@ -1096,7 +1154,7 @@
                                                             <div class="title font16 b">知识榜</div>
                                                             <div class="mintitle font12">知识百科</div>
                                                             <div class="img">
-                                                                <img width="60" height="60" src="/public/images/icon/v2019/zhishibang.png?2020" /></div>
+                                                                <img width="60" height="60" src="https://s.maigoo.com/public/images/icon/v2019/zhishibang.png?2020" /></div>
                                                         </a>
                                                     </div>
                                                     <div class="item s2">
@@ -1104,7 +1162,7 @@
                                                             <div class="title font16 b">品牌榜</div>
                                                             <div class="mintitle font12">十大品牌</div>
                                                             <div class="img">
-                                                                <img width="60" height="60" src="/public/images/icon/v2019/pinpaibang.png?2020" /></div>
+                                                                <img width="60" height="60" src="https://s.maigoo.com/public/images/icon/v2019/pinpaibang.png?2020" /></div>
                                                         </a>
                                                     </div>
                                                     <div class="item s3">
@@ -1112,7 +1170,7 @@
                                                             <div class="title font16 b">网购榜</div>
                                                             <div class="mintitle font12">网店排行</div>
                                                             <div class="img">
-                                                                <img width="60" height="60" src="/public/images/icon/v2019/wanggoubang.png?2020" /></div>
+                                                                <img width="60" height="60" src="https://s.maigoo.com/public/images/icon/v2019/wanggoubang.png?2020" /></div>
                                                         </a>
                                                     </div>
                                                     <div class="item s4">
@@ -1120,7 +1178,7 @@
                                                             <div class="title font16 b">招商榜</div>
                                                             <div class="mintitle font12">招商加盟</div>
                                                             <div class="img">
-                                                                <img width="60" height="60" src="/public/images/icon/v2019/zhaoshangbang.png?2020" /></div>
+                                                                <img width="60" height="60" src="https://s.maigoo.com/public/images/icon/v2019/zhaoshangbang.png?2020" /></div>
                                                         </a>
                                                     </div>
                                                     <div class="clear"></div>
@@ -1133,7 +1191,7 @@
                                                             <div class="title font16 b">趣闻榜</div>
                                                             <div class="mintitle font12">生活排行</div>
                                                             <div class="img">
-                                                                <img width="60" height="60" src="/public/images/icon/v2019/quwenbang.png?2020" /></div>
+                                                                <img width="60" height="60" src="https://s.maigoo.com/public/images/icon/v2019/quwenbang.png?2020" /></div>
                                                         </a>
                                                     </div>
                                                     <div class="item s6">
@@ -1141,7 +1199,7 @@
                                                             <div class="title font16 b">人物榜</div>
                                                             <div class="mintitle font12">名人榜单</div>
                                                             <div class="img">
-                                                                <img width="60" height="60" src="/public/images/icon/v2019/renwubang.png?2020" /></div>
+                                                                <img width="60" height="60" src="https://s.maigoo.com/public/images/icon/v2019/renwubang.png?2020" /></div>
                                                         </a>
                                                     </div>
                                                     <div class="item s7">
@@ -1149,7 +1207,7 @@
                                                             <div class="title font16 b">装修榜</div>
                                                             <div class="mintitle font12">装修知识</div>
                                                             <div class="img">
-                                                                <img width="60" height="60" src="/public/images/icon/v2019/zhuangxiubang.png?2020" /></div>
+                                                                <img width="60" height="60" src="https://s.maigoo.com/public/images/icon/v2019/zhuangxiubang.png?2020" /></div>
                                                         </a>
                                                     </div>
                                                     <div class="item s8">
@@ -1157,7 +1215,7 @@
                                                             <div class="title font16 b">网点榜</div>
                                                             <div class="mintitle font12">服务网点</div>
                                                             <div class="img">
-                                                                <img width="60" height="60" src="/public/images/icon/v2019/wangdianbang.png?2020" /></div>
+                                                                <img width="60" height="60" src="https://s.maigoo.com/public/images/icon/v2019/wangdianbang.png?2020" /></div>
                                                         </a>
                                                     </div>
                                                     <div class="clear"></div>
@@ -1170,7 +1228,7 @@
                                                             <div class="title font16 b">产品榜</div>
                                                             <div class="mintitle font12">热门产品</div>
                                                             <div class="img">
-                                                                <img width="60" height="60" src="/public/images/icon/v2019/chanpinbang.png?2020" /></div>
+                                                                <img width="60" height="60" src="https://s.maigoo.com/public/images/icon/v2019/chanpinbang.png?2020" /></div>
                                                         </a>
                                                     </div>
                                                     <div class="item s10">
@@ -1178,7 +1236,7 @@
                                                             <div class="title font16 b">娱乐榜</div>
                                                             <div class="mintitle font12">娱乐八卦</div>
                                                             <div class="img">
-                                                                <img width="60" height="60" src="/public/images/icon/v2019/yulebang.png?2020" /></div>
+                                                                <img width="60" height="60" src="https://s.maigoo.com/public/images/icon/v2019/yulebang.png?2020" /></div>
                                                         </a>
                                                     </div>
                                                     <div class="item s11">
@@ -1186,7 +1244,7 @@
                                                             <div class="title font16 b">汽车榜</div>
                                                             <div class="mintitle font12">价格排行</div>
                                                             <div class="img">
-                                                                <img width="60" height="60" src="/public/images/icon/v2019/qichebang.png?2020" /></div>
+                                                                <img width="60" height="60" src="https://s.maigoo.com/public/images/icon/v2019/qichebang.png?2020" /></div>
                                                         </a>
                                                     </div>
                                                     <div class="item s12">
@@ -1194,7 +1252,7 @@
                                                             <div class="title font16 b">旅游榜</div>
                                                             <div class="mintitle font12">热门景点</div>
                                                             <div class="img">
-                                                                <img width="60" height="60" src="/public/images/icon/v2019/lvyoubang.png?2020" /></div>
+                                                                <img width="60" height="60" src="https://s.maigoo.com/public/images/icon/v2019/lvyoubang.png?2020" /></div>
                                                         </a>
                                                     </div>
                                                     <div class="clear"></div>
@@ -1247,83 +1305,61 @@
                                     <a href="https://www.maigoo.com/maigoocms/special/qinzi/152jwn.html" target="_blank">
                                         <img src="https://image.maigoo.com/upload/images/20180706/17583538279_207x90.gif" /></a>
                                 </li>
-                                <li>
-                                    <a href="https://www.maigoo.com/maigoocms/special/qinzi/152uni.html" target="_blank">
-                                        <img src="https://image.maigoo.com/upload/images/20170420/15072878379_207x90.gif" /></a>
-                                </li>
-                                <li>
-                                    <a href="https://www.maigoo.com/brand/18144.html" target="_blank">
-                                        <img src="https://image.maigoo.com/upload/images/20190928/18071410764_207x90.gif" /></a>
-                                </li>
-                                <li>
-                                    <a href="https://www.maigoo.com/maigoocms/special/qinzi/266zhonghuapai.html" target="_blank">
-                                        <img src="https://image.maigoo.com/upload/images/20200508/11393395496_207x90.gif" /></a>
-                                </li>
-                                <li>
-                                    <a href="https://www.maigoo.com/maigoocms/special/qinzi/152yx.html" target="_blank">
-                                        <img src="https://image.maigoo.com/upload/images/20201123/18193768406_207x90.gif" /></a>
-                                </li>
-                                <li>
-                                    <a href="https://www.maigoo.com/brand/18005.html" target="_blank">
-                                        <img src="https://image.maigoo.com/upload/images/20190115/15230175899_207x90.gif" /></a>
-                                </li>
-                                <li>
-                                    <a href="https://www.maigoo.com/maigoocms/special/qinzi/152BAOKE.html" target="_blank">
-                                        <img src="https://image.maigoo.com/upload/images/20200420/13363632951_207x90.gif" /></a>
-                                </li>
                             </ul>
                             <div class="clear"></div>
                         </div>
                         <a class="downloadapp" href="https://www.cnpp.cn/android/maigooapp/" target="_blank">
-                            <img width="260" height="150" src="/public/images/maigoo/v2019/erweima/maigoo_app_blue.jpg?2021" /></a>
+                            <img width="260" height="150" src="https://s.maigoo.com/public/images/maigoo/v2019/erweima/maigoo_app_blue.jpg?202101" /></a>
                         <dl class="datacounts">
                             <dd>
                                 <a href="https://www.maigoo.com/brand10/pinpaibang/#posbrandvottelist" target="_blank" class="c666 line2em dhidden">已有
-                                    <i>1627202</i>个品牌入驻</a>
+                                    <i>1630958</i>个品牌入驻</a>
                                 <a href="https://www.maigoo.com/zhaoshang/search/" target="_blank" class="c666 line2em dhidden">更新
-                                    <i>514589</i>个招商信息</a>
+                                    <i>515648</i>个招商信息</a>
                                 <a href="https://www.maigoo.com/zhaoshang/#posjmform" target="_blank" class="c666 line2em dhidden">已发布
-                                    <i>1393815</i>个加盟需求</a>
+                                    <i>1448515</i>个加盟需求</a>
                                 <a href="https://www.maigoo.com/brand10/dianzanbang/#pospraisebang2" target="_blank" class="c666 line2em dhidden">已有
-                                    <i>965938</i>条品牌点赞</a>
+                                    <i>982522</i>条品牌点赞</a>
                             </dd>
                         </dl>
                     </div>
                 </div>
                 <div class="clear"></div>
             </div>
-        </div>
+            <!--footer--></div>
         <div class="webshoplogo">
-            <a target="_blank" href="https://www.maigoo.com/webshop/66213.html">
-                <img width="83" height="37" src="https://image.maigoo.com/upload/images/20160614/11065274877_83x37.png" />
-                <em class="dhidden">晨光</em></a>
-            <a target="_blank" href="https://www.maigoo.com/webshop/155559.html">
-                <img width="83" height="37" src="https://image.maigoo.com/upload/images/20160614/11144768010_83x37.png" />
-                <em class="dhidden">得力</em></a>
-            <a target="_blank" href="https://www.maigoo.com/webshop/245853.html">
-                <img width="83" height="37" src="https://image.maigoo.com/upload2/images/20131113/mbrand__2413_logo.png" />
-                <em class="dhidden">真彩</em></a>
-            <a target="_blank" href="https://www.maigoo.com/webshop/334555.html">
-                <img width="83" height="37" src="https://image.maigoo.com/upload/images/20150721/22555659033_83x37.png" />
-                <em class="dhidden">齐心</em></a>
-            <a target="_blank" href="https://www.maigoo.com/webshop/317825.html">
-                <img width="83" height="37" src="https://image.maigoo.com/upload2/images/20131113/mbrand__2415_logo.png" />
-                <em class="dhidden">爱好</em></a>
-            <a target="_blank" href="https://www.maigoo.com/webshop/230909.html">
-                <img width="83" height="37" src="https://image.maigoo.com/upload2/images/20131113/mbrand__2414_logo.png" />
-                <em class="dhidden">白雪</em></a>
-            <a target="_blank" href="https://www.maigoo.com/webshop/271998.html">
-                <img width="83" height="37" src="https://image.maigoo.com/upload/images/20150402/17574922295_83x37.png" />
-                <em class="dhidden">贝发</em></a>
-            <a target="_blank" href="https://www.maigoo.com/webshop/155564.html">
-                <img width="83" height="37" src="https://image.maigoo.com/upload2/images/20131113/mbrand__2555_logo.png#" />
-                <em class="dhidden">广博</em></a>
-            <a target="_blank" href="https://www.maigoo.com/webshop/273632.html">
-                <img width="83" height="37" src="https://image.maigoo.com/upload2/images/20131113/mbrand__2516_logo.png" />
-                <em class="dhidden">三木</em></a>
-            <a target="_blank" href="https://www.maigoo.com/webshop/142762.html">
-                <img width="83" height="37" src="https://image.maigoo.com/upload2/images/20131113/mbrand__2417_logo.png" />
-                <em class="dhidden">金万年</em></a>
+            <div class="logobox2">
+                <a target="_blank" href="https://www.maigoo.com/webshop/66213.html">
+                    <img width="83" height="37" src="https://image.maigoo.com/upload/images/20160614/11065274877_83x37.png" />
+                    <em class="dhidden">晨光</em></a>
+                <a target="_blank" href="https://www.maigoo.com/webshop/155559.html">
+                    <img width="83" height="37" src="https://image.maigoo.com/upload/images/20160614/11144768010_83x37.png" />
+                    <em class="dhidden">得力</em></a>
+                <a target="_blank" href="https://www.maigoo.com/webshop/245853.html">
+                    <img width="83" height="37" src="https://image.maigoo.com/upload2/images/20131113/mbrand__2413_logo.png" />
+                    <em class="dhidden">真彩</em></a>
+                <a target="_blank" href="https://www.maigoo.com/webshop/334555.html">
+                    <img width="83" height="37" src="https://image.maigoo.com/upload/images/20150721/22555659033_83x37.png" />
+                    <em class="dhidden">齐心办公</em></a>
+                <a target="_blank" href="https://www.maigoo.com/webshop/317825.html">
+                    <img width="83" height="37" src="https://image.maigoo.com/upload2/images/20131113/mbrand__2415_logo.png" />
+                    <em class="dhidden">爱好</em></a>
+                <a target="_blank" href="https://www.maigoo.com/webshop/230909.html">
+                    <img width="83" height="37" src="https://image.maigoo.com/upload2/images/20131113/mbrand__2414_logo.png" />
+                    <em class="dhidden">白雪文具</em></a>
+                <a target="_blank" href="https://www.maigoo.com/webshop/271998.html">
+                    <img width="83" height="37" src="https://image.maigoo.com/upload/images/20150402/17574922295_83x37.png" />
+                    <em class="dhidden">贝发</em></a>
+                <a target="_blank" href="https://www.maigoo.com/webshop/155564.html">
+                    <img width="83" height="37" src="https://image.maigoo.com/upload2/images/20131113/mbrand__2555_logo.png#" />
+                    <em class="dhidden">广博</em></a>
+                <a target="_blank" href="https://www.maigoo.com/webshop/273632.html">
+                    <img width="83" height="37" src="https://image.maigoo.com/upload2/images/20131113/mbrand__2516_logo.png" />
+                    <em class="dhidden">三木</em></a>
+                <a target="_blank" href="https://www.maigoo.com/webshop/142762.html">
+                    <img width="83" height="37" src="https://image.maigoo.com/upload2/images/20131113/mbrand__2417_logo.png" />
+                    <em class="dhidden">金万年</em></a>
+            </div>
         </div>
         <footer class="footlist">
             <div id="footer">
@@ -1435,14 +1471,14 @@
                     <div class="clear"></div>
                 </div>
                 <div class="center bimg">
-                    <img src="/public/images/maigoo/v2019/footer/logo2.png" /></div>
+                    <img class="lazy" data-src="/public/images/maigoo/v2019/footer/logo2.png" /></div>
                 <div class="center bimg">
-                    <img src="/public/images/maigoo/v2019/footer/logo3.png" /></div>
+                    <img class="lazy" data-src="/public/images/maigoo/v2019/footer/logo3.png?202101" /></div>
             </div>
         </footer>
         <div id="go_top">
             <ul>
-                <li class="holidayicon getajaxdata" url="/ajaxstream/holiday/?action=getinfo"></li>
+                <li class="holidayicon getajaxdata" url="https://s.maigoo.com/ajaxstream/holiday/?action=getinfo"></li>
                 <li>
                     <a class="fff" href="javascript:void(0);" id="kefu" onclick="kefulink();">
                         <img src="https://s.maigoo.com/public/images/icon/kefu1.gif">
@@ -1490,7 +1526,7 @@
             userid = '0',
             issm = '';
             var authorpiclist = null;</script>
-        <script type="text/javascript" src="/public/js/maigoo/cache/zhishi_list_fc66180d0e2385c2b188311632bb993e.js?t=1609403368"></script>
+        <script type="text/javascript" src="/public/js/maigoo/cache/zhishi_list_fc66180d0e2385c2b188311632bb993e.js?t=1615189005"></script>
         <script>var _hmt = _hmt || []; (function() {
                 var hm = document.createElement("script");
                 hm.src = "https://hm.baidu.com/hm.js?de3f6fd28ec4ac19170f18e2a8777593";

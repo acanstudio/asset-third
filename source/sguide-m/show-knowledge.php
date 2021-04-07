@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!--STATUS OK-->
 <html>
     
     <head>
@@ -14,9 +15,9 @@
         <meta content="telephone=no" name="format-detection" />
         <meta name="applicable-device" content="mobile">
         <link href="/favicon.ico" rel="shortcut icon" />
-        <link href="https://at.alicdn.com/t/font_989362_542opn2gp6w.css" type="text/css" rel="stylesheet" />
-        <link href="/public/css/mobile/v2019/inc.css?t=1609400834" type="text/css" rel="stylesheet" />
-        <link href="/public/mod/css/inc.css?t=1605067157" type="text/css" rel="stylesheet" />
+        <link href="https://at.alicdn.com/t/font_989362_uykezb61ug.css" type="text/css" rel="stylesheet" />
+        <link href="/public/css/mobile/v2019/inc.css?t=1614673790" type="text/css" rel="stylesheet" />
+        <link href="/public/mod/css/inc.css?t=1611127981" type="text/css" rel="stylesheet" />
         <link href="/public/mod/css/mobile/mobile.css?t=1605067157" type="text/css" rel="stylesheet" />
         <link href="/public/mod/css/mobile/4004p.css?t=1605067157" type="text/css" rel="stylesheet" />
         <link href="/public/mod/css/mobile/2004p.css?t=1605067157" type="text/css" rel="stylesheet" />
@@ -24,8 +25,8 @@
         <link href="/public/mod/css/mobile/4015p.css?t=1605067157" type="text/css" rel="stylesheet" />
         <link href="/public/mod/css/mobile/4016p.css?t=1605067157" type="text/css" rel="stylesheet" />
         <link href="/public/mod/css/mobile/3032p.css?t=1605067157" type="text/css" rel="stylesheet" />
-        <link href="/public/mod/css/mobile/datamodel/databrandp.css?t=1608018235" type="text/css" rel="stylesheet" />
-        <link href="/public/css/mobile/cache/goodbest_show_60feac1e794810ac27c4d0c5d0b49430.css?t=1609122767" type="text/css" rel="stylesheet" />
+        <link href="/public/mod/css/mobile/datamodel/databrandp.css?t=1611303536" type="text/css" rel="stylesheet" />
+        <link href="/public/css/mobile/cache/goodbest_show_60feac1e794810ac27c4d0c5d0b49430.css?t=1614224774" type="text/css" rel="stylesheet" />
         <style type="text/css">.md_4016 .mod_body .mod_cont .bdcolor-q{display:none;} .md_4016 .mod_body .mod_cont{line-height:2em;text-align:left} .pc .md_4016 .mod_body .mod_cont .MsoNormal{width:960px;padding:0 0 0 360px} .pc .md_4016 .mod_body .mod_cont{border:0px solid #fff;color:#fff;background-color:rgba(255,255,255,0.7)} .pc .md_4016{margin:-300px 0 0 0;height:300px} .md_4016 .mod_cont { border: 2px solid #eee; padding: 26px; position: relative; }.autowidth .font24, .font24 a {font-size: 36px !important;}.md_4015 .mod_cont {border-width: 2px;border-style:solid;padding: 12px;border-radius:0px;border-color:#eee} .md_4015 .mod_cont .mod_border {border-width: 0px;border-style: dashed;padding: 18px;border-radius:20px;border-color:#dcdddd}.md_4015 .mod_cont {border-width: 2px;border-style:solid;padding: 12px;border-radius:0px;border-color:#eee} .md_4015 .mod_cont .mod_border {border-width: 0px;border-style: dashed;padding: 18px;border-radius:20px;border-color:#dcdddd}.md_3022 .mod_cont .mod_img,.md_3022 .mod_cont .tcenter .mod_line,.md_3022 .mod_cont .tcenter .mod_desc{display:none;} .md_3022 .mod_cont .tcenter .mod_t1{display:none;} .md_3022 .mod_cont li{background-color:transparent;} .md_3022 .mod_cont .tcenter .mod_t2 a{width:240px;padding:8px 0;border:2px solid #eee;border-radius:8px;display:inline-block;background-color:#fff;color:#22211f;font-weight:normal;}.md_4004 .mod_body .mod_cont ul li .relative .md_desc{display:none;}</style>
         <script src="https://cdn.staticfile.org/jquery/1.11.3/jquery.min.js" type="text/javascript"></script>
     </head>
@@ -75,7 +76,7 @@
                                         <a href="https://m.maigoo.com/goomai/list_7375.html" class="c666 dhidden">橡皮</a>
                                         <a href="https://m.maigoo.com/goomai/list_4742.html" class="c666 dhidden">蜡笔</a>
                                         <a href="https://m.maigoo.com/goomai/list_7478.html" class="c666 dhidden">文件夹</a>
-                                        <a href="https://m.maigoo.com/goomai/list_4528.html" class="c666 dhidden">便签纸</a>
+                                        <a href="https://m.maigoo.com/goomai/list_4528.html" class="c666 dhidden">便签</a>
                                         <a href="https://m.maigoo.com/goomai/list_776.html" class="c666 dhidden">马克笔</a>
                                         <a href="https://m.maigoo.com/goomai/list_7377.html" class="c666 dhidden">毛笔</a>
                                         <a href="https://m.maigoo.com/goomai/list_790.html" class="c666 dhidden">墨水</a>
@@ -99,9 +100,9 @@
                                         <a href="https://m.maigoo.com/maigoocms/special/qinzi/154chenguang.html" class="c666 dhidden">晨光文具M&G</a>
                                         <a href="https://m.maigoo.com/maigoocms/special/qinzi/151deli.html" class="c666 dhidden">得力DELI</a>
                                         <a href="https://m.maigoo.com/maigoocms/special/qinzi/151lemei.html" class="c666 dhidden">真彩TrueColor</a>
-                                        <a href="https://m.maigoo.com/maigoocms/special/qinzi/151qixin.html" class="c666 dhidden">齐心COMIX</a>
+                                        <a href="https://m.maigoo.com/maigoocms/special/qinzi/151qixin.html" class="c666 dhidden">齐心办公COMIX</a>
                                         <a href="https://m.maigoo.com/maigoocms/special/qinzi/152AIHAO.html" class="c666 dhidden">爱好AIHAO</a>
-                                        <a href="https://m.maigoo.com/maigoocms/special/qinzi/151baixue.html" class="c666 dhidden">白雪Snowhite</a>
+                                        <a href="https://m.maigoo.com/maigoocms/special/qinzi/151baixue.html" class="c666 dhidden">白雪文具Snowhite</a>
                                         <a href="https://m.maigoo.com/maigoocms/special/qinzi/151beifa.html" class="c666 dhidden">贝发BEIFA</a>
                                         <a href="https://m.maigoo.com/maigoocms/special/bggj/151gb.html" class="c666 dhidden">广博GuangBo</a>
                                         <a href="https://m.maigoo.com/maigoocms/special/bggj/151SUNWOOD.html" class="c666 dhidden">三木SUNWOOD</a>
@@ -524,10 +525,10 @@
                                                                 <span class="md_dy_brandname oneline font14 tcenter fcolor26">真彩TrueColor</span></a>
                                                         </div>
                                                         <div class="md_dy_brandlogo">
-                                                            <a href="https://m.maigoo.com/maigoocms/special/qinzi/151qixin.html" title="齐心COMIX">
+                                                            <a href="https://m.maigoo.com/maigoocms/special/qinzi/151qixin.html" title="齐心办公COMIX">
                                                                 <div class="md_dy_img">
                                                                     <img src="https://image.maigoo.com/upload/images/20150318/11402394026_207x90.gif"></div>
-                                                                <span class="md_dy_brandname oneline font14 tcenter fcolor26">齐心COMIX</span></a>
+                                                                <span class="md_dy_brandname oneline font14 tcenter fcolor26">齐心办公COMIX</span></a>
                                                         </div>
                                                         <div class="md_dy_brandlogo">
                                                             <a href="https://m.maigoo.com/maigoocms/special/qinzi/152AIHAO.html" title="爱好AIHAO">
@@ -536,10 +537,10 @@
                                                                 <span class="md_dy_brandname oneline font14 tcenter fcolor26">爱好AIHAO</span></a>
                                                         </div>
                                                         <div class="md_dy_brandlogo">
-                                                            <a href="https://m.maigoo.com/maigoocms/special/qinzi/151baixue.html" title="白雪Snowhite">
+                                                            <a href="https://m.maigoo.com/maigoocms/special/qinzi/151baixue.html" title="白雪文具Snowhite">
                                                                 <div class="md_dy_img">
                                                                     <img src="https://image.maigoo.com/upload/images/20200420/13363574387_207x90.gif"></div>
-                                                                <span class="md_dy_brandname oneline font14 tcenter fcolor26">白雪Snowhite</span></a>
+                                                                <span class="md_dy_brandname oneline font14 tcenter fcolor26">白雪文具Snowhite</span></a>
                                                         </div>
                                                         <div class="md_dy_brandlogo">
                                                             <a href="https://m.maigoo.com/maigoocms/special/qinzi/151beifa.html" title="贝发BEIFA">
@@ -690,14 +691,15 @@
                             <a class="color1" href="javascript:;" onclick="window.open('https://m.maigoo.com/answer/355.html');">投诉侵权>></a></div>
                     </div>
                     <div class="moremzsm">
-                        <img src="/public/images/icon/addmore.gif" onclick="$('#mzsmcontent').find('.mzsm').css('height','auto');$(this).parent().remove();" /></div>
+                        <img src="https://s.maigoo.com/public/images/icon/addmore.gif" onclick="$('#mzsmcontent').find('.mzsm').css('height','auto');$(this).parent().remove();" /></div>
                 </div>
                 <div class="articlepraise bottombd" id="articlepraise">
+                    <!--点赞-->
                     <div class="tubiao">
                         <div class="dianzhan">
-                            <a href="/ajaxstream/praise/?action=addpraise&block=goodbest&id=8331" class="addpraise" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).find('.addnum'))">
+                            <a href="/ajaxstream/praise/?action=addpraise&block=goodbest&id=8331" class="addpraise" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$('.addpraisenum'))">
                                 <i class="iconfont icon-dianzan"></i>赞
-                                <i class="addnum getajaxdata" url="https://s.maigoo.com/ajaxstream/praise/?action=getpraise&block=goodbest&id=8331&type=add"></i></a>
+                                <i class="addpraisenum getajaxdata" url="https://s.maigoo.com/ajaxstream/praise/?action=getpraise&block=goodbest&id=8331&type=add"></i></a>
                         </div>
                         <div class="xiajiang c999">
                             <a href="/ajaxstream/praise/?action=cutpraise&block=goodbest&id=8331" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).find('.addnum'))" class="cutpraise">
@@ -746,15 +748,15 @@
                         <li class="item ">
                             <div class="ibox">
                                 <div class="img ">
-                                    <a href="https://m.maigoo.com/goomai/96827.html">
-                                        <img src="https://image.maigoo.com/upload/images/20171026/13572115293_500x312.jpg_220_135.jpg" /></a>
+                                    <a href="https://m.maigoo.com/goomai/193352.html">
+                                        <img src="https://image.maigoo.com/upload/images/20171211/11403558621_500x312.jpg_220_135.jpg" /></a>
                                 </div>
                                 <div class="contbox">
-                                    <a class="title font15 color2 dhidden2" href="https://m.maigoo.com/goomai/96827.html">
-                                        <span class="numb num1"></span>【学习机推荐】学习机哪种好 学习机价格 学习机选购指南</a>
+                                    <a class="title font15 color2 dhidden2" href="https://m.maigoo.com/goomai/193352.html">
+                                        <span class="numb num1"></span>学习用品清单大全 孩子上学要准备哪些学习用品？你买齐了吗？</a>
                                     <div class='other font12'>
                                         <span class="isyuan bg2 color1">MAIGOO原创</span>
-                                        <a class="biaoqian color5" href="https://m.maigoo.com/biaoqian/117.html">学习机</a>
+                                        <a class="biaoqian color5" href="https://m.maigoo.com/biaoqian/22.html">文具用品</a>
                                         <div class="attention">
                                             <i class="iconfont icon-chakan"></i>1.2万</div>
                                     </div>
@@ -762,16 +764,20 @@
                                 <div class="clear"></div>
                             </div>
                         </li>
-                        <li class="item nopic">
+                        <li class="item ">
                             <div class="ibox">
+                                <div class="img ">
+                                    <a href="https://m.maigoo.com/goomai/219094.html">
+                                        <img src="https://image.maigoo.com/upload/images/20190719/16595989060_500x312.jpg_220_135.jpg" /></a>
+                                </div>
                                 <div class="contbox">
-                                    <a class="title font15 color2 dhidden2" href="https://m.maigoo.com/goomai/222829.html">
-                                        <span class="numb num2"></span>儿童美术用品有哪些？超全儿童美术用品清单整理</a>
+                                    <a class="title font15 color2 dhidden2" href="https://m.maigoo.com/goomai/219094.html">
+                                        <span class="numb num2"></span>【中性笔百科】中性笔如何握笔 中性笔油怎么能洗掉</a>
                                     <div class='other font12'>
                                         <span class="isyuan bg2 color1">MAIGOO原创</span>
-                                        <a class="biaoqian color5" href="https://m.maigoo.com/biaoqian/372.html">美术用品</a>
+                                        <a class="biaoqian color5" href="https://m.maigoo.com/biaoqian/289.html">中性笔</a>
                                         <div class="attention">
-                                            <i class="iconfont icon-chakan"></i>166</div>
+                                            <i class="iconfont icon-chakan"></i>374</div>
                                     </div>
                                 </div>
                                 <div class="clear"></div>
@@ -780,17 +786,17 @@
                         <li class="item ">
                             <div class="ibox">
                                 <div class="img ">
-                                    <a href="https://m.maigoo.com/goomai/193357.html">
-                                        <img src="https://image.maigoo.com/upload/images/20171211/11403512797_500x312.jpg_220_135.jpg" /></a>
+                                    <a href="https://m.maigoo.com/goomai/213425.html">
+                                        <img src="https://image.maigoo.com/upload/images/20190311/09240847542_500x312.jpg_220_135.jpg" /></a>
                                 </div>
                                 <div class="contbox">
-                                    <a class="title font15 color2 dhidden2" href="https://m.maigoo.com/goomai/193357.html">
-                                        <span class="numb num3"></span>青少年学生用品清单 学生日常生活用品大全</a>
+                                    <a class="title font15 color2 dhidden2" href="https://m.maigoo.com/goomai/213425.html">
+                                        <span class="numb num3"></span>【学习点读机哪种好】小学生用哪种点读机好 十款热门点读机测评分享</a>
                                     <div class='other font12'>
                                         <span class="isyuan bg2 color1">MAIGOO原创</span>
-                                        <a class="biaoqian color5" href="https://m.maigoo.com/biaoqian/22.html">文具用品</a>
+                                        <a class="biaoqian color5" href="https://m.maigoo.com/biaoqian/846.html">点读机</a>
                                         <div class="attention">
-                                            <i class="iconfont icon-chakan"></i>9125</div>
+                                            <i class="iconfont icon-chakan"></i>2363</div>
                                     </div>
                                 </div>
                                 <div class="clear"></div>
@@ -799,17 +805,16 @@
                         <li class="item ">
                             <div class="ibox">
                                 <div class="img ">
-                                    <a href="https://m.maigoo.com/news/563800.html">
-                                        <img src="https://image.maigoo.com/upload/images/20200917/09102717259_500x312.jpg_220_135.jpg" /></a>
+                                    <a href="https://m.maigoo.com/goomai/169562.html">
+                                        <img src="https://image.maigoo.com/upload/images/20190531/18205798731_500x312.jpg_220_135.jpg" /></a>
                                 </div>
                                 <div class="contbox">
-                                    <a class="title font15 color2 dhidden2" href="https://m.maigoo.com/news/563800.html">
-                                        <span class="numb num4"></span>2021年十大记号笔品牌网店排行榜 10大好牌子记号笔店铺推荐【好店榜】</a>
+                                    <a class="title font15 color2 dhidden2" href="https://m.maigoo.com/goomai/169562.html">
+                                        <span class="numb num4"></span>【学习机百科】学习机哪种好 学生平板电脑真的有用吗</a>
                                     <div class='other font12'>
-                                        <span class="isyuan bg2 color1">MAIGOO原创</span>
-                                        <a class="biaoqian color5" href="https://m.maigoo.com/biaoqian/1267.html">马克笔</a>
+                                        <a class="biaoqian color5" href="https://m.maigoo.com/biaoqian/117.html">学习机</a>
                                         <div class="attention">
-                                            <i class="iconfont icon-chakan"></i>1104</div>
+                                            <i class="iconfont icon-chakan"></i>1.6万</div>
                                     </div>
                                 </div>
                                 <div class="clear"></div>
@@ -818,17 +823,17 @@
                         <li class="item ">
                             <div class="ibox">
                                 <div class="img ">
-                                    <a href="https://m.maigoo.com/goomai/214107.html">
-                                        <img src="https://image.maigoo.com/upload/images/20180329/13542122959_500x312.jpg_220_135.jpg" /></a>
+                                    <a href="https://m.maigoo.com/goomai/159381.html">
+                                        <img src="https://image.maigoo.com/upload/images/20180625/09223030877_500x312.jpg_220_135.jpg" /></a>
                                 </div>
                                 <div class="contbox">
-                                    <a class="title font15 color2 dhidden2" href="https://m.maigoo.com/goomai/214107.html">
-                                        <span class="numb num5"></span>十款值得买的早教故事机排行榜 儿童早教机哪个好用【产品榜】</a>
+                                    <a class="title font15 color2 dhidden2" href="https://m.maigoo.com/goomai/159381.html">
+                                        <span class="numb num5"></span>学习机排行榜十强 学习机十大品牌 学习机品牌排行【最新排行】</a>
                                     <div class='other font12'>
                                         <span class="isyuan bg2 color1">MAIGOO原创</span>
-                                        <a class="biaoqian color5" href="https://m.maigoo.com/biaoqian/1149.html">早教机</a>
+                                        <a class="biaoqian color5" href="https://m.maigoo.com/biaoqian/117.html">学习机</a>
                                         <div class="attention">
-                                            <i class="iconfont icon-chakan"></i>4214</div>
+                                            <i class="iconfont icon-chakan"></i>5.1万</div>
                                     </div>
                                 </div>
                                 <div class="clear"></div>
@@ -836,10 +841,10 @@
                         </li>
                     </ul>
                     <div class="blockmorebox font16 ">
-                        <div class="morebtn c333" data-action="djarticlelist" data-subaction="" data-thirdaction="" data-page="2" data-start="" data-defaultids="22,155225,453" data-sort="" data-tabnum="04" data-maxpage="" onclick="getData(this)">
+                        <div class="morebtn c333" data-action="djarticlelist" data-subaction="" data-thirdaction="" data-page="2" data-start="" data-defaultids="22,155225,453" data-sort="" data-tabnum="12" data-maxpage="" onclick="getData(this)">
                             <i class="iconfont icon-gengduo"></i>
                             <span>加载更多</span></div>
-                        <a class="next dn" href="/best/8331.html?action=djarticlelist&tabnum=04&page=2">下一页</a>
+                        <a class="next dn" href="/best/8331.html?action=djarticlelist&tabnum=12&page=2">下一页</a>
                         <div class="clear"></div>
                     </div>
                 </div>
@@ -909,7 +914,7 @@
             issm = '';
             var authorpiclist = [];</script>
         <script type="text/javascript" src="https://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
-        <script type="text/javascript" src="/public/mod/js/public.js?t=1605067158"></script>
+        <script type="text/javascript" src="/public/mod/js/public.js?t=1609986684"></script>
         <script type="text/javascript" src="/public/js/mobile/cache/goodbest_show_06e72af3f229f7e99a13c69f6d683bb1.js?t=1608193488"></script>
         <script>var _hmt = _hmt || []; (function() {
                 var hm = document.createElement("script");

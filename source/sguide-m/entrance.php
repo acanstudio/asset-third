@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!--STATUS OK-->
 <html>
     
     <head>
@@ -14,9 +15,9 @@
         <meta content="telephone=no" name="format-detection" />
         <meta name="applicable-device" content="mobile">
         <link href="/favicon.ico" rel="shortcut icon" />
-        <link href="https://at.alicdn.com/t/font_989362_542opn2gp6w.css" type="text/css" rel="stylesheet" />
-        <link href="/public/css/mobile/v2019/inc.css?t=1610523960" type="text/css" rel="stylesheet" />
-        <link href="/public/css/mobile/cache/brand10_index_75832173f1ba83073dc45e17823eb94e.css?t=1608953345" type="text/css" rel="stylesheet" />
+        <link href="https://at.alicdn.com/t/font_989362_uykezb61ug.css" type="text/css" rel="stylesheet" />
+        <link href="/public/css/mobile/v2019/inc.css?t=1614673790" type="text/css" rel="stylesheet" />
+        <link href="/public/css/mobile/cache/brand10_index_75832173f1ba83073dc45e17823eb94e.css?t=1614225038" type="text/css" rel="stylesheet" />
         <script src="https://cdn.staticfile.org/jquery/1.11.3/jquery.min.js" type="text/javascript"></script>
     </head>
     
@@ -108,47 +109,47 @@
                                     <div class="left">
                                         <div class="title font18">知识榜</div>
                                         <div class="mintitle font10">知识课堂
-                                            <i class="iconfont iconzhishibang c999 icon-gengduo2"></i></div>
+                                            <i class="iconfont icon-gengduo4"></i></div>
                                         <div class="img">
                                             <img width="100" height="100" src="/public/images/icon/v2019/zhishibang.png" /></div>
                                     </div>
                                     <div class="right zhishibang">
                                         <div class="item2 dhidden">
                                             <i>1.</i>
-                                            <span class="ttl font12">【节日活动知识体系】节日购物送礼十大主题</span></div>
+                                            <span class="ttl font12">【综艺节目知识体系】综艺节目十大主题</span></div>
                                         <div class="item2 dhidden">
                                             <i>2.</i>
-                                            <span class="ttl font12">【新房装修知识体系】新房装修十大主题</span></div>
+                                            <span class="ttl font12">【鱼虾蟹知识体系】鱼虾蟹十大主题</span></div>
                                         <div class="item2 dhidden">
                                             <i>3.</i>
-                                            <span class="ttl font12">【秋季知识体系】秋天十大主题</span></div>
+                                            <span class="ttl font12">【肉类知识体系】肉类十大主题</span></div>
                                         <div class="item2 dhidden">
                                             <i>4.</i>
-                                            <span class="ttl font12">【遮瑕知识体系】遮瑕十大主题</span></div>
+                                            <span class="ttl font12">【面食知识体系】面点十大主题</span></div>
                                         <div class="item2 dhidden">
                                             <i>5.</i>
-                                            <span class="ttl font12">【瑜伽知识体系】瑜伽十大主题</span></div>
+                                            <span class="ttl font12">【口味知识体系】味道十大主题</span></div>
                                         <div class="item2 dhidden">
                                             <i>6.</i>
-                                            <span class="ttl font12">【演出知识体系】表演十大主题</span></div>
+                                            <span class="ttl font12">【聚餐宴请知识体系】聚餐宴请十大主题</span></div>
                                         <div class="item2 dhidden">
                                             <i>7.</i>
-                                            <span class="ttl font12">【信用卡知识体系】信用卡十大主题</span></div>
+                                            <span class="ttl font12">【家常菜知识体系】家常菜十大主题</span></div>
                                         <div class="item2 dhidden">
                                             <i>8.</i>
-                                            <span class="ttl font12">【天象景观知识体系】天象景观十大主题</span></div>
+                                            <span class="ttl font12">【火锅知识体系】火锅十大主题</span></div>
                                         <div class="item2 dhidden">
                                             <i>9.</i>
-                                            <span class="ttl font12">【榻榻米知识体系】榻榻米十大主题</span></div>
+                                            <span class="ttl font12">【菜系中餐知识体系】菜系中餐十大主题</span></div>
                                         <div class="item2 dhidden">
                                             <i>10.</i>
-                                            <span class="ttl font12">【手机维修知识体系】手机维修十大主题</span></div>
+                                            <span class="ttl font12">【贝螺类知识体系】贝螺类十大主题</span></div>
                                         <div class="item2 dhidden">
                                             <i>11.</i>
-                                            <span class="ttl font12">【去角质知识体系】去角质十大主题</span></div>
+                                            <span class="ttl font12">【冬装知识体系】冬装十大主题</span></div>
                                         <div class="item2 dhidden">
                                             <i>12.</i>
-                                            <span class="ttl font12">【青少儿在线教育知识体系】青少儿在线教育十大主题</span></div>
+                                            <span class="ttl font12">【整体衣柜知识体系】定制衣柜十大主题</span></div>
                                         <div class="clear"></div>
                                     </div>
                                     <div class="clear"></div>
@@ -159,20 +160,20 @@
                                     <div class="left">
                                         <div class="title font18">品牌榜</div>
                                         <div class="mintitle font10">十大品牌
-                                            <i class="iconfont iconpinpaibang c999 icon-gengduo2"></i></div>
+                                            <i class="iconfont icon-gengduo4"></i></div>
                                         <div class="img">
                                             <img width="100" height="100" src="/public/images/icon/v2019/pinpaibang.png" /></div>
                                     </div>
                                     <div class="right pinpaibang">
                                         <div class="item2 dhidden">
+                                            <img width="130" height="130" src="https://image.maigoo.com/upload/images/20180110/11374962497_300x300.png_150_150.jpg" />
+                                            <span class="ttl font12">水管管道</span></div>
+                                        <div class="item2 dhidden">
                                             <img width="130" height="130" src="https://image.maigoo.com/upload/images/20170929/14072011342_300x300.png_150_150.jpg" />
                                             <span class="ttl font12">硅藻泥</span></div>
                                         <div class="item2 dhidden">
-                                            <img width="130" height="130" src="https://image.maigoo.com/upload/images/20170929/14005560989_300x300.png_150_150.jpg" />
-                                            <span class="ttl font12">安全门</span></div>
-                                        <div class="item2 dhidden">
-                                            <img width="130" height="130" src="https://image.maigoo.com/upload/images/20210104/14591985936_300x300.png_150_150.jpg" />
-                                            <span class="ttl font12">集成墙面</span></div>
+                                            <img width="130" height="130" src="https://image.maigoo.com/upload/images/20170929/14095647218_300x300.png_150_150.jpg" />
+                                            <span class="ttl font12">地板</span></div>
                                         <div class="clear"></div>
                                     </div>
                                     <div class="clear"></div>
@@ -183,7 +184,7 @@
                                     <div class="left">
                                         <div class="title font18">网购榜</div>
                                         <div class="mintitle font10">网店排行
-                                            <i class="iconfont iconwanggoubang c999 icon-gengduo2"></i></div>
+                                            <i class="iconfont icon-gengduo4"></i></div>
                                         <div class="img">
                                             <img width="100" height="100" src="/public/images/icon/v2019/wanggoubang.png" /></div>
                                     </div>
@@ -218,23 +219,23 @@
                                     <div class="left">
                                         <div class="title font18">招商榜</div>
                                         <div class="mintitle font10">招商加盟
-                                            <i class="iconfont iconzhaoshangbang c999 icon-gengduo2"></i></div>
+                                            <i class="iconfont icon-gengduo4"></i></div>
                                         <div class="img">
                                             <img width="100" height="100" src="/public/images/icon/v2019/zhaoshangbang.png" /></div>
                                     </div>
                                     <div class="right zhaoshangbang">
                                         <div class="item2 dhidden">
                                             <i>2</i>
-                                            <img width="138" height="60" src="https://image.maigoo.com/upload/images/20201207/09014767456_207x90.gif_138_60.jpg" />
-                                            <span class="ttl font12">科凡全屋新奢定制</span></div>
+                                            <img width="138" height="60" src="https://image.maigoo.com/upload/images/20210112/13565237642_207x90.gif_138_60.jpg" />
+                                            <span class="ttl font12">中广欧特斯</span></div>
                                         <div class="item2 dhidden">
                                             <i>1</i>
-                                            <img width="138" height="60" src="https://image.maigoo.com/upload/images/20201002/10482526248_207x90.gif_138_60.jpg" />
-                                            <span class="ttl font12">品升</span></div>
+                                            <img width="138" height="60" src="https://image.maigoo.com/upload/images/20201005/11211991534_207x90.gif_138_60.jpg" />
+                                            <span class="ttl font12">肯帝亚</span></div>
                                         <div class="item2 dhidden">
                                             <i>3</i>
-                                            <img width="138" height="60" src="https://image.maigoo.com/upload/images/20201106/10483633589_207x90.gif_138_60.jpg" />
-                                            <span class="ttl font12">奇力</span></div>
+                                            <img width="138" height="60" src="https://image.maigoo.com/upload/images/20210312/14134499723_207x90.gif_138_60.jpg" />
+                                            <span class="ttl font12">万嘉</span></div>
                                         <div class="clear"></div>
                                     </div>
                                     <div class="clear"></div>
@@ -245,71 +246,71 @@
                                     <div class="left">
                                         <div class="title font18">趣闻榜</div>
                                         <div class="mintitle font10">生活排行
-                                            <i class="iconfont iconquwenbang c999 icon-gengduo2"></i></div>
+                                            <i class="iconfont icon-gengduo4"></i></div>
                                         <div class="img">
                                             <img width="100" height="100" src="/public/images/icon/v2019/quwenbang.png" /></div>
                                     </div>
                                     <div class="right quwenbang">
                                         <div class="item2 dhidden">
                                             <i>1.</i>
-                                            <span class="ttl font12">世界十大军用无人机 全球顶尖无人机排行榜</span></div>
+                                            <span class="ttl font12">十大网络电话软件 免费网络电话呼叫软件推荐 网络电话哪个软件好用</span></div>
                                         <div class="item2 dhidden">
                                             <i>2.</i>
-                                            <span class="ttl font12">十大音乐制作软件 好用的编曲软件推荐 音乐编辑软件哪个最好</span></div>
+                                            <span class="ttl font12">三国十大谋士排名 三国十大最强谋士排行榜 三国智囊排名</span></div>
                                         <div class="item2 dhidden">
                                             <i>3.</i>
-                                            <span class="ttl font12">北京十大别墅排行榜 北京顶级豪宅排名 北京富人区豪华别墅盘点</span></div>
+                                            <span class="ttl font12">世界上最厉害的蜂 十大毒性最强的蜂 第一名已经杀死1000多人</span></div>
                                         <div class="item2 dhidden">
                                             <i>4.</i>
-                                            <span class="ttl font12">十大拍照软件排行榜 相机软件哪个好 什么软件拍照效果好</span></div>
+                                            <span class="ttl font12">2020十大BGM 2020年最火的十首BGM 2020最火背景音乐</span></div>
                                         <div class="item2 dhidden">
                                             <i>5.</i>
-                                            <span class="ttl font12">世界十大最贵龟 第一名堪称会移动的金锭 全球名贵龟种盘点</span></div>
+                                            <span class="ttl font12">淮扬菜十大名菜 淮扬菜国宴代表菜 淮扬名菜有哪些</span></div>
                                         <div class="item2 dhidden">
                                             <i>6.</i>
-                                            <span class="ttl font12">河南十大冬季旅游景点 河南冬天去哪里好玩 河南冬季最美的10个地方</span></div>
+                                            <span class="ttl font12">十大壁纸软件排名 电脑壁纸软件哪个好用 动态壁纸软件有哪些</span></div>
                                         <div class="item2 dhidden">
                                             <i>7.</i>
-                                            <span class="ttl font12">十大经典历史穿越小说 十大必看架空历史小说 好看的穿越古代小说推荐</span></div>
+                                            <span class="ttl font12">辽国皇帝顺序 辽国皇帝列表 辽国历代皇帝简介 辽国有多少位皇帝</span></div>
                                         <div class="item2 dhidden">
                                             <i>8.</i>
-                                            <span class="ttl font12">2020年度十大最佳小说 最佳小说排行榜 2020必看的高质量小说</span></div>
+                                            <span class="ttl font12">2020年度十大最佳电影 2020最佳电影排行榜 好看的电影推荐</span></div>
                                         <div class="item2 dhidden">
                                             <i>9.</i>
-                                            <span class="ttl font12">中国十大上将 中国开国十大上将排名 十大上将排名</span></div>
-                                        <div class="item2 dhidden">
-                                            <i>10.</i>
-                                            <span class="ttl font12">国内适合1月份出游的十大景点 1月份适合去哪里旅游 一月适合旅游的地方</span></div>
-                                        <div class="item2 dhidden">
-                                            <i>11.</i>
                                             <span class="ttl font12">中国面积最大的十所大学排行 国内占地面积最大的高校有哪些</span></div>
                                         <div class="item2 dhidden">
+                                            <i>10.</i>
+                                            <span class="ttl font12">浙江十大名菜 浙菜最有名的菜有哪些 浙菜十大代表菜你吃过几道</span></div>
+                                        <div class="item2 dhidden">
+                                            <i>11.</i>
+                                            <span class="ttl font12">吴孟达电影十大经典 吴孟达电影作品盘点 达叔最好看的电影</span></div>
+                                        <div class="item2 dhidden">
                                             <i>12.</i>
-                                            <span class="ttl font12">中国十大温泉排名 中国十大最热门温泉排行榜 国内十大著名温泉</span></div>
+                                            <span class="ttl font12">十大最适合送给男性朋友的礼物 送男生礼物排行榜 送男性朋友什么礼物好</span></div>
                                         <div class="item2 dhidden">
                                             <i>13.</i>
-                                            <span class="ttl font12">中国十大军用无人机 中国顶尖无人机排行榜</span></div>
+                                            <span class="ttl font12">十大漫画软件排行 免费漫画软件哪个好 好用的看漫画软件推荐</span></div>
                                         <div class="item2 dhidden">
                                             <i>14.</i>
-                                            <span class="ttl font12">日本十大美少女 最强青春美少女盘点 日本第一美少女是谁</span></div>
-                                        <div class="item2 dhidden">
-                                            <i>15.</i>
-                                            <span class="ttl font12">水浒传前10位武力最高大将排行 林冲才排第三 水浒传武功排名</span></div>
-                                        <div class="item2 dhidden">
-                                            <i>16.</i>
-                                            <span class="ttl font12">美国十大烧脑电影 高智商悬疑电影排名 好看的反转烧脑片推荐</span></div>
-                                        <div class="item2 dhidden">
-                                            <i>17.</i>
-                                            <span class="ttl font12">十大必看国漫排名 国产动漫排行榜前十 国漫巅峰之作有哪些</span></div>
-                                        <div class="item2 dhidden">
-                                            <i>18.</i>
-                                            <span class="ttl font12">2021新年图片 高清元旦壁纸图片 牛年创意图片 2021年创意壁纸</span></div>
-                                        <div class="item2 dhidden">
-                                            <i>19.</i>
                                             <span class="ttl font12">自然界智商最高的10大动物 世界十大高智商动物 动物智商排行</span></div>
                                         <div class="item2 dhidden">
+                                            <i>15.</i>
+                                            <span class="ttl font12">十大经典历史穿越小说 十大必看架空历史小说 好看的穿越古代小说推荐</span></div>
+                                        <div class="item2 dhidden">
+                                            <i>16.</i>
+                                            <span class="ttl font12">十大音乐制作软件 好用的编曲软件推荐 音乐编辑软件哪个最好</span></div>
+                                        <div class="item2 dhidden">
+                                            <i>17.</i>
+                                            <span class="ttl font12">十大最酷复古摩托车 复古摩托车排行榜 最帅的复古摩托车盘点</span></div>
+                                        <div class="item2 dhidden">
+                                            <i>18.</i>
+                                            <span class="ttl font12">世界十大著名恐怖片 恐怖片排行榜前十名 最著名的十部恐怖电影</span></div>
+                                        <div class="item2 dhidden">
+                                            <i>19.</i>
+                                            <span class="ttl font12">梁山108将排名 史上最全的梁山好汉108将排名榜</span></div>
+                                        <div class="item2 dhidden">
                                             <i>20.</i>
-                                            <span class="ttl font12">十大壁纸软件排名 电脑壁纸软件哪个好用 动态壁纸软件有哪些</span></div>
+                                            <span class="ttl font12">中国摩托车十大名牌 国产摩托车品牌排行 国产摩托车哪个牌子好</span></div>
                                         <div class="clear"></div>
                                     </div>
                                     <div class="clear"></div>

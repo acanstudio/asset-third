@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!--STATUS OK-->
 <html>
     
     <head>
@@ -14,9 +15,9 @@
         <meta content="telephone=no" name="format-detection" />
         <meta name="applicable-device" content="mobile">
         <link href="/favicon.ico" rel="shortcut icon" />
-        <link href="https://at.alicdn.com/t/font_989362_542opn2gp6w.css" type="text/css" rel="stylesheet" />
-        <link href="/public/css/mobile/v2019/inc.css?t=1609400834" type="text/css" rel="stylesheet" />
-        <link href="/public/css/mobile/cache/vote_list_828c5666f92c5cf4545f0447f780c5fc.css?t=1608953052" type="text/css" rel="stylesheet" />
+        <link href="https://at.alicdn.com/t/font_989362_uykezb61ug.css" type="text/css" rel="stylesheet" />
+        <link href="/public/css/mobile/v2019/inc.css?t=1614673790" type="text/css" rel="stylesheet" />
+        <link href="/public/css/mobile/cache/vote_list_828c5666f92c5cf4545f0447f780c5fc.css?t=1614224776" type="text/css" rel="stylesheet" />
         <script src="https://cdn.staticfile.org/jquery/1.11.3/jquery.min.js" type="text/javascript"></script>
     </head>
     
@@ -65,7 +66,7 @@
                                         <a href="https://m.maigoo.com/vote/list_7375.html" class="c666 dhidden">橡皮</a>
                                         <a href="https://m.maigoo.com/vote/list_4742.html" class="c666 dhidden">蜡笔</a>
                                         <a href="https://m.maigoo.com/vote/list_7478.html" class="c666 dhidden">文件夹</a>
-                                        <a href="https://m.maigoo.com/vote/list_4528.html" class="c666 dhidden">便签纸</a>
+                                        <a href="https://m.maigoo.com/vote/list_4528.html" class="c666 dhidden">便签</a>
                                         <a href="https://m.maigoo.com/vote/list_776.html" class="c666 dhidden">马克笔</a>
                                         <a href="https://m.maigoo.com/vote/list_7209.html" class="c666 dhidden">圆珠笔</a>
                                         <a href="https://m.maigoo.com/vote/list_7379.html" class="c666 dhidden">文具盒</a>
@@ -89,9 +90,9 @@
                                         <a href="https://m.maigoo.com/maigoocms/special/qinzi/154chenguang.html" class="c666 dhidden">晨光文具M&G</a>
                                         <a href="https://m.maigoo.com/maigoocms/special/qinzi/151deli.html" class="c666 dhidden">得力DELI</a>
                                         <a href="https://m.maigoo.com/maigoocms/special/qinzi/151lemei.html" class="c666 dhidden">真彩TrueColor</a>
-                                        <a href="https://m.maigoo.com/maigoocms/special/qinzi/151qixin.html" class="c666 dhidden">齐心COMIX</a>
+                                        <a href="https://m.maigoo.com/maigoocms/special/qinzi/151qixin.html" class="c666 dhidden">齐心办公COMIX</a>
                                         <a href="https://m.maigoo.com/maigoocms/special/qinzi/152AIHAO.html" class="c666 dhidden">爱好AIHAO</a>
-                                        <a href="https://m.maigoo.com/maigoocms/special/qinzi/151baixue.html" class="c666 dhidden">白雪Snowhite</a>
+                                        <a href="https://m.maigoo.com/maigoocms/special/qinzi/151baixue.html" class="c666 dhidden">白雪文具Snowhite</a>
                                         <a href="https://m.maigoo.com/maigoocms/special/qinzi/151beifa.html" class="c666 dhidden">贝发BEIFA</a>
                                         <a href="https://m.maigoo.com/maigoocms/special/bggj/151gb.html" class="c666 dhidden">广博GuangBo</a>
                                         <a href="https://m.maigoo.com/maigoocms/special/bggj/151SUNWOOD.html" class="c666 dhidden">三木SUNWOOD</a>
@@ -181,10 +182,10 @@
                                     <span class="numcolor spanborder">40</span></div>
                                 <div class="showleft">
                                     <span class="white spanborder">累计得票</span>
-                                    <span class="numcolor spanborder">16.9万</span></div>
+                                    <span class="numcolor spanborder">17.5万</span></div>
                                 <div class="showleft">
                                     <span class="white">访问次数</span>
-                                    <span class="numcolor">139.4万</span></div>
+                                    <span class="numcolor">140.9万</span></div>
                                 <div class="clear"></div>
                             </div>
                         </div>
@@ -213,7 +214,7 @@
                                             <a href="https://m.maigoo.com/maigoocms/special/qinzi/151deli.html">
                                                 <span class="ttl font14">得力</span></a>
                                             <span class="votenum font12">
-                                                <span class="piaonum">5,510</span>
+                                                <span class="piaonum">6,874</span>
                                                 <em>票</em></span>
                                             <span>
                                                 <a class="votebtt font12 bg1" href="/ajaxstream/vote/?action=vote&brandid=2418&catid=797" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).parent().parent().find('.votenum .piaonum'));">投票</a></span>
@@ -225,7 +226,7 @@
                                             <a href="https://m.maigoo.com/maigoocms/special/qinzi/154chenguang.html">
                                                 <span class="ttl font14">晨光</span></a>
                                             <span class="votenum font12">
-                                                <span class="piaonum">3,576</span>
+                                                <span class="piaonum">4,423</span>
                                                 <em>票</em></span>
                                             <span>
                                                 <a class="votebtt font12 bg1 coverafter" href="/ajaxstream/vote/?action=vote&brandid=2411&catid=797" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).parent().parent().find('.votenum .piaonum'));">投票</a></span>
@@ -237,7 +238,7 @@
                                             <a href="https://m.maigoo.com/maigoocms/special/qinzi/151lemei.html">
                                                 <span class="ttl font14">真彩</span></a>
                                             <span class="votenum font12">
-                                                <span class="piaonum">3,990</span>
+                                                <span class="piaonum">4,628</span>
                                                 <em>票</em></span>
                                             <span>
                                                 <a class="votebtt font12 bg1" href="/ajaxstream/vote/?action=vote&brandid=2413&catid=797" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).parent().parent().find('.votenum .piaonum'));">投票</a></span>
@@ -253,14 +254,14 @@
                                                         <i>4</i>
                                                         <div class="imgbox">
                                                             <img width="207" height="90" src="https://image.maigoo.com/upload/images/20150318/11402394026_207x90.gif" /></div>
-                                                        <em class="font14 dhidden">齐心</em>
+                                                        <em class="font14 dhidden">齐心办公</em>
                                                         <div class="clear"></div>
                                                     </a>
                                                 </div>
                                                 <div class="info font13">
                                                     <span class="votenum">
                                                         <a class="orange" href="/ajaxstream/vote/?action=vote&brandid=2476&catid=797" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).find('.piaonum'));">
-                                                            <span class="piaonum">4,789</span>
+                                                            <span class="piaonum">5,778</span>
                                                             <em>票</em></a>
                                                     </span>
                                                     <a class="votebtn font12 bg1" href="/ajaxstream/vote/?action=vote&brandid=2476&catid=797" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).parent().find('.votenum .piaonum'));">+</a></div>
@@ -281,7 +282,7 @@
                                                 <div class="info font13">
                                                     <span class="votenum">
                                                         <a class="orange" href="/ajaxstream/vote/?action=vote&brandid=2415&catid=797" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).find('.piaonum'));">
-                                                            <span class="piaonum">3,017</span>
+                                                            <span class="piaonum">3,629</span>
                                                             <em>票</em></a>
                                                     </span>
                                                     <a class="votebtn font12 bg1" href="/ajaxstream/vote/?action=vote&brandid=2415&catid=797" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).parent().find('.votenum .piaonum'));">+</a></div>
@@ -295,14 +296,14 @@
                                                         <i>6</i>
                                                         <div class="imgbox">
                                                             <img width="207" height="90" src="https://image.maigoo.com/upload/images/20200420/13363574387_207x90.gif" /></div>
-                                                        <em class="font14 dhidden">白雪</em>
+                                                        <em class="font14 dhidden">白雪文具</em>
                                                         <div class="clear"></div>
                                                     </a>
                                                 </div>
                                                 <div class="info font13">
                                                     <span class="votenum">
                                                         <a class="orange" href="/ajaxstream/vote/?action=vote&brandid=2414&catid=797" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).find('.piaonum'));">
-                                                            <span class="piaonum">3,209</span>
+                                                            <span class="piaonum">3,772</span>
                                                             <em>票</em></a>
                                                     </span>
                                                     <a class="votebtn font12 bg1" href="/ajaxstream/vote/?action=vote&brandid=2414&catid=797" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).parent().find('.votenum .piaonum'));">+</a></div>
@@ -323,7 +324,7 @@
                                                 <div class="info font13">
                                                     <span class="votenum">
                                                         <a class="orange" href="/ajaxstream/vote/?action=vote&brandid=2416&catid=797" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).find('.piaonum'));">
-                                                            <span class="piaonum">2,439</span>
+                                                            <span class="piaonum">2,954</span>
                                                             <em>票</em></a>
                                                     </span>
                                                     <a class="votebtn font12 bg1" href="/ajaxstream/vote/?action=vote&brandid=2416&catid=797" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).parent().find('.votenum .piaonum'));">+</a></div>
@@ -344,7 +345,7 @@
                                                 <div class="info font13">
                                                     <span class="votenum">
                                                         <a class="orange" href="/ajaxstream/vote/?action=vote&brandid=2555&catid=797" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).find('.piaonum'));">
-                                                            <span class="piaonum">2,866</span>
+                                                            <span class="piaonum">3,220</span>
                                                             <em>票</em></a>
                                                     </span>
                                                     <a class="votebtn font12 bg1" href="/ajaxstream/vote/?action=vote&brandid=2555&catid=797" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).parent().find('.votenum .piaonum'));">+</a></div>
@@ -365,7 +366,7 @@
                                                 <div class="info font13">
                                                     <span class="votenum">
                                                         <a class="orange" href="/ajaxstream/vote/?action=vote&brandid=2516&catid=797" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).find('.piaonum'));">
-                                                            <span class="piaonum">1,820</span>
+                                                            <span class="piaonum">1,961</span>
                                                             <em>票</em></a>
                                                     </span>
                                                     <a class="votebtn font12 bg1" href="/ajaxstream/vote/?action=vote&brandid=2516&catid=797" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).parent().find('.votenum .piaonum'));">+</a></div>
@@ -386,7 +387,7 @@
                                                 <div class="info font13">
                                                     <span class="votenum">
                                                         <a class="orange" href="/ajaxstream/vote/?action=vote&brandid=2417&catid=797" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).find('.piaonum'));">
-                                                            <span class="piaonum">1,894</span>
+                                                            <span class="piaonum">2,021</span>
                                                             <em>票</em></a>
                                                     </span>
                                                     <a class="votebtn font12 bg1" href="/ajaxstream/vote/?action=vote&brandid=2417&catid=797" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).parent().find('.votenum .piaonum'));">+</a></div>
@@ -407,7 +408,7 @@
                                                 <div class="info font13">
                                                     <span class="votenum">
                                                         <a class="orange" href="/ajaxstream/vote/?action=vote&brandid=2412&catid=797" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).find('.piaonum'));">
-                                                            <span class="piaonum">1,248</span>
+                                                            <span class="piaonum">1,262</span>
                                                             <em>票</em></a>
                                                     </span>
                                                     <a class="votebtn font12 bg1" href="/ajaxstream/vote/?action=vote&brandid=2412&catid=797" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).parent().find('.votenum .piaonum'));">+</a></div>
@@ -428,7 +429,7 @@
                                                 <div class="info font13">
                                                     <span class="votenum">
                                                         <a class="orange" href="/ajaxstream/vote/?action=vote&brandid=18144&catid=797" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).find('.piaonum'));">
-                                                            <span class="piaonum">1,904</span>
+                                                            <span class="piaonum">1,911</span>
                                                             <em>票</em></a>
                                                     </span>
                                                     <a class="votebtn font12 bg1" href="/ajaxstream/vote/?action=vote&brandid=18144&catid=797" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).parent().find('.votenum .piaonum'));">+</a></div>
@@ -449,7 +450,7 @@
                                                 <div class="info font13">
                                                     <span class="votenum">
                                                         <a class="orange" href="/ajaxstream/vote/?action=vote&brandid=2489&catid=797" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).find('.piaonum'));">
-                                                            <span class="piaonum">1,814</span>
+                                                            <span class="piaonum">1,817</span>
                                                             <em>票</em></a>
                                                     </span>
                                                     <a class="votebtn font12 bg1" href="/ajaxstream/vote/?action=vote&brandid=2489&catid=797" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).parent().find('.votenum .piaonum'));">+</a></div>
@@ -470,7 +471,7 @@
                                                 <div class="info font13">
                                                     <span class="votenum">
                                                         <a class="orange" href="/ajaxstream/vote/?action=vote&brandid=2401&catid=797" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).find('.piaonum'));">
-                                                            <span class="piaonum">1,313</span>
+                                                            <span class="piaonum">1,322</span>
                                                             <em>票</em></a>
                                                     </span>
                                                     <a class="votebtn font12 bg1" href="/ajaxstream/vote/?action=vote&brandid=2401&catid=797" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).parent().find('.votenum .piaonum'));">+</a></div>
@@ -491,7 +492,7 @@
                                                 <div class="info font13">
                                                     <span class="votenum">
                                                         <a class="orange" href="/ajaxstream/vote/?action=vote&brandid=18005&catid=797" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).find('.piaonum'));">
-                                                            <span class="piaonum">1,352</span>
+                                                            <span class="piaonum">1,360</span>
                                                             <em>票</em></a>
                                                     </span>
                                                     <a class="votebtn font12 bg1" href="/ajaxstream/vote/?action=vote&brandid=18005&catid=797" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).parent().find('.votenum .piaonum'));">+</a></div>
@@ -512,7 +513,7 @@
                                                 <div class="info font13">
                                                     <span class="votenum">
                                                         <a class="orange" href="/ajaxstream/vote/?action=vote&brandid=2420&catid=797" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).find('.piaonum'));">
-                                                            <span class="piaonum">1,527</span>
+                                                            <span class="piaonum">1,532</span>
                                                             <em>票</em></a>
                                                     </span>
                                                     <a class="votebtn font12 bg1" href="/ajaxstream/vote/?action=vote&brandid=2420&catid=797" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).parent().find('.votenum .piaonum'));">+</a></div>
@@ -533,7 +534,7 @@
                                                 <div class="info font13">
                                                     <span class="votenum">
                                                         <a class="orange" href="/ajaxstream/vote/?action=vote&brandid=27520&catid=797" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).find('.piaonum'));">
-                                                            <span class="piaonum">1,191</span>
+                                                            <span class="piaonum">1,193</span>
                                                             <em>票</em></a>
                                                     </span>
                                                     <a class="votebtn font12 bg1" href="/ajaxstream/vote/?action=vote&brandid=27520&catid=797" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).parent().find('.votenum .piaonum'));">+</a></div>
@@ -554,7 +555,7 @@
                                                 <div class="info font13">
                                                     <span class="votenum">
                                                         <a class="orange" href="/ajaxstream/vote/?action=vote&brandid=10527&catid=797" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).find('.piaonum'));">
-                                                            <span class="piaonum">1,389</span>
+                                                            <span class="piaonum">1,394</span>
                                                             <em>票</em></a>
                                                     </span>
                                                     <a class="votebtn font12 bg1" href="/ajaxstream/vote/?action=vote&brandid=10527&catid=797" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).parent().find('.votenum .piaonum'));">+</a></div>
@@ -575,7 +576,7 @@
                                                 <div class="info font13">
                                                     <span class="votenum">
                                                         <a class="orange" href="/ajaxstream/vote/?action=vote&brandid=2477&catid=797" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).find('.piaonum'));">
-                                                            <span class="piaonum">1,454</span>
+                                                            <span class="piaonum">1,455</span>
                                                             <em>票</em></a>
                                                     </span>
                                                     <a class="votebtn font12 bg1" href="/ajaxstream/vote/?action=vote&brandid=2477&catid=797" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).parent().find('.votenum .piaonum'));">+</a></div>
@@ -588,7 +589,7 @@
                                                     <a href="https://m.maigoo.com/brand/57959.html">
                                                         <i>20</i>
                                                         <div class="imgbox">
-                                                            <img width="207" height="90" src="https://image.maigoo.com/upload/images/20160705/16564097043_207x90.gif" /></div>
+                                                            <img width="207" height="90" src="https://image.maigoo.com/upload/images/20210105/13492531171_207x90.gif" /></div>
                                                         <em class="font14 dhidden">国誉</em>
                                                         <div class="clear"></div>
                                                     </a>
@@ -596,7 +597,7 @@
                                                 <div class="info font13">
                                                     <span class="votenum">
                                                         <a class="orange" href="/ajaxstream/vote/?action=vote&brandid=57959&catid=797" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).find('.piaonum'));">
-                                                            <span class="piaonum">1,097</span>
+                                                            <span class="piaonum">1,099</span>
                                                             <em>票</em></a>
                                                     </span>
                                                     <a class="votebtn font12 bg1" href="/ajaxstream/vote/?action=vote&brandid=57959&catid=797" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).parent().find('.votenum .piaonum'));">+</a></div>
@@ -618,7 +619,7 @@
                             <div class="blockinfo votecol1 ">
                                 <div class="itembox">
                                     <div class="ajaxload" data-action="votelist" data-subaction="brandtop" data-thirdaction="" data-page="1" data-start="" data-defaultids="" data-sort="" data-postdata="">
-                                        <img src="/public/images/icon/loading_100x100.gif" /></div>
+                                        <img src="/public/images/icon/loading_small.gif?202101" /></div>
                                 </div>
                             </div>
                         </div>
@@ -626,7 +627,7 @@
                             <div class="blockinfo votecol1 ">
                                 <div class="itembox">
                                     <div class="ajaxload" data-action="votelist" data-subaction="historytop" data-thirdaction="" data-page="1" data-start="" data-defaultids="" data-sort="" data-postdata="">
-                                        <img src="/public/images/icon/loading_100x100.gif" /></div>
+                                        <img src="/public/images/icon/loading_small.gif?202101" /></div>
                                 </div>
                             </div>
                         </div>

@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!--STATUS OK-->
 <html>
     
     <head>
@@ -11,8 +12,8 @@
         <meta name="mobile-agent" content="format=html5;url=https://m.maigoo.com/brand10/">
         <link href="/favicon.ico" rel="shortcut icon" />
         <link href="https://at.alicdn.com/t/font_989362_uykezb61ug.css" type="text/css" rel="stylesheet" />
-        <link href="/public/css/maigoo/v2019/inc.css?t=1610099665" type="text/css" rel="stylesheet" />
-        <link href="/public/css/maigoo/cache/brand10_index_d491e2fc30e9dc0ca799fd3b9e71a5b4.css?t=1609743857" type="text/css" rel="stylesheet" />
+        <link href="/public/css/maigoo/v2019/inc.css?t=1614673149" type="text/css" rel="stylesheet" />
+        <link href="/public/css/maigoo/cache/brand10_index_d491e2fc30e9dc0ca799fd3b9e71a5b4.css?t=1614225407" type="text/css" rel="stylesheet" />
         <script src="https://cdn.staticfile.org/jquery/1.11.3/jquery.min.js" type="text/javascript"></script>
         <script src="https://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js" type="text/javascript"></script>
         <!--[if lt IE 9]>
@@ -24,6 +25,11 @@
             <div class="headlist">
                 <a class="logo" href="https://www.maigoo.com/">
                     <img src="/public/images/maigoo/v2019/brand10/newlist/logo.png?2021" /></a>
+                <a class="phoneqrcode color1 fenlei" href="/category/zhishi/" target="_blank">
+                    <i class="iconfont icon-fenlei2"></i>
+                    <span>网站分类</span>
+                    <div class="clear"></div>
+                </a>
                 <div class="searchnames">
                     <div id="searchbox" class="bd1 nosearch">
                         <form class="searchbox" action="/search/" method="get">
@@ -42,9 +48,7 @@
                 </div>
                 <div class="userbox font12">
                     <a class="color1" href="https://www.cnpp.cn/android/maigooapp/" target="_blank">
-                        <img src="/public/images/maigoo/v2019/brand10/newlist/appdown.png?2021" height="20" />买购APP</a>&nbsp;
-                    <a class="phoneqrcode color1" href="/category/zhishi/" target="_blank">
-                        <i class="iconfont icon-fenlei3"></i>网站分类</a>
+                        <img src="https://s.maigoo.com/public/images/maigoo/v2019/brand10/newlist/appdown.png?2021" height="20" />买购APP</a>
                     <div class="userinfo orange center">
                         <i class="iconfont icon-denglu"></i>
                         <a class="color1 loginin" href="javascript:;" onclick="cnpplogin(this)">登录</a>|
@@ -64,10 +68,10 @@
                         <a class="fff font20 line2em cffff00 zhishi" href="https://www.maigoo.com/category/zhishi/?pid=">知识分类</a>
                         <div class="clear"></div>
                         <div class="navright">
-                            <i class="iconfont icon-fenlei2 fff font24"></i>
+                            <i class="iconfont icon-fenlei3 fff font24"></i>
                         </div>
                     </div>
-                    <div class="headblockcont getajaxdata" url="/ajaxstream/headblockcont/?catid=5231"></div>
+                    <div class="headblockcont getajaxdata" url="https://s.maigoo.com/ajaxstream/headblockcont/?catid=5231"></div>
                 </div>
             </div>
         </header>
@@ -90,64 +94,64 @@
                                             <div class="right zhishibang">
                                                 <div class="item2 dhidden">
                                                     <i>1.</i>
-                                                    <span class="ttl font16">【节日活动知识体系】节日购物送礼十大主题</span></div>
+                                                    <span class="ttl font16">【综艺节目知识体系】综艺节目十大主题</span></div>
                                                 <div class="item2 dhidden">
                                                     <i>2.</i>
-                                                    <span class="ttl font16">【新房装修知识体系】新房装修十大主题</span></div>
+                                                    <span class="ttl font16">【鱼虾蟹知识体系】鱼虾蟹十大主题</span></div>
                                                 <div class="item2 dhidden">
                                                     <i>3.</i>
-                                                    <span class="ttl font16">【秋季知识体系】秋天十大主题</span></div>
+                                                    <span class="ttl font16">【肉类知识体系】肉类十大主题</span></div>
                                                 <div class="item2 dhidden">
                                                     <i>4.</i>
-                                                    <span class="ttl font16">【遮瑕知识体系】遮瑕十大主题</span></div>
+                                                    <span class="ttl font16">【面食知识体系】面点十大主题</span></div>
                                                 <div class="item2 dhidden">
                                                     <i>5.</i>
-                                                    <span class="ttl font16">【瑜伽知识体系】瑜伽十大主题</span></div>
+                                                    <span class="ttl font16">【口味知识体系】味道十大主题</span></div>
                                                 <div class="item2 dhidden">
                                                     <i>6.</i>
-                                                    <span class="ttl font16">【演出知识体系】表演十大主题</span></div>
+                                                    <span class="ttl font16">【聚餐宴请知识体系】聚餐宴请十大主题</span></div>
                                                 <div class="item2 dhidden">
                                                     <i>7.</i>
-                                                    <span class="ttl font16">【信用卡知识体系】信用卡十大主题</span></div>
+                                                    <span class="ttl font16">【家常菜知识体系】家常菜十大主题</span></div>
                                                 <div class="item2 dhidden">
                                                     <i>8.</i>
-                                                    <span class="ttl font16">【天象景观知识体系】天象景观十大主题</span></div>
+                                                    <span class="ttl font16">【火锅知识体系】火锅十大主题</span></div>
                                                 <div class="item2 dhidden">
                                                     <i>9.</i>
-                                                    <span class="ttl font16">【榻榻米知识体系】榻榻米十大主题</span></div>
+                                                    <span class="ttl font16">【菜系中餐知识体系】菜系中餐十大主题</span></div>
                                                 <div class="item2 dhidden">
                                                     <i>10.</i>
-                                                    <span class="ttl font16">【手机维修知识体系】手机维修十大主题</span></div>
+                                                    <span class="ttl font16">【贝螺类知识体系】贝螺类十大主题</span></div>
                                                 <div class="item2 dhidden">
                                                     <i>11.</i>
-                                                    <span class="ttl font16">【去角质知识体系】去角质十大主题</span></div>
+                                                    <span class="ttl font16">【冬装知识体系】冬装十大主题</span></div>
                                                 <div class="item2 dhidden">
                                                     <i>12.</i>
-                                                    <span class="ttl font16">【青少儿在线教育知识体系】青少儿在线教育十大主题</span></div>
+                                                    <span class="ttl font16">【整体衣柜知识体系】定制衣柜十大主题</span></div>
                                                 <div class="item2 dhidden">
                                                     <i>13.</i>
-                                                    <span class="ttl font16">【汽车美容知识体系】汽车美容十大主题</span></div>
+                                                    <span class="ttl font16">【全屋定制知识体系】全屋定制十大主题</span></div>
                                                 <div class="item2 dhidden">
                                                     <i>14.</i>
-                                                    <span class="ttl font16">【培训机构知识体系】培训机构十大主题</span></div>
+                                                    <span class="ttl font16">【暖气片知识体系】暖气片十大主题</span></div>
                                                 <div class="item2 dhidden">
                                                     <i>15.</i>
-                                                    <span class="ttl font16">【美发工具知识体系】美发工具十大主题</span></div>
+                                                    <span class="ttl font16">【集成灶知识体系】集成环保灶十大主题</span></div>
                                                 <div class="item2 dhidden">
                                                     <i>16.</i>
-                                                    <span class="ttl font16">【安装服务知识体系】安装服务十大主题</span></div>
+                                                    <span class="ttl font16">【集成墙面知识体系】集成墙板十大主题</span></div>
                                                 <div class="item2 dhidden">
                                                     <i>17.</i>
-                                                    <span class="ttl font16">【出租屋知识体系】出租房十大主题</span></div>
+                                                    <span class="ttl font16">【集成吊顶知识体系】集成吊顶十大主题</span></div>
                                                 <div class="item2 dhidden">
                                                     <i>18.</i>
-                                                    <span class="ttl font16">【婚房知识体系】婚房十大主题</span></div>
+                                                    <span class="ttl font16">【即热式热水器知识体系】即热式热水器十大主题</span></div>
                                                 <div class="item2 dhidden">
                                                     <i>19.</i>
-                                                    <span class="ttl font16">【减肥美容整形知识体系】减肥美容整形十大主题</span></div>
+                                                    <span class="ttl font16">【国家森林公园知识体系】森林公园景观十大主题</span></div>
                                                 <div class="item2 dhidden">
                                                     <i>20.</i>
-                                                    <span class="ttl font16">【中低收入知识体系】中低收入十大主题</span></div>
+                                                    <span class="ttl font16">【厨柜知识体系】橱柜十大主题</span></div>
                                                 <div class="clear"></div>
                                             </div>
                                             <div class="clear"></div>
@@ -164,14 +168,14 @@
                                             </div>
                                             <div class="right pinpaibang">
                                                 <div class="item2 dhidden">
+                                                    <img width="130" height="130" src="https://image.maigoo.com/upload/images/20170929/14005560989_300x300.png_150_150.jpg" />
+                                                    <span class="ttl font16">安全门</span></div>
+                                                <div class="item2 dhidden">
+                                                    <img width="130" height="130" src="https://image.maigoo.com/upload/images/20170929/14095693634_300x300.png_150_150.jpg" />
+                                                    <span class="ttl font16">油漆涂料</span></div>
+                                                <div class="item2 dhidden">
                                                     <img width="130" height="130" src="https://image.maigoo.com/upload/images/20180110/11374962497_300x300.png_150_150.jpg" />
                                                     <span class="ttl font16">水管管道</span></div>
-                                                <div class="item2 dhidden">
-                                                    <img width="130" height="130" src="https://image.maigoo.com/upload/images/20210104/14591985936_300x300.png_150_150.jpg" />
-                                                    <span class="ttl font16">集成墙面</span></div>
-                                                <div class="item2 dhidden">
-                                                    <img width="130" height="130" src="https://image.maigoo.com/upload/images/20170929/14004935728_300x300.png_150_150.jpg" />
-                                                    <span class="ttl font16">防火门</span></div>
                                                 <div class="clear"></div>
                                             </div>
                                             <div class="clear"></div>
@@ -228,12 +232,12 @@
                                                     <span class="ttl font16">龙胜</span></div>
                                                 <div class="item2 dhidden">
                                                     <i>1</i>
-                                                    <img width="138" height="60" src="https://image.maigoo.com/upload/images/20201005/11211991534_207x90.gif_138_60.jpg" />
-                                                    <span class="ttl font16">肯帝亚</span></div>
+                                                    <img width="138" height="60" src="https://image.maigoo.com/upload/images/20200512/12455334794_207x90.gif_138_60.jpg" />
+                                                    <span class="ttl font16">名族</span></div>
                                                 <div class="item2 dhidden">
                                                     <i>3</i>
-                                                    <img width="138" height="60" src="https://image.maigoo.com/upload/images/20201004/19520241927_207x90.gif_138_60.jpg" />
-                                                    <span class="ttl font16">森歌</span></div>
+                                                    <img width="138" height="60" src="https://image.maigoo.com/upload/images/20201002/15562554369_207x90.gif_138_60.jpg" />
+                                                    <span class="ttl font16">大力</span></div>
                                                 <div class="clear"></div>
                                             </div>
                                             <div class="clear"></div>
@@ -251,64 +255,64 @@
                                             <div class="right quwenbang">
                                                 <div class="item2 dhidden">
                                                     <i>1.</i>
-                                                    <span class="ttl font16">世界十大军用无人机 全球顶尖无人机排行榜</span></div>
+                                                    <span class="ttl font16">十大网络电话软件 免费网络电话呼叫软件推荐 网络电话哪个软件好用</span></div>
                                                 <div class="item2 dhidden">
                                                     <i>2.</i>
-                                                    <span class="ttl font16">十大音乐制作软件 好用的编曲软件推荐 音乐编辑软件哪个最好</span></div>
+                                                    <span class="ttl font16">三国十大谋士排名 三国十大最强谋士排行榜 三国智囊排名</span></div>
                                                 <div class="item2 dhidden">
                                                     <i>3.</i>
-                                                    <span class="ttl font16">北京十大别墅排行榜 北京顶级豪宅排名 北京富人区豪华别墅盘点</span></div>
+                                                    <span class="ttl font16">世界上最厉害的蜂 十大毒性最强的蜂 第一名已经杀死1000多人</span></div>
                                                 <div class="item2 dhidden">
                                                     <i>4.</i>
-                                                    <span class="ttl font16">十大拍照软件排行榜 相机软件哪个好 什么软件拍照效果好</span></div>
+                                                    <span class="ttl font16">2020十大BGM 2020年最火的十首BGM 2020最火背景音乐</span></div>
                                                 <div class="item2 dhidden">
                                                     <i>5.</i>
-                                                    <span class="ttl font16">世界十大最贵龟 第一名堪称会移动的金锭 全球名贵龟种盘点</span></div>
+                                                    <span class="ttl font16">淮扬菜十大名菜 淮扬菜国宴代表菜 淮扬名菜有哪些</span></div>
                                                 <div class="item2 dhidden">
                                                     <i>6.</i>
-                                                    <span class="ttl font16">河南十大冬季旅游景点 河南冬天去哪里好玩 河南冬季最美的10个地方</span></div>
+                                                    <span class="ttl font16">十大壁纸软件排名 电脑壁纸软件哪个好用 动态壁纸软件有哪些</span></div>
                                                 <div class="item2 dhidden">
                                                     <i>7.</i>
-                                                    <span class="ttl font16">十大经典历史穿越小说 十大必看架空历史小说 好看的穿越古代小说推荐</span></div>
+                                                    <span class="ttl font16">辽国皇帝顺序 辽国皇帝列表 辽国历代皇帝简介 辽国有多少位皇帝</span></div>
                                                 <div class="item2 dhidden">
                                                     <i>8.</i>
-                                                    <span class="ttl font16">2020年度十大最佳小说 最佳小说排行榜 2020必看的高质量小说</span></div>
+                                                    <span class="ttl font16">2020年度十大最佳电影 2020最佳电影排行榜 好看的电影推荐</span></div>
                                                 <div class="item2 dhidden">
                                                     <i>9.</i>
-                                                    <span class="ttl font16">中国十大上将 中国开国十大上将排名 十大上将排名</span></div>
-                                                <div class="item2 dhidden">
-                                                    <i>10.</i>
-                                                    <span class="ttl font16">国内适合1月份出游的十大景点 1月份适合去哪里旅游 一月适合旅游的地方</span></div>
-                                                <div class="item2 dhidden">
-                                                    <i>11.</i>
                                                     <span class="ttl font16">中国面积最大的十所大学排行 国内占地面积最大的高校有哪些</span></div>
                                                 <div class="item2 dhidden">
+                                                    <i>10.</i>
+                                                    <span class="ttl font16">浙江十大名菜 浙菜最有名的菜有哪些 浙菜十大代表菜你吃过几道</span></div>
+                                                <div class="item2 dhidden">
+                                                    <i>11.</i>
+                                                    <span class="ttl font16">吴孟达电影十大经典 吴孟达电影作品盘点 达叔最好看的电影</span></div>
+                                                <div class="item2 dhidden">
                                                     <i>12.</i>
-                                                    <span class="ttl font16">中国十大温泉排名 中国十大最热门温泉排行榜 国内十大著名温泉</span></div>
+                                                    <span class="ttl font16">十大最适合送给男性朋友的礼物 送男生礼物排行榜 送男性朋友什么礼物好</span></div>
                                                 <div class="item2 dhidden">
                                                     <i>13.</i>
-                                                    <span class="ttl font16">中国十大军用无人机 中国顶尖无人机排行榜</span></div>
+                                                    <span class="ttl font16">十大漫画软件排行 免费漫画软件哪个好 好用的看漫画软件推荐</span></div>
                                                 <div class="item2 dhidden">
                                                     <i>14.</i>
-                                                    <span class="ttl font16">日本十大美少女 最强青春美少女盘点 日本第一美少女是谁</span></div>
-                                                <div class="item2 dhidden">
-                                                    <i>15.</i>
-                                                    <span class="ttl font16">水浒传前10位武力最高大将排行 林冲才排第三 水浒传武功排名</span></div>
-                                                <div class="item2 dhidden">
-                                                    <i>16.</i>
-                                                    <span class="ttl font16">美国十大烧脑电影 高智商悬疑电影排名 好看的反转烧脑片推荐</span></div>
-                                                <div class="item2 dhidden">
-                                                    <i>17.</i>
-                                                    <span class="ttl font16">十大必看国漫排名 国产动漫排行榜前十 国漫巅峰之作有哪些</span></div>
-                                                <div class="item2 dhidden">
-                                                    <i>18.</i>
-                                                    <span class="ttl font16">2021新年图片 高清元旦壁纸图片 牛年创意图片 2021年创意壁纸</span></div>
-                                                <div class="item2 dhidden">
-                                                    <i>19.</i>
                                                     <span class="ttl font16">自然界智商最高的10大动物 世界十大高智商动物 动物智商排行</span></div>
                                                 <div class="item2 dhidden">
+                                                    <i>15.</i>
+                                                    <span class="ttl font16">十大经典历史穿越小说 十大必看架空历史小说 好看的穿越古代小说推荐</span></div>
+                                                <div class="item2 dhidden">
+                                                    <i>16.</i>
+                                                    <span class="ttl font16">十大音乐制作软件 好用的编曲软件推荐 音乐编辑软件哪个最好</span></div>
+                                                <div class="item2 dhidden">
+                                                    <i>17.</i>
+                                                    <span class="ttl font16">十大最酷复古摩托车 复古摩托车排行榜 最帅的复古摩托车盘点</span></div>
+                                                <div class="item2 dhidden">
+                                                    <i>18.</i>
+                                                    <span class="ttl font16">世界十大著名恐怖片 恐怖片排行榜前十名 最著名的十部恐怖电影</span></div>
+                                                <div class="item2 dhidden">
+                                                    <i>19.</i>
+                                                    <span class="ttl font16">梁山108将排名 史上最全的梁山好汉108将排名榜</span></div>
+                                                <div class="item2 dhidden">
                                                     <i>20.</i>
-                                                    <span class="ttl font16">十大壁纸软件排名 电脑壁纸软件哪个好用 动态壁纸软件有哪些</span></div>
+                                                    <span class="ttl font16">中国摩托车十大名牌 国产摩托车品牌排行 国产摩托车哪个牌子好</span></div>
                                                 <div class="clear"></div>
                                             </div>
                                             <div class="clear"></div>
@@ -692,76 +696,76 @@
                                 <span class="">知识分类</span></dt>
                             <dd class="contbox">
                                 <div class="cont hotsearch">
-                                    <a href="https://www.maigoo.com/search/?q=保暖内衣&dynamic=1" target="_blank">
+                                    <a href="https://www.maigoo.com/search/?q=干衣机&dynamic=1" target="_blank">
                                         <i class="num c999">1</i>
-                                        <span class="name c333 dhidden">保暖内衣</span>
+                                        <span class="name c333 dhidden">干衣机</span>
                                         <span class="colorline">
                                             <i style="width:100%"></i>
                                         </span>
-                                        <span class="counts font12 c999">89,256</span></a>
-                                    <a href="https://www.maigoo.com/search/?q=羽绒服&dynamic=1" target="_blank">
+                                        <span class="counts font12 c999">86,654</span></a>
+                                    <a href="https://www.maigoo.com/search/?q=除湿机&dynamic=1" target="_blank">
                                         <i class="num c999">2</i>
-                                        <span class="name c333 dhidden">羽绒服</span>
+                                        <span class="name c333 dhidden">除湿机</span>
                                         <span class="colorline">
                                             <i style="width:95%"></i>
                                         </span>
-                                        <span class="counts font12 c999">89,225</span></a>
-                                    <a href="https://www.maigoo.com/search/?q=手机&dynamic=1" target="_blank">
+                                        <span class="counts font12 c999">85,214</span></a>
+                                    <a href="https://www.maigoo.com/search/?q=春装&dynamic=1" target="_blank">
                                         <i class="num c999">3</i>
-                                        <span class="name c333 dhidden">手机</span>
+                                        <span class="name c333 dhidden">春装</span>
                                         <span class="colorline">
                                             <i style="width:90%"></i>
                                         </span>
-                                        <span class="counts font12 c999">73,009</span></a>
-                                    <a href="https://www.maigoo.com/search/?q=护肤品&dynamic=1" target="_blank">
+                                        <span class="counts font12 c999">82,358</span></a>
+                                    <a href="https://www.maigoo.com/search/?q=青团&dynamic=1" target="_blank">
                                         <i class="num c999">4</i>
-                                        <span class="name c333 dhidden">护肤品</span>
+                                        <span class="name c333 dhidden">青团</span>
                                         <span class="colorline">
                                             <i style="width:85%"></i>
                                         </span>
-                                        <span class="counts font12 c999">69,870</span></a>
-                                    <a href="https://www.maigoo.com/search/?q=地板&dynamic=1" target="_blank">
+                                        <span class="counts font12 c999">81,322</span></a>
+                                    <a href="https://www.maigoo.com/search/?q=手机&dynamic=1" target="_blank">
                                         <i class="num c999">5</i>
-                                        <span class="name c333 dhidden">地板</span>
+                                        <span class="name c333 dhidden">手机</span>
                                         <span class="colorline">
                                             <i style="width:80%"></i>
                                         </span>
-                                        <span class="counts font12 c999">66,990</span></a>
-                                    <a href="https://www.maigoo.com/search/?q=集成灶&dynamic=1" target="_blank">
+                                        <span class="counts font12 c999">73,009</span></a>
+                                    <a href="https://www.maigoo.com/search/?q=护肤品&dynamic=1" target="_blank">
                                         <i class="num c999">6</i>
-                                        <span class="name c333 dhidden">集成灶</span>
+                                        <span class="name c333 dhidden">护肤品</span>
                                         <span class="colorline">
                                             <i style="width:75%"></i>
                                         </span>
-                                        <span class="counts font12 c999">66,601</span></a>
-                                    <a href="https://www.maigoo.com/search/?q=家具&dynamic=1" target="_blank">
+                                        <span class="counts font12 c999">69,870</span></a>
+                                    <a href="https://www.maigoo.com/search/?q=地板&dynamic=1" target="_blank">
                                         <i class="num c999">7</i>
-                                        <span class="name c333 dhidden">家具</span>
+                                        <span class="name c333 dhidden">地板</span>
                                         <span class="colorline">
                                             <i style="width:70%"></i>
                                         </span>
-                                        <span class="counts font12 c999">65,000</span></a>
-                                    <a href="https://www.maigoo.com/search/?q=女鞋&dynamic=1" target="_blank">
+                                        <span class="counts font12 c999">66,990</span></a>
+                                    <a href="https://www.maigoo.com/search/?q=集成灶&dynamic=1" target="_blank">
                                         <i class="num c999">8</i>
-                                        <span class="name c333 dhidden">女鞋</span>
+                                        <span class="name c333 dhidden">集成灶</span>
                                         <span class="colorline">
                                             <i style="width:65%"></i>
                                         </span>
-                                        <span class="counts font12 c999">60,845</span></a>
-                                    <a href="https://www.maigoo.com/search/?q=电动车&dynamic=1" target="_blank">
+                                        <span class="counts font12 c999">66,601</span></a>
+                                    <a href="https://www.maigoo.com/search/?q=家具&dynamic=1" target="_blank">
                                         <i class="num c999">9</i>
-                                        <span class="name c333 dhidden">电动车</span>
+                                        <span class="name c333 dhidden">家具</span>
                                         <span class="colorline">
                                             <i style="width:60%"></i>
                                         </span>
-                                        <span class="counts font12 c999">55,996</span></a>
-                                    <a href="https://www.maigoo.com/search/?q=智能家居&dynamic=1" target="_blank">
+                                        <span class="counts font12 c999">65,000</span></a>
+                                    <a href="https://www.maigoo.com/search/?q=女鞋&dynamic=1" target="_blank">
                                         <i class="num c999">10</i>
-                                        <span class="name c333 dhidden">智能家居</span>
+                                        <span class="name c333 dhidden">女鞋</span>
                                         <span class="colorline">
                                             <i style="width:55%"></i>
                                         </span>
-                                        <span class="counts font12 c999">55,100</span></a>
+                                        <span class="counts font12 c999">60,845</span></a>
                                     <div class="clear"></div>
                                 </div>
                                 <div class="cont bg2 bd1 dn">
@@ -792,9 +796,7 @@
                                     <a class="item dhidden color1" href="" target="_blank">润滑油</a>
                                     <a class="item dhidden color1" href="" target="_blank">学习桌</a>
                                     <a class="item dhidden color1" href="" target="_blank">麻将机</a>
-                                    <a class="item dhidden color1" href="" target="_blank">暖气片</a>
                                     <a class="item dhidden color1" href="" target="_blank">即热式热水器</a>
-                                    <a class="item dhidden color1" href="" target="_blank">羽绒服</a>
                                     <div class="clear"></div>
                                 </div>
                                 <div class="cont bg2 bd1 dn">
@@ -1017,51 +1019,51 @@
                         <dl class="datacounts">
                             <dd>
                                 <a href="https://www.maigoo.com/brand10/pinpaibang/#posbrandvottelist" target="_blank" class="c666 line2em dhidden">已有
-                                    <i>1627993</i>个品牌入驻</a>
+                                    <i>1631259</i>个品牌入驻</a>
                                 <a href="https://www.maigoo.com/zhaoshang/search/" target="_blank" class="c666 line2em dhidden">更新
-                                    <i>514795</i>个招商信息</a>
+                                    <i>515690</i>个招商信息</a>
                                 <a href="https://www.maigoo.com/zhaoshang/#posjmform" target="_blank" class="c666 line2em dhidden">已发布
-                                    <i>1400212</i>个加盟需求</a>
+                                    <i>1449113</i>个加盟需求</a>
                                 <a href="https://www.maigoo.com/brand10/dianzanbang/#pospraisebang2" target="_blank" class="c666 line2em dhidden">已有
-                                    <i>969464</i>条品牌点赞</a>
+                                    <i>982856</i>条品牌点赞</a>
                             </dd>
                         </dl>
                     </div>
                 </div>
                 <div class="clear"></div>
             </div>
-        </div>
+            <!--footer--></div>
         <div class="webshoplogo">
-            <a target="_blank" href="https://www.maigoo.com/brand/69667.html">
-                <img width="83" height="37" src="https://image.maigoo.com/upload/images/20170728/14273380428_83x37.png" />
-                <em class="dhidden">湘彩</em></a>
-            <a target="_blank" href="https://www.maigoo.com/brand/11282.html">
-                <img width="83" height="37" src="https://image.maigoo.com/upload/images/20180423/16315476890_83x37.png" />
-                <em class="dhidden">如鱼得水</em></a>
-            <a target="_blank" href="https://www.maigoo.com/maigoocms/special/ztjiaju/119dsdd.html">
-                <img width="83" height="37" src="https://image.maigoo.com/upload/images/20160614/10101169652_83x37.png" />
-                <em class="dhidden">顶上</em></a>
-            <a target="_blank" href="https://www.maigoo.com/maigoocms/special/ztjiaju/036Assun.html">
-                <img width="83" height="37" src="https://image.maigoo.com/upload/images/20170512/18072256562_83x37.png" />
-                <em class="dhidden">安心</em></a>
-            <a target="_blank" href="https://www.maigoo.com/maigoocms/special/ztjiaju/149pes.html">
-                <img width="83" height="37" src="https://image.maigoo.com/upload/images/20160908/18025369811_83x37.png" />
-                <em class="dhidden">索邦</em></a>
-            <a target="_blank" href="https://www.maigoo.com/maigoocms/special/services/154SOLOR.html">
-                <img width="83" height="37" src="https://image.maigoo.com/upload/images/20150925/16264521331_83x37.png" />
-                <em class="dhidden">松乐</em></a>
-            <a target="_blank" href="https://www.maigoo.com/maigoocms/special/ztjiaju/064kefan.html">
-                <img width="83" height="37" src="https://image.maigoo.com/upload/images/20201203/15111443456_83x37.png" />
-                <em class="dhidden">科凡全屋新奢定制</em></a>
-            <a target="_blank" href="https://www.maigoo.com/brand/47234.html">
-                <img width="83" height="37" src="https://image.maigoo.com/upload/images/20201019/17572952662_83x37.png" />
-                <em class="dhidden">科布斯</em></a>
             <a target="_blank" href="https://www.maigoo.com/brand/75808.html">
                 <img width="83" height="37" src="https://image.maigoo.com/upload/images/20200416/11052854160_83x37.png" />
                 <em class="dhidden">巧夺天工</em></a>
-            <a target="_blank" href="https://www.maigoo.com/maigoocms/special/ztjiaju/149MIERGU.html">
-                <img width="83" height="37" src="https://image.maigoo.com/upload/images/20180416/16105832624_83x37.png" />
-                <em class="dhidden">美尔固</em></a>
+            <a target="_blank" href="https://www.maigoo.com/maigoocms/special/ztjiaju/119lsadd.html">
+                <img width="83" height="37" src="https://image.maigoo.com/upload/images/20180413/17594459828_83x37.png" />
+                <em class="dhidden">来斯奥</em></a>
+            <a target="_blank" href="https://www.maigoo.com/maigoocms/special/ztjiaju/036Baier.html">
+                <img width="83" height="37" src="https://image.maigoo.com/upload/images/20200703/16312092982_83x37.png" />
+                <em class="dhidden">拜尔</em></a>
+            <a target="_blank" href="https://www.maigoo.com/brand/69667.html">
+                <img width="83" height="37" src="https://image.maigoo.com/upload/images/20170728/14273380428_83x37.png" />
+                <em class="dhidden">湘彩</em></a>
+            <a target="_blank" href="https://www.maigoo.com/brand/24273.html">
+                <img width="83" height="37" src="https://image.maigoo.com/upload/images/20180413/15560193690_83x37.png" />
+                <em class="dhidden">万事兴</em></a>
+            <a target="_blank" href="https://www.maigoo.com/maigoocms/special/dianqi/143senge.html">
+                <img width="83" height="37" src="https://image.maigoo.com/upload/images/20200414/10345413534_83x37.png" />
+                <em class="dhidden">森歌</em></a>
+            <a target="_blank" href="https://www.maigoo.com/maigoocms/special/ztjiaju/149pes.html">
+                <img width="83" height="37" src="https://image.maigoo.com/upload/images/20160908/18025369811_83x37.png" />
+                <em class="dhidden">索邦</em></a>
+            <a target="_blank" href="https://www.maigoo.com/brand/53958.html">
+                <img width="83" height="37" src="https://image.maigoo.com/upload/images/20170318/17421952124_83x37.png" />
+                <em class="dhidden">浙派</em></a>
+            <a target="_blank" href="https://www.maigoo.com/maigoocms/special/services/154SOLOR.html">
+                <img width="83" height="37" src="https://image.maigoo.com/upload/images/20150925/16264521331_83x37.png" />
+                <em class="dhidden">松乐</em></a>
+            <a target="_blank" href="https://www.maigoo.com/maigoocms/special/ztjiaju/036lf.html">
+                <img width="83" height="37" src="https://image.maigoo.com/upload/images/20180413/17594310862_83x37.png" />
+                <em class="dhidden">联丰</em></a>
         </div>
         <footer class="footlist">
             <div id="footer">
@@ -1153,14 +1155,14 @@
                     <div class="clear"></div>
                 </div>
                 <div class="center bimg">
-                    <img src="/public/images/maigoo/v2019/footer/logo2.png" /></div>
+                    <img class="lazy" data-src="/public/images/maigoo/v2019/footer/logo2.png" /></div>
                 <div class="center bimg">
-                    <img src="/public/images/maigoo/v2019/footer/logo3.png?202101" /></div>
+                    <img class="lazy" data-src="/public/images/maigoo/v2019/footer/logo3.png?202101" /></div>
             </div>
         </footer>
         <div id="go_top">
             <ul>
-                <li class="holidayicon getajaxdata" url="/ajaxstream/holiday/?action=getinfo"></li>
+                <li class="holidayicon getajaxdata" url="https://s.maigoo.com/ajaxstream/holiday/?action=getinfo"></li>
                 <li>
                     <a class="fff" href="javascript:void(0);" id="kefu" onclick="kefulink();">
                         <img src="https://s.maigoo.com/public/images/icon/kefu1.gif">
@@ -1208,7 +1210,7 @@
             userid = '0',
             issm = '';
             var authorpiclist = null;</script>
-        <script type="text/javascript" src="/public/js/maigoo/cache/brand10_index_25e399b82145bb206d7ad28c7eaf7113.js?t=1610520212"></script>
+        <script type="text/javascript" src="/public/js/maigoo/cache/brand10_index_25e399b82145bb206d7ad28c7eaf7113.js?t=1615189724"></script>
         <script>var _hmt = _hmt || []; (function() {
                 var hm = document.createElement("script");
                 hm.src = "https://hm.baidu.com/hm.js?de3f6fd28ec4ac19170f18e2a8777593";

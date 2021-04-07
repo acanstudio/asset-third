@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!--STATUS OK-->
 <html>
     
     <head>
@@ -14,8 +15,8 @@
         <meta content="telephone=no" name="format-detection" />
         <meta name="applicable-device" content="mobile">
         <link href="/favicon.ico" rel="shortcut icon" />
-        <link href="https://at.alicdn.com/t/font_989362_542opn2gp6w.css" type="text/css" rel="stylesheet" />
-        <link href="/public/css/mobile/v2019/inc.css?t=1609400834" type="text/css" rel="stylesheet" />
+        <link href="https://at.alicdn.com/t/font_989362_uykezb61ug.css" type="text/css" rel="stylesheet" />
+        <link href="/public/css/mobile/v2019/inc.css?t=1614673790" type="text/css" rel="stylesheet" />
         <link href="/public/css/mobile/cache/mingren_list_a5903641e24d086b469bd3f10e2d21cf.css?t=1609122759" type="text/css" rel="stylesheet" />
         <script src="https://cdn.staticfile.org/jquery/1.11.3/jquery.min.js" type="text/javascript"></script>
     </head>
@@ -62,7 +63,7 @@
                                         <a href="https://m.maigoo.com/mingren/list_784.html" class="c666 dhidden">中性笔</a>
                                         <a href="https://m.maigoo.com/mingren/list_783.html" class="c666 dhidden">钢笔</a>
                                         <a href="https://m.maigoo.com/mingren/list_4742.html" class="c666 dhidden">蜡笔</a>
-                                        <a href="https://m.maigoo.com/mingren/list_4528.html" class="c666 dhidden">便签纸</a>
+                                        <a href="https://m.maigoo.com/mingren/list_4528.html" class="c666 dhidden">便签</a>
                                         <a href="https://m.maigoo.com/mingren/list_776.html" class="c666 dhidden">马克笔</a>
                                         <a href="https://m.maigoo.com/mingren/list_790.html" class="c666 dhidden">墨水</a>
                                         <a href="https://m.maigoo.com/mingren/list_796.html" class="c666 dhidden">美术用品</a>
@@ -81,9 +82,9 @@
                                         <a href="https://m.maigoo.com/maigoocms/special/qinzi/154chenguang.html" class="c666 dhidden">晨光文具M&G</a>
                                         <a href="https://m.maigoo.com/maigoocms/special/qinzi/151deli.html" class="c666 dhidden">得力DELI</a>
                                         <a href="https://m.maigoo.com/maigoocms/special/qinzi/151lemei.html" class="c666 dhidden">真彩TrueColor</a>
-                                        <a href="https://m.maigoo.com/maigoocms/special/qinzi/151qixin.html" class="c666 dhidden">齐心COMIX</a>
+                                        <a href="https://m.maigoo.com/maigoocms/special/qinzi/151qixin.html" class="c666 dhidden">齐心办公COMIX</a>
                                         <a href="https://m.maigoo.com/maigoocms/special/qinzi/152AIHAO.html" class="c666 dhidden">爱好AIHAO</a>
-                                        <a href="https://m.maigoo.com/maigoocms/special/qinzi/151baixue.html" class="c666 dhidden">白雪Snowhite</a>
+                                        <a href="https://m.maigoo.com/maigoocms/special/qinzi/151baixue.html" class="c666 dhidden">白雪文具Snowhite</a>
                                         <a href="https://m.maigoo.com/maigoocms/special/qinzi/151beifa.html" class="c666 dhidden">贝发BEIFA</a>
                                         <a href="https://m.maigoo.com/maigoocms/special/bggj/151gb.html" class="c666 dhidden">广博GuangBo</a>
                                         <a href="https://m.maigoo.com/maigoocms/special/bggj/151SUNWOOD.html" class="c666 dhidden">三木SUNWOOD</a>
@@ -187,7 +188,6 @@
                                         <a class="leval color1 dhidden " href="https://m.maigoo.com/mingren/list_796.html" data-action="searchlist" data-id="796">美术用品</a>
                                         <a class="leval color1 dhidden " href="https://m.maigoo.com/mingren/list_1480.html" data-action="searchlist" data-id="1480">计算器</a>
                                         <a class="leval color1 dhidden " href="https://m.maigoo.com/mingren/list_2304.html" data-action="searchlist" data-id="2304">学习桌</a>
-                                        <a class="leval color1 dhidden " href="https://m.maigoo.com/mingren/list_2287.html" data-action="searchlist" data-id="2287">胶带</a>
                                         <div class="clear"></div>
                                     </div>
                                 </div>
@@ -245,25 +245,7 @@
                                         <div class='other font12'>
                                             <a class="biaoqian color5" href="https://m.maigoo.com/biaoqian/22.html">文具用品</a>
                                             <div class="attention">
-                                                <i class="iconfont icon-chakan"></i>2万</div>
-                                        </div>
-                                    </div>
-                                    <div class="clear"></div>
-                                </div>
-                            </li>
-                            <li class="item ">
-                                <div class="ibox">
-                                    <div class="img ">
-                                        <a href="https://m.maigoo.com/mingren/8454.html">
-                                            <img src="https://image.maigoo.com/upload/images/20181030/10412349769_200x134.jpg" /></a>
-                                    </div>
-                                    <div class="contbox">
-                                        <a class="title font15 color2 dhidden2" href="https://m.maigoo.com/mingren/8454.html">
-                                            <span class="numb num2"></span>黄小喜-真彩文具有限公司董事长介绍</a>
-                                        <div class='other font12'>
-                                            <a class="biaoqian color5" href="https://m.maigoo.com/biaoqian/2956.html">圆珠笔</a>
-                                            <div class="attention">
-                                                <i class="iconfont icon-chakan"></i>5621</div>
+                                                <i class="iconfont icon-chakan"></i>2.1万</div>
                                         </div>
                                     </div>
                                     <div class="clear"></div>
@@ -277,11 +259,29 @@
                                     </div>
                                     <div class="contbox">
                                         <a class="title font15 color2 dhidden2" href="https://m.maigoo.com/mingren/7484.html">
-                                            <span class="numb num3"></span>娄甫君-宁波得力集团有限公司董事长介绍</a>
+                                            <span class="numb num2"></span>娄甫君-宁波得力集团有限公司董事长介绍</a>
                                         <div class='other font12'>
                                             <a class="biaoqian color5" href="https://m.maigoo.com/biaoqian/22.html">文具用品</a>
                                             <div class="attention">
-                                                <i class="iconfont icon-chakan"></i>7.3万</div>
+                                                <i class="iconfont icon-chakan"></i>7.5万</div>
+                                        </div>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                            </li>
+                            <li class="item ">
+                                <div class="ibox">
+                                    <div class="img ">
+                                        <a href="https://m.maigoo.com/mingren/8454.html">
+                                            <img src="https://image.maigoo.com/upload/images/20181030/10412349769_200x134.jpg" /></a>
+                                    </div>
+                                    <div class="contbox">
+                                        <a class="title font15 color2 dhidden2" href="https://m.maigoo.com/mingren/8454.html">
+                                            <span class="numb num3"></span>黄小喜-真彩文具有限公司董事长介绍</a>
+                                        <div class='other font12'>
+                                            <a class="biaoqian color5" href="https://m.maigoo.com/biaoqian/2956.html">圆珠笔</a>
+                                            <div class="attention">
+                                                <i class="iconfont icon-chakan"></i>5743</div>
                                         </div>
                                     </div>
                                     <div class="clear"></div>
@@ -313,7 +313,7 @@
                                         <div class='other font12'>
                                             <a class="biaoqian color5" href="https://m.maigoo.com/biaoqian/2956.html">圆珠笔</a>
                                             <div class="attention">
-                                                <i class="iconfont icon-chakan"></i>9172</div>
+                                                <i class="iconfont icon-chakan"></i>9324</div>
                                         </div>
                                     </div>
                                     <div class="clear"></div>
@@ -331,7 +331,7 @@
                                         <div class='other font12'>
                                             <a class="biaoqian color5" href="https://m.maigoo.com/biaoqian/22.html">文具用品</a>
                                             <div class="attention">
-                                                <i class="iconfont icon-chakan"></i>9094</div>
+                                                <i class="iconfont icon-chakan"></i>9335</div>
                                         </div>
                                     </div>
                                     <div class="clear"></div>
@@ -349,7 +349,7 @@
                                         <div class='other font12'>
                                             <a class="biaoqian color5" href="https://m.maigoo.com/biaoqian/2956.html">圆珠笔</a>
                                             <div class="attention">
-                                                <i class="iconfont icon-chakan"></i>8550</div>
+                                                <i class="iconfont icon-chakan"></i>8726</div>
                                         </div>
                                     </div>
                                     <div class="clear"></div>
@@ -367,7 +367,7 @@
                                         <div class='other font12'>
                                             <a class="biaoqian color5" href="https://m.maigoo.com/biaoqian/723.html">碎纸机</a>
                                             <div class="attention">
-                                                <i class="iconfont icon-chakan"></i>3168</div>
+                                                <i class="iconfont icon-chakan"></i>3249</div>
                                         </div>
                                     </div>
                                     <div class="clear"></div>
@@ -385,7 +385,7 @@
                                         <div class='other font12'>
                                             <a class="biaoqian color5" href="https://m.maigoo.com/biaoqian/22.html">文具用品</a>
                                             <div class="attention">
-                                                <i class="iconfont icon-chakan"></i>7261</div>
+                                                <i class="iconfont icon-chakan"></i>7487</div>
                                         </div>
                                     </div>
                                     <div class="clear"></div>
@@ -394,16 +394,16 @@
                             <li class="item ">
                                 <div class="ibox">
                                     <div class="img ">
-                                        <a href="https://m.maigoo.com/mingren/9011.html">
-                                            <img src="https://image.maigoo.com/upload/images/20190404/16581660547_200x134.jpg" /></a>
+                                        <a href="https://m.maigoo.com/mingren/1401.html">
+                                            <img src="https://image.maigoo.com/upload/images/20180530/15122927479_200x134.png" /></a>
                                     </div>
                                     <div class="contbox">
-                                        <a class="title font15 color2 dhidden2" href="https://m.maigoo.com/mingren/9011.html">
-                                            <span class="numb num10"></span>黄志源-印尼金光集团董事长介绍</a>
+                                        <a class="title font15 color2 dhidden2" href="https://m.maigoo.com/mingren/1401.html">
+                                            <span class="numb num10"></span>汪东颖-纳思达股份有限公司董事长介绍</a>
                                         <div class='other font12'>
-                                            <a class="biaoqian color5" href="https://m.maigoo.com/biaoqian/54.html">纸巾</a>
+                                            <a class="biaoqian color5" href="https://m.maigoo.com/biaoqian/643.html">墨盒</a>
                                             <div class="attention">
-                                                <i class="iconfont icon-chakan"></i>8405</div>
+                                                <i class="iconfont icon-chakan"></i>6947</div>
                                         </div>
                                     </div>
                                     <div class="clear"></div>
@@ -437,7 +437,7 @@
                             <a class="color1" href="javascript:;" onclick="window.open('https://m.maigoo.com/user/login/');">注册登录>></a></div>
                     </div>
                     <div class="moremzsm">
-                        <img src="/public/images/icon/addmore.gif" onclick="$('#mzsmcontent').find('.mzsm').css('height','auto');$(this).parent().remove();" /></div>
+                        <img src="https://s.maigoo.com/public/images/icon/addmore.gif" onclick="$('#mzsmcontent').find('.mzsm').css('height','auto');$(this).parent().remove();" /></div>
                 </div>
                 <div class="pagecss" data-css="/public/css/mobile/v2019/color.css,/public/css/mobile/v2019/weui.min.css,/public/css/mobile/v2019/block/publicblock/searchselect.css,/public/css/mobile/v2019/block/publicblock/articlelist.css,/public/css/mobile/v2019/block/publicblock/mzsm.css"></div>
                 <div class="pagejs" data-js="/public/js/mobile/v2019/public.js,/public/js/mobile/v2019/event.js,/public/js/mobile/v2019/weUI.js,/public/js/mobile/v2019/block/publicblock/searchselect.js,/public/js/mobile/v2019/block/publicblock/articlelist.js"></div>
