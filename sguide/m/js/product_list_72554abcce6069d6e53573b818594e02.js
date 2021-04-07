@@ -591,9 +591,12 @@ function ajaxlinka(e,obj){
 }
 var isshare=false;
 function share(e){
-	if(!isshare&&pac=='brand'&&brandid>0){
+	var t_block=$(e).data('ac')?$(e).data('ac'):pac;
+	var t_blockdo=$(e).data('do')?$(e).data('do'):pdo;
+	var t_itid=$(e).data('id')?$(e).data('id'):pid;
+	if(!isshare&&t_block=='brand'&&t_blockdo=='show'&&t_itid>0){
 		isshare=true;
-		$.ajax({type:'get',url:'/ajaxstream/share/',data:{action:'sharecount','block':'brand',itid:brandid}});
+		$.ajax({type:'get',url:'/ajaxstream/share/',data:{action:'sharecount','block':t_block,blockdo:t_blockdo,itid:t_itid}});
 	}
 	var ua = window.navigator.userAgent.toLowerCase();
 	if(ua.match(/alibaba/i) == 'alibaba'){
@@ -1036,7 +1039,9 @@ $(document).ready(function(){
 			}
 		});
 		/*记录访问量*/
-		loadJS('https://count.cnpp.cn/count.php?ac='+pac+'&do='+pdo+'&id='+pid+'&siteid='+siteid+'&referrer='+document.referrer,function(){
+		var referrer=document.referrer.replace(/(http.*?\/\/.*?\/).*$/g,'$1');
+		referrer!=''&&referrer.indexOf('maigoo')==-1?$.cookie('referrer',referrer,{path:'/'}):''; 
+		loadJS('https://count.cnpp.cn/count.php?ac='+pac+'&do='+pdo+'&id='+pid+'&siteid='+siteid+'&referrer='+($.cookie('referrer')?$.cookie('referrer'):referrer),function(){
 			if(typeof(attentiondata)!='undefined'){
 				$('[count=attention]').each(function(){
 					$(this).html().replace(/\d+/g,'')==''?$(this).html(attentiondata):$(this).attr('title',$(this).attr('title').replace(/\d+/g,attentiondata));
@@ -1073,6 +1078,11 @@ $(document).ready(function(){
 				$('#pos_commentlist').html(data.replace(' class="blockinfo commentlist" id="pos_commentlist"','').replace('<div class="bline bline1"></div>',''));
 			}})
 	}
+	/*ad*/
+	setTimeout(function(){
+		$('.ad').each(function(){$(this).find('div').length<=0?$(this).parent().remove():''});
+	},2000);
+	
 });
 
 function articlemulu(obj){

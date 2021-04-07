@@ -1512,11 +1512,11 @@ function searchresult(e){
 /*/public/js/mobile/v2019/block/jiameng/addform.js*/
 $(document).ready(function(){
 	$('input[check=search]').each(function(){searchSomething($(this));});
-	$('.li.category .searchdata').delegate('li','click',function(){console.log('123');
+	$('.li.category .searchdata').delegate('li','click',function(){
 		if(_searchobj){
-			var _id=$(this).html().replace(/^(.*?)-.*$/g,'$1');
+			var _id=$(this).html().replace(/^<span cid="(\d+)".*$/g,'$1');
 			$(this).parents('.li.category').find('input.'+_searchobj.attr('ac')+'_id').val(_id);
-			_searchobj.val($(this).html());	
+			_searchobj.val($(this).text());	
 		}
 		$('.li.category .searchdata').hide();
 	});

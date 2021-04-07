@@ -1,0 +1,5 @@
+.md_2039{ padding:20px}
+.md_2039 .mod_title{ width:100%; overflow:hidden;}
+.md_2039 .mod_word{  max-width:60%; padding:0 30px; display:inline-block; position:relative; height:2em; box-sizing:border-box;}
+.md_2039 .mod_word .leftimg { position: absolute; right:98%;top: 50%;height: 52px;width: 240px;background:url(../images/7894b-1481.png) no-repeat;  background-size:240px 52px;margin-top: -26px;}
+.md_2039 .mod_word .rightimg { position: absolute;left:99.9%;top: 50%;height: 52px;width: 240px;background:url(../images/0a8f1-2419.png) no-repeat; background-size:240px 52px;margin-top: -26px;}

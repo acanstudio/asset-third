@@ -591,9 +591,12 @@ function ajaxlinka(e,obj){
 }
 var isshare=false;
 function share(e){
-	if(!isshare&&pac=='brand'&&brandid>0){
+	var t_block=$(e).data('ac')?$(e).data('ac'):pac;
+	var t_blockdo=$(e).data('do')?$(e).data('do'):pdo;
+	var t_itid=$(e).data('id')?$(e).data('id'):pid;
+	if(!isshare&&t_block=='brand'&&t_blockdo=='show'&&t_itid>0){
 		isshare=true;
-		$.ajax({type:'get',url:'/ajaxstream/share/',data:{action:'sharecount','block':'brand',itid:brandid}});
+		$.ajax({type:'get',url:'/ajaxstream/share/',data:{action:'sharecount','block':t_block,blockdo:t_blockdo,itid:t_itid}});
 	}
 	var ua = window.navigator.userAgent.toLowerCase();
 	if(ua.match(/alibaba/i) == 'alibaba'){
@@ -1073,6 +1076,11 @@ $(document).ready(function(){
 				$('#pos_commentlist').html(data.replace(' class="blockinfo commentlist" id="pos_commentlist"','').replace('<div class="bline bline1"></div>',''));
 			}})
 	}
+	/*ad*/
+	setTimeout(function(){
+		$('.ad').each(function(){$(this).find('div').length<=0?$(this).parent().remove():''});
+	},2000);
+	
 });
 
 function articlemulu(obj){

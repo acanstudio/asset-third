@@ -1073,6 +1073,11 @@ $(document).ready(function(){
 				$('#pos_commentlist').html(data.replace(' class="blockinfo commentlist" id="pos_commentlist"','').replace('<div class="bline bline1"></div>',''));
 			}})
 	}
+	/*ad*/
+	setTimeout(function(){
+		$('.ad').each(function(){$(this).find('div').length<=0?$(this).parent().remove():''});
+	},2000);
+	
 });
 
 function articlemulu(obj){

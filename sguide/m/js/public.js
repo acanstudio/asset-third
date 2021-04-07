@@ -361,7 +361,7 @@ function bindSwiper(obj){
 		  spaceBetween: 30,
 		  autoHeight:true,
 		  autoplay: autoplay>0?{delay:3000,disableOnInteraction: false}:false,
-		  loop: obj.attr('autosec')>0?true:false,
+		  loop: autoplay>0?true:false,
 		  pagination: {el:'#pagination'+num,clickable: true},
 		  navigation: {nextEl: '#swiperright'+num,prevEl: '#swiperleft'+num,},
 		  on: {
@@ -370,11 +370,13 @@ function bindSwiper(obj){
 			}
 		  }
 		});
-		obj.find('.swiper-container').hover(function(){
-			mySwiper.autoplay.stop();
-		},function(){
-			mySwiper.autoplay.start();
-		});
+		if(autoplay>0){
+			obj.find('.swiper-container').hover(function(){
+				mySwiper.autoplay.stop();
+			},function(){
+				mySwiper.autoplay.start();
+			});
+		}
 	}
 	}
 }
