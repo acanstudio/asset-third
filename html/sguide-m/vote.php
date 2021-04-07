@@ -1,5 +1,6 @@
 <?php class Yii { public static function getAlias($var) { return "http://39.106.102.45/filesys/spider/pages"; } } ?>
 <!DOCTYPE html>
+<!--STATUS OK-->
 <html>
 
 <head>
@@ -14,10 +15,10 @@
 <meta content="black" name="apple-mobile-web-app-status-bar-style" />
 <meta content="telephone=no" name="format-detection" />
 <meta name="applicable-device" content="mobile">
-<link href="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/48832-3435.ico" rel="shortcut icon" />
-<link href="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/css/06593-2711.css" type="text/css" rel="stylesheet" />
-<link href="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/css/40d76-7050.css" type="text/css" rel="stylesheet" />
-<link href="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/css/58077-2295.css" type="text/css" rel="stylesheet" />
+<link href="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/48832-7373.ico" rel="shortcut icon" />
+<link href="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/css/30cdb-6621.css" type="text/css" rel="stylesheet" />
+<link href="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/css/f1d79-1352.css" type="text/css" rel="stylesheet" />
+<link href="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/css/1457b-7442.css" type="text/css" rel="stylesheet" />
 <script src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/js/jquery.min.js" type="text/javascript"></script>
 </head>
 
@@ -66,7 +67,7 @@
                                 <a href="https://m.maigoo.com/vote/list_7375.html" class="c666 dhidden">橡皮</a>
                                 <a href="https://m.maigoo.com/vote/list_4742.html" class="c666 dhidden">蜡笔</a>
                                 <a href="https://m.maigoo.com/vote/list_7478.html" class="c666 dhidden">文件夹</a>
-                                <a href="https://m.maigoo.com/vote/list_4528.html" class="c666 dhidden">便签纸</a>
+                                <a href="https://m.maigoo.com/vote/list_4528.html" class="c666 dhidden">便签</a>
                                 <a href="https://m.maigoo.com/vote/list_776.html" class="c666 dhidden">马克笔</a>
                                 <a href="https://m.maigoo.com/vote/list_7209.html" class="c666 dhidden">圆珠笔</a>
                                 <a href="https://m.maigoo.com/vote/list_7379.html" class="c666 dhidden">文具盒</a>
@@ -90,9 +91,9 @@
                                 <a href="https://m.maigoo.com/maigoocms/special/qinzi/154chenguang.html" class="c666 dhidden">晨光文具M&G</a>
                                 <a href="https://m.maigoo.com/maigoocms/special/qinzi/151deli.html" class="c666 dhidden">得力DELI</a>
                                 <a href="https://m.maigoo.com/maigoocms/special/qinzi/151lemei.html" class="c666 dhidden">真彩TrueColor</a>
-                                <a href="https://m.maigoo.com/maigoocms/special/qinzi/151qixin.html" class="c666 dhidden">齐心COMIX</a>
+                                <a href="https://m.maigoo.com/maigoocms/special/qinzi/151qixin.html" class="c666 dhidden">齐心办公COMIX</a>
                                 <a href="https://m.maigoo.com/maigoocms/special/qinzi/152AIHAO.html" class="c666 dhidden">爱好AIHAO</a>
-                                <a href="https://m.maigoo.com/maigoocms/special/qinzi/151baixue.html" class="c666 dhidden">白雪Snowhite</a>
+                                <a href="https://m.maigoo.com/maigoocms/special/qinzi/151baixue.html" class="c666 dhidden">白雪文具Snowhite</a>
                                 <a href="https://m.maigoo.com/maigoocms/special/qinzi/151beifa.html" class="c666 dhidden">贝发BEIFA</a>
                                 <a href="https://m.maigoo.com/maigoocms/special/bggj/151gb.html" class="c666 dhidden">广博GuangBo</a>
                                 <a href="https://m.maigoo.com/maigoocms/special/bggj/151SUNWOOD.html" class="c666 dhidden">三木SUNWOOD</a>
@@ -182,10 +183,10 @@
                             <span class="numcolor spanborder">40</span></div>
                         <div class="showleft">
                             <span class="white spanborder">累计得票</span>
-                            <span class="numcolor spanborder">16.9万</span></div>
+                            <span class="numcolor spanborder">17.5万</span></div>
                         <div class="showleft">
                             <span class="white">访问次数</span>
-                            <span class="numcolor">139.4万</span></div>
+                            <span class="numcolor">140.9万</span></div>
                         <div class="clear"></div>
                     </div>
                 </div>
@@ -210,11 +211,11 @@
                                 <div class="top3">
                                     <i class="font12 eq2">2</i>
                                     <a href="https://m.maigoo.com/maigoocms/special/qinzi/151deli.html">
-                                        <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/7a719-8054.gif" /></a>
+                                        <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/7a719-6493.gif" /></a>
                                     <a href="https://m.maigoo.com/maigoocms/special/qinzi/151deli.html">
                                         <span class="ttl font14">得力</span></a>
                                     <span class="votenum font12">
-                                        <span class="piaonum">5,510</span>
+                                        <span class="piaonum">6,874</span>
                                         <em>票</em></span>
                                     <span>
                                         <a class="votebtt font12 bg1" href="/ajaxstream/vote/?action=vote&brandid=2418&catid=797" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).parent().parent().find('.votenum .piaonum'));">投票</a></span>
@@ -222,11 +223,11 @@
                                 <div class="top3">
                                     <i class="font12">1</i>
                                     <a href="https://m.maigoo.com/maigoocms/special/qinzi/154chenguang.html">
-                                        <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/8d43c-6578.gif" /></a>
+                                        <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/8d43c-3290.gif" /></a>
                                     <a href="https://m.maigoo.com/maigoocms/special/qinzi/154chenguang.html">
                                         <span class="ttl font14">晨光</span></a>
                                     <span class="votenum font12">
-                                        <span class="piaonum">3,576</span>
+                                        <span class="piaonum">4,423</span>
                                         <em>票</em></span>
                                     <span>
                                         <a class="votebtt font12 bg1 coverafter" href="/ajaxstream/vote/?action=vote&brandid=2411&catid=797" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).parent().parent().find('.votenum .piaonum'));">投票</a></span>
@@ -234,11 +235,11 @@
                                 <div class="top3">
                                     <i class="font12 eq3">3</i>
                                     <a href="https://m.maigoo.com/maigoocms/special/qinzi/151lemei.html">
-                                        <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/2eba9-8405.gif" /></a>
+                                        <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/2eba9-3024.gif" /></a>
                                     <a href="https://m.maigoo.com/maigoocms/special/qinzi/151lemei.html">
                                         <span class="ttl font14">真彩</span></a>
                                     <span class="votenum font12">
-                                        <span class="piaonum">3,990</span>
+                                        <span class="piaonum">4,628</span>
                                         <em>票</em></span>
                                     <span>
                                         <a class="votebtt font12 bg1" href="/ajaxstream/vote/?action=vote&brandid=2413&catid=797" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).parent().parent().find('.votenum .piaonum'));">投票</a></span>
@@ -253,15 +254,15 @@
                                             <a href="https://m.maigoo.com/maigoocms/special/qinzi/151qixin.html">
                                                 <i>4</i>
                                                 <div class="imgbox">
-                                                    <img width="207" height="90" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/c63ba-9766.gif" /></div>
-                                                <em class="font14 dhidden">齐心</em>
+                                                    <img width="207" height="90" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/c63ba-5340.gif" /></div>
+                                                <em class="font14 dhidden">齐心办公</em>
                                                 <div class="clear"></div>
                                             </a>
                                         </div>
                                         <div class="info font13">
                                             <span class="votenum">
                                                 <a class="orange" href="/ajaxstream/vote/?action=vote&brandid=2476&catid=797" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).find('.piaonum'));">
-                                                    <span class="piaonum">4,789</span>
+                                                    <span class="piaonum">5,778</span>
                                                     <em>票</em></a>
                                             </span>
                                             <a class="votebtn font12 bg1" href="/ajaxstream/vote/?action=vote&brandid=2476&catid=797" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).parent().find('.votenum .piaonum'));">+</a></div>
@@ -274,7 +275,7 @@
                                             <a href="https://m.maigoo.com/maigoocms/special/qinzi/152AIHAO.html">
                                                 <i>5</i>
                                                 <div class="imgbox">
-                                                    <img width="207" height="90" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/ea38c-6024.gif" /></div>
+                                                    <img width="207" height="90" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/ea38c-2087.gif" /></div>
                                                 <em class="font14 dhidden">爱好</em>
                                                 <div class="clear"></div>
                                             </a>
@@ -282,7 +283,7 @@
                                         <div class="info font13">
                                             <span class="votenum">
                                                 <a class="orange" href="/ajaxstream/vote/?action=vote&brandid=2415&catid=797" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).find('.piaonum'));">
-                                                    <span class="piaonum">3,017</span>
+                                                    <span class="piaonum">3,629</span>
                                                     <em>票</em></a>
                                             </span>
                                             <a class="votebtn font12 bg1" href="/ajaxstream/vote/?action=vote&brandid=2415&catid=797" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).parent().find('.votenum .piaonum'));">+</a></div>
@@ -295,15 +296,15 @@
                                             <a href="https://m.maigoo.com/maigoocms/special/qinzi/151baixue.html">
                                                 <i>6</i>
                                                 <div class="imgbox">
-                                                    <img width="207" height="90" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/3d415-8545.gif" /></div>
-                                                <em class="font14 dhidden">白雪</em>
+                                                    <img width="207" height="90" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/3d415-3041.gif" /></div>
+                                                <em class="font14 dhidden">白雪文具</em>
                                                 <div class="clear"></div>
                                             </a>
                                         </div>
                                         <div class="info font13">
                                             <span class="votenum">
                                                 <a class="orange" href="/ajaxstream/vote/?action=vote&brandid=2414&catid=797" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).find('.piaonum'));">
-                                                    <span class="piaonum">3,209</span>
+                                                    <span class="piaonum">3,772</span>
                                                     <em>票</em></a>
                                             </span>
                                             <a class="votebtn font12 bg1" href="/ajaxstream/vote/?action=vote&brandid=2414&catid=797" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).parent().find('.votenum .piaonum'));">+</a></div>
@@ -316,7 +317,7 @@
                                             <a href="https://m.maigoo.com/maigoocms/special/qinzi/151beifa.html">
                                                 <i>7</i>
                                                 <div class="imgbox">
-                                                    <img width="207" height="90" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/907fe-7573.gif" /></div>
+                                                    <img width="207" height="90" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/907fe-3403.gif" /></div>
                                                 <em class="font14 dhidden">贝发</em>
                                                 <div class="clear"></div>
                                             </a>
@@ -324,7 +325,7 @@
                                         <div class="info font13">
                                             <span class="votenum">
                                                 <a class="orange" href="/ajaxstream/vote/?action=vote&brandid=2416&catid=797" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).find('.piaonum'));">
-                                                    <span class="piaonum">2,439</span>
+                                                    <span class="piaonum">2,954</span>
                                                     <em>票</em></a>
                                             </span>
                                             <a class="votebtn font12 bg1" href="/ajaxstream/vote/?action=vote&brandid=2416&catid=797" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).parent().find('.votenum .piaonum'));">+</a></div>
@@ -337,7 +338,7 @@
                                             <a href="https://m.maigoo.com/maigoocms/special/bggj/151gb.html">
                                                 <i>8</i>
                                                 <div class="imgbox">
-                                                    <img width="207" height="90" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/df0e8-4234.gif" /></div>
+                                                    <img width="207" height="90" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/df0e8-2928.gif" /></div>
                                                 <em class="font14 dhidden">广博</em>
                                                 <div class="clear"></div>
                                             </a>
@@ -345,7 +346,7 @@
                                         <div class="info font13">
                                             <span class="votenum">
                                                 <a class="orange" href="/ajaxstream/vote/?action=vote&brandid=2555&catid=797" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).find('.piaonum'));">
-                                                    <span class="piaonum">2,866</span>
+                                                    <span class="piaonum">3,220</span>
                                                     <em>票</em></a>
                                             </span>
                                             <a class="votebtn font12 bg1" href="/ajaxstream/vote/?action=vote&brandid=2555&catid=797" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).parent().find('.votenum .piaonum'));">+</a></div>
@@ -358,7 +359,7 @@
                                             <a href="https://m.maigoo.com/maigoocms/special/bggj/151SUNWOOD.html">
                                                 <i>9</i>
                                                 <div class="imgbox">
-                                                    <img width="207" height="90" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/b69dd-2036.gif" /></div>
+                                                    <img width="207" height="90" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/b69dd-1729.gif" /></div>
                                                 <em class="font14 dhidden">三木</em>
                                                 <div class="clear"></div>
                                             </a>
@@ -366,7 +367,7 @@
                                         <div class="info font13">
                                             <span class="votenum">
                                                 <a class="orange" href="/ajaxstream/vote/?action=vote&brandid=2516&catid=797" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).find('.piaonum'));">
-                                                    <span class="piaonum">1,820</span>
+                                                    <span class="piaonum">1,961</span>
                                                     <em>票</em></a>
                                             </span>
                                             <a class="votebtn font12 bg1" href="/ajaxstream/vote/?action=vote&brandid=2516&catid=797" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).parent().find('.votenum .piaonum'));">+</a></div>
@@ -379,7 +380,7 @@
                                             <a href="https://m.maigoo.com/maigoocms/special/qinzi/152jwn.html">
                                                 <i>10</i>
                                                 <div class="imgbox">
-                                                    <img width="207" height="90" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/d6b40-3555.gif" /></div>
+                                                    <img width="207" height="90" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/d6b40-8960.gif" /></div>
                                                 <em class="font14 dhidden">金万年</em>
                                                 <div class="clear"></div>
                                             </a>
@@ -387,7 +388,7 @@
                                         <div class="info font13">
                                             <span class="votenum">
                                                 <a class="orange" href="/ajaxstream/vote/?action=vote&brandid=2417&catid=797" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).find('.piaonum'));">
-                                                    <span class="piaonum">1,894</span>
+                                                    <span class="piaonum">2,021</span>
                                                     <em>票</em></a>
                                             </span>
                                             <a class="votebtn font12 bg1" href="/ajaxstream/vote/?action=vote&brandid=2417&catid=797" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).parent().find('.votenum .piaonum'));">+</a></div>
@@ -400,7 +401,7 @@
                                             <a href="https://m.maigoo.com/maigoocms/special/qinzi/152uni.html">
                                                 <i>11</i>
                                                 <div class="imgbox">
-                                                    <img width="207" height="90" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/825eb-8446.gif" /></div>
+                                                    <img width="207" height="90" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/825eb-4327.gif" /></div>
                                                 <em class="font14 dhidden">三菱</em>
                                                 <div class="clear"></div>
                                             </a>
@@ -408,7 +409,7 @@
                                         <div class="info font13">
                                             <span class="votenum">
                                                 <a class="orange" href="/ajaxstream/vote/?action=vote&brandid=2412&catid=797" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).find('.piaonum'));">
-                                                    <span class="piaonum">1,248</span>
+                                                    <span class="piaonum">1,262</span>
                                                     <em>票</em></a>
                                             </span>
                                             <a class="votebtn font12 bg1" href="/ajaxstream/vote/?action=vote&brandid=2412&catid=797" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).parent().find('.votenum .piaonum'));">+</a></div>
@@ -421,7 +422,7 @@
                                             <a href="https://m.maigoo.com/brand/18144.html">
                                                 <i>12</i>
                                                 <div class="imgbox">
-                                                    <img width="207" height="90" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/62c44-3800.gif" /></div>
+                                                    <img width="207" height="90" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/62c44-9921.gif" /></div>
                                                 <em class="font14 dhidden">百乐</em>
                                                 <div class="clear"></div>
                                             </a>
@@ -429,7 +430,7 @@
                                         <div class="info font13">
                                             <span class="votenum">
                                                 <a class="orange" href="/ajaxstream/vote/?action=vote&brandid=18144&catid=797" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).find('.piaonum'));">
-                                                    <span class="piaonum">1,904</span>
+                                                    <span class="piaonum">1,911</span>
                                                     <em>票</em></a>
                                             </span>
                                             <a class="votebtn font12 bg1" href="/ajaxstream/vote/?action=vote&brandid=18144&catid=797" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).parent().find('.votenum .piaonum'));">+</a></div>
@@ -442,7 +443,7 @@
                                             <a href="https://m.maigoo.com/maigoocms/special/qinzi/266zhonghuapai.html">
                                                 <i>13</i>
                                                 <div class="imgbox">
-                                                    <img width="207" height="90" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/62666-4099.gif" /></div>
+                                                    <img width="207" height="90" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/62666-8886.gif" /></div>
                                                 <em class="font14 dhidden">中华牌</em>
                                                 <div class="clear"></div>
                                             </a>
@@ -450,7 +451,7 @@
                                         <div class="info font13">
                                             <span class="votenum">
                                                 <a class="orange" href="/ajaxstream/vote/?action=vote&brandid=2489&catid=797" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).find('.piaonum'));">
-                                                    <span class="piaonum">1,814</span>
+                                                    <span class="piaonum">1,817</span>
                                                     <em>票</em></a>
                                             </span>
                                             <a class="votebtn font12 bg1" href="/ajaxstream/vote/?action=vote&brandid=2489&catid=797" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).parent().find('.votenum .piaonum'));">+</a></div>
@@ -463,7 +464,7 @@
                                             <a href="https://m.maigoo.com/maigoocms/special/qinzi/152yx.html">
                                                 <i>14</i>
                                                 <div class="imgbox">
-                                                    <img width="207" height="90" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/735ee-5912.gif" /></div>
+                                                    <img width="207" height="90" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/735ee-4549.gif" /></div>
                                                 <em class="font14 dhidden">英雄</em>
                                                 <div class="clear"></div>
                                             </a>
@@ -471,7 +472,7 @@
                                         <div class="info font13">
                                             <span class="votenum">
                                                 <a class="orange" href="/ajaxstream/vote/?action=vote&brandid=2401&catid=797" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).find('.piaonum'));">
-                                                    <span class="piaonum">1,313</span>
+                                                    <span class="piaonum">1,322</span>
                                                     <em>票</em></a>
                                             </span>
                                             <a class="votebtn font12 bg1" href="/ajaxstream/vote/?action=vote&brandid=2401&catid=797" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).parent().find('.votenum .piaonum'));">+</a></div>
@@ -484,7 +485,7 @@
                                             <a href="https://m.maigoo.com/brand/18005.html">
                                                 <i>15</i>
                                                 <div class="imgbox">
-                                                    <img width="207" height="90" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/103c7-4133.gif" /></div>
+                                                    <img width="207" height="90" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/103c7-6357.gif" /></div>
                                                 <em class="font14 dhidden">斑马</em>
                                                 <div class="clear"></div>
                                             </a>
@@ -492,7 +493,7 @@
                                         <div class="info font13">
                                             <span class="votenum">
                                                 <a class="orange" href="/ajaxstream/vote/?action=vote&brandid=18005&catid=797" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).find('.piaonum'));">
-                                                    <span class="piaonum">1,352</span>
+                                                    <span class="piaonum">1,360</span>
                                                     <em>票</em></a>
                                             </span>
                                             <a class="votebtn font12 bg1" href="/ajaxstream/vote/?action=vote&brandid=18005&catid=797" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).parent().find('.votenum .piaonum'));">+</a></div>
@@ -505,7 +506,7 @@
                                             <a href="https://m.maigoo.com/maigoocms/special/qinzi/152BAOKE.html">
                                                 <i>16</i>
                                                 <div class="imgbox">
-                                                    <img width="207" height="90" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/dde31-2046.gif" /></div>
+                                                    <img width="207" height="90" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/dde31-8945.gif" /></div>
                                                 <em class="font14 dhidden">宝克</em>
                                                 <div class="clear"></div>
                                             </a>
@@ -513,7 +514,7 @@
                                         <div class="info font13">
                                             <span class="votenum">
                                                 <a class="orange" href="/ajaxstream/vote/?action=vote&brandid=2420&catid=797" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).find('.piaonum'));">
-                                                    <span class="piaonum">1,527</span>
+                                                    <span class="piaonum">1,532</span>
                                                     <em>票</em></a>
                                             </span>
                                             <a class="votebtn font12 bg1" href="/ajaxstream/vote/?action=vote&brandid=2420&catid=797" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).parent().find('.votenum .piaonum'));">+</a></div>
@@ -526,7 +527,7 @@
                                             <a href="https://m.maigoo.com/brand/27520.html">
                                                 <i>17</i>
                                                 <div class="imgbox">
-                                                    <img width="207" height="90" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/d49fa-1386.gif" /></div>
+                                                    <img width="207" height="90" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/d49fa-8532.gif" /></div>
                                                 <em class="font14 dhidden">马可</em>
                                                 <div class="clear"></div>
                                             </a>
@@ -534,7 +535,7 @@
                                         <div class="info font13">
                                             <span class="votenum">
                                                 <a class="orange" href="/ajaxstream/vote/?action=vote&brandid=27520&catid=797" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).find('.piaonum'));">
-                                                    <span class="piaonum">1,191</span>
+                                                    <span class="piaonum">1,193</span>
                                                     <em>票</em></a>
                                             </span>
                                             <a class="votebtn font12 bg1" href="/ajaxstream/vote/?action=vote&brandid=27520&catid=797" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).parent().find('.votenum .piaonum'));">+</a></div>
@@ -547,7 +548,7 @@
                                             <a href="https://m.maigoo.com/brand/10527.html">
                                                 <i>18</i>
                                                 <div class="imgbox">
-                                                    <img width="207" height="90" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/e39f8-6132.gif" /></div>
+                                                    <img width="207" height="90" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/e39f8-8435.gif" /></div>
                                                 <em class="font14 dhidden">施德楼</em>
                                                 <div class="clear"></div>
                                             </a>
@@ -555,7 +556,7 @@
                                         <div class="info font13">
                                             <span class="votenum">
                                                 <a class="orange" href="/ajaxstream/vote/?action=vote&brandid=10527&catid=797" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).find('.piaonum'));">
-                                                    <span class="piaonum">1,389</span>
+                                                    <span class="piaonum">1,394</span>
                                                     <em>票</em></a>
                                             </span>
                                             <a class="votebtn font12 bg1" href="/ajaxstream/vote/?action=vote&brandid=10527&catid=797" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).parent().find('.votenum .piaonum'));">+</a></div>
@@ -568,7 +569,7 @@
                                             <a href="https://m.maigoo.com/maigoocms/special/bggj/266Maped.html">
                                                 <i>19</i>
                                                 <div class="imgbox">
-                                                    <img width="207" height="90" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/5dbc7-5701.gif" /></div>
+                                                    <img width="207" height="90" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/5dbc7-8510.gif" /></div>
                                                 <em class="font14 dhidden">马培德</em>
                                                 <div class="clear"></div>
                                             </a>
@@ -576,7 +577,7 @@
                                         <div class="info font13">
                                             <span class="votenum">
                                                 <a class="orange" href="/ajaxstream/vote/?action=vote&brandid=2477&catid=797" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).find('.piaonum'));">
-                                                    <span class="piaonum">1,454</span>
+                                                    <span class="piaonum">1,455</span>
                                                     <em>票</em></a>
                                             </span>
                                             <a class="votebtn font12 bg1" href="/ajaxstream/vote/?action=vote&brandid=2477&catid=797" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).parent().find('.votenum .piaonum'));">+</a></div>
@@ -589,7 +590,7 @@
                                             <a href="https://m.maigoo.com/brand/57959.html">
                                                 <i>20</i>
                                                 <div class="imgbox">
-                                                    <img width="207" height="90" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/da756-2091.gif" /></div>
+                                                    <img width="207" height="90" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/2aceb-7547.gif" /></div>
                                                 <em class="font14 dhidden">国誉</em>
                                                 <div class="clear"></div>
                                             </a>
@@ -597,7 +598,7 @@
                                         <div class="info font13">
                                             <span class="votenum">
                                                 <a class="orange" href="/ajaxstream/vote/?action=vote&brandid=57959&catid=797" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).find('.piaonum'));">
-                                                    <span class="piaonum">1,097</span>
+                                                    <span class="piaonum">1,099</span>
                                                     <em>票</em></a>
                                             </span>
                                             <a class="votebtn font12 bg1" href="/ajaxstream/vote/?action=vote&brandid=57959&catid=797" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).parent().find('.votenum .piaonum'));">+</a></div>
@@ -619,7 +620,7 @@
                     <div class="blockinfo votecol1 ">
                         <div class="itembox">
                             <div class="ajaxload" data-action="votelist" data-subaction="brandtop" data-thirdaction="" data-page="1" data-start="" data-defaultids="" data-sort="" data-postdata="">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/ee77e-1342.gif" /></div>
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/7ee46-8575.gif" /></div>
                         </div>
                     </div>
                 </div>
@@ -627,7 +628,7 @@
                     <div class="blockinfo votecol1 ">
                         <div class="itembox">
                             <div class="ajaxload" data-action="votelist" data-subaction="historytop" data-thirdaction="" data-page="1" data-start="" data-defaultids="" data-sort="" data-postdata="">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/ee77e-1342.gif" /></div>
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/7ee46-8575.gif" /></div>
                         </div>
                     </div>
                 </div>

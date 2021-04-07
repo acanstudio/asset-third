@@ -1,5 +1,6 @@
 <?php class Yii { public static function getAlias($var) { return "http://39.106.102.45/filesys/spider/pages"; } } ?>
 <!DOCTYPE html>
+<!--STATUS OK-->
 <html>
 
 <head>
@@ -14,10 +15,10 @@
 <meta content="black" name="apple-mobile-web-app-status-bar-style" />
 <meta content="telephone=no" name="format-detection" />
 <meta name="applicable-device" content="mobile">
-<link href="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/48832-3435.ico" rel="shortcut icon" />
-<link href="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/css/06593-2711.css" type="text/css" rel="stylesheet" />
-<link href="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/css/40d76-7050.css" type="text/css" rel="stylesheet" />
-<link href="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/css/2e3d8-4050.css" type="text/css" rel="stylesheet" />
+<link href="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/48832-7373.ico" rel="shortcut icon" />
+<link href="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/css/30cdb-6621.css" type="text/css" rel="stylesheet" />
+<link href="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/css/f1d79-1352.css" type="text/css" rel="stylesheet" />
+<link href="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/css/f2c73-7497.css" type="text/css" rel="stylesheet" />
 <script src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/js/jquery.min.js" type="text/javascript"></script>
 </head>
 
@@ -57,7 +58,7 @@
                                 <a href="https://m.maigoo.com/maigoo/151wj_index.html" class="c666 dhidden">文具用品</a>
                                 <a href="https://m.maigoo.com/maigoo/785bi_index.html" class="c666 dhidden">中性笔</a>
                                 <a href="https://m.maigoo.com/maigoo/1342lb_index.html" class="c666 dhidden">蜡笔</a>
-                                <a href="https://m.maigoo.com/maigoo/1265blt_index.html" class="c666 dhidden">便签纸</a>
+                                <a href="https://m.maigoo.com/maigoo/1265blt_index.html" class="c666 dhidden">便签</a>
                                 <a href="https://m.maigoo.com/maigoo/786mkb_index.html" class="c666 dhidden">马克笔</a>
                                 <a href="https://m.maigoo.com/maigoo/577jsj_index.html" class="c666 dhidden">计算器</a>
                                 <a href="https://m.maigoo.com/maigoo/585dkj_index.html" class="c666 dhidden">打孔机</a>
@@ -79,9 +80,9 @@
                                 <a href="https://m.maigoo.com/maigoocms/special/qinzi/154chenguang.html" class="c666 dhidden">晨光文具M&G</a>
                                 <a href="https://m.maigoo.com/maigoocms/special/qinzi/151deli.html" class="c666 dhidden">得力DELI</a>
                                 <a href="https://m.maigoo.com/maigoocms/special/qinzi/151lemei.html" class="c666 dhidden">真彩TrueColor</a>
-                                <a href="https://m.maigoo.com/maigoocms/special/qinzi/151qixin.html" class="c666 dhidden">齐心COMIX</a>
+                                <a href="https://m.maigoo.com/maigoocms/special/qinzi/151qixin.html" class="c666 dhidden">齐心办公COMIX</a>
                                 <a href="https://m.maigoo.com/maigoocms/special/qinzi/152AIHAO.html" class="c666 dhidden">爱好AIHAO</a>
-                                <a href="https://m.maigoo.com/maigoocms/special/qinzi/151baixue.html" class="c666 dhidden">白雪Snowhite</a>
+                                <a href="https://m.maigoo.com/maigoocms/special/qinzi/151baixue.html" class="c666 dhidden">白雪文具Snowhite</a>
                                 <a href="https://m.maigoo.com/maigoocms/special/qinzi/151beifa.html" class="c666 dhidden">贝发BEIFA</a>
                                 <a href="https://m.maigoo.com/maigoocms/special/bggj/151gb.html" class="c666 dhidden">广博GuangBo</a>
                                 <a href="https://m.maigoo.com/maigoocms/special/bggj/151SUNWOOD.html" class="c666 dhidden">三木SUNWOOD</a>
@@ -141,19 +142,10 @@
     <div id="brandlogo">
         <div class="midinfo">
             <div class="img">
-                <img width="207" height="90" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/8d43c-6578.gif" /></div>
+                <img width="207" height="90" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/8d43c-3290.gif" /></div>
             <div class="brandname line18em">
                 <div class="b font16 line18em">晨光文具M&G</div>
-                <div class="cname font14">上海晨光文具股份有限公司</div>
-                <span class="vpsc">
-                    <div class="brandud big" brandid="2411">
-                        <i class="iconfont icon-jiantou-xiangxia vote c999"></i>
-                        <i class="iconfont icon-jiantou-xiangxia praise c999"></i>
-                        <i class="iconfont icon-jiantou-xiangxia share c999"></i>
-                        <i class="iconfont icon-jiantou-xiangxia comment c999"></i>
-                    </div>
-                </span>
-            </div>
+                <div class="cname font14">上海晨光文具股份有限公司</div></div>
             <div class="btnlist col4">
                 <a rel="nofollow" isconvert="1" href="https://s.click.taobao.com/t?e=m%3D2%26s%3DR4vOR9ws3kccQipKwQzePDAVflQIoZepyK8Cckff7TVRAdhuF14FMV8qrMWjnlXA1aH1Hk3GeOhQGJRg6iVmCsG9%2B3Bhuj2rTcGYdUd9A5PNo%2B4dndBAMe%2FBas0tvb4eZz42eVlqqJTBwBLHPsOVpfdFsh68tKJtDoIsMWFLM5HbuH8uTeg4ExbqKVbTskvgIYULNg46oBA%3D&union_lens=lensId:TAPI@1603075636@0b588f48_194f_1753ec0fe46_a68d@01" class="btn">旗舰店</a>
                 <a rel="nofollow" isconvert="1" href="https://union-click.jd.com/jdc?e=&p=AyIGZRprFQMTBlQaWxUHEDcRRANLXSJeEF4aVwkMGQtBRE5XDVULR0VJHEpYAE8SCQITBlQaWhUCFwVKQh5JXyJAFXpba1FXTjZuXHJQEmQ2bANTGFl3WRdrFgoUBV0TWx0AIg9dEloVBxc3ZRtaJVR8B1QaWhQDEgdQGWsXAxMEUR1dHAYTN1UfUxYKEA9WHlIcAxU3UhtSJQIQAFcbXB0GFQ5SdRolMiIEZStrFjISNwpfBkgyEAZUH1I%3D" class="btn">JD自营店</a>
@@ -164,10 +156,11 @@
     </div>
     <div id="container">
         <div class="blockinfo adslist noradio" id="pos_piclist">
+            <!--横幅切换图片-->
             <ul>
                 <li class=" active">
                     <a class="slice " href="javascript:;">
-                        <img class="" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/5c2ff-3683.jpg" /></a>
+                        <img class="" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/5c2ff-5691.jpg" /></a>
                 </li>
             </ul>
         </div>
@@ -177,7 +170,7 @@
                     <li class="title">
                         <span class="font18 b c333">上海晨光文具股份有限公司</span>
                         <a href="https://www.cnpp.cn/answer/51.html" title="绑定管理企业">
-                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/aae56-2566.gif" /></a>
+                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/aae56-7088.gif" /></a>
                     </li>
                     <li>联系电话：
                         <i class="iconfont icon-lianxidianhua c999"></i>
@@ -186,7 +179,7 @@
                         <i class="iconfont icon-chengshi1 c999"></i>上海市 奉贤区 青村镇金钱公路3469号</li>
                     <li>官网：
                         <i class="iconfont icon-guanwang c999"></i>
-                        <a href="http://www.mg-pen.com" class="c999">http://www.mg-pen.com</a></li>
+                        <a href="/link.php?url=http://www.mg-pen.com" class="c999">http://www.mg-pen.com</a></li>
                     <li>传真：
                         <i class="iconfont icon-chuanzhen c999"></i>021-57474488</li></ul>
             </div>
@@ -219,7 +212,7 @@
                     <li class="">核准日期： 2020-07-30</li>
                     <li class="">注册资本： 92742.76万元</li>
                     <li class="">经营范围： 许可项目：食品经营；包装装潢印刷品印刷；文件、资料等其他印刷品印刷；出版物经营。（依法须经批准的项目，经相关部门批准后方可开展经营活动，具体经营项目以相关部门批准文件或许可证件为准） 一般项目：文具用品制造及销售，数码产品、安防设备、仪器仪表、劳防用品、家具、装饰品、化妆品、饰品、办公用品、工艺礼品（象牙及其制品除外）、橡塑制品、电子产品、家用电器、玩具、模具、五金交电、通讯器材、计算机软件及辅助设备、日用百货、纺织品、服装鞋帽、家居用品、体育用品及器材、消毒剂（不含危险化学品）、厨具卫具及日用杂品、日用化学产品、第一类医疗器械、第二类医疗器械、机械设备、办公设备及耗材、照相器材、音响设备、装饰材料、消防器材、酒店用品、玻璃制品、电力电子元器件、润滑油、水暖管道及配件、陶瓷管道及配件、汽车用品、卫生用品、母婴用品批发、零售，从事货物及技术的进出口业务，电子商务，企业管理咨询。（除依法须经批准的项目外，凭营业执照依法自主开展经营活动）</li>
-                    <li class="">企业档案更新时间： 2020-09-07 (超过3月未更新)</li>
+                    <li class="">企业档案更新时间： 2020-09-07 (超过6月未更新)</li>
                     <li class="">提醒： 可能因企业资料变更未及时更新造成与实际登记有差别，请以国家部门核准登记的为准。企业品牌身份信息由CNPP企业身份认证系统提供（认证完全免费不收取任何费用）。买购网对所展示信息真实性的"风险提醒"服务，旨在帮助消费者选择有实力的企业、选购到放心商品。</li></ul>
                 <div class="blockmorebox font16">
                     <div class="morebtn c333" onclick="if($(this).parent().prev().hasClass('nomore')){$(this).parent().prev().removeClass('nomore');$(this).find('span').html('收起');}else{$(this).parent().prev().addClass('nomore');$(this).find('span').html('加载更多');}">
@@ -250,7 +243,7 @@
                         <div class="img">
                             <a href="https://m.maigoo.com/maigoocms/special/qinzi/154chenguang.html">
                                 <div class="imgbox">
-                                    <img width="207" height="90" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/8d43c-6578.gif" /></div>
+                                    <img width="207" height="90" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/8d43c-3290.gif" /></div>
                                 <em class="font14 dhidden color1">晨光文具M&G</em></a>
                         </div>
                         <div class="info font14">
@@ -263,7 +256,7 @@
                         <div class="img">
                             <a href="https://m.maigoo.com/brand/57560.html">
                                 <div class="imgbox">
-                                    <img width="207" height="90" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/22316-8802.gif" /></div>
+                                    <img width="207" height="90" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/4a8e7-1330.gif" /></div>
                                 <em class="font14 dhidden color1">科力普COLIPU</em></a>
                         </div>
                         <div class="info font14">
@@ -276,7 +269,7 @@
                         <div class="img">
                             <a href="https://m.maigoo.com/brand/141608.html">
                                 <div class="imgbox">
-                                    <img width="207" height="90" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/70468-9812.gif" /></div>
+                                    <img width="207" height="90" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/70468-9960.gif" /></div>
                                 <em class="font14 dhidden color1">九木杂物社</em></a>
                         </div>
                         <div class="info font14">
@@ -315,7 +308,7 @@
                     <div class="ibox">
                         <div class="img ">
                             <a href="https://m.maigoo.com/mingren/8452.html">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/9414e-6228.png" /></a>
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/9414e-1768.png" /></a>
                         </div>
                         <div class="contbox">
                             <a class="title font15 color2 dhidden2" href="https://m.maigoo.com/mingren/8452.html">
@@ -323,7 +316,7 @@
                             <div class='other font12'>
                                 <a class="biaoqian color5" href="https://m.maigoo.com/biaoqian/22.html">文具用品</a>
                                 <div class="attention">
-                                    <i class="iconfont icon-chakan"></i>2万</div>
+                                    <i class="iconfont icon-chakan"></i>2.1万</div>
                             </div>
                         </div>
                         <div class="clear"></div>
@@ -333,7 +326,7 @@
                     <div class="ibox">
                         <div class="img ">
                             <a href="https://m.maigoo.com/mingren/8453.html">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/5e11b-9794.png" /></a>
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/5e11b-8398.png" /></a>
                         </div>
                         <div class="contbox">
                             <a class="title font15 color2 dhidden2" href="https://m.maigoo.com/mingren/8453.html">
@@ -369,27 +362,27 @@
                     <ul>
                         <li class="clickimg">
                             <div class="img">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/17027-8762.jpg" width="250" height="160" /></div>
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/17027-4481.jpg" width="250" height="160" /></div>
                             <div class="desc dhidden center line2em font12" title="">&nbsp;</div></li>
                         <li class="clickimg">
                             <div class="img">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/22b8d-8025.jpg" width="250" height="160" /></div>
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/22b8d-3743.jpg" width="250" height="160" /></div>
                             <div class="desc dhidden center line2em font12" title="">&nbsp;</div></li>
                         <li class="clickimg">
                             <div class="img">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/28e6f-9391.jpg" width="250" height="160" /></div>
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/28e6f-4669.jpg" width="250" height="160" /></div>
                             <div class="desc dhidden center line2em font12" title="">&nbsp;</div></li>
                         <li class="clickimg">
                             <div class="img">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/cb899-1160.jpg" width="250" height="160" /></div>
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/cb899-3698.jpg" width="250" height="160" /></div>
                             <div class="desc dhidden center line2em font12" title="">&nbsp;</div></li>
                         <li class="clickimg">
                             <div class="img">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/e9549-9368.jpg" width="250" height="160" /></div>
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/e9549-1445.jpg" width="250" height="160" /></div>
                             <div class="desc dhidden center line2em font12" title="">&nbsp;</div></li>
                         <li class="clickimg">
                             <div class="img">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/03697-2549.jpg" width="250" height="160" /></div>
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/03697-9614.jpg" width="250" height="160" /></div>
                             <div class="desc dhidden center line2em font12" title="">&nbsp;</div></li>
                     </ul>
                 </div>
@@ -399,7 +392,7 @@
         <div class="blockinfo companypiclist " id="pos_piclist2">
             <div class="blocktitle font20 ccc style1 ">
                 <span class="color1">
-                    <em class="dhidden">企业荣誉</em>
+                    <em class="dhidden">荣誉资质</em>
                     <i class="l bg1">
                         <i class="bg2"></i>
                     </i>
@@ -415,19 +408,19 @@
                     <ul>
                         <li class="clickimg">
                             <div class="img">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/83334-5472.jpg" width="250" height="160" /></div>
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/83334-8386.jpg" width="250" height="160" /></div>
                             <div class="desc dhidden center line2em font12" title="">&nbsp;</div></li>
                         <li class="clickimg">
                             <div class="img">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/9f997-4944.jpg" width="250" height="160" /></div>
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/9f997-1496.jpg" width="250" height="160" /></div>
                             <div class="desc dhidden center line2em font12" title="">&nbsp;</div></li>
                         <li class="clickimg">
                             <div class="img">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/e2742-7362.jpg" width="250" height="160" /></div>
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/e2742-1842.jpg" width="250" height="160" /></div>
                             <div class="desc dhidden center line2em font12" title="">&nbsp;</div></li>
                         <li class="clickimg">
                             <div class="img">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/2f96b-5548.jpg" width="250" height="160" /></div>
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/2f96b-3631.jpg" width="250" height="160" /></div>
                             <div class="desc dhidden center line2em font12" title="">&nbsp;</div></li>
                     </ul>
                 </div>
@@ -435,11 +428,12 @@
         </div>
         <div class="bline bline1"></div>
         <div class="articlepraise bottombd" id="articlepraise">
+            <!--点赞-->
             <div class="tubiao">
                 <div class="dianzhan">
-                    <a href="/ajaxstream/praise/?action=addpraise&block=company&id=2411" class="addpraise" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).find('.addnum'))">
+                    <a href="/ajaxstream/praise/?action=addpraise&block=company&id=2411" class="addpraise" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$('.addpraisenum'))">
                         <i class="iconfont icon-dianzan"></i>赞
-                        <i class="addnum getajaxdata" url="https://s.maigoo.com/ajaxstream/praise/?action=getpraise&block=company&id=2411&type=add"></i></a>
+                        <i class="addpraisenum getajaxdata" url="https://s.maigoo.com/ajaxstream/praise/?action=getpraise&block=company&id=2411&type=add"></i></a>
                 </div>
                 <div class="xiajiang c999">
                     <a href="/ajaxstream/praise/?action=cutpraise&block=company&id=2411" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).find('.addnum'))" class="cutpraise">
@@ -470,7 +464,7 @@
                 <div class="usersay">
                     <div class="picbox">
                         <div class="userpic">
-                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/5ce16-7366.jpg" /></div>
+                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/0b5a8-4016.jpg" /></div>
                     </div>
                     <div class="commentbox">
                         <div class="commenttxt line18em" id="con933675">很喜欢上海晨光这个品牌，其实我小学的名字也叫晨光，可能有莫名的亲切感，自然也比较喜欢这个品牌，而且晨光的产品还挺广的，有大品牌的风范</div>
@@ -478,9 +472,6 @@
                             <span class="left c999 nickname">
                                 <i class="name">网友 (220.170.*.*)</i>&nbsp;&nbsp;11-25 17:10</span>
                             <span class="right">
-                                <a class="jubao link c999" href="https://m.maigoo.com/submit/tousu/">
-                                    <i class="iconfont icon-jubao"></i>
-                                </a>
                                 <a class="c999" href="javascript:void(0);" commentid="933675" onclick="commentreply(this);">
                                     <i class="iconfont icon-liuyan"></i>
                                 </a>
@@ -496,7 +487,7 @@
                 <div class="usersay">
                     <div class="picbox">
                         <div class="userpic">
-                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/67bb9-7182.jpg" /></div>
+                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/5ce16-4585.jpg" /></div>
                     </div>
                     <div class="commentbox">
                         <div class="commenttxt line18em" id="con933674">晨光文具在国内还是非常有名的，我平时有的很多文具产品也都是这个品牌，办公设备我也是比较信赖晨光</div>
@@ -504,9 +495,6 @@
                             <span class="left c999 nickname">
                                 <i class="name">网友 (220.170.*.*)</i>&nbsp;&nbsp;11-15 16:05</span>
                             <span class="right">
-                                <a class="jubao link c999" href="https://m.maigoo.com/submit/tousu/">
-                                    <i class="iconfont icon-jubao"></i>
-                                </a>
                                 <a class="c999" href="javascript:void(0);" commentid="933674" onclick="commentreply(this);">
                                     <i class="iconfont icon-liuyan"></i>
                                 </a>
@@ -522,7 +510,7 @@
                 <div class="usersay">
                     <div class="picbox">
                         <div class="userpic">
-                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/aa761-9198.jpg" /></div>
+                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/aa761-1220.jpg" /></div>
                     </div>
                     <div class="commentbox">
                         <div class="commenttxt line18em" id="con909166">本子质量很好！</div>
@@ -530,9 +518,6 @@
                             <span class="left c999 nickname">
                                 <i class="name">田小不懂</i>&nbsp;&nbsp;08-18 10:12</span>
                             <span class="right">
-                                <a class="jubao link c999" href="https://m.maigoo.com/submit/tousu/">
-                                    <i class="iconfont icon-jubao"></i>
-                                </a>
                                 <a class="c999" href="javascript:void(0);" commentid="909166" onclick="commentreply(this);">
                                     <i class="iconfont icon-liuyan"></i>
                                 </a>
@@ -571,7 +556,7 @@
                     <a class="color1" href="javascript:;" onclick="window.open('https://m.maigoo.com/user/login/');">注册登录>></a></div>
             </div>
             <div class="moremzsm">
-                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/80594-6438.gif" onclick="$('#mzsmcontent').find('.mzsm').css('height','auto');$(this).parent().remove();" /></div>
+                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/dec8c-3557.gif" onclick="$('#mzsmcontent').find('.mzsm').css('height','auto');$(this).parent().remove();" /></div>
         </div>
         <div class="pagecss" data-css="/public/css/mobile/v2019/color.css,/public/css/mobile/v2019/weui.min.css,/public/css/mobile/v2019/company.css,/public/css/mobile/v2019/block/publicblock/adslist.css,/public/css/mobile/v2019/block/company/topinfo.css,/public/css/mobile/v2019/block/brand/col1.css,/public/css/mobile/v2019/block/publicblock/articlelist.css,/public/css/mobile/v2019/block/company/scrollbox.css,/public/css/mobile/v2019/block/publicblock/articlepraise.css,/public/css/mobile/v2019/block/publicblock/articlecomment.css,/public/css/mobile/v2019/block/comment/commentlist.css,/public/css/mobile/v2019/block/publicblock/mzsm.css"></div>
         <div class="pagejs" data-js="/public/js/mobile/v2019/public.js,/public/js/mobile/v2019/event.js,/public/js/mobile/v2019/weUI.js,/public/js/mobile/v2019/block/publicblock/articlelist.js,/public/js/mobile/v2019/block/publicblock/articlecomment.js,/public/js/mobile/v2019/block/comment/commentlist.js"></div>

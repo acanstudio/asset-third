@@ -1,5 +1,6 @@
 <?php class Yii { public static function getAlias($var) { return "http://39.106.102.45/filesys/spider/pages"; } } ?>
 <!DOCTYPE html>
+<!--STATUS OK-->
 <html>
 
 <head>
@@ -14,10 +15,10 @@
 <meta content="black" name="apple-mobile-web-app-status-bar-style" />
 <meta content="telephone=no" name="format-detection" />
 <meta name="applicable-device" content="mobile">
-<link href="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/48832-3435.ico" rel="shortcut icon" />
-<link href="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/css/06593-2711.css" type="text/css" rel="stylesheet" />
-<link href="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/css/40d76-7050.css" type="text/css" rel="stylesheet" />
-<link href="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/css/e8e97-2126.css" type="text/css" rel="stylesheet" />
+<link href="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/48832-7373.ico" rel="shortcut icon" />
+<link href="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/css/30cdb-6621.css" type="text/css" rel="stylesheet" />
+<link href="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/css/f1d79-1352.css" type="text/css" rel="stylesheet" />
+<link href="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/css/e8e97-6532.css" type="text/css" rel="stylesheet" />
 <script src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/js/jquery.min.js" type="text/javascript"></script>
 </head>
 
@@ -73,9 +74,9 @@
                                 <a href="https://m.maigoo.com/brand/shop_2411.html" class="c666 dhidden">晨光文具M&G</a>
                                 <a href="https://m.maigoo.com/brand/shop_2418.html" class="c666 dhidden">得力DELI</a>
                                 <a href="https://m.maigoo.com/brand/shop_2413.html" class="c666 dhidden">真彩TrueColor</a>
-                                <a href="https://m.maigoo.com/brand/shop_2476.html" class="c666 dhidden">齐心COMIX</a>
+                                <a href="https://m.maigoo.com/brand/shop_2476.html" class="c666 dhidden">齐心办公COMIX</a>
                                 <a href="https://m.maigoo.com/maigoocms/special/qinzi/152AIHAO.html" class="c666 dhidden">爱好AIHAO</a>
-                                <a href="https://m.maigoo.com/maigoocms/special/qinzi/151baixue.html" class="c666 dhidden">白雪Snowhite</a>
+                                <a href="https://m.maigoo.com/maigoocms/special/qinzi/151baixue.html" class="c666 dhidden">白雪文具Snowhite</a>
                                 <a href="https://m.maigoo.com/maigoocms/special/qinzi/151beifa.html" class="c666 dhidden">贝发BEIFA</a>
                                 <a href="https://m.maigoo.com/brand/shop_2555.html" class="c666 dhidden">广博GuangBo</a>
                                 <a href="https://m.maigoo.com/brand/shop_2516.html" class="c666 dhidden">三木SUNWOOD</a>
@@ -244,8 +245,8 @@
                                 <a class="leval color1 dhidden " href="https://m.maigoo.com/shop/search/?catid=797&brandid=2411&dynamic=1" data-action="searchlist" data-brandid="2411">晨光文具M&G</a>
                                 <a class="leval color1 dhidden " href="https://m.maigoo.com/shop/search/?catid=797&brandid=2418&dynamic=1" data-action="searchlist" data-brandid="2418">得力DELI</a>
                                 <a class="leval color1 dhidden " href="https://m.maigoo.com/shop/search/?catid=797&brandid=2413&dynamic=1" data-action="searchlist" data-brandid="2413">真彩TrueColor</a>
-                                <a class="leval color1 dhidden " href="https://m.maigoo.com/shop/search/?catid=797&brandid=2476&dynamic=1" data-action="searchlist" data-brandid="2476">齐心COMIX</a>
-                                <a class="leval color1 dhidden " href="https://m.maigoo.com/shop/search/?catid=797&brandid=2414&dynamic=1" data-action="searchlist" data-brandid="2414">白雪Snowhite</a>
+                                <a class="leval color1 dhidden " href="https://m.maigoo.com/shop/search/?catid=797&brandid=2476&dynamic=1" data-action="searchlist" data-brandid="2476">齐心办公COMIX</a>
+                                <a class="leval color1 dhidden " href="https://m.maigoo.com/shop/search/?catid=797&brandid=2414&dynamic=1" data-action="searchlist" data-brandid="2414">白雪文具Snowhite</a>
                                 <a class="leval color1 dhidden " href="https://m.maigoo.com/shop/search/?catid=797&brandid=2416&dynamic=1" data-action="searchlist" data-brandid="2416">贝发BEIFA</a>
                                 <a class="leval color1 dhidden " href="https://m.maigoo.com/shop/search/?catid=797&brandid=2555&dynamic=1" data-action="searchlist" data-brandid="2555">广博GuangBo</a>
                                 <a class="leval color1 dhidden " href="https://m.maigoo.com/shop/search/?catid=797&brandid=2516&dynamic=1" data-action="searchlist" data-brandid="2516">三木SUNWOOD</a>
@@ -265,7 +266,7 @@
                         </a>
                         <div class="img">
                             <a href="https://m.maigoo.com/shop/314165.html">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/ef0d5-2836.jpg" width="240" height="154" /></div>
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/ef0d5-4846.jpg" width="240" height="154" /></div>
                         </a>
                         <div class="cont font12 c999">
                             <div class="type dhidden">
@@ -289,7 +290,7 @@
                         </a>
                         <div class="img">
                             <a href="https://m.maigoo.com/shop/306844.html">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/02893-5196.jpg" width="240" height="154" /></div>
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/02893-5916.jpg" width="240" height="154" /></div>
                         </a>
                         <div class="cont font12 c999">
                             <div class="type dhidden">
@@ -313,7 +314,7 @@
                         </a>
                         <div class="img">
                             <a href="https://m.maigoo.com/shop/326116.html">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/55814-4809.jpg" width="240" height="154" /></div>
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/55814-4399.jpg" width="240" height="154" /></div>
                         </a>
                         <div class="cont font12 c999">
                             <div class="type dhidden">
@@ -337,7 +338,7 @@
                         </a>
                         <div class="img">
                             <a href="https://m.maigoo.com/shop/314215.html">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/99ad9-4701.jpg" width="240" height="154" /></div>
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/99ad9-1541.jpg" width="240" height="154" /></div>
                         </a>
                         <div class="cont font12 c999">
                             <div class="type dhidden">
@@ -361,7 +362,7 @@
                         </a>
                         <div class="img">
                             <a href="https://m.maigoo.com/shop/314158.html">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/93739-5140.jpg" width="240" height="154" /></div>
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/93739-6135.jpg" width="240" height="154" /></div>
                         </a>
                         <div class="cont font12 c999">
                             <div class="type dhidden">
@@ -425,73 +426,73 @@
                                                 <div class="item">
                                                     <a href="https://m.maigoo.com/brand/webshop_2411.html?dynamic=1&catid=797" title="晨光">
                                                         <div class="img">
-                                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/8d43c-6578.gif" /></div>
+                                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/8d43c-3290.gif" /></div>
                                                         <em class="brandname dhidden color1 font14">晨光</em></a>
                                                 </div>
                                                 <div class="item">
                                                     <a href="https://m.maigoo.com/brand/webshop_2418.html?dynamic=1&catid=797" title="得力">
                                                         <div class="img">
-                                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/7a719-8054.gif" /></div>
+                                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/7a719-6493.gif" /></div>
                                                         <em class="brandname dhidden color1 font14">得力</em></a>
                                                 </div>
                                                 <div class="item">
                                                     <a href="https://m.maigoo.com/brand/webshop_2413.html?dynamic=1&catid=797" title="真彩">
                                                         <div class="img">
-                                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/2eba9-8405.gif" /></div>
+                                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/2eba9-3024.gif" /></div>
                                                         <em class="brandname dhidden color1 font14">真彩</em></a>
                                                 </div>
                                                 <div class="item">
-                                                    <a href="https://m.maigoo.com/brand/webshop_2476.html?dynamic=1&catid=797" title="齐心">
+                                                    <a href="https://m.maigoo.com/brand/webshop_2476.html?dynamic=1&catid=797" title="齐心办公">
                                                         <div class="img">
-                                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/c63ba-9766.gif" /></div>
-                                                        <em class="brandname dhidden color1 font14">齐心</em></a>
+                                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/c63ba-5340.gif" /></div>
+                                                        <em class="brandname dhidden color1 font14">齐心办公</em></a>
                                                 </div>
                                                 <div class="item">
                                                     <a href="https://m.maigoo.com/brand/webshop_2415.html?dynamic=1&catid=797" title="爱好">
                                                         <div class="img">
-                                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/ea38c-6024.gif" /></div>
+                                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/ea38c-2087.gif" /></div>
                                                         <em class="brandname dhidden color1 font14">爱好</em></a>
                                                 </div>
                                                 <div class="item">
-                                                    <a href="https://m.maigoo.com/brand/webshop_2414.html?dynamic=1&catid=797" title="白雪">
+                                                    <a href="https://m.maigoo.com/brand/webshop_2414.html?dynamic=1&catid=797" title="白雪文具">
                                                         <div class="img">
-                                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/3d415-8545.gif" /></div>
-                                                        <em class="brandname dhidden color1 font14">白雪</em></a>
+                                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/3d415-3041.gif" /></div>
+                                                        <em class="brandname dhidden color1 font14">白雪文具</em></a>
                                                 </div>
                                                 <div class="item">
                                                     <a href="https://m.maigoo.com/brand/webshop_2416.html?dynamic=1&catid=797" title="贝发">
                                                         <div class="img">
-                                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/907fe-7573.gif" /></div>
+                                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/907fe-3403.gif" /></div>
                                                         <em class="brandname dhidden color1 font14">贝发</em></a>
                                                 </div>
                                                 <div class="item">
                                                     <a href="https://m.maigoo.com/brand/webshop_2555.html?dynamic=1&catid=797" title="广博">
                                                         <div class="img">
-                                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/df0e8-4234.gif" /></div>
+                                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/df0e8-2928.gif" /></div>
                                                         <em class="brandname dhidden color1 font14">广博</em></a>
                                                 </div>
                                                 <div class="item">
                                                     <a href="https://m.maigoo.com/brand/webshop_2516.html?dynamic=1&catid=797" title="三木">
                                                         <div class="img">
-                                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/b69dd-2036.gif" /></div>
+                                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/b69dd-1729.gif" /></div>
                                                         <em class="brandname dhidden color1 font14">三木</em></a>
                                                 </div>
                                                 <div class="item">
                                                     <a href="https://m.maigoo.com/brand/webshop_2417.html?dynamic=1&catid=797" title="金万年">
                                                         <div class="img">
-                                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/d6b40-3555.gif" /></div>
+                                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/d6b40-8960.gif" /></div>
                                                         <em class="brandname dhidden color1 font14">金万年</em></a>
                                                 </div>
                                                 <div class="item">
                                                     <a href="https://m.maigoo.com/brand/webshop_2412.html?dynamic=1&catid=797" title="三菱">
                                                         <div class="img">
-                                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/825eb-8446.gif" /></div>
+                                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/825eb-4327.gif" /></div>
                                                         <em class="brandname dhidden color1 font14">三菱</em></a>
                                                 </div>
                                                 <div class="item">
                                                     <a href="https://m.maigoo.com/brand/webshop_18144.html?dynamic=1&catid=797" title="百乐">
                                                         <div class="img">
-                                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/62c44-3800.gif" /></div>
+                                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/62c44-9921.gif" /></div>
                                                         <em class="brandname dhidden color1 font14">百乐</em></a>
                                                 </div>
                                                 <div class="clear"></div>
@@ -502,73 +503,73 @@
                                                 <div class="item">
                                                     <a href="https://m.maigoo.com/brand/webshop_2489.html?dynamic=1&catid=797" title="中华牌">
                                                         <div class="img">
-                                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/62666-4099.gif" /></div>
+                                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/62666-8886.gif" /></div>
                                                         <em class="brandname dhidden color1 font14">中华牌</em></a>
                                                 </div>
                                                 <div class="item">
                                                     <a href="https://m.maigoo.com/brand/webshop_2401.html?dynamic=1&catid=797" title="英雄">
                                                         <div class="img">
-                                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/735ee-5912.gif" /></div>
+                                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/735ee-4549.gif" /></div>
                                                         <em class="brandname dhidden color1 font14">英雄</em></a>
                                                 </div>
                                                 <div class="item">
                                                     <a href="https://m.maigoo.com/brand/webshop_18005.html?dynamic=1&catid=797" title="斑马">
                                                         <div class="img">
-                                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/103c7-4133.gif" /></div>
+                                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/103c7-6357.gif" /></div>
                                                         <em class="brandname dhidden color1 font14">斑马</em></a>
                                                 </div>
                                                 <div class="item">
                                                     <a href="https://m.maigoo.com/brand/webshop_2420.html?dynamic=1&catid=797" title="宝克">
                                                         <div class="img">
-                                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/dde31-2046.gif" /></div>
+                                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/dde31-8945.gif" /></div>
                                                         <em class="brandname dhidden color1 font14">宝克</em></a>
                                                 </div>
                                                 <div class="item">
                                                     <a href="https://m.maigoo.com/brand/webshop_27520.html?dynamic=1&catid=797" title="马可">
                                                         <div class="img">
-                                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/d49fa-1386.gif" /></div>
+                                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/d49fa-8532.gif" /></div>
                                                         <em class="brandname dhidden color1 font14">马可</em></a>
                                                 </div>
                                                 <div class="item">
                                                     <a href="https://m.maigoo.com/brand/webshop_10527.html?dynamic=1&catid=797" title="施德楼">
                                                         <div class="img">
-                                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/e39f8-6132.gif" /></div>
+                                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/e39f8-8435.gif" /></div>
                                                         <em class="brandname dhidden color1 font14">施德楼</em></a>
                                                 </div>
                                                 <div class="item">
                                                     <a href="https://m.maigoo.com/brand/webshop_2477.html?dynamic=1&catid=797" title="马培德">
                                                         <div class="img">
-                                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/5dbc7-5701.gif" /></div>
+                                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/5dbc7-8510.gif" /></div>
                                                         <em class="brandname dhidden color1 font14">马培德</em></a>
                                                 </div>
                                                 <div class="item">
                                                     <a href="https://m.maigoo.com/brand/webshop_57959.html?dynamic=1&catid=797" title="国誉">
                                                         <div class="img">
-                                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/da756-2091.gif" /></div>
+                                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/2aceb-7547.gif" /></div>
                                                         <em class="brandname dhidden color1 font14">国誉</em></a>
                                                 </div>
                                                 <div class="item">
                                                     <a href="https://m.maigoo.com/brand/webshop_2475.html?dynamic=1&catid=797" title="益而高">
                                                         <div class="img">
-                                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/c5b4c-5688.gif" /></div>
+                                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/c5b4c-1680.gif" /></div>
                                                         <em class="brandname dhidden color1 font14">益而高</em></a>
                                                 </div>
                                                 <div class="item">
                                                     <a href="https://m.maigoo.com/brand/webshop_2568.html?dynamic=1&catid=797" title="智高">
                                                         <div class="img">
-                                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/ac0b3-5436.gif" /></div>
+                                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/ac0b3-9910.gif" /></div>
                                                         <em class="brandname dhidden color1 font14">智高</em></a>
                                                 </div>
                                                 <div class="item">
                                                     <a href="https://m.maigoo.com/brand/webshop_17090.html?dynamic=1&catid=797" title="天卓">
                                                         <div class="img">
-                                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/cb181-8443.gif" /></div>
+                                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/cb181-6832.gif" /></div>
                                                         <em class="brandname dhidden color1 font14">天卓</em></a>
                                                 </div>
                                                 <div class="item">
                                                     <a href="https://m.maigoo.com/brand/webshop_8665.html?dynamic=1&catid=797" title="红星">
                                                         <div class="img">
-                                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/64321-3877.gif" /></div>
+                                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/64321-2045.gif" /></div>
                                                         <em class="brandname dhidden color1 font14">红星</em></a>
                                                 </div>
                                                 <div class="clear"></div>
@@ -577,75 +578,75 @@
                                         <li class="">
                                             <div class="slice">
                                                 <div class="item">
-                                                    <a href="https://m.maigoo.com/brand/webshop_2400.html?dynamic=1&catid=797" title="派克">
+                                                    <a href="https://m.maigoo.com/brand/webshop_2483.html?dynamic=1&catid=797" title="马利画材">
                                                         <div class="img">
-                                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/7bce0-9355.gif" /></div>
-                                                        <em class="brandname dhidden color1 font14">派克</em></a>
+                                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/72981-1769.gif" /></div>
+                                                        <em class="brandname dhidden color1 font14">马利画材</em></a>
                                                 </div>
                                                 <div class="item">
-                                                    <a href="https://m.maigoo.com/brand/webshop_2483.html?dynamic=1&catid=797" title="马利">
+                                                    <a href="https://m.maigoo.com/brand/webshop_2400.html?dynamic=1&catid=797" title="派克">
                                                         <div class="img">
-                                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/72981-3110.gif" /></div>
-                                                        <em class="brandname dhidden color1 font14">马利</em></a>
+                                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/7bce0-8714.gif" /></div>
+                                                        <em class="brandname dhidden color1 font14">派克</em></a>
                                                 </div>
                                                 <div class="item">
                                                     <a href="https://m.maigoo.com/brand/webshop_2406.html?dynamic=1&catid=797" title="凌美">
                                                         <div class="img">
-                                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/1a232-4632.gif" /></div>
+                                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/1a232-7460.gif" /></div>
                                                         <em class="brandname dhidden color1 font14">凌美</em></a>
                                                 </div>
                                                 <div class="item">
                                                     <a href="https://m.maigoo.com/brand/webshop_2481.html?dynamic=1&catid=797" title="可得优">
                                                         <div class="img">
-                                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/0890f-3145.gif" /></div>
+                                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/0890f-5502.gif" /></div>
                                                         <em class="brandname dhidden color1 font14">可得优</em></a>
                                                 </div>
                                                 <div class="item">
                                                     <a href="https://m.maigoo.com/brand/webshop_2539.html?dynamic=1&catid=797" title="史泰博">
                                                         <div class="img">
-                                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/0e48c-2089.gif" /></div>
+                                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/0e48c-8074.gif" /></div>
                                                         <em class="brandname dhidden color1 font14">史泰博</em></a>
                                                 </div>
                                                 <div class="item">
                                                     <a href="https://m.maigoo.com/brand/webshop_2407.html?dynamic=1&catid=797" title="百利金">
                                                         <div class="img">
-                                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/2ccef-9355.gif" /></div>
+                                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/2ccef-9270.gif" /></div>
                                                         <em class="brandname dhidden color1 font14">百利金</em></a>
                                                 </div>
                                                 <div class="item">
                                                     <a href="https://m.maigoo.com/brand/webshop_2404.html?dynamic=1&catid=797" title="威迪文">
                                                         <div class="img">
-                                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/5cef8-2366.gif" /></div>
+                                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/5cef8-5298.gif" /></div>
                                                         <em class="brandname dhidden color1 font14">威迪文</em></a>
                                                 </div>
                                                 <div class="item">
                                                     <a href="https://m.maigoo.com/brand/webshop_18056.html?dynamic=1&catid=797" title="康大">
                                                         <div class="img">
-                                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/f912b-5878.gif" /></div>
+                                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/f912b-7639.gif" /></div>
                                                         <em class="brandname dhidden color1 font14">康大</em></a>
                                                 </div>
                                                 <div class="item">
                                                     <a href="https://m.maigoo.com/brand/webshop_10565.html?dynamic=1&catid=797" title="联众">
                                                         <div class="img">
-                                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/26ade-5488.gif" /></div>
+                                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/26ade-3813.gif" /></div>
                                                         <em class="brandname dhidden color1 font14">联众</em></a>
                                                 </div>
                                                 <div class="item">
                                                     <a href="https://m.maigoo.com/brand/webshop_2408.html?dynamic=1&catid=797" title="犀飞利">
                                                         <div class="img">
-                                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/90feb-5999.gif" /></div>
+                                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/90feb-1605.gif" /></div>
                                                         <em class="brandname dhidden color1 font14">犀飞利</em></a>
                                                 </div>
                                                 <div class="item">
                                                     <a href="https://m.maigoo.com/brand/webshop_2405.html?dynamic=1&catid=797" title="奥罗拉">
                                                         <div class="img">
-                                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/46592-3109.gif" /></div>
+                                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/46592-1208.gif" /></div>
                                                         <em class="brandname dhidden color1 font14">奥罗拉</em></a>
                                                 </div>
                                                 <div class="item">
                                                     <a href="https://m.maigoo.com/brand/webshop_37168.html?dynamic=1&catid=797" title="报事贴">
                                                         <div class="img">
-                                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/e5760-9504.gif" /></div>
+                                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/e5760-1080.gif" /></div>
                                                         <em class="brandname dhidden color1 font14">报事贴</em></a>
                                                 </div>
                                                 <div class="clear"></div>
@@ -661,7 +662,7 @@
                     <div class="blockinfo brandimgnavlist col4">
                         <div class="itembox">
                             <div class="ajaxload" data-action="brandlist" data-subaction="brand_1" data-thirdaction="" data-page="1" data-start="" data-defaultids="" data-sort="" data-postdata="">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/ee77e-1342.gif" /></div>
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/7ee46-8575.gif" /></div>
                         </div>
                     </div>
                 </div>
@@ -669,7 +670,7 @@
                     <div class="blockinfo brandimgnavlist col4">
                         <div class="itembox">
                             <div class="ajaxload" data-action="brandlist" data-subaction="brand_2" data-thirdaction="" data-page="1" data-start="" data-defaultids="" data-sort="" data-postdata="">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/ee77e-1342.gif" /></div>
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/7ee46-8575.gif" /></div>
                         </div>
                     </div>
                 </div>

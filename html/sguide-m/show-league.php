@@ -1,5 +1,6 @@
 <?php class Yii { public static function getAlias($var) { return "http://39.106.102.45/filesys/spider/pages"; } } ?>
 <!DOCTYPE html>
+<!--STATUS OK-->
 <html>
 
 <head>
@@ -14,18 +15,18 @@
 <meta content="black" name="apple-mobile-web-app-status-bar-style" />
 <meta content="telephone=no" name="format-detection" />
 <meta name="applicable-device" content="mobile">
-<link href="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/48832-3435.ico" rel="shortcut icon" />
-<link href="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/css/06593-2711.css" type="text/css" rel="stylesheet" />
-<link href="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/css/40d76-7050.css" type="text/css" rel="stylesheet" />
-<link href="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/css/6c85c-8435.css" type="text/css" rel="stylesheet" />
-<link href="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/css/2dc79-8873.css" type="text/css" rel="stylesheet" />
-<link href="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/css/1ebc9-9122.css" type="text/css" rel="stylesheet" />
-<link href="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/css/a7f34-5955.css" type="text/css" rel="stylesheet" />
-<link href="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/css/c445b-6137.css" type="text/css" rel="stylesheet" />
-<link href="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/css/8f46e-7699.css" type="text/css" rel="stylesheet" />
-<link href="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/css/533ed-3443.css" type="text/css" rel="stylesheet" />
-<link href="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/css/aee9b-7698.css" type="text/css" rel="stylesheet" />
-<link href="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/css/dc4f6-2842.css" type="text/css" rel="stylesheet" />
+<link href="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/48832-7373.ico" rel="shortcut icon" />
+<link href="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/css/30cdb-6621.css" type="text/css" rel="stylesheet" />
+<link href="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/css/f1d79-1352.css" type="text/css" rel="stylesheet" />
+<link href="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/css/3de29-2420.css" type="text/css" rel="stylesheet" />
+<link href="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/css/2dc79-1378.css" type="text/css" rel="stylesheet" />
+<link href="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/css/1ebc9-6908.css" type="text/css" rel="stylesheet" />
+<link href="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/css/a7f34-1162.css" type="text/css" rel="stylesheet" />
+<link href="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/css/c445b-1294.css" type="text/css" rel="stylesheet" />
+<link href="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/css/8f46e-5006.css" type="text/css" rel="stylesheet" />
+<link href="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/css/533ed-7626.css" type="text/css" rel="stylesheet" />
+<link href="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/css/80643-7228.css" type="text/css" rel="stylesheet" />
+<link href="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/css/1ea37-7867.css" type="text/css" rel="stylesheet" />
 <style type="text/css">/* 模块需调整 */ .brand_more{background:#cd0000;} .md_3032 .brand_more a{color:#fff;}.md_3026 .md_desc{padding:0 0 20px 0;line-height:1.8em;} .md_3026 .md_title{color:#cd0000;} .mobile .md_3026 .md_title{text-align:center;}.md_4013 .md_desc{line-height:1.8em;}</style>
 <script src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/js/jquery.min.js" type="text/javascript"></script>
 </head>
@@ -66,7 +67,7 @@
                                 <a href="https://m.maigoo.com/maigoo/151wj_index.html" class="c666 dhidden">文具用品</a>
                                 <a href="https://m.maigoo.com/maigoo/785bi_index.html" class="c666 dhidden">中性笔</a>
                                 <a href="https://m.maigoo.com/maigoo/1342lb_index.html" class="c666 dhidden">蜡笔</a>
-                                <a href="https://m.maigoo.com/maigoo/1265blt_index.html" class="c666 dhidden">便签纸</a>
+                                <a href="https://m.maigoo.com/maigoo/1265blt_index.html" class="c666 dhidden">便签</a>
                                 <a href="https://m.maigoo.com/maigoo/786mkb_index.html" class="c666 dhidden">马克笔</a>
                                 <a href="https://m.maigoo.com/maigoo/577jsj_index.html" class="c666 dhidden">计算器</a>
                                 <a href="https://m.maigoo.com/maigoo/585dkj_index.html" class="c666 dhidden">打孔机</a>
@@ -88,9 +89,9 @@
                                 <a href="https://m.maigoo.com/maigoocms/special/qinzi/154chenguang.html" class="c666 dhidden">晨光文具M&G</a>
                                 <a href="https://m.maigoo.com/maigoocms/special/qinzi/151deli.html" class="c666 dhidden">得力DELI</a>
                                 <a href="https://m.maigoo.com/maigoocms/special/qinzi/151lemei.html" class="c666 dhidden">真彩TrueColor</a>
-                                <a href="https://m.maigoo.com/maigoocms/special/qinzi/151qixin.html" class="c666 dhidden">齐心COMIX</a>
+                                <a href="https://m.maigoo.com/maigoocms/special/qinzi/151qixin.html" class="c666 dhidden">齐心办公COMIX</a>
                                 <a href="https://m.maigoo.com/maigoocms/special/qinzi/152AIHAO.html" class="c666 dhidden">爱好AIHAO</a>
-                                <a href="https://m.maigoo.com/maigoocms/special/qinzi/151baixue.html" class="c666 dhidden">白雪Snowhite</a>
+                                <a href="https://m.maigoo.com/maigoocms/special/qinzi/151baixue.html" class="c666 dhidden">白雪文具Snowhite</a>
                                 <a href="https://m.maigoo.com/maigoocms/special/qinzi/151beifa.html" class="c666 dhidden">贝发BEIFA</a>
                                 <a href="https://m.maigoo.com/maigoocms/special/bggj/151gb.html" class="c666 dhidden">广博GuangBo</a>
                                 <a href="https://m.maigoo.com/maigoocms/special/bggj/151SUNWOOD.html" class="c666 dhidden">三木SUNWOOD</a>
@@ -150,7 +151,7 @@
     <div id="container">
         <div class="blockinfo zsheadinfo " id="pos_zsinfo">
             <div class="tophead">
-                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/21c10-9096.png" class="bgimg">
+                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/21c10-6612.png" class="bgimg">
                 <div class="infobox">
                     <div class="lhead">
                         <a href="https://m.maigoo.com/maigoocms/special/qinzi/154chenguang.html" class="bname font20">晨光文具M&G</a>
@@ -162,8 +163,8 @@
                                 <em>专卖店加盟 区域代理商</em></li>
                             <li class="w50 dhidden">联系人：
                                 <em>加盟部</em></li>
-                            <li class="dhidden">官网电话：
-                                <em class="Tel">021-57474488</em></li>
+                            <li class="dhidden">招商电话：
+                                <em class="Tel">021-31597900</em></li>
                             <li class="dhidden">品牌官网：
                                 <a rel="nofollow" class="color1" href="https://m.maigoo.com/link.php?url=http%3A%2F%2Fwww.mg-pen.com">http://www.mg-pen.com</a></li>
                         </ul>
@@ -194,7 +195,7 @@
                         </div>
                     </div>
                 </div>
-                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/0a943-6251.png" class="bgimg"></div>
+                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/0a943-7715.png" class="bgimg"></div>
         </div>
         <div class="blockinfo articleshow nopadding " id="pos_articleinfo">
             <div class="articlecont" id="articlecont">
@@ -203,7 +204,7 @@
                         <div id="modellist-703540" class="md_1010 modelbox tleft" model-fun="BindLinkTop">
                             <div class="mod_body">
                                 <div class="mod_cont nohov font14 fcolor30 ">
-                                    <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/1bff7-9205.jpg" alt="" title="" /></div>
+                                    <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/1bff7-9493.jpg" alt="" title="" /></div>
                             </div>
                             <div class="clear"></div>
                         </div>
@@ -211,7 +212,7 @@
                             <div class="mod_body">
                                 <div style="margin:30px 0;width:100%;text-align:center;height:100px;position:relative;overflow:hidden;">
                                     <div style="position:relative;display:inline-block;height:100px;line-height:100px;color:#cd0000;font-size:60px;font-weight:bold;font-family:微软雅黑;">晨光文具项目介绍
-                                        <div style="position:absolute;width:98px;height:100px;left:-118px;top:0;background:url(<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/3cd16-1232.png) left center no-repeat;"></div></div>
+                                        <div style="position:absolute;width:98px;height:100px;left:-118px;top:0;background:url(<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/3cd16-6672.png) left center no-repeat;"></div></div>
                                 </div>
                             </div>
                         </div>
@@ -227,7 +228,7 @@
                                     <div class="mod_cont">
                                         <div class="md_brandtext">
                                             <div class="brand_img">
-                                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/7f704-9115.jpg" width="390" height="240" /></div>
+                                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/7f704-8411.jpg" width="390" height="240" /></div>
                                             <div class="brand_info font16 line18em color666">
                                                 <p>作为全球较大的文具制造商之一，晨光文具是一家整合创意价值与服务优势的综合文具供应商，专注于让学习和工作更快乐、更效率。产品涵盖书写工具、学生文具、办公文具及其他相关产品。公司于2015年正式在上交所挂牌上市，股票代码603899。</p>
                                                 <p>晨光文具在全国覆盖近8万家零售终端，拥有晨光生活馆、九木杂物社等404家零售大店。同时基于市场需求每年推出上千款新品，产品远销50多个国家和地区，合作伙伴遍及全球。公司在过去十余年持续保持两位数的迅速增长，2019年总营收111.41亿人民币。</p>
@@ -239,7 +240,7 @@
                                         </div>
                                         <div class="brand_more font16 line2em">
                                             <a href="https://m.maigoo.com/maigoocms/special/qinzi/154chenguang.html">点击查看更多晨光文具M&G品牌介绍
-                                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/80594-6438.gif" height="24"></a></div>
+                                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/80594-1148.gif" height="24"></a></div>
                                     </div>
                                     <div class="clear"></div>
                                 </div>
@@ -249,7 +250,7 @@
                             <div class="mod_body">
                                 <div style="margin:40px 0;width:100%;text-align:center;height:100px;position:relative;overflow:hidden;">
                                     <div style="position:relative;display:inline-block;height:100px;line-height:100px;color:#cd0000;font-size:60px;font-weight:bold;font-family:微软雅黑;">晨光文具加盟优势
-                                        <div style="position:absolute;width:98px;height:100px;left:-118px;top:0;background:url(<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/3cd16-1232.png) left center no-repeat;"></div></div>
+                                        <div style="position:absolute;width:98px;height:100px;left:-118px;top:0;background:url(<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/3cd16-6672.png) left center no-repeat;"></div></div>
                                 </div>
                             </div>
                         </div>
@@ -258,7 +259,7 @@
                                 <div class="mod_contdata">
                                     <div class="mod_list mod_leftpic">
                                         <div class="mod_img mgt_10">
-                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/7e1d6-1393.jpg" alt="" title="" /></div>
+                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/7e1d6-4093.jpg" alt="" title="" /></div>
                                         <div class="mod_cont">
                                             <dt class="md_title font20 b color2b line2em">研发创新</dt>
                                             <dd class="md_desc fcolor26 line1halfem font14">
@@ -278,7 +279,7 @@
                                 <div class="mod_contdata">
                                     <div class="mod_list mod_rightpic">
                                         <div class="mod_img mgt_10">
-                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/fb6ec-2352.jpg" alt="" title="" /></div>
+                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/fb6ec-1575.jpg" alt="" title="" /></div>
                                         <div class="mod_cont">
                                             <dt class="md_title font20 b color2b line2em">制造实力</dt>
                                             <dd class="md_desc fcolor26 line1halfem font14">
@@ -298,7 +299,7 @@
                                 <div class="mod_contdata">
                                     <div class="mod_list mod_leftpic">
                                         <div class="mod_img mgt_10">
-                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/b0101-9100.jpg" alt="" title="" /></div>
+                                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/b0101-2487.jpg" alt="" title="" /></div>
                                         <div class="mod_cont">
                                             <dt class="md_title font20 b color2b line2em">渠道优势</dt>
                                             <dd class="md_desc fcolor26 line1halfem font14">
@@ -317,7 +318,7 @@
                             <div class="mod_body">
                                 <div style="margin:40px 0;width:100%;text-align:center;height:100px;position:relative;overflow:hidden;">
                                     <div style="position:relative;display:inline-block;height:100px;line-height:100px;color:#cd0000;font-size:60px;font-weight:bold;font-family:微软雅黑;">晨光加盟条件
-                                        <div style="position:absolute;width:98px;height:100px;left:-118px;top:0;background:url(<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/3cd16-1232.png) left center no-repeat;"></div></div>
+                                        <div style="position:absolute;width:98px;height:100px;left:-118px;top:0;background:url(<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/3cd16-6672.png) left center no-repeat;"></div></div>
                                 </div>
                             </div>
                         </div>
@@ -406,7 +407,7 @@
                             <div class="mod_body">
                                 <div style="margin:40px 0;width:100%;text-align:center;height:100px;position:relative;overflow:hidden;">
                                     <div style="position:relative;display:inline-block;height:100px;line-height:100px;color:#cd0000;font-size:60px;font-weight:bold;font-family:微软雅黑;">晨光文具加盟流程
-                                        <div style="position:absolute;width:98px;height:100px;left:-118px;top:0;background:url(<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/3cd16-1232.png) left center no-repeat;"></div></div>
+                                        <div style="position:absolute;width:98px;height:100px;left:-118px;top:0;background:url(<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/3cd16-6672.png) left center no-repeat;"></div></div>
                                 </div>
                             </div>
                         </div>
@@ -540,128 +541,37 @@
                     <li>
                         <div class="tablecell">
                             <div class="img">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/b4db1-7839.jpg" /></div>
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/0b5a8-4016.jpg" /></div>
                         </div>
                         <div class="tablecell">
                             <div class="info">
-                                <span class="name c999">李女士</span>
+                                <span class="name c999">张</span>
                                 <span class="c999">
-                                    <i class="iconfont icon-diqu"></i>加盟地区 - 广东 广州</span>
+                                    <i class="iconfont icon-diqu"></i>加盟地区 - 新疆 乌鲁木齐</span>
                                 <div class="jmttl dhidden">想加盟晨光文具M&G品牌，请与我联系！</div></div>
                         </div>
                     </li>
                     <li>
                         <div class="tablecell">
                             <div class="img">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/176ba-5424.jpg" /></div>
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/2e47e-1128.jpg" /></div>
                         </div>
                         <div class="tablecell">
                             <div class="info">
-                                <span class="name c999">马</span>
+                                <span class="name c999">徐先生</span>
                                 <span class="c999">
-                                    <i class="iconfont icon-diqu"></i>加盟地区 - 浙江 金华</span>
+                                    <i class="iconfont icon-diqu"></i>加盟地区 - 山东 青岛</span>
                                 <div class="jmttl dhidden">想加盟晨光文具M&G品牌，请与我联系！</div></div>
                         </div>
                     </li>
                     <li>
                         <div class="tablecell">
                             <div class="img">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/176ba-5424.jpg" /></div>
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/5ce16-4585.jpg" /></div>
                         </div>
                         <div class="tablecell">
                             <div class="info">
-                                <span class="name c999">唐'R</span>
-                                <span class="c999">
-                                    <i class="iconfont icon-diqu"></i>加盟地区 - 江苏 苏州</span>
-                                <div class="jmttl dhidden">想加盟晨光文具M&G品牌，请与我联系！</div></div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="tablecell">
-                            <div class="img">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/68d5c-1239.jpg" /></div>
-                        </div>
-                        <div class="tablecell">
-                            <div class="info">
-                                <span class="name c999">陈立朋</span>
-                                <span class="c999">
-                                    <i class="iconfont icon-diqu"></i>加盟地区 - 上海</span>
-                                <div class="jmttl dhidden">想加盟晨光文具M&G品牌</div></div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="tablecell">
-                            <div class="img">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/b4db1-7839.jpg" /></div>
-                        </div>
-                        <div class="tablecell">
-                            <div class="info">
-                                <span class="name c999">刘鹏亮</span>
-                                <span class="c999">
-                                    <i class="iconfont icon-diqu"></i>加盟地区 - 河北 邯郸</span>
-                                <div class="jmttl dhidden">想加盟晨光文具M&G品牌，请与我联系！</div></div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="tablecell">
-                            <div class="img">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/0b5a8-8021.jpg" /></div>
-                        </div>
-                        <div class="tablecell">
-                            <div class="info">
-                                <span class="name c999">谢先生</span>
-                                <span class="c999">
-                                    <i class="iconfont icon-diqu"></i>加盟地区 - 宁夏 银川</span>
-                                <div class="jmttl dhidden">想加盟晨光文具M&G品牌，请与我联系！</div></div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="tablecell">
-                            <div class="img">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/176ba-5424.jpg" /></div>
-                        </div>
-                        <div class="tablecell">
-                            <div class="info">
-                                <span class="name c999">孙海波</span>
-                                <span class="c999">
-                                    <i class="iconfont icon-diqu"></i>加盟地区 - 湖北 黄冈</span>
-                                <div class="jmttl dhidden">想加盟晨光文具M&G品牌，请与我联系！</div></div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="tablecell">
-                            <div class="img">
-                                <img src="https://thirdwx.qlogo.cn/mmopen/vi_32/hibuXibONPLHICbdicwgWC3cSquhxjY2eDTm10Mhh2RAFK1sic9g3bM0Dx0HsvI5U3D5j09W5f0KgChLWecMdaTHsA/132" /></div>
-                        </div>
-                        <div class="tablecell">
-                            <div class="info">
-                                <span class="name c999">于钰泷</span>
-                                <span class="c999">
-                                    <i class="iconfont icon-diqu"></i>加盟地区 - 河南 许昌</span>
-                                <div class="jmttl dhidden">想加盟晨光文具M&G品牌，请与我联系！</div></div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="tablecell">
-                            <div class="img">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/b4db1-7839.jpg" /></div>
-                        </div>
-                        <div class="tablecell">
-                            <div class="info">
-                                <span class="name c999">陈</span>
-                                <span class="c999">
-                                    <i class="iconfont icon-diqu"></i>加盟地区 - 湖南 张家界</span>
-                                <div class="jmttl dhidden">想加盟晨光文具M&G品牌，请与我联系！</div></div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="tablecell">
-                            <div class="img">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/67bb9-7182.jpg" /></div>
-                        </div>
-                        <div class="tablecell">
-                            <div class="info">
-                                <span class="name c999">丁先生</span>
+                                <span class="name c999">袁老师</span>
                                 <span class="c999">
                                     <i class="iconfont icon-diqu"></i>加盟地区 - 江苏 徐州</span>
                                 <div class="jmttl dhidden">想加盟晨光文具M&G品牌，请与我联系！</div></div>
@@ -670,65 +580,156 @@
                     <li>
                         <div class="tablecell">
                             <div class="img">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/2e47e-6167.jpg" /></div>
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/6d6da-4049.jpg" /></div>
                         </div>
                         <div class="tablecell">
                             <div class="info">
-                                <span class="name c999">马先生</span>
+                                <span class="name c999">周女士</span>
                                 <span class="c999">
-                                    <i class="iconfont icon-diqu"></i>加盟地区 - 宁夏 中卫</span>
+                                    <i class="iconfont icon-diqu"></i>加盟地区 - 四川 成都</span>
                                 <div class="jmttl dhidden">想加盟晨光文具M&G品牌，请与我联系！</div></div>
                         </div>
                     </li>
                     <li>
                         <div class="tablecell">
                             <div class="img">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/6d6da-1621.jpg" /></div>
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/6d6da-4049.jpg" /></div>
                         </div>
                         <div class="tablecell">
                             <div class="info">
-                                <span class="name c999">王春兰</span>
+                                <span class="name c999">徐小姐</span>
                                 <span class="c999">
-                                    <i class="iconfont icon-diqu"></i>加盟地区 - 陕西 西安</span>
+                                    <i class="iconfont icon-diqu"></i>加盟地区 - 江苏 苏州</span>
                                 <div class="jmttl dhidden">想加盟晨光文具M&G品牌，请与我联系！</div></div>
                         </div>
                     </li>
                     <li>
                         <div class="tablecell">
                             <div class="img">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/2e47e-6167.jpg" /></div>
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/176ba-8381.jpg" /></div>
                         </div>
                         <div class="tablecell">
                             <div class="info">
-                                <span class="name c999">黄先生</span>
+                                <span class="name c999">李</span>
                                 <span class="c999">
-                                    <i class="iconfont icon-diqu"></i>加盟地区 - 湖北 黄冈</span>
+                                    <i class="iconfont icon-diqu"></i>加盟地区 - 天津 辖</span>
+                                <div class="jmttl dhidden">想加盟晨光文具M&G品牌，请与我联系！</div></div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="tablecell">
+                            <div class="img">
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/176ba-8381.jpg" /></div>
+                        </div>
+                        <div class="tablecell">
+                            <div class="info">
+                                <span class="name c999">温子情</span>
+                                <span class="c999">
+                                    <i class="iconfont icon-diqu"></i>加盟地区 - 广东 清远</span>
+                                <div class="jmttl dhidden">想加盟晨光文具M&G品牌，请与我联系！</div></div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="tablecell">
+                            <div class="img">
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/6d6da-4049.jpg" /></div>
+                        </div>
+                        <div class="tablecell">
+                            <div class="info">
+                                <span class="name c999">李智隆</span>
+                                <span class="c999">
+                                    <i class="iconfont icon-diqu"></i>加盟地区 - 贵州 铜仁</span>
+                                <div class="jmttl dhidden">想加盟晨光文具M&G品牌，请与我联系！</div></div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="tablecell">
+                            <div class="img">
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/68d5c-2804.jpg" /></div>
+                        </div>
+                        <div class="tablecell">
+                            <div class="info">
+                                <span class="name c999">周女士</span>
+                                <span class="c999">
+                                    <i class="iconfont icon-diqu"></i>加盟地区 - 江苏 镇江</span>
+                                <div class="jmttl dhidden">想加盟晨光文具M&G品牌，请与我联系！</div></div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="tablecell">
+                            <div class="img">
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/f3a25-7264.jpg" /></div>
+                        </div>
+                        <div class="tablecell">
+                            <div class="info">
+                                <span class="name c999">马建立</span>
+                                <span class="c999">
+                                    <i class="iconfont icon-diqu"></i>加盟地区 - 云南 德宏傣族景颇族</span>
+                                <div class="jmttl dhidden">想加盟晨光文具M&G品牌，请与我联系！</div></div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="tablecell">
+                            <div class="img">
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/67bb9-9171.jpg" /></div>
+                        </div>
+                        <div class="tablecell">
+                            <div class="info">
+                                <span class="name c999">廖碧莲</span>
+                                <span class="c999">
+                                    <i class="iconfont icon-diqu"></i>加盟地区 - 广东 揭阳</span>
+                                <div class="jmttl dhidden">晨光文具M&G很好，请尽快联系我详谈！</div></div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="tablecell">
+                            <div class="img">
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/67bb9-9171.jpg" /></div>
+                        </div>
+                        <div class="tablecell">
+                            <div class="info">
+                                <span class="name c999">王</span>
+                                <span class="c999">
+                                    <i class="iconfont icon-diqu"></i>加盟地区 - 浙江 绍兴</span>
+                                <div class="jmttl dhidden">想加盟晨光文具M&G品牌，请与我联系！</div></div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="tablecell">
+                            <div class="img">
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/2e47e-1128.jpg" /></div>
+                        </div>
+                        <div class="tablecell">
+                            <div class="info">
+                                <span class="name c999">黄伟锦</span>
+                                <span class="c999">
+                                    <i class="iconfont icon-diqu"></i>加盟地区 - 江西 宜春</span>
                                 <div class="jmttl dhidden">想加盟晨光文具M&G品牌</div></div>
                         </div>
                     </li>
                     <li>
                         <div class="tablecell">
                             <div class="img">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/1b001-3854.jpg" /></div>
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/68d5c-2804.jpg" /></div>
                         </div>
                         <div class="tablecell">
                             <div class="info">
-                                <span class="name c999">黄先生</span>
+                                <span class="name c999">高</span>
                                 <span class="c999">
-                                    <i class="iconfont icon-diqu"></i>加盟地区 - 湖北 黄冈</span>
+                                    <i class="iconfont icon-diqu"></i>加盟地区 - 陕西 榆林</span>
                                 <div class="jmttl dhidden">想加盟晨光文具M&G品牌，请与我联系！</div></div>
                         </div>
                     </li>
                     <li>
                         <div class="tablecell">
                             <div class="img">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/5ce16-7366.jpg" /></div>
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/176ba-8381.jpg" /></div>
                         </div>
                         <div class="tablecell">
                             <div class="info">
-                                <span class="name c999">杨</span>
+                                <span class="name c999">齐</span>
                                 <span class="c999">
-                                    <i class="iconfont icon-diqu"></i>加盟地区 - 宁夏 中卫</span>
+                                    <i class="iconfont icon-diqu"></i>加盟地区 - 山东 威海</span>
                                 <div class="jmttl dhidden">想加盟晨光文具M&G品牌，请与我联系！</div></div>
                         </div>
                     </li>
@@ -737,11 +738,12 @@
         </div>
         <div class="bline bline1"></div>
         <div class="articlepraise bottombd" id="articlepraise">
+            <!--点赞-->
             <div class="tubiao">
                 <div class="dianzhan">
-                    <a href="/ajaxstream/praise/?action=addpraise&block=zhaoshang&id=862" class="addpraise" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).find('.addnum'))">
+                    <a href="/ajaxstream/praise/?action=addpraise&block=zhaoshang&id=862" class="addpraise" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$('.addpraisenum'))">
                         <i class="iconfont icon-dianzan"></i>赞
-                        <i class="addnum getajaxdata" url="https://s.maigoo.com/ajaxstream/praise/?action=getpraise&block=zhaoshang&id=862&type=add"></i></a>
+                        <i class="addpraisenum getajaxdata" url="https://s.maigoo.com/ajaxstream/praise/?action=getpraise&block=zhaoshang&id=862&type=add"></i></a>
                 </div>
                 <div class="xiajiang c999">
                     <a href="/ajaxstream/praise/?action=cutpraise&block=zhaoshang&id=862" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).find('.addnum'))" class="cutpraise">
@@ -777,7 +779,7 @@
                     <a class="color1" href="javascript:;" onclick="window.open('https://m.maigoo.com/user/login/');">注册登录>></a></div>
             </div>
             <div class="moremzsm">
-                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/80594-6438.gif" onclick="$('#mzsmcontent').find('.mzsm').css('height','auto');$(this).parent().remove();" /></div>
+                <img src="https://s.maigoo.com<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/80594-1148.gif" onclick="$('#mzsmcontent').find('.mzsm').css('height','auto');$(this).parent().remove();" /></div>
         </div>
         <div class="articlecomment bottombd" id="pos_articlecomment">
             <div class="commentinputbox" id="commentinputbox">
@@ -809,9 +811,6 @@
                             <span class="left c999 nickname">
                                 <i class="name">云中的Ange...</i>&nbsp;&nbsp;11-20 11:23</span>
                             <span class="right">
-                                <a class="jubao link c999" href="https://m.maigoo.com/submit/tousu/">
-                                    <i class="iconfont icon-jubao"></i>
-                                </a>
                                 <a class="c999" href="javascript:void(0);" commentid="948757" onclick="commentreply(this);">
                                     <i class="iconfont icon-liuyan"></i>
                                 </a>
@@ -835,9 +834,6 @@
                             <span class="left c999 nickname">
                                 <i class="name">开心一点点，就...</i>&nbsp;&nbsp;03-06 13:50</span>
                             <span class="right">
-                                <a class="jubao link c999" href="https://m.maigoo.com/submit/tousu/">
-                                    <i class="iconfont icon-jubao"></i>
-                                </a>
                                 <a class="c999" href="javascript:void(0);" commentid="938472" onclick="commentreply(this);">
                                     <i class="iconfont icon-liuyan"></i>
                                 </a>
@@ -853,7 +849,7 @@
                 <div class="usersay">
                     <div class="picbox">
                         <div class="userpic">
-                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/5ce16-7366.jpg" /></div>
+                            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/68d5c-2804.jpg" /></div>
                     </div>
                     <div class="commentbox">
                         <div class="commenttxt line18em" id="con906801">要怎么代理呢</div>
@@ -861,9 +857,6 @@
                             <span class="left c999 nickname">
                                 <i class="name">网友 (121.57.*.*)</i>&nbsp;&nbsp;07-09 00:32</span>
                             <span class="right">
-                                <a class="jubao link c999" href="https://m.maigoo.com/submit/tousu/">
-                                    <i class="iconfont icon-jubao"></i>
-                                </a>
                                 <a class="c999" href="javascript:void(0);" commentid="906801" onclick="commentreply(this);">
                                     <i class="iconfont icon-liuyan"></i>
                                 </a>
@@ -894,7 +887,7 @@
                         <div class="img">
                             <a href="https://m.maigoo.com/maigoocms/special/qinzi/154chenguang.html">
                                 <div class="imgbox">
-                                    <img width="207" height="90" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/8d43c-6578.gif" /></div>
+                                    <img width="207" height="90" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/8d43c-3290.gif" /></div>
                                 <em class="font14 dhidden color1">晨光文具M&G</em></a>
                         </div>
                         <div class="info font14">
@@ -913,7 +906,7 @@
                 <div class="item">
                     <div class="img tablecell">
                         <a href="https://m.maigoo.com/zhaoshang/862.html">
-                            <img width="300" height="185" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/7f704-9115.jpg" /></a>
+                            <img width="300" height="185" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/7f704-8411.jpg" /></a>
                     </div>
                     <div class="cont font14 tablecell lineem">
                         <div class="desc">
@@ -925,8 +918,8 @@
                                     <span class="c666">投资预算：</span>
                                     <span class="red b">10-20万元</span></div>
                                 <div class="phone dhidden c666">
-                                    <span>电话：</span>
-                                    <span>021-57474488</span></div>
+                                    <span>招商电话：</span>
+                                    <span>021-31597900</span></div>
                             </a>
                             <div class="btn">
                                 <a target="_blank" href="https://m.maigoo.com/zhaoshang/862.html" class="fff bgorange font14">查看招商</a>
@@ -937,7 +930,7 @@
                 <div class="item">
                     <div class="img tablecell">
                         <a href="https://m.maigoo.com/zhaoshang/887.html">
-                            <img width="300" height="185" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/c9832-4998.jpg" /></a>
+                            <img width="300" height="185" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/c9832-5001.jpg" /></a>
                     </div>
                     <div class="cont font14 tablecell lineem">
                         <div class="desc">
@@ -949,7 +942,7 @@
                                     <span class="c666">投资预算：</span>
                                     <span class="red b">25-45万元</span></div>
                                 <div class="phone dhidden c666">
-                                    <span>电话：</span>
+                                    <span>招商电话：</span>
                                     <span>400-185-0555</span></div>
                             </a>
                             <div class="btn">
@@ -961,20 +954,20 @@
                 <div class="item">
                     <div class="img tablecell">
                         <a href="https://m.maigoo.com/zhaoshang/1765.html">
-                            <img width="300" height="185" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/1addf-6208.jpg" /></a>
+                            <img width="300" height="185" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/1addf-6444.jpg" /></a>
                     </div>
                     <div class="cont font14 tablecell lineem">
                         <div class="desc">
                             <a href="https://m.maigoo.com/zhaoshang/1765.html">
                                 <div class="brandname">
                                     <span class="numb num3"></span>
-                                    <span class="name dhidden b c333 ">齐心COMIX</span></div>
+                                    <span class="name dhidden b c333 ">齐心办公COMIX</span></div>
                                 <div class="yusu dhidden">
                                     <span class="c666">投资预算：</span>
                                     <span class="red b">25-35万元</span></div>
                                 <div class="phone dhidden c666">
-                                    <span>电话：</span>
-                                    <span>400-606-3282</span></div>
+                                    <span>招商电话：</span>
+                                    <span>400-700-8688</span></div>
                             </a>
                             <div class="btn">
                                 <a target="_blank" href="https://m.maigoo.com/zhaoshang/1765.html" class="fff bgorange font14">查看招商</a>
@@ -985,7 +978,7 @@
                 <div class="item">
                     <div class="img tablecell">
                         <a href="https://m.maigoo.com/zhaoshang/864.html">
-                            <img width="300" height="185" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/08e7d-4644.jpg" /></a>
+                            <img width="300" height="185" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/08e7d-4332.jpg" /></a>
                     </div>
                     <div class="cont font14 tablecell lineem">
                         <div class="desc">
@@ -997,7 +990,7 @@
                                     <span class="c666">投资预算：</span>
                                     <span class="red b">5-10万元</span></div>
                                 <div class="phone dhidden c666">
-                                    <span>电话：</span>
+                                    <span>招商电话：</span>
                                     <span>0512-57276666</span></div>
                             </a>
                             <div class="btn">
@@ -1009,19 +1002,19 @@
                 <div class="item">
                     <div class="img tablecell">
                         <a href="https://m.maigoo.com/zhaoshang/861.html">
-                            <img width="300" height="185" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/c0a43-7743.jpg" /></a>
+                            <img width="300" height="185" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/c0a43-1622.jpg" /></a>
                     </div>
                     <div class="cont font14 tablecell lineem">
                         <div class="desc">
                             <a href="https://m.maigoo.com/zhaoshang/861.html">
                                 <div class="brandname">
                                     <span class="numb num5"></span>
-                                    <span class="name dhidden b c333 ">白雪Snowhite</span></div>
+                                    <span class="name dhidden b c333 ">白雪文具Snowhite</span></div>
                                 <div class="yusu dhidden">
                                     <span class="c666">投资预算：</span>
                                     <span class="red b">5-10万元</span></div>
                                 <div class="phone dhidden c666">
-                                    <span>电话：</span>
+                                    <span>招商电话：</span>
                                     <span>0532-83716797</span></div>
                             </a>
                             <div class="btn">
@@ -1032,68 +1025,20 @@
                 </div>
                 <div class="item">
                     <div class="img tablecell">
-                        <a href="https://m.maigoo.com/zhaoshang/4323.html">
-                            <img width="300" height="185" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/05d69-6650.jpg" /></a>
-                    </div>
-                    <div class="cont font14 tablecell lineem">
-                        <div class="desc">
-                            <a href="https://m.maigoo.com/zhaoshang/4323.html">
-                                <div class="brandname">
-                                    <span class="numb num6"></span>
-                                    <span class="name dhidden b c333 ">三木SUNWOOD</span></div>
-                                <div class="yusu dhidden">
-                                    <span class="c666">投资预算：</span>
-                                    <span class="red b">20-50万元</span></div>
-                                <div class="phone dhidden c666">
-                                    <span>电话：</span>
-                                    <span>0576 - 87115999</span></div>
-                            </a>
-                            <div class="btn">
-                                <a target="_blank" href="https://m.maigoo.com/zhaoshang/4323.html" class="fff bgorange font14">查看招商</a>
-                                <a target="_blank" href="https://m.maigoo.com/zhaoshang/4323.html#possqjm" class="fff bg1 font14">申请加盟</a></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="img tablecell">
-                        <a href="https://m.maigoo.com/zhaoshang/514494.html">
-                            <img width="300" height="185" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/5bf01-4198.jpg" /></a>
-                    </div>
-                    <div class="cont font14 tablecell lineem">
-                        <div class="desc">
-                            <a href="https://m.maigoo.com/zhaoshang/514494.html">
-                                <div class="brandname">
-                                    <span class="numb num7"></span>
-                                    <span class="name dhidden b c333 ">联众UME</span></div>
-                                <div class="yusu dhidden">
-                                    <span class="c666">投资预算：</span>
-                                    <span class="red b">10-20万元</span></div>
-                                <div class="phone dhidden c666">
-                                    <span>电话：</span>
-                                    <span>8009-991-212</span></div>
-                            </a>
-                            <div class="btn">
-                                <a target="_blank" href="https://m.maigoo.com/zhaoshang/514494.html" class="fff bgorange font14">查看招商</a>
-                                <a target="_blank" href="https://m.maigoo.com/zhaoshang/514494.html#possqjm" class="fff bg1 font14">申请加盟</a></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="img tablecell">
                         <a href="https://m.maigoo.com/zhaoshang/888.html">
-                            <img width="300" height="185" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/086ab-6384.jpg" /></a>
+                            <img width="300" height="185" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/086ab-8073.jpg" /></a>
                     </div>
                     <div class="cont font14 tablecell lineem">
                         <div class="desc">
                             <a href="https://m.maigoo.com/zhaoshang/888.html">
                                 <div class="brandname">
-                                    <span class="numb num8"></span>
+                                    <span class="numb num6"></span>
                                     <span class="name dhidden b c333 ">金万年KNOW</span></div>
                                 <div class="yusu dhidden">
                                     <span class="c666">投资预算：</span>
                                     <span class="red b">5-10万元</span></div>
                                 <div class="phone dhidden c666">
-                                    <span>电话：</span>
+                                    <span>招商电话：</span>
                                     <span>0754-87792401</span></div>
                             </a>
                             <div class="btn">
@@ -1105,19 +1050,19 @@
                 <div class="item">
                     <div class="img tablecell">
                         <a href="https://m.maigoo.com/zhaoshang/878.html">
-                            <img width="300" height="185" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/88793-1366.jpg" /></a>
+                            <img width="300" height="185" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/88793-9018.jpg" /></a>
                     </div>
                     <div class="cont font14 tablecell lineem">
                         <div class="desc">
                             <a href="https://m.maigoo.com/zhaoshang/878.html">
                                 <div class="brandname">
-                                    <span class="numb num9"></span>
+                                    <span class="numb num7"></span>
                                     <span class="name dhidden b c333 ">贝发BEIFA</span></div>
                                 <div class="yusu dhidden">
                                     <span class="c666">投资预算：</span>
                                     <span class="red b">5-10万元</span></div>
                                 <div class="phone dhidden c666">
-                                    <span>电话：</span>
+                                    <span>招商电话：</span>
                                     <span>0574-56786515</span></div>
                             </a>
                             <div class="btn">
@@ -1129,24 +1074,72 @@
                 <div class="item">
                     <div class="img tablecell">
                         <a href="https://m.maigoo.com/zhaoshang/1056.html">
-                            <img width="300" height="185" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/3ae1f-2918.jpg" /></a>
+                            <img width="300" height="185" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/3ae1f-1124.jpg" /></a>
                     </div>
                     <div class="cont font14 tablecell lineem">
                         <div class="desc">
                             <a href="https://m.maigoo.com/zhaoshang/1056.html">
                                 <div class="brandname">
-                                    <span class="numb num10"></span>
+                                    <span class="numb num8"></span>
                                     <span class="name dhidden b c333 ">智高ZHIGAO</span></div>
                                 <div class="yusu dhidden">
                                     <span class="c666">投资预算：</span>
                                     <span class="red b">20-50万元</span></div>
                                 <div class="phone dhidden c666">
-                                    <span>电话：</span>
+                                    <span>招商电话：</span>
                                     <span>0769-87028825</span></div>
                             </a>
                             <div class="btn">
                                 <a target="_blank" href="https://m.maigoo.com/zhaoshang/1056.html" class="fff bgorange font14">查看招商</a>
                                 <a target="_blank" href="https://m.maigoo.com/zhaoshang/1056.html#possqjm" class="fff bg1 font14">申请加盟</a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="img tablecell">
+                        <a href="https://m.maigoo.com/zhaoshang/6085.html">
+                            <img width="300" height="185" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/e54cd-7178.jpg" /></a>
+                    </div>
+                    <div class="cont font14 tablecell lineem">
+                        <div class="desc">
+                            <a href="https://m.maigoo.com/zhaoshang/6085.html">
+                                <div class="brandname">
+                                    <span class="numb num9"></span>
+                                    <span class="name dhidden b c333 ">Maped马培德</span></div>
+                                <div class="yusu dhidden">
+                                    <span class="c666">投资预算：</span>
+                                    <span class="red b">10-15万元</span></div>
+                                <div class="phone dhidden c666">
+                                    <span>招商电话：</span>
+                                    <span>0512-57371508</span></div>
+                            </a>
+                            <div class="btn">
+                                <a target="_blank" href="https://m.maigoo.com/zhaoshang/6085.html" class="fff bgorange font14">查看招商</a>
+                                <a target="_blank" href="https://m.maigoo.com/zhaoshang/6085.html#possqjm" class="fff bg1 font14">申请加盟</a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="img tablecell">
+                        <a href="https://m.maigoo.com/zhaoshang/1763.html">
+                            <img width="300" height="185" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/413a2-7702.jpg" /></a>
+                    </div>
+                    <div class="cont font14 tablecell lineem">
+                        <div class="desc">
+                            <a href="https://m.maigoo.com/zhaoshang/1763.html">
+                                <div class="brandname">
+                                    <span class="numb num10"></span>
+                                    <span class="name dhidden b c333 ">可得优KW-triO</span></div>
+                                <div class="yusu dhidden">
+                                    <span class="c666">投资预算：</span>
+                                    <span class="red b">25-50万元</span></div>
+                                <div class="phone dhidden c666">
+                                    <span>招商电话：</span>
+                                    <span>021-5485 7060</span></div>
+                            </a>
+                            <div class="btn">
+                                <a target="_blank" href="https://m.maigoo.com/zhaoshang/1763.html" class="fff bgorange font14">查看招商</a>
+                                <a target="_blank" href="https://m.maigoo.com/zhaoshang/1763.html#possqjm" class="fff bg1 font14">申请加盟</a></div>
                         </div>
                     </div>
                 </div>

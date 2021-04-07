@@ -1,5 +1,6 @@
 <?php class Yii { public static function getAlias($var) { return "http://39.106.102.45/filesys/spider/pages"; } } ?>
 <!DOCTYPE html>
+<!--STATUS OK-->
 <html>
 
 <head>
@@ -14,10 +15,10 @@
 <meta content="black" name="apple-mobile-web-app-status-bar-style" />
 <meta content="telephone=no" name="format-detection" />
 <meta name="applicable-device" content="mobile">
-<link href="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/48832-3435.ico" rel="shortcut icon" />
-<link href="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/css/06593-2711.css" type="text/css" rel="stylesheet" />
-<link href="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/css/40d76-7050.css" type="text/css" rel="stylesheet" />
-<link href="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/css/81aaf-3113.css" type="text/css" rel="stylesheet" />
+<link href="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/48832-7373.ico" rel="shortcut icon" />
+<link href="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/css/30cdb-6621.css" type="text/css" rel="stylesheet" />
+<link href="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/css/f1d79-1352.css" type="text/css" rel="stylesheet" />
+<link href="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/css/cd077-5970.css" type="text/css" rel="stylesheet" />
 <script src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/js/jquery.min.js" type="text/javascript"></script>
 </head>
 
@@ -65,7 +66,7 @@
                                 <a href="https://m.maigoo.com/mingren/list_784.html" class="c666 dhidden">中性笔</a>
                                 <a href="https://m.maigoo.com/mingren/list_783.html" class="c666 dhidden">钢笔</a>
                                 <a href="https://m.maigoo.com/mingren/list_4742.html" class="c666 dhidden">蜡笔</a>
-                                <a href="https://m.maigoo.com/mingren/list_4528.html" class="c666 dhidden">便签纸</a>
+                                <a href="https://m.maigoo.com/mingren/list_4528.html" class="c666 dhidden">便签</a>
                                 <a href="https://m.maigoo.com/mingren/list_776.html" class="c666 dhidden">马克笔</a>
                                 <a href="https://m.maigoo.com/mingren/list_790.html" class="c666 dhidden">墨水</a>
                                 <a href="https://m.maigoo.com/mingren/list_796.html" class="c666 dhidden">美术用品</a>
@@ -84,9 +85,9 @@
                                 <a href="https://m.maigoo.com/maigoocms/special/qinzi/154chenguang.html" class="c666 dhidden">晨光文具M&G</a>
                                 <a href="https://m.maigoo.com/maigoocms/special/qinzi/151deli.html" class="c666 dhidden">得力DELI</a>
                                 <a href="https://m.maigoo.com/maigoocms/special/qinzi/151lemei.html" class="c666 dhidden">真彩TrueColor</a>
-                                <a href="https://m.maigoo.com/maigoocms/special/qinzi/151qixin.html" class="c666 dhidden">齐心COMIX</a>
+                                <a href="https://m.maigoo.com/maigoocms/special/qinzi/151qixin.html" class="c666 dhidden">齐心办公COMIX</a>
                                 <a href="https://m.maigoo.com/maigoocms/special/qinzi/152AIHAO.html" class="c666 dhidden">爱好AIHAO</a>
-                                <a href="https://m.maigoo.com/maigoocms/special/qinzi/151baixue.html" class="c666 dhidden">白雪Snowhite</a>
+                                <a href="https://m.maigoo.com/maigoocms/special/qinzi/151baixue.html" class="c666 dhidden">白雪文具Snowhite</a>
                                 <a href="https://m.maigoo.com/maigoocms/special/qinzi/151beifa.html" class="c666 dhidden">贝发BEIFA</a>
                                 <a href="https://m.maigoo.com/maigoocms/special/bggj/151gb.html" class="c666 dhidden">广博GuangBo</a>
                                 <a href="https://m.maigoo.com/maigoocms/special/bggj/151SUNWOOD.html" class="c666 dhidden">三木SUNWOOD</a>
@@ -176,7 +177,7 @@
                 <h1 class="title font18 b c333 line15em">陈湖文-上海晨光文具股份有限公司董事长介绍</h1>
                 <div class="qzoneinfo c999">
                     <a href="https://m.maigoo.com/mgzone/1682.html" class="color1">
-                        <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/9b5d5-8785.jpg" />名人画像</a>&nbsp;上传提供
+                        <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/9b5d5-4928.jpg" />名人画像</a>&nbsp;上传提供
                     <span class="attention ccc">
                         <i class="iconfont icon-yanjing"></i>
                         <span count="attention">0</span></span>
@@ -201,7 +202,7 @@
                         <p style="text-indent:0px;text-align:center;">
                             <span>
                                 <span class="showauthor">
-                                    <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/55aa5-8080.jpg" alt="" width="600" title="" align="" />
+                                    <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/55aa5-9020.jpg" alt="" width="600" title="" align="" />
                                     <em>该图片由注册用户"
                                         <i style="display:inline-block;" class="authorblue qzone" onclick="return openUrl($(this).attr('href'));" href="https://m.maigoo.com/mgzone/1682.html" target="_blank">名人画像</i>"提供，
                                         <i class="authorblue" onclick="return openUrl($(this).attr('href'));" href="https://www.cnpp.cn/relief/">
@@ -268,14 +269,15 @@
                     <a class="color1" href="javascript:;" onclick="window.open('https://m.maigoo.com/user/login/');">注册登录>></a></div>
             </div>
             <div class="moremzsm">
-                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/80594-6438.gif" onclick="$('#mzsmcontent').find('.mzsm').css('height','auto');$(this).parent().remove();" /></div>
+                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/dec8c-3557.gif" onclick="$('#mzsmcontent').find('.mzsm').css('height','auto');$(this).parent().remove();" /></div>
         </div>
         <div class="articlepraise bottombd" id="articlepraise">
+            <!--点赞-->
             <div class="tubiao">
                 <div class="dianzhan">
-                    <a href="/ajaxstream/praise/?action=addpraise&block=mingren&id=8452" class="addpraise" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).find('.addnum'))">
+                    <a href="/ajaxstream/praise/?action=addpraise&block=mingren&id=8452" class="addpraise" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$('.addpraisenum'))">
                         <i class="iconfont icon-dianzan"></i>赞
-                        <i class="addnum getajaxdata" url="https://s.maigoo.com/ajaxstream/praise/?action=getpraise&block=mingren&id=8452&type=add"></i></a>
+                        <i class="addpraisenum getajaxdata" url="https://s.maigoo.com/ajaxstream/praise/?action=getpraise&block=mingren&id=8452&type=add"></i></a>
                 </div>
                 <div class="xiajiang c999">
                     <a href="/ajaxstream/praise/?action=cutpraise&block=mingren&id=8452" onclick="return !$(this).hasClass('hui')&&$(this).addClass('hui')&&ajaxlinka(this,$(this).find('.addnum'))" class="cutpraise">
@@ -299,68 +301,20 @@
                 </span>
             </div>
             <ul class="itembox hasttl">
-                <li class="item nopic">
-                    <div class="ibox">
-                        <div class="contbox">
-                            <a class="title font15 color2 dhidden2" href="https://m.maigoo.com/news/572337.html">
-                                <span class="numb num1"></span>2021十大热门慕那美文具用品排行榜 慕那美文具用品哪款好【TOP榜】</a>
-                            <div class='other font12'>
-                                <span class="isyuan bg2 color1">MAIGOO原创</span>
-                                <a class="biaoqian color5" href="https://m.maigoo.com/biaoqian/22.html">文具用品</a>
-                                <div class="attention">
-                                    <i class="iconfont icon-chakan"></i>1142</div>
-                            </div>
-                        </div>
-                        <div class="clear"></div>
-                    </div>
-                </li>
-                <li class="item nopic">
-                    <div class="ibox">
-                        <div class="contbox">
-                            <a class="title font15 color2 dhidden2" href="https://m.maigoo.com/news/572317.html">
-                                <span class="numb num2"></span>2021十大热门康大文具用品排行榜 康大文具用品哪款好【TOP榜】</a>
-                            <div class='other font12'>
-                                <span class="isyuan bg2 color1">MAIGOO原创</span>
-                                <a class="biaoqian color5" href="https://m.maigoo.com/biaoqian/22.html">文具用品</a>
-                                <div class="attention">
-                                    <i class="iconfont icon-chakan"></i>1383</div>
-                            </div>
-                        </div>
-                        <div class="clear"></div>
-                    </div>
-                </li>
                 <li class="item ">
                     <div class="ibox">
                         <div class="img ">
-                            <a href="https://m.maigoo.com/goomai/203334.html">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/29eb6-2490.jpg" /></a>
+                            <a href="https://m.maigoo.com/goomai/204644.html">
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/b6d91-8727.jpg" /></a>
                         </div>
                         <div class="contbox">
-                            <a class="title font15 color2 dhidden2" href="https://m.maigoo.com/goomai/203334.html">
-                                <span class="numb num3"></span>送学生什么礼物好？适合送学生党的礼物大推荐</a>
+                            <a class="title font15 color2 dhidden2" href="https://m.maigoo.com/goomai/204644.html">
+                                <span class="numb num1"></span>【笔的分类】笔的种类有哪些 各种笔分类全面盘点</a>
                             <div class='other font12'>
                                 <span class="isyuan bg2 color1">MAIGOO原创</span>
-                                <a class="biaoqian color5" href="https://m.maigoo.com/biaoqian/650.html">礼品</a>
+                                <a class="biaoqian color5" href="https://m.maigoo.com/biaoqian/154010.html">水性笔</a>
                                 <div class="attention">
-                                    <i class="iconfont icon-chakan"></i>9745</div>
-                            </div>
-                        </div>
-                        <div class="clear"></div>
-                    </div>
-                </li>
-                <li class="item ">
-                    <div class="ibox">
-                        <div class="img ">
-                            <a href="https://m.maigoo.com/goomai/153775.html">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/d487e-5404.jpg" /></a>
-                        </div>
-                        <div class="contbox">
-                            <a class="title font15 color2 dhidden2" href="https://m.maigoo.com/goomai/153775.html">
-                                <span class="numb num4"></span>马克笔有哪些分类 马克笔使用入门和初学者手绘上色方法</a>
-                            <div class='other font12'>
-                                <a class="biaoqian color5" href="https://m.maigoo.com/biaoqian/22.html">文具用品</a>
-                                <div class="attention">
-                                    <i class="iconfont icon-chakan"></i>4352</div>
+                                    <i class="iconfont icon-chakan"></i>1.3万</div>
                             </div>
                         </div>
                         <div class="clear"></div>
@@ -369,13 +323,58 @@
                 <li class="item nopic">
                     <div class="ibox">
                         <div class="contbox">
-                            <a class="title font15 color2 dhidden2" href="https://m.maigoo.com/news/572311.html">
-                                <span class="numb num5"></span>2021十大热门马可文具用品排行榜 马可文具用品哪款好【TOP榜】</a>
+                            <a class="title font15 color2 dhidden2" href="https://m.maigoo.com/news/572327.html">
+                                <span class="numb num2"></span>2021十大热门灯塔文具用品排行榜 灯塔文具用品哪款好【TOP榜】</a>
                             <div class='other font12'>
                                 <span class="isyuan bg2 color1">MAIGOO原创</span>
                                 <a class="biaoqian color5" href="https://m.maigoo.com/biaoqian/22.html">文具用品</a>
                                 <div class="attention">
-                                    <i class="iconfont icon-chakan"></i>1026</div>
+                                    <i class="iconfont icon-chakan"></i>1375</div>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </li>
+                <li class="item nopic">
+                    <div class="ibox">
+                        <div class="contbox">
+                            <a class="title font15 color2 dhidden2" href="https://m.maigoo.com/news/581768.html">
+                                <span class="numb num3"></span>2021十大热门报事贴文具用品排行榜 报事贴文具用品哪款好【TOP榜】</a>
+                            <div class='other font12'>
+                                <span class="isyuan bg2 color1">MAIGOO原创</span>
+                                <a class="biaoqian color5" href="https://m.maigoo.com/biaoqian/1528.html">便签</a>
+                                <div class="attention">
+                                    <i class="iconfont icon-chakan"></i>1489</div>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </li>
+                <li class="item nopic">
+                    <div class="ibox">
+                        <div class="contbox">
+                            <a class="title font15 color2 dhidden2" href="https://m.maigoo.com/news/572338.html">
+                                <span class="numb num4"></span>2021十大热门锦宫文具用品排行榜 锦宫文具用品哪款好【TOP榜】</a>
+                            <div class='other font12'>
+                                <span class="isyuan bg2 color1">MAIGOO原创</span>
+                                <a class="biaoqian color5" href="https://m.maigoo.com/biaoqian/22.html">文具用品</a>
+                                <div class="attention">
+                                    <i class="iconfont icon-chakan"></i>1533</div>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </li>
+                <li class="item nopic">
+                    <div class="ibox">
+                        <div class="contbox">
+                            <a class="title font15 color2 dhidden2" href="https://m.maigoo.com/news/581759.html">
+                                <span class="numb num5"></span>2021十大热门墨点文具用品排行榜 墨点文具用品哪款好【TOP榜】</a>
+                            <div class='other font12'>
+                                <span class="isyuan bg2 color1">MAIGOO原创</span>
+                                <a class="biaoqian color5" href="https://m.maigoo.com/biaoqian/22.html">文具用品</a>
+                                <div class="attention">
+                                    <i class="iconfont icon-chakan"></i>1095</div>
                             </div>
                         </div>
                         <div class="clear"></div>
@@ -383,10 +382,10 @@
                 </li>
             </ul>
             <div class="blockmorebox font16 ">
-                <div class="morebtn c333" data-action="djarticlelist" data-subaction="" data-thirdaction="" data-page="2" data-start="" data-defaultids="22" data-sort="" data-tabnum="04" data-maxpage="" onclick="getData(this)">
+                <div class="morebtn c333" data-action="djarticlelist" data-subaction="" data-thirdaction="" data-page="2" data-start="" data-defaultids="22" data-sort="" data-tabnum="12" data-maxpage="" onclick="getData(this)">
                     <i class="iconfont icon-gengduo"></i>
                     <span>加载更多</span></div>
-                <a class="next dn" href="/mingren/8452.html?action=djarticlelist&tabnum=04&page=2">下一页</a>
+                <a class="next dn" href="/mingren/8452.html?action=djarticlelist&tabnum=12&page=2">下一页</a>
                 <div class="clear"></div>
             </div>
         </div>

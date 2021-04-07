@@ -1,5 +1,6 @@
 <?php class Yii { public static function getAlias($var) { return "http://39.106.102.45/filesys/spider/pages"; } } ?>
 <!DOCTYPE html>
+<!--STATUS OK-->
 <html>
 
 <head>
@@ -10,16 +11,10 @@
 <meta name="keywords" content="文具用品清单,文具用品分类,文具的功能,文具的用途,文具的知识,文具的历史,文具用品的选购" />
 <meta name="description" content="文具用品知识大讲堂|买购网为您推荐文具用品的种类、文具用品的用途、文具用品的标准、文具用品图片、文具用品的选购知识等，是您了解文具用品知识的参考网站。" />
 <meta name="mobile-agent" content="format=html5;url=https://m.maigoo.com/goomai/list_797.html">
-<link href="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/e4ba2-6910.ico" rel="shortcut icon" />
-<link href="<?= Yii::getAlias('@tasseturl'); ?>/sguide/css/86dbe-1933.css" type="text/css" rel="stylesheet" />
-<link href="<?= Yii::getAlias('@tasseturl'); ?>/sguide/css/9012f-9612.css" type="text/css" rel="stylesheet" />
-<link href="<?= Yii::getAlias('@tasseturl'); ?>/sguide/css/6291e-9949.css" type="text/css" rel="stylesheet" />
-<script>function clicksear(e) {
-        var url = $(e).attr('url');
-        var q = $('input.search').val();
-        url += url.indexOf('?') !== -1 ? '&q=' + q: '?q=' + q;
-        window.location.href = url;
-    }</script>
+<link href="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/e4ba2-8294.ico" rel="shortcut icon" />
+<link href="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/css/30cdb-6621.css" type="text/css" rel="stylesheet" />
+<link href="<?= Yii::getAlias('@tasseturl'); ?>/sguide/css/9a030-1171.css" type="text/css" rel="stylesheet" />
+<link href="<?= Yii::getAlias('@tasseturl'); ?>/sguide/css/bb6a2-2905.css" type="text/css" rel="stylesheet" />
 <script src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/js/jquery.min.js" type="text/javascript"></script>
 <script src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/js/jquery.cookie.min.js" type="text/javascript"></script>
 <!--[if lt IE 9]>
@@ -30,7 +25,12 @@
 <header>
     <div class="headlist">
         <a class="logo" href="https://www.maigoo.com/">
-            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/1dd08-9796.png" /></a>
+            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/9b49d-6078.png" /></a>
+        <a class="phoneqrcode color1 fenlei" href="/category/zhishi/#poscat1name5196" target="_blank">
+            <i class="iconfont icon-fenlei2"></i>
+            <span>网站分类</span>
+            <div class="clear"></div>
+        </a>
         <div class="searchnames">
             <div id="searchbox" class="bd1 nosearch">
                 <form class="searchbox" action="/search/" method="get">
@@ -50,9 +50,7 @@
         </div>
         <div class="userbox font12">
             <a class="color1" href="https://www.cnpp.cn/android/maigooapp/" target="_blank">
-                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/36476-2757.png" height="20" />买购APP</a>&nbsp;
-            <a class="phoneqrcode color1" href="/category/zhishi/#poscat1name5196" target="_blank">
-                <i class="iconfont icon-fenlei3"></i>网站分类</a>
+                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/62b97-4217.png" height="20" />买购APP</a>
             <div class="userinfo orange center">
                 <i class="iconfont icon-denglu"></i>
                 <a class="color1 loginin" href="javascript:;" onclick="cnpplogin(this)">登录</a>|
@@ -78,43 +76,43 @@
                 <a class="fff font20 line2em cffff00 vote" href="https://www.maigoo.com/vote/list_797.html">投票</a>
                 <div class="clear"></div>
                 <div class="navright">
-                    <i class="iconfont icon-fenlei2 fff font24"></i>
+                    <i class="iconfont icon-fenlei3 fff font24"></i>
                 </div>
             </div>
-            <div class="headblockcont getajaxdata" url="/ajaxstream/headblockcont/?catid=797"></div>
+            <div class="headblockcont getajaxdata" url="https://s.maigoo.com/ajaxstream/headblockcont/?catid=797"></div>
         </div>
     </div>
     <div class="webshoplogo">
         <div class="logobox2">
             <a target="_blank" href="https://www.maigoo.com/webshop/66213.html">
-                <img width="83" height="37" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/7aac2-9640.png" />
+                <img width="83" height="37" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/7aac2-5783.png" />
                 <em class="dhidden">晨光</em></a>
             <a target="_blank" href="https://www.maigoo.com/webshop/155559.html">
-                <img width="83" height="37" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/ded4e-9153.png" />
+                <img width="83" height="37" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/ded4e-9567.png" />
                 <em class="dhidden">得力</em></a>
             <a target="_blank" href="https://www.maigoo.com/webshop/245853.html">
-                <img width="83" height="37" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/1db86-6035.png" />
+                <img width="83" height="37" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/1db86-6802.png" />
                 <em class="dhidden">真彩</em></a>
             <a target="_blank" href="https://www.maigoo.com/webshop/334555.html">
-                <img width="83" height="37" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/f418a-1599.png" />
-                <em class="dhidden">齐心</em></a>
+                <img width="83" height="37" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/f418a-8167.png" />
+                <em class="dhidden">齐心办公</em></a>
             <a target="_blank" href="https://www.maigoo.com/webshop/317825.html">
-                <img width="83" height="37" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/5dbb1-4729.png" />
+                <img width="83" height="37" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/5dbb1-2611.png" />
                 <em class="dhidden">爱好</em></a>
             <a target="_blank" href="https://www.maigoo.com/webshop/230909.html">
-                <img width="83" height="37" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/1f90b-9581.png" />
-                <em class="dhidden">白雪</em></a>
+                <img width="83" height="37" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/1f90b-5145.png" />
+                <em class="dhidden">白雪文具</em></a>
             <a target="_blank" href="https://www.maigoo.com/webshop/271998.html">
-                <img width="83" height="37" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/2b225-5530.png" />
+                <img width="83" height="37" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/2b225-1622.png" />
                 <em class="dhidden">贝发</em></a>
             <a target="_blank" href="https://www.maigoo.com/webshop/155564.html">
                 <img width="83" height="37" src="https://image.maigoo.com/upload2/images/20131113/mbrand__2555_logo.png#" />
                 <em class="dhidden">广博</em></a>
             <a target="_blank" href="https://www.maigoo.com/webshop/273632.html">
-                <img width="83" height="37" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/04ccc-2062.png" />
+                <img width="83" height="37" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/04ccc-5068.png" />
                 <em class="dhidden">三木</em></a>
             <a target="_blank" href="https://www.maigoo.com/webshop/142762.html">
-                <img width="83" height="37" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/15a61-6090.png" />
+                <img width="83" height="37" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/15a61-4374.png" />
                 <em class="dhidden">金万年</em></a>
         </div>
     </div>
@@ -123,6 +121,83 @@
     <div id="container">
         <div class="leftlay">
             <div class="artcontent">
+                <div class="blockinfo categorycol4 col3 hei" id="pos_xgcategory">
+                    <div class="itembox">
+                        <div class="item color1 ">
+                            <a class="font16 dhidden" target="_blank" href="https://www.maigoo.com/maigoo/7209yzb_index.html" title="圆珠笔">圆珠笔</a></div>
+                        <div class="item color1 ">
+                            <a class="font16 dhidden" target="_blank" href="https://www.maigoo.com/maigoo/7376xz_index.html" title="宣纸">宣纸</a></div>
+                        <div class="item color1 ">
+                            <a class="font16 dhidden" target="_blank" href="https://www.maigoo.com/maigoo/7377mb_index.html" title="毛笔">毛笔</a></div>
+                        <div class="item color1 ">
+                            <a class="font16 dhidden" target="_blank" href="https://www.maigoo.com/maigoo/7382bt_index.html" title="笔筒">笔筒</a></div>
+                        <div class="item color1 ">
+                            <a class="font16 dhidden" target="_blank" href="https://www.maigoo.com/maigoo/7379wjh_index.html" title="文具盒">文具盒</a></div>
+                        <div class="item color1 ">
+                            <a class="font16 dhidden" target="_blank" href="https://www.maigoo.com/maigoo/8071hxz_index.html" title="回形针">回形针</a></div>
+                        <div class="item color1 ">
+                            <a class="font16 dhidden" target="_blank" href="https://www.maigoo.com/maigoo/8165zt_index.html" title="字帖">字帖</a></div>
+                        <div class="item color1 ">
+                            <a class="font16 dhidden" target="_blank" href="https://www.maigoo.com/maigoo/7962bzb_index.html" title="宝珠笔">宝珠笔</a></div>
+                        <div class="item color1 ">
+                            <a class="font16 dhidden" target="_blank" href="https://www.maigoo.com/maigoo/8301mz_index.html" title="墨汁">墨汁</a></div>
+                        <div class="item color1 ">
+                            <a class="font16 dhidden" target="_blank" href="https://www.maigoo.com/maigoo/8112xpj_index.html" title="橡皮筋">橡皮筋</a></div>
+                        <div class="item color1 ">
+                            <a class="font16 dhidden" target="_blank" href="https://www.maigoo.com/maigoo/7239kcb_index.html" title="可擦笔">可擦笔</a></div>
+                        <div class="item color1 ">
+                            <a class="font16 dhidden" target="_blank" href="https://www.maigoo.com/maigoo/8100cwj_index.html" title="长尾夹">长尾夹</a></div>
+                        <div class="item color1 ">
+                            <a class="font16 dhidden" target="_blank" href="https://www.maigoo.com/maigoo/152gb_index.html" title="钢笔">钢笔</a></div>
+                        <div class="item color1 ">
+                            <a class="font16 dhidden" target="_blank" href="https://www.maigoo.com/maigoo/5108qb_index.html" title="铅笔">铅笔</a></div>
+                        <div class="item color1 ">
+                            <a class="font16 dhidden" target="_blank" href="https://www.maigoo.com/maigoo/7375xp_index.html" title="橡皮">橡皮</a></div>
+                        <div class="item color1 ">
+                            <a class="font16 dhidden" target="_blank" href="https://www.maigoo.com/maigoo/1342lb_index.html" title="蜡笔">蜡笔</a></div>
+                        <div class="item color1 ">
+                            <a class="font16 dhidden" target="_blank" href="https://www.maigoo.com/maigoo/7478wjj_index.html" title="文件夹">文件夹</a></div>
+                        <div class="item color1 ">
+                            <a class="font16 dhidden" target="_blank" href="https://www.maigoo.com/maigoo/1265blt_index.html" title="便签">便签</a></div>
+                        <div class="item color1 ">
+                            <a class="font16 dhidden" target="_blank" href="https://www.maigoo.com/maigoo/786mkb_index.html" title="马克笔">马克笔</a></div>
+                        <div class="item color1 hide ">
+                            <a class="font16 dhidden" target="_blank" href="https://www.maigoo.com/maigoo/787mos_index.html" title="墨水">墨水</a></div>
+                        <div class="item color1 hide ">
+                            <a class="font16 dhidden" target="_blank" href="https://www.maigoo.com/maigoo/266art_index.html" title="美术用品">美术用品</a></div>
+                        <div class="item color1 hide ">
+                            <a class="font16 dhidden" target="_blank" href="https://www.maigoo.com/maigoo/5071jsb_index.html" title="记事本">记事本</a></div>
+                        <div class="item color1 hide ">
+                            <a class="font16 dhidden" target="_blank" href="https://www.maigoo.com/maigoo/218xx_index.html" title="学习机">学习机</a></div>
+                        <div class="item color1 hide ">
+                            <a class="font16 dhidden" target="_blank" href="https://www.maigoo.com/maigoo/4545ddj_index.html" title="点读机">点读机</a></div>
+                        <div class="item color1 hide ">
+                            <a class="font16 dhidden" target="_blank" href="https://www.maigoo.com/maigoo/781study_index.html" title="点读笔">点读笔</a></div>
+                        <div class="item color1 hide ">
+                            <a class="font16 dhidden" target="_blank" href="https://www.maigoo.com/maigoo/577jsj_index.html" title="计算器">计算器</a></div>
+                        <div class="item color1 hide ">
+                            <a class="font16 dhidden" target="_blank" href="https://www.maigoo.com/maigoo/783study_index.html" title="电子书">电子书</a></div>
+                        <div class="item color1 hide ">
+                            <a class="font16 dhidden" target="_blank" href="https://www.maigoo.com/maigoo/782study_index.html" title="电子词典">电子词典</a></div>
+                        <div class="item color1 hide ">
+                            <a class="font16 dhidden" target="_blank" href="https://www.maigoo.com/maigoo/4787zjji_index.html" title="早教机">早教机</a></div>
+                        <div class="item color1 hide ">
+                            <a class="font16 dhidden" target="_blank" href="https://www.maigoo.com/maigoo/779study_index.html" title="复读机">复读机</a></div>
+                        <div class="item color1 hide ">
+                            <a class="font16 dhidden" target="_blank" href="https://www.maigoo.com/maigoo/7130mgb_index.html" title="美工笔">美工笔</a></div>
+                        <div class="item color1 hide ">
+                            <a class="font16 dhidden" target="_blank" href="https://www.maigoo.com/maigoo/8146dqy_index.html" title="地球仪">地球仪</a></div>
+                        <div class="item color1 hide ">
+                            <a class="font16 dhidden" target="_blank" href="https://www.maigoo.com/maigoo/8425cqnt_index.html" title="超轻粘土">超轻粘土</a></div>
+                        <div class="item color1 hide ">
+                            <a class="font16 dhidden" target="_blank" href="https://www.maigoo.com/maigoo/8543xzd_index.html" title="修正带">修正带</a></div>
+                        <div class="item color1">
+                            <a class="font16 openbtn" href="javascript:;" onclick="openclose(this)"></a>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+                <div class="bline bline1"></div>
                 <div class="tab blockinfo style1 col4" id="pos_searchlist">
                     <div class="blocktitle font26 ccc style1 ">
                         <span class="color1">
@@ -156,23 +231,23 @@
                                     <li class="item ">
                                         <div class="tablecell">
                                             <div class="contbox">
-                                                <a target="_blank" class="title font20 c333 b dhidden" href="https://www.maigoo.com/goomai/156571.html">【文具百科】文具用品有哪些 学生文具如何安全选购</a>
-                                                <div class="description c999 line18em font14">虽然现在很多时候传统的文房四宝正在被键盘鼠标所取代，但是文具用品仍然是我们生活中必不可少的物品，尤其是对学生而言。现在的文具形态、种类各异，...</div>
+                                                <a target="_blank" class="title font20 c333 b dhidden" href="https://www.maigoo.com/goomai/155195.html">尺子的种类有哪些 学生文具尺子是什么材质的</a>
+                                                <div class="description c999 line18em font14">在日常生活中，尺子的使用非常常见，不论作为学生用具，还是木工、办公等，都是必不可少的用具。尺子又称尺子、间尺子，是用来画线段(尤其是直的)、...</div>
                                                 <div class='other font13'>
-                                                    <span class="isyuan bg2 color1 bq">MAIGOO原创</span>
-                                                    <a target="_blank" class="biaoqian color5 bq" href="https://www.maigoo.com/maigoo/151wj_index.html">文具用品</a>
-                                                    <a target="_blank" class="biaoqian color5 bq" href="https://www.maigoo.com/maigoo/2493sf_index.html">书房</a>
-                                                    <span class="alevel font20 orange">★★★</span>
+                                                    <a target="_blank" class="biaoqian color5 bq" href="https://www.maigoo.com/biaoqian/22.html">文具用品</a>
+                                                    <a target="_blank" class="biaoqian color5 bq" href="https://www.maigoo.com/biaoqian/153969.html">文具/学习</a>
                                                     <div class="attention ccc">
                                                         <span>
-                                                            <i class="iconfont icon-chakan"></i>2358</span>
+                                                            <i class="iconfont icon-chakan"></i>1.3万</span>
+                                                        <span>
+                                                            <i class="iconfont icon-dianzan1"></i>186</span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="img ">
-                                            <a target="_blank" href="https://www.maigoo.com/goomai/156571.html">
-                                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/41cf4-6939.jpg" /></a>
+                                            <a target="_blank" href="https://www.maigoo.com/goomai/155195.html">
+                                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/58950-2316.jpg" /></a>
                                         </div>
                                     </li>
                                     <li class="item ">
@@ -186,38 +261,38 @@
                                                     <a target="_blank" class="biaoqian color5 bq" href="https://www.maigoo.com/biaoqian/22.html">文具用品</a>
                                                     <div class="attention ccc">
                                                         <span>
-                                                            <i class="iconfont icon-chakan"></i>492</span>
+                                                            <i class="iconfont icon-chakan"></i>559</span>
                                                         <span>
-                                                            <i class="iconfont icon-dianzan1"></i>20</span>
+                                                            <i class="iconfont icon-dianzan1"></i>22</span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="img ">
                                             <a target="_blank" href="https://www.maigoo.com/goomai/216268.html">
-                                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/79610-1346.jpg" /></a>
+                                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/79610-5676.jpg" /></a>
                                         </div>
                                     </li>
                                     <li class="item ">
                                         <div class="tablecell">
                                             <div class="contbox">
-                                                <a target="_blank" class="title font20 c333 b dhidden" href="https://www.maigoo.com/goomai/155195.html">尺子的种类有哪些 学生文具尺子是什么材质的</a>
-                                                <div class="description c999 line18em font14">在日常生活中，尺子的使用非常常见，不论作为学生用具，还是木工、办公等，都是必不可少的用具。尺子又称尺子、间尺子，是用来画线段(尤其是直的)、...</div>
+                                                <a target="_blank" class="title font20 c333 b dhidden" href="https://www.maigoo.com/goomai/156571.html">【文具百科】文具用品有哪些 学生文具如何安全选购</a>
+                                                <div class="description c999 line18em font14">虽然现在很多时候传统的文房四宝正在被键盘鼠标所取代，但是文具用品仍然是我们生活中必不可少的物品，尤其是对学生而言。现在的文具形态、种类各异，...</div>
                                                 <div class='other font13'>
-                                                    <a target="_blank" class="biaoqian color5 bq" href="https://www.maigoo.com/biaoqian/22.html">文具用品</a>
-                                                    <a target="_blank" class="biaoqian color5 bq" href="https://www.maigoo.com/biaoqian/153969.html">文具/学习</a>
+                                                    <span class="isyuan bg2 color1 bq">MAIGOO原创</span>
+                                                    <a target="_blank" class="biaoqian color5 bq" href="https://www.maigoo.com/maigoo/151wj_index.html">文具用品</a>
+                                                    <a target="_blank" class="biaoqian color5 bq" href="https://www.maigoo.com/maigoo/2493sf_index.html">书房</a>
+                                                    <span class="alevel font20 orange">★★★</span>
                                                     <div class="attention ccc">
                                                         <span>
-                                                            <i class="iconfont icon-chakan"></i>1.2万</span>
-                                                        <span>
-                                                            <i class="iconfont icon-dianzan1"></i>181</span>
+                                                            <i class="iconfont icon-chakan"></i>2469</span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="img ">
-                                            <a target="_blank" href="https://www.maigoo.com/goomai/155195.html">
-                                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/58950-6874.jpg" /></a>
+                                            <a target="_blank" href="https://www.maigoo.com/goomai/156571.html">
+                                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/41cf4-9327.jpg" /></a>
                                         </div>
                                     </li>
                                     <li class="item ">
@@ -230,16 +305,16 @@
                                                     <a target="_blank" class="biaoqian color5 bq" href="https://www.maigoo.com/biaoqian/289.html">中性笔</a>
                                                     <div class="attention ccc">
                                                         <span>
-                                                            <i class="iconfont icon-chakan"></i>4079</span>
+                                                            <i class="iconfont icon-chakan"></i>4126</span>
                                                         <span>
-                                                            <i class="iconfont icon-dianzan1"></i>65</span>
+                                                            <i class="iconfont icon-dianzan1"></i>66</span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="img ">
                                             <a target="_blank" href="https://www.maigoo.com/goomai/165984.html">
-                                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/1ec9c-1538.jpg" /></a>
+                                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/1ec9c-7670.jpg" /></a>
                                         </div>
                                     </li>
                                     <li class="item ">
@@ -254,18 +329,18 @@
                                                     <span class="alevel font20 orange">★★★</span>
                                                     <div class="attention ccc">
                                                         <span>
-                                                            <i class="iconfont icon-chakan"></i>11万</span>
+                                                            <i class="iconfont icon-chakan"></i>12万</span>
                                                         <span>
                                                             <i class="iconfont icon-pinglun"></i>8</span>
                                                         <span>
-                                                            <i class="iconfont icon-dianzan1"></i>391</span>
+                                                            <i class="iconfont icon-dianzan1"></i>399</span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="img ">
                                             <a target="_blank" href="https://www.maigoo.com/goomai/158027.html">
-                                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/c44fb-4920.jpg" /></a>
+                                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/c44fb-8325.jpg" /></a>
                                         </div>
                                     </li>
                                     <li class="item ">
@@ -287,7 +362,7 @@
                                         </div>
                                         <div class="img ">
                                             <a target="_blank" href="https://www.maigoo.com/goomai/166554.html">
-                                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/65fc7-6270.jpg" /></a>
+                                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/65fc7-1462.jpg" /></a>
                                         </div>
                                     </li>
                                     <li class="item ">
@@ -302,14 +377,14 @@
                                                     <span class="alevel font20 orange">★★★★</span>
                                                     <div class="attention ccc">
                                                         <span>
-                                                            <i class="iconfont icon-chakan"></i>1689</span>
+                                                            <i class="iconfont icon-chakan"></i>1736</span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="img ">
                                             <a target="_blank" href="https://www.maigoo.com/goomai/206846.html">
-                                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/21999-2974.jpg" /></a>
+                                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/21999-8534.jpg" /></a>
                                         </div>
                                     </li>
                                     <li class="item ">
@@ -331,7 +406,51 @@
                                         </div>
                                         <div class="img ">
                                             <a target="_blank" href="https://www.maigoo.com/goomai/155200.html">
-                                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/690d4-7344.jpg" /></a>
+                                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/690d4-5339.jpg" /></a>
+                                        </div>
+                                    </li>
+                                    <li class="item ">
+                                        <div class="tablecell">
+                                            <div class="contbox">
+                                                <a target="_blank" class="title font20 c333 b dhidden" href="https://www.maigoo.com/goomai/97322.html">钢笔字帖练字方法 怎样练好钢笔字</a>
+                                                <div class="description c999 line18em font14">书法艺术是中国的传统艺术，是中华民族文化的精华。我们不可能人人都成为书法家，但通过学习和不断的练习，写一手好字这个要求还是不高的，目标也是不...</div>
+                                                <div class='other font13'>
+                                                    <a target="_blank" class="biaoqian color5 bq" href="https://www.maigoo.com/biaoqian/156028.html">美术书法</a>
+                                                    <a target="_blank" class="biaoqian color5 bq" href="https://www.maigoo.com/biaoqian/208.html">钢笔</a>
+                                                    <div class="attention ccc">
+                                                        <span>
+                                                            <i class="iconfont icon-chakan"></i>5358</span>
+                                                        <span>
+                                                            <i class="iconfont icon-dianzan1"></i>66</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="img ">
+                                            <a target="_blank" href="https://www.maigoo.com/goomai/97322.html">
+                                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/d5971-2240.jpg" /></a>
+                                        </div>
+                                    </li>
+                                    <li class="item ">
+                                        <div class="tablecell">
+                                            <div class="contbox">
+                                                <a target="_blank" class="title font20 c333 b dhidden" href="https://www.maigoo.com/goomai/189542.html">办公用的文件夹种类类型有哪些 办公室文件夹怎么用</a>
+                                                <div class="description c999 line18em font14">提到办公室的标配，许多人的第一反应应该是文件夹吧。的确，似乎每间办公室都必不可少会有数量不同的蓝色文件夹被摆放在书架上，里面可能夹杂着与业务...</div>
+                                                <div class='other font13'>
+                                                    <a target="_blank" class="biaoqian color5 bq" href="https://www.maigoo.com/biaoqian/11800.html">文件夹</a>
+                                                    <a target="_blank" class="biaoqian color5 bq" href="https://www.maigoo.com/biaoqian/475.html">办公用品</a>
+                                                    <div class="attention ccc">
+                                                        <span>
+                                                            <i class="iconfont icon-chakan"></i>5387</span>
+                                                        <span>
+                                                            <i class="iconfont icon-dianzan1"></i>117</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="img ">
+                                            <a target="_blank" href="https://www.maigoo.com/goomai/189542.html">
+                                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/1552c-9301.jpg" /></a>
                                         </div>
                                     </li>
                                     <li class="item ">
@@ -345,60 +464,16 @@
                                                     <a target="_blank" class="biaoqian color5 bq" href="https://www.maigoo.com/biaoqian/22.html">文具用品</a>
                                                     <div class="attention ccc">
                                                         <span>
-                                                            <i class="iconfont icon-chakan"></i>3995</span>
+                                                            <i class="iconfont icon-chakan"></i>4069</span>
                                                         <span>
-                                                            <i class="iconfont icon-dianzan1"></i>135</span>
+                                                            <i class="iconfont icon-dianzan1"></i>138</span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="img ">
                                             <a target="_blank" href="https://www.maigoo.com/goomai/178415.html">
-                                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/d38a6-2309.jpg" /></a>
-                                        </div>
-                                    </li>
-                                    <li class="item ">
-                                        <div class="tablecell">
-                                            <div class="contbox">
-                                                <a target="_blank" class="title font20 c333 b dhidden" href="https://www.maigoo.com/goomai/97322.html">钢笔字帖练字方法 怎样练好钢笔字</a>
-                                                <div class="description c999 line18em font14">书法艺术是中国的传统艺术，是中华民族文化的精华。我们不可能人人都成为书法家，但通过学习和不断的练习，写一手好字这个要求还是不高的，目标也是不...</div>
-                                                <div class='other font13'>
-                                                    <a target="_blank" class="biaoqian color5 bq" href="https://www.maigoo.com/biaoqian/156028.html">美术书法</a>
-                                                    <a target="_blank" class="biaoqian color5 bq" href="https://www.maigoo.com/biaoqian/208.html">钢笔</a>
-                                                    <div class="attention ccc">
-                                                        <span>
-                                                            <i class="iconfont icon-chakan"></i>5319</span>
-                                                        <span>
-                                                            <i class="iconfont icon-dianzan1"></i>63</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="img ">
-                                            <a target="_blank" href="https://www.maigoo.com/goomai/97322.html">
-                                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/d5971-6365.jpg" /></a>
-                                        </div>
-                                    </li>
-                                    <li class="item ">
-                                        <div class="tablecell">
-                                            <div class="contbox">
-                                                <a target="_blank" class="title font20 c333 b dhidden" href="https://www.maigoo.com/goomai/189542.html">办公用的文件夹种类类型有哪些 办公室文件夹怎么用</a>
-                                                <div class="description c999 line18em font14">提到办公室的标配，许多人的第一反应应该是文件夹吧。的确，似乎每间办公室都必不可少会有数量不同的蓝色文件夹被摆放在书架上，里面可能夹杂着与业务...</div>
-                                                <div class='other font13'>
-                                                    <a target="_blank" class="biaoqian color5 bq" href="https://www.maigoo.com/biaoqian/11800.html">文件夹</a>
-                                                    <a target="_blank" class="biaoqian color5 bq" href="https://www.maigoo.com/biaoqian/475.html">办公用品</a>
-                                                    <div class="attention ccc">
-                                                        <span>
-                                                            <i class="iconfont icon-chakan"></i>5131</span>
-                                                        <span>
-                                                            <i class="iconfont icon-dianzan1"></i>117</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="img ">
-                                            <a target="_blank" href="https://www.maigoo.com/goomai/189542.html">
-                                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/1552c-2549.jpg" /></a>
+                                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/d38a6-2711.jpg" /></a>
                                         </div>
                                     </li>
                                     <li class="item ">
@@ -412,38 +487,16 @@
                                                     <a target="_blank" class="biaoqian color5 bq" href="https://www.maigoo.com/biaoqian/372.html">美术用品</a>
                                                     <div class="attention ccc">
                                                         <span>
-                                                            <i class="iconfont icon-chakan"></i>757</span>
+                                                            <i class="iconfont icon-chakan"></i>845</span>
                                                         <span>
-                                                            <i class="iconfont icon-dianzan1"></i>10</span>
+                                                            <i class="iconfont icon-dianzan1"></i>14</span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="img ">
                                             <a target="_blank" href="https://www.maigoo.com/goomai/221640.html">
-                                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/daec9-8420.jpg" /></a>
-                                        </div>
-                                    </li>
-                                    <li class="item ">
-                                        <div class="tablecell">
-                                            <div class="contbox">
-                                                <a target="_blank" class="title font20 c333 b dhidden" href="https://www.maigoo.com/goomai/217336.html">书信的格式是什么 书信的写作技巧与注意事项</a>
-                                                <div class="description c999 line18em font14">我国历史文化悠久，是有名的礼仪之邦。人们的社会交往和思想感情交流，大多通过一定的礼仪形式和一定的文化活动方式来进行。书信作为一种向特定对象传...</div>
-                                                <div class='other font13'>
-                                                    <a target="_blank" class="biaoqian color5 bq" href="https://www.maigoo.com/biaoqian/650.html">礼品</a>
-                                                    <a target="_blank" class="biaoqian color5 bq" href="https://www.maigoo.com/biaoqian/22.html">文具用品</a>
-                                                    <div class="attention ccc">
-                                                        <span>
-                                                            <i class="iconfont icon-chakan"></i>805</span>
-                                                        <span>
-                                                            <i class="iconfont icon-dianzan1"></i>10</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="img ">
-                                            <a target="_blank" href="https://www.maigoo.com/goomai/217336.html">
-                                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/2241d-3098.jpg" /></a>
+                                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/daec9-1089.jpg" /></a>
                                         </div>
                                     </li>
                                     <li class="item ">
@@ -458,38 +511,38 @@
                                                     <span class="alevel font20 orange">★★★</span>
                                                     <div class="attention ccc">
                                                         <span>
-                                                            <i class="iconfont icon-chakan"></i>8144</span>
+                                                            <i class="iconfont icon-chakan"></i>8236</span>
                                                         <span>
-                                                            <i class="iconfont icon-dianzan1"></i>86</span>
+                                                            <i class="iconfont icon-dianzan1"></i>87</span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="img ">
                                             <a target="_blank" href="https://www.maigoo.com/goomai/163773.html">
-                                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/4dac4-2347.jpg" /></a>
+                                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/4dac4-9669.jpg" /></a>
                                         </div>
                                     </li>
                                     <li class="item ">
                                         <div class="tablecell">
                                             <div class="contbox">
-                                                <a target="_blank" class="title font20 c333 b dhidden" href="https://www.maigoo.com/goomai/224673.html">戒尺的戒意思是什么 戒尺打孩子好不好 打孩子怎么打</a>
-                                                <div class="description c999 line18em font14">戒尺有两种解释，其一是指佛教的一种法器；另外一种是指旧时私塾先生对学生施行体罚所用的木板。打孩子这类事，不同时代，不同文化传统，不同阶层出身...</div>
+                                                <a target="_blank" class="title font20 c333 b dhidden" href="https://www.maigoo.com/goomai/217336.html">书信的格式是什么 书信的写作技巧与注意事项</a>
+                                                <div class="description c999 line18em font14">我国历史文化悠久，是有名的礼仪之邦。人们的社会交往和思想感情交流，大多通过一定的礼仪形式和一定的文化活动方式来进行。书信作为一种向特定对象传...</div>
                                                 <div class='other font13'>
+                                                    <a target="_blank" class="biaoqian color5 bq" href="https://www.maigoo.com/biaoqian/650.html">礼品</a>
                                                     <a target="_blank" class="biaoqian color5 bq" href="https://www.maigoo.com/biaoqian/22.html">文具用品</a>
-                                                    <a target="_blank" class="biaoqian color5 bq" href="https://www.maigoo.com/biaoqian/414.html">母婴健康</a>
                                                     <div class="attention ccc">
                                                         <span>
-                                                            <i class="iconfont icon-chakan"></i>2088</span>
+                                                            <i class="iconfont icon-chakan"></i>858</span>
                                                         <span>
-                                                            <i class="iconfont icon-dianzan1"></i>13</span>
+                                                            <i class="iconfont icon-dianzan1"></i>11</span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="img ">
-                                            <a target="_blank" href="https://www.maigoo.com/goomai/224673.html">
-                                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/03136-2222.jpg" /></a>
+                                            <a target="_blank" href="https://www.maigoo.com/goomai/217336.html">
+                                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/2241d-8827.jpg" /></a>
                                         </div>
                                     </li>
                                     <li class="item ">
@@ -502,62 +555,40 @@
                                                     <a target="_blank" class="biaoqian color5 bq" href="https://www.maigoo.com/biaoqian/22.html">文具用品</a>
                                                     <div class="attention ccc">
                                                         <span>
-                                                            <i class="iconfont icon-chakan"></i>4478</span>
+                                                            <i class="iconfont icon-chakan"></i>4605</span>
                                                         <span>
                                                             <i class="iconfont icon-pinglun"></i>4</span>
                                                         <span>
-                                                            <i class="iconfont icon-dianzan1"></i>107</span>
+                                                            <i class="iconfont icon-dianzan1"></i>109</span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="img ">
                                             <a target="_blank" href="https://www.maigoo.com/goomai/7648.html">
-                                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/3b691-6962.jpg" /></a>
+                                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/3b691-9762.jpg" /></a>
                                         </div>
                                     </li>
                                     <li class="item ">
                                         <div class="tablecell">
                                             <div class="contbox">
-                                                <a target="_blank" class="title font20 c333 b dhidden" href="https://www.maigoo.com/goomai/221524.html">文房四宝指的是哪四样东西 文房四宝之外的文房用品还有哪些</a>
-                                                <div class="description c999 line18em font14">文房四宝之名，起源于南北朝时期。最典型的是被称为“文房四宝”的书写工具：纸、笔、墨、砚。历史上，“文房四宝”所指之物屡有变化。在南唐时，“文...</div>
+                                                <a target="_blank" class="title font20 c333 b dhidden" href="https://www.maigoo.com/goomai/224673.html">戒尺的戒意思是什么 戒尺打孩子好不好 打孩子怎么打</a>
+                                                <div class="description c999 line18em font14">戒尺有两种解释，其一是指佛教的一种法器；另外一种是指旧时私塾先生对学生施行体罚所用的木板。打孩子这类事，不同时代，不同文化传统，不同阶层出身...</div>
                                                 <div class='other font13'>
-                                                    <a target="_blank" class="biaoqian color5 bq" href="https://www.maigoo.com/biaoqian/157038.html">文房四宝</a>
-                                                    <a target="_blank" class="biaoqian color5 bq" href="https://www.maigoo.com/biaoqian/153969.html">文具/学习</a>
+                                                    <a target="_blank" class="biaoqian color5 bq" href="https://www.maigoo.com/biaoqian/22.html">文具用品</a>
+                                                    <a target="_blank" class="biaoqian color5 bq" href="https://www.maigoo.com/biaoqian/414.html">母婴健康</a>
                                                     <div class="attention ccc">
                                                         <span>
-                                                            <i class="iconfont icon-chakan"></i>410</span>
+                                                            <i class="iconfont icon-chakan"></i>2291</span>
                                                         <span>
-                                                            <i class="iconfont icon-dianzan1"></i>9</span>
+                                                            <i class="iconfont icon-dianzan1"></i>14</span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="img ">
-                                            <a target="_blank" href="https://www.maigoo.com/goomai/221524.html">
-                                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/c7df5-8525.jpg" /></a>
-                                        </div>
-                                    </li>
-                                    <li class="item ">
-                                        <div class="tablecell">
-                                            <div class="contbox">
-                                                <a target="_blank" class="title font20 c333 b dhidden" href="https://www.maigoo.com/goomai/153749.html">蜡笔怎么画简单好看 蜡笔怎么用 蜡笔画绘画技巧</a>
-                                                <div class="description c999 line18em font14">“小小蜡笔穿花衣， 红黄蓝绿真美丽……”，这首儿歌伴随着多少人的童年，小时候我们总爱拿着蜡笔，墙壁、衣服、手都是我们绘画的对象，孩童的世界如...</div>
-                                                <div class='other font13'>
-                                                    <a target="_blank" class="biaoqian color5 bq" href="https://www.maigoo.com/biaoqian/1343.html">蜡笔</a>
-                                                    <a target="_blank" class="biaoqian color5 bq" href="https://www.maigoo.com/biaoqian/3079.html">美术</a>
-                                                    <div class="attention ccc">
-                                                        <span>
-                                                            <i class="iconfont icon-chakan"></i>1.7万</span>
-                                                        <span>
-                                                            <i class="iconfont icon-dianzan1"></i>115</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="img ">
-                                            <a target="_blank" href="https://www.maigoo.com/goomai/153749.html">
-                                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/a8624-5602.jpg" /></a>
+                                            <a target="_blank" href="https://www.maigoo.com/goomai/224673.html">
+                                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/03136-2309.jpg" /></a>
                                         </div>
                                     </li>
                                     <li class="item ">
@@ -572,45 +603,89 @@
                                                     <span class="alevel font20 orange">★★★</span>
                                                     <div class="attention ccc">
                                                         <span>
-                                                            <i class="iconfont icon-chakan"></i>4.3万</span>
+                                                            <i class="iconfont icon-chakan"></i>4.4万</span>
                                                         <span>
-                                                            <i class="iconfont icon-dianzan1"></i>87</span>
+                                                            <i class="iconfont icon-dianzan1"></i>88</span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="img ">
                                             <a target="_blank" href="https://www.maigoo.com/goomai/165588.html">
-                                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/0a3bc-7815.jpg" /></a>
+                                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/0a3bc-5133.jpg" /></a>
                                         </div>
                                     </li>
                                     <li class="item ">
                                         <div class="tablecell">
                                             <div class="contbox">
-                                                <a target="_blank" class="title font20 c333 b dhidden" href="https://www.maigoo.com/goomai/99054.html">画板尺寸为多大 美术生画板怎么用</a>
-                                                <div class="description c999 line18em font14">画板绘画时用来垫画纸的平板 ，有的自带夹子，通常为木制，大小随使用者要求而定，美术用品店有售，亦可自制。另有一种塑料画板，直接在板上绘画，可...</div>
+                                                <a target="_blank" class="title font20 c333 b dhidden" href="https://www.maigoo.com/goomai/221524.html">文房四宝指的是哪四样东西 文房四宝之外的文房用品还有哪些</a>
+                                                <div class="description c999 line18em font14">文房四宝之名，起源于南北朝时期。最典型的是被称为“文房四宝”的书写工具：纸、笔、墨、砚。历史上，“文房四宝”所指之物屡有变化。在南唐时，“文...</div>
                                                 <div class='other font13'>
-                                                    <a target="_blank" class="biaoqian color5 bq" href="https://www.maigoo.com/biaoqian/157066.html">画板</a>
-                                                    <a target="_blank" class="biaoqian color5 bq" href="https://www.maigoo.com/biaoqian/372.html">美术用品</a>
+                                                    <a target="_blank" class="biaoqian color5 bq" href="https://www.maigoo.com/biaoqian/157038.html">文房四宝</a>
+                                                    <a target="_blank" class="biaoqian color5 bq" href="https://www.maigoo.com/biaoqian/153969.html">文具/学习</a>
                                                     <div class="attention ccc">
                                                         <span>
-                                                            <i class="iconfont icon-chakan"></i>2.5万</span>
+                                                            <i class="iconfont icon-chakan"></i>595</span>
                                                         <span>
-                                                            <i class="iconfont icon-dianzan1"></i>174</span>
+                                                            <i class="iconfont icon-dianzan1"></i>11</span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="img ">
-                                            <a target="_blank" href="https://www.maigoo.com/goomai/99054.html">
-                                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/1d356-3553.jpg" /></a>
+                                            <a target="_blank" href="https://www.maigoo.com/goomai/221524.html">
+                                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/c7df5-9861.jpg" /></a>
+                                        </div>
+                                    </li>
+                                    <li class="item ">
+                                        <div class="tablecell">
+                                            <div class="contbox">
+                                                <a target="_blank" class="title font20 c333 b dhidden" href="https://www.maigoo.com/goomai/153749.html">蜡笔怎么画简单好看 蜡笔怎么用 蜡笔画绘画技巧</a>
+                                                <div class="description c999 line18em font14">“小小蜡笔穿花衣， 红黄蓝绿真美丽……”，这首儿歌伴随着多少人的童年，小时候我们总爱拿着蜡笔，墙壁、衣服、手都是我们绘画的对象，孩童的世界如...</div>
+                                                <div class='other font13'>
+                                                    <a target="_blank" class="biaoqian color5 bq" href="https://www.maigoo.com/biaoqian/1343.html">蜡笔</a>
+                                                    <a target="_blank" class="biaoqian color5 bq" href="https://www.maigoo.com/biaoqian/3079.html">美术</a>
+                                                    <div class="attention ccc">
+                                                        <span>
+                                                            <i class="iconfont icon-chakan"></i>1.7万</span>
+                                                        <span>
+                                                            <i class="iconfont icon-dianzan1"></i>118</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="img ">
+                                            <a target="_blank" href="https://www.maigoo.com/goomai/153749.html">
+                                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/a8624-6918.jpg" /></a>
+                                        </div>
+                                    </li>
+                                    <li class="item ">
+                                        <div class="tablecell">
+                                            <div class="contbox">
+                                                <a target="_blank" class="title font20 c333 b dhidden" href="https://www.maigoo.com/goomai/193352.html">学习用品清单大全 孩子上学要准备哪些学习用品？你买齐了吗？</a>
+                                                <div class="description c999 line18em font14">随着社会经济以及现代电子科技的飞速发展，现在学生的学习用品的种类越来越丰富，除了传统的文具用品、书包、笔类，点读机、学习机等电子学习用品受到...</div>
+                                                <div class='other font13'>
+                                                    <span class="isyuan bg2 color1 bq">MAIGOO原创</span>
+                                                    <a target="_blank" class="biaoqian color5 bq" href="https://www.maigoo.com/biaoqian/22.html">文具用品</a>
+                                                    <a target="_blank" class="biaoqian color5 bq" href="https://www.maigoo.com/biaoqian/2115.html">书桌</a>
+                                                    <span class="alevel font20 orange">★★★</span>
+                                                    <div class="attention ccc">
+                                                        <span>
+                                                            <i class="iconfont icon-chakan"></i>1.2万</span>
+                                                        <span>
+                                                            <i class="iconfont icon-dianzan1"></i>132</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="img ">
+                                            <a target="_blank" href="https://www.maigoo.com/goomai/193352.html">
+                                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/e7b7f-1781.jpg" /></a>
                                         </div>
                                     </li>
                                 </ul>
                                 <div class="ads" style=" min-height:20px;margin-bottom:-20px;">
-                                    <script type="text/javascript">/*840*200多彩 2020-11-28*/
-                                        var cpro_id = "u6366290";</script>
-                                    <script type="text/javascript" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/js/c.js"></script>
+                                    <script type="text/javascript" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/js/nm.js"></script>
                                 </div>
                                 <div class="blockmorebox font16 ">
                                     <div class="morebtn c333 ajaxload" data-action="searchlist" data-subaction="specs_0" data-thirdaction="" data-page="2" data-start="" data-defaultids="" data-sort="" data-tabnum="" data-maxpage="" onclick="getData(this)">
@@ -625,39 +700,24 @@
                             <div class="blockinfo articlelist " id="pos_specs_3156">
                                 <ul class="itembox ">
                                     <div class="ajaxload" data-action="searchlist" data-subaction="specs_3156" data-thirdaction="" data-page="1" data-start="" data-defaultids="" data-sort="" data-postdata="">
-                                        <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/1ba90-8565.gif" /></div>
+                                        <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/5b7e7-3668.gif" /></div>
                                 </ul>
-                                <div class="ads" style=" min-height:20px;margin-bottom:-20px;">
-                                    <script type="text/javascript">/*840*200多彩 2020-11-28*/
-                                        var cpro_id = "u6366290";</script>
-                                    <script type="text/javascript" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/js/c.js"></script>
-                                </div>
                             </div>
                         </div>
                         <div class="licont dn" action="specs_1795">
                             <div class="blockinfo articlelist " id="pos_specs_1795">
                                 <ul class="itembox ">
                                     <div class="ajaxload" data-action="searchlist" data-subaction="specs_1795" data-thirdaction="" data-page="1" data-start="" data-defaultids="" data-sort="" data-postdata="">
-                                        <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/1ba90-8565.gif" /></div>
+                                        <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/5b7e7-3668.gif" /></div>
                                 </ul>
-                                <div class="ads" style=" min-height:20px;margin-bottom:-20px;">
-                                    <script type="text/javascript">/*840*200多彩 2020-11-28*/
-                                        var cpro_id = "u6366290";</script>
-                                    <script type="text/javascript" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/js/c.js"></script>
-                                </div>
                             </div>
                         </div>
                         <div class="licont dn" action="specs_1796">
                             <div class="blockinfo articlelist " id="pos_specs_1796">
                                 <ul class="itembox ">
                                     <div class="ajaxload" data-action="searchlist" data-subaction="specs_1796" data-thirdaction="" data-page="1" data-start="" data-defaultids="" data-sort="" data-postdata="">
-                                        <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/1ba90-8565.gif" /></div>
+                                        <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/5b7e7-3668.gif" /></div>
                                 </ul>
-                                <div class="ads" style=" min-height:20px;margin-bottom:-20px;">
-                                    <script type="text/javascript">/*840*200多彩 2020-11-28*/
-                                        var cpro_id = "u6366290";</script>
-                                    <script type="text/javascript" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/js/c.js"></script>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -681,9 +741,9 @@
                             <a class="color1" href="javascript:;" onclick="window.open('https://www.maigoo.com/user/login/');">注册登录>></a></div>
                     </div>
                     <div class="moremzsm">
-                        <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/306b6-8792.gif" onclick="$('#mzsmcontent').find('.mzsm').css('height','auto');$(this).parent().remove();" /></div>
+                        <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/dec8c-3557.gif" onclick="$('#mzsmcontent').find('.mzsm').css('height','auto');$(this).parent().remove();" /></div>
                 </div>
-                <div class="pagecss" data-css="/public/css/maigoo/v2019/color.css,/public/css/maigoo/v2019/weui.min.css,/public/css/maigoo/v2019/zhishi/list.css,/public/css/maigoo/v2019/block/publicblock/articlelist.css,/public/css/maigoo/v2019/block/publicblock/mzsm.css"></div>
+                <div class="pagecss" data-css="/public/css/maigoo/v2019/color.css,/public/css/maigoo/v2019/weui.min.css,/public/css/maigoo/v2019/zhishi/list.css,/public/css/maigoo/v2019/block/category/col4.css,/public/css/maigoo/v2019/block/publicblock/articlelist.css,/public/css/maigoo/v2019/block/publicblock/mzsm.css"></div>
                 <div class="pagejs" data-js="/public/js/maigoo/v2019/public.js,/public/js/maigoo/v2019/event.js,/public/js/maigoo/v2019/weUI.js,/public/js/maigoo/v2019/block/publicblock/articlelist.js"></div>
             </div>
         </div>
@@ -713,122 +773,122 @@
                         <ul class="col3">
                             <li>
                                 <a href="https://www.maigoo.com/maigoo/151wj_index.html" title="文具用品" target="_blank" class="c333">
-                                    <img width="80" height="80" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/28c57-5989.png" width="100" />
+                                    <img width="80" height="80" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/28c57-5852.png" width="100" />
                                     <div class="dhidden line18em">文具用品</div></a>
                             </li>
                             <li>
                                 <a href="https://www.maigoo.com/goomai/list_1490.html" title="办公用品" target="_blank" class="c333">
-                                    <img width="80" height="80" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/5f74c-6942.png" width="100" />
+                                    <img width="80" height="80" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/5f74c-2873.png" width="100" />
                                     <div class="dhidden line18em">办公用品</div></a>
                             </li>
                             <li>
                                 <a href="https://www.maigoo.com/goomai/list_784.html" title="中性笔" target="_blank" class="c333">
-                                    <img width="80" height="80" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/e5b64-6372.png" width="100" />
+                                    <img width="80" height="80" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/e5b64-8059.png" width="100" />
                                     <div class="dhidden line18em">中性笔</div></a>
                             </li>
                             <li>
                                 <a href="https://www.maigoo.com/goomai/list_783.html" title="钢笔" target="_blank" class="c333">
-                                    <img width="80" height="80" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/34a3e-2590.png" width="100" />
+                                    <img width="80" height="80" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/34a3e-8555.png" width="100" />
                                     <div class="dhidden line18em">钢笔</div></a>
                             </li>
                             <li>
                                 <a href="https://www.maigoo.com/goomai/list_5108.html" title="铅笔" target="_blank" class="c333">
-                                    <img width="80" height="80" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/ca5e8-9523.png" width="100" />
+                                    <img width="80" height="80" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/ca5e8-4245.png" width="100" />
                                     <div class="dhidden line18em">铅笔</div></a>
                             </li>
                             <li>
                                 <a href="https://www.maigoo.com/goomai/list_7375.html" title="橡皮" target="_blank" class="c333">
-                                    <img width="80" height="80" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/e17a7-1322.png" width="100" />
+                                    <img width="80" height="80" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/e17a7-8915.png" width="100" />
                                     <div class="dhidden line18em">橡皮</div></a>
                             </li>
                             <li>
                                 <a href="https://www.maigoo.com/goomai/list_4742.html" title="蜡笔" target="_blank" class="c333">
-                                    <img width="80" height="80" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/f9c59-1883.png" width="100" />
+                                    <img width="80" height="80" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/f9c59-1147.png" width="100" />
                                     <div class="dhidden line18em">蜡笔</div></a>
                             </li>
                             <li>
                                 <a href="https://www.maigoo.com/goomai/list_7478.html" title="文件夹" target="_blank" class="c333">
-                                    <img width="80" height="80" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/bb121-1935.png" width="100" />
+                                    <img width="80" height="80" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/bb121-4456.png" width="100" />
                                     <div class="dhidden line18em">文件夹</div></a>
                             </li>
                             <li>
-                                <a href="https://www.maigoo.com/goomai/list_4528.html" title="便签纸" target="_blank" class="c333">
-                                    <img width="80" height="80" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/1d27d-3212.png" width="100" />
-                                    <div class="dhidden line18em">便签纸</div></a>
+                                <a href="https://www.maigoo.com/goomai/list_4528.html" title="便签" target="_blank" class="c333">
+                                    <img width="80" height="80" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/ae2ba-2063.png" width="100" />
+                                    <div class="dhidden line18em">便签</div></a>
                             </li>
                             <li>
                                 <a href="https://www.maigoo.com/goomai/list_776.html" title="马克笔" target="_blank" class="c333">
-                                    <img width="80" height="80" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/498b9-3363.png" width="100" />
+                                    <img width="80" height="80" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/498b9-7731.png" width="100" />
                                     <div class="dhidden line18em">马克笔</div></a>
                             </li>
                             <li>
                                 <a href="https://www.maigoo.com/goomai/list_7377.html" title="毛笔" target="_blank" class="c333">
-                                    <img width="80" height="80" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/12933-5483.png" width="100" />
+                                    <img width="80" height="80" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/12933-5888.png" width="100" />
                                     <div class="dhidden line18em">毛笔</div></a>
                             </li>
                             <li>
                                 <a href="https://www.maigoo.com/goomai/list_790.html" title="墨水" target="_blank" class="c333">
-                                    <img width="80" height="80" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/85416-5002.png" width="100" />
+                                    <img width="80" height="80" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/85416-9073.png" width="100" />
                                     <div class="dhidden line18em">墨水</div></a>
                             </li>
                             <li>
                                 <a href="https://www.maigoo.com/goomai/list_796.html" title="美术用品" target="_blank" class="c333">
-                                    <img width="80" height="80" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/95d20-9474.png" width="100" />
+                                    <img width="80" height="80" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/95d20-8575.png" width="100" />
                                     <div class="dhidden line18em">美术用品</div></a>
                             </li>
                             <li>
                                 <a href="https://www.maigoo.com/goomai/list_5071.html" title="记事本" target="_blank" class="c333">
-                                    <img width="80" height="80" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/d9203-3293.png" width="100" />
+                                    <img width="80" height="80" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/d9203-2323.png" width="100" />
                                     <div class="dhidden line18em">记事本</div></a>
                             </li>
                             <li>
                                 <a href="https://www.maigoo.com/goomai/list_778.html" title="学习机" target="_blank" class="c333">
-                                    <img width="80" height="80" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/49907-2524.png" width="100" />
+                                    <img width="80" height="80" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/49907-7333.png" width="100" />
                                     <div class="dhidden line18em">学习机</div></a>
                             </li>
                             <li>
                                 <a href="https://www.maigoo.com/goomai/list_779.html" title="点读机" target="_blank" class="c333">
-                                    <img width="80" height="80" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/f4b3e-9081.png" width="100" />
+                                    <img width="80" height="80" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/f4b3e-7415.png" width="100" />
                                     <div class="dhidden line18em">点读机</div></a>
                             </li>
                             <li>
                                 <a href="https://www.maigoo.com/goomai/list_2230.html" title="点读笔" target="_blank" class="c333">
-                                    <img width="80" height="80" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/52d74-1775.png" width="100" />
+                                    <img width="80" height="80" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/52d74-4982.png" width="100" />
                                     <div class="dhidden line18em">点读笔</div></a>
                             </li>
                             <li>
                                 <a href="https://www.maigoo.com/goomai/list_1480.html" title="计算器" target="_blank" class="c333">
-                                    <img width="80" height="80" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/3dd2e-1823.png" width="100" />
+                                    <img width="80" height="80" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/3dd2e-2874.png" width="100" />
                                     <div class="dhidden line18em">计算器</div></a>
                             </li>
                             <li>
                                 <a href="https://www.maigoo.com/goomai/list_798.html" title="电子书" target="_blank" class="c333">
-                                    <img width="80" height="80" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/3106d-6408.png" width="100" />
+                                    <img width="80" height="80" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/3106d-8273.png" width="100" />
                                     <div class="dhidden line18em">电子书</div></a>
                             </li>
                             <li>
                                 <a href="https://www.maigoo.com/goomai/list_780.html" title="电子词典" target="_blank" class="c333">
-                                    <img width="80" height="80" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/c36b4-8520.png" width="100" />
+                                    <img width="80" height="80" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/c36b4-3964.png" width="100" />
                                     <div class="dhidden line18em">电子词典</div></a>
                             </li>
                             <li>
                                 <a href="https://www.maigoo.com/goomai/list_4787.html" title="早教机" target="_blank" class="c333">
-                                    <img width="80" height="80" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/63ba7-9652.png" width="100" />
+                                    <img width="80" height="80" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/63ba7-6493.png" width="100" />
                                     <div class="dhidden line18em">早教机</div></a>
                             </li>
                             <li>
                                 <a href="https://www.maigoo.com/goomai/list_777.html" title="复读机" target="_blank" class="c333">
-                                    <img width="80" height="80" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/d12bf-2484.png" width="100" />
+                                    <img width="80" height="80" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/d12bf-6629.png" width="100" />
                                     <div class="dhidden line18em">复读机</div></a>
                             </li>
                             <li>
                                 <a href="https://www.maigoo.com/goomai/list_8165.html" title="字帖" target="_blank" class="c333">
-                                    <img width="80" height="80" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/fdea8-3937.png" width="100" />
+                                    <img width="80" height="80" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/fdea8-1879.png" width="100" />
                                     <div class="dhidden line18em">字帖</div></a>
                             </li>
                             <li>
                                 <a href="https://www.maigoo.com/goomai/list_8146.html" title="地球仪" target="_blank" class="c333">
-                                    <img width="80" height="80" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/22cb1-7888.png" width="100" />
+                                    <img width="80" height="80" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/22cb1-6089.png" width="100" />
                                     <div class="dhidden line18em">地球仪</div></a>
                             </li>
                             <div class="clear"></div>
@@ -839,48 +899,48 @@
                     <dd>
                         <ul>
                             <li>
-                                <a target="_blank" href="" class="c333">
-                                    <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/b9763-8694.png" width="60" height="60" />
+                                <a target="_blank" href="https://www.maigoo.com/maigoo/2729sd_index.html" class="c333">
+                                    <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/51405-4384.png" width="60" height="60" />
                                     <div class="dhidden line18em">大品牌</div></a>
                             </li>
                             <li>
-                                <a target="_blank" href="" class="c333">
-                                    <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/634ec-6760.png" width="60" height="60" />
+                                <a target="_blank" href="https://www.maigoo.com/maigoo/2730cmsb_index.html" class="c333">
+                                    <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/cc381-2939.png" width="60" height="60" />
                                     <div class="dhidden line18em">驰名保护</div></a>
                             </li>
                             <li>
-                                <a target="_blank" href="" class="c333">
-                                    <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/54eac-9270.png" width="60" height="60" />
+                                <a target="_blank" href="https://www.maigoo.com/maigoo/4630gjqy_index.html" class="c333">
+                                    <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/02b1d-7431.png" width="60" height="60" />
                                     <div class="dhidden line18em">高新企业</div></a>
                             </li>
                             <li>
-                                <a target="_blank" href="" class="c333">
-                                    <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/7eb8d-2701.png" width="60" height="60" />
+                                <a target="_blank" href="https://www.maigoo.com/maigoo/2733ss_index.html" class="c333">
+                                    <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/3e42b-9411.png" width="60" height="60" />
                                     <div class="dhidden line18em">上市公司</div></a>
                             </li>
                             <li>
-                                <a target="_blank" href="" class="c333">
-                                    <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/91356-2637.png" width="60" height="60" />
+                                <a target="_blank" href="https://www.maigoo.com/maigoo/4813qqy_index.html" class="c333">
+                                    <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/226d4-2613.png" width="60" height="60" />
                                     <div class="dhidden line18em">500强企业</div></a>
                             </li>
                             <li>
-                                <a target="_blank" href="" class="c333">
-                                    <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/9688f-9351.png" width="60" height="60" />
+                                <a target="_blank" href="https://www.maigoo.com/maigoo/4635ssmp_index.html" class="c333">
+                                    <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/6b632-2854.png" width="60" height="60" />
                                     <div class="dhidden line18em">名牌产品</div></a>
                             </li>
                             <li>
-                                <a target="_blank" href="" class="c333">
-                                    <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/cdce9-5871.png" width="60" height="60" />
+                                <a target="_blank" href="https://www.maigoo.com/maigoo/4636zmsb_index.html" class="c333">
+                                    <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/4370e-5593.png" width="60" height="60" />
                                     <div class="dhidden line18em">著名商标</div></a>
                             </li>
                             <li>
-                                <a target="_blank" href="" class="c333">
-                                    <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/a9015-3768.png" width="60" height="60" />
+                                <a target="_blank" href="https://www.maigoo.com/maigoo/2733zxqy_index.html" class="c333">
+                                    <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/e1ae1-6482.png" width="60" height="60" />
                                     <div class="dhidden line18em">中小企业</div></a>
                             </li>
                             <li>
                                 <a target="_blank" href="/brand/search/?isopen=py" class="c333">
-                                    <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/5dfcc-9009.png" width="60" height="60" />
+                                    <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/05c57-8594.png" width="60" height="60" />
                                     <div class="dhidden line18em">首字母</div></a>
                             </li>
                         </ul>
@@ -895,76 +955,76 @@
                         <span class="">知识分类</span></dt>
                     <dd class="contbox">
                         <div class="cont hotsearch">
-                            <a href="https://www.maigoo.com/search/?q=保暖内衣&dynamic=1" target="_blank">
+                            <a href="https://www.maigoo.com/search/?q=干衣机&dynamic=1" target="_blank">
                                 <i class="num c999">1</i>
-                                <span class="name c333 dhidden">保暖内衣</span>
+                                <span class="name c333 dhidden">干衣机</span>
                                 <span class="colorline">
                                     <i style="width:100%"></i>
                                 </span>
-                                <span class="counts font12 c999">89,256</span></a>
-                            <a href="https://www.maigoo.com/search/?q=羽绒服&dynamic=1" target="_blank">
+                                <span class="counts font12 c999">86,654</span></a>
+                            <a href="https://www.maigoo.com/search/?q=除湿机&dynamic=1" target="_blank">
                                 <i class="num c999">2</i>
-                                <span class="name c333 dhidden">羽绒服</span>
+                                <span class="name c333 dhidden">除湿机</span>
                                 <span class="colorline">
                                     <i style="width:95%"></i>
                                 </span>
-                                <span class="counts font12 c999">89,225</span></a>
-                            <a href="https://www.maigoo.com/search/?q=手机&dynamic=1" target="_blank">
+                                <span class="counts font12 c999">85,214</span></a>
+                            <a href="https://www.maigoo.com/search/?q=春装&dynamic=1" target="_blank">
                                 <i class="num c999">3</i>
-                                <span class="name c333 dhidden">手机</span>
+                                <span class="name c333 dhidden">春装</span>
                                 <span class="colorline">
                                     <i style="width:90%"></i>
                                 </span>
-                                <span class="counts font12 c999">73,009</span></a>
-                            <a href="https://www.maigoo.com/search/?q=护肤品&dynamic=1" target="_blank">
+                                <span class="counts font12 c999">82,358</span></a>
+                            <a href="https://www.maigoo.com/search/?q=青团&dynamic=1" target="_blank">
                                 <i class="num c999">4</i>
-                                <span class="name c333 dhidden">护肤品</span>
+                                <span class="name c333 dhidden">青团</span>
                                 <span class="colorline">
                                     <i style="width:85%"></i>
                                 </span>
-                                <span class="counts font12 c999">69,870</span></a>
-                            <a href="https://www.maigoo.com/search/?q=地板&dynamic=1" target="_blank">
+                                <span class="counts font12 c999">81,322</span></a>
+                            <a href="https://www.maigoo.com/search/?q=手机&dynamic=1" target="_blank">
                                 <i class="num c999">5</i>
-                                <span class="name c333 dhidden">地板</span>
+                                <span class="name c333 dhidden">手机</span>
                                 <span class="colorline">
                                     <i style="width:80%"></i>
                                 </span>
-                                <span class="counts font12 c999">66,990</span></a>
-                            <a href="https://www.maigoo.com/search/?q=集成灶&dynamic=1" target="_blank">
+                                <span class="counts font12 c999">73,009</span></a>
+                            <a href="https://www.maigoo.com/search/?q=护肤品&dynamic=1" target="_blank">
                                 <i class="num c999">6</i>
-                                <span class="name c333 dhidden">集成灶</span>
+                                <span class="name c333 dhidden">护肤品</span>
                                 <span class="colorline">
                                     <i style="width:75%"></i>
                                 </span>
-                                <span class="counts font12 c999">66,601</span></a>
-                            <a href="https://www.maigoo.com/search/?q=家具&dynamic=1" target="_blank">
+                                <span class="counts font12 c999">69,870</span></a>
+                            <a href="https://www.maigoo.com/search/?q=地板&dynamic=1" target="_blank">
                                 <i class="num c999">7</i>
-                                <span class="name c333 dhidden">家具</span>
+                                <span class="name c333 dhidden">地板</span>
                                 <span class="colorline">
                                     <i style="width:70%"></i>
                                 </span>
-                                <span class="counts font12 c999">65,000</span></a>
-                            <a href="https://www.maigoo.com/search/?q=女鞋&dynamic=1" target="_blank">
+                                <span class="counts font12 c999">66,990</span></a>
+                            <a href="https://www.maigoo.com/search/?q=集成灶&dynamic=1" target="_blank">
                                 <i class="num c999">8</i>
-                                <span class="name c333 dhidden">女鞋</span>
+                                <span class="name c333 dhidden">集成灶</span>
                                 <span class="colorline">
                                     <i style="width:65%"></i>
                                 </span>
-                                <span class="counts font12 c999">60,845</span></a>
-                            <a href="https://www.maigoo.com/search/?q=电动车&dynamic=1" target="_blank">
+                                <span class="counts font12 c999">66,601</span></a>
+                            <a href="https://www.maigoo.com/search/?q=家具&dynamic=1" target="_blank">
                                 <i class="num c999">9</i>
-                                <span class="name c333 dhidden">电动车</span>
+                                <span class="name c333 dhidden">家具</span>
                                 <span class="colorline">
                                     <i style="width:60%"></i>
                                 </span>
-                                <span class="counts font12 c999">55,996</span></a>
-                            <a href="https://www.maigoo.com/search/?q=智能家居&dynamic=1" target="_blank">
+                                <span class="counts font12 c999">65,000</span></a>
+                            <a href="https://www.maigoo.com/search/?q=女鞋&dynamic=1" target="_blank">
                                 <i class="num c999">10</i>
-                                <span class="name c333 dhidden">智能家居</span>
+                                <span class="name c333 dhidden">女鞋</span>
                                 <span class="colorline">
                                     <i style="width:55%"></i>
                                 </span>
-                                <span class="counts font12 c999">55,100</span></a>
+                                <span class="counts font12 c999">60,845</span></a>
                             <div class="clear"></div>
                         </div>
                         <div class="cont bg2 bd1 dn">
@@ -995,9 +1055,7 @@
                             <a class="item dhidden color1" href="" target="_blank">润滑油</a>
                             <a class="item dhidden color1" href="" target="_blank">学习桌</a>
                             <a class="item dhidden color1" href="" target="_blank">麻将机</a>
-                            <a class="item dhidden color1" href="" target="_blank">暖气片</a>
                             <a class="item dhidden color1" href="" target="_blank">即热式热水器</a>
-                            <a class="item dhidden color1" href="" target="_blank">羽绒服</a>
                             <div class="clear"></div>
                         </div>
                         <div class="cont bg2 bd1 dn">
@@ -1097,7 +1155,7 @@
                                                     <div class="title font16 b">知识榜</div>
                                                     <div class="mintitle font12">知识百科</div>
                                                     <div class="img">
-                                                        <img width="60" height="60" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/72a93-2224.png" /></div>
+                                                        <img width="60" height="60" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/0de0c-9334.png" /></div>
                                                 </a>
                                             </div>
                                             <div class="item s2">
@@ -1105,7 +1163,7 @@
                                                     <div class="title font16 b">品牌榜</div>
                                                     <div class="mintitle font12">十大品牌</div>
                                                     <div class="img">
-                                                        <img width="60" height="60" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/91f4a-3133.png" /></div>
+                                                        <img width="60" height="60" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/04ba0-9363.png" /></div>
                                                 </a>
                                             </div>
                                             <div class="item s3">
@@ -1113,7 +1171,7 @@
                                                     <div class="title font16 b">网购榜</div>
                                                     <div class="mintitle font12">网店排行</div>
                                                     <div class="img">
-                                                        <img width="60" height="60" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/1f1b8-1349.png" /></div>
+                                                        <img width="60" height="60" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/360f8-3669.png" /></div>
                                                 </a>
                                             </div>
                                             <div class="item s4">
@@ -1121,7 +1179,7 @@
                                                     <div class="title font16 b">招商榜</div>
                                                     <div class="mintitle font12">招商加盟</div>
                                                     <div class="img">
-                                                        <img width="60" height="60" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/23dd6-5321.png" /></div>
+                                                        <img width="60" height="60" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/fb8f7-3835.png" /></div>
                                                 </a>
                                             </div>
                                             <div class="clear"></div>
@@ -1134,7 +1192,7 @@
                                                     <div class="title font16 b">趣闻榜</div>
                                                     <div class="mintitle font12">生活排行</div>
                                                     <div class="img">
-                                                        <img width="60" height="60" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/8afca-9799.png" /></div>
+                                                        <img width="60" height="60" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/d276d-3183.png" /></div>
                                                 </a>
                                             </div>
                                             <div class="item s6">
@@ -1142,7 +1200,7 @@
                                                     <div class="title font16 b">人物榜</div>
                                                     <div class="mintitle font12">名人榜单</div>
                                                     <div class="img">
-                                                        <img width="60" height="60" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/0a72d-6318.png" /></div>
+                                                        <img width="60" height="60" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/a019c-9023.png" /></div>
                                                 </a>
                                             </div>
                                             <div class="item s7">
@@ -1150,7 +1208,7 @@
                                                     <div class="title font16 b">装修榜</div>
                                                     <div class="mintitle font12">装修知识</div>
                                                     <div class="img">
-                                                        <img width="60" height="60" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/bd063-6240.png" /></div>
+                                                        <img width="60" height="60" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/47c7b-8490.png" /></div>
                                                 </a>
                                             </div>
                                             <div class="item s8">
@@ -1158,7 +1216,7 @@
                                                     <div class="title font16 b">网点榜</div>
                                                     <div class="mintitle font12">服务网点</div>
                                                     <div class="img">
-                                                        <img width="60" height="60" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/7eb2e-6922.png" /></div>
+                                                        <img width="60" height="60" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/220aa-7633.png" /></div>
                                                 </a>
                                             </div>
                                             <div class="clear"></div>
@@ -1171,7 +1229,7 @@
                                                     <div class="title font16 b">产品榜</div>
                                                     <div class="mintitle font12">热门产品</div>
                                                     <div class="img">
-                                                        <img width="60" height="60" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/6edea-7310.png" /></div>
+                                                        <img width="60" height="60" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/2d672-9078.png" /></div>
                                                 </a>
                                             </div>
                                             <div class="item s10">
@@ -1179,7 +1237,7 @@
                                                     <div class="title font16 b">娱乐榜</div>
                                                     <div class="mintitle font12">娱乐八卦</div>
                                                     <div class="img">
-                                                        <img width="60" height="60" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/c3a25-8399.png" /></div>
+                                                        <img width="60" height="60" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/11a55-5336.png" /></div>
                                                 </a>
                                             </div>
                                             <div class="item s11">
@@ -1187,7 +1245,7 @@
                                                     <div class="title font16 b">汽车榜</div>
                                                     <div class="mintitle font12">价格排行</div>
                                                     <div class="img">
-                                                        <img width="60" height="60" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/e669b-8632.png" /></div>
+                                                        <img width="60" height="60" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/f919c-3508.png" /></div>
                                                 </a>
                                             </div>
                                             <div class="item s12">
@@ -1195,7 +1253,7 @@
                                                     <div class="title font16 b">旅游榜</div>
                                                     <div class="mintitle font12">热门景点</div>
                                                     <div class="img">
-                                                        <img width="60" height="60" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/54fd1-4524.png" /></div>
+                                                        <img width="60" height="60" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/8b738-4776.png" /></div>
                                                 </a>
                                             </div>
                                             <div class="clear"></div>
@@ -1210,121 +1268,99 @@
                     <ul>
                         <li>
                             <a href="https://www.maigoo.com/maigoocms/special/qinzi/154chenguang.html" target="_blank">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/8d43c-6578.gif" /></a>
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/8d43c-3290.gif" /></a>
                         </li>
                         <li>
                             <a href="https://www.maigoo.com/maigoocms/special/qinzi/151deli.html" target="_blank">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/7a719-8054.gif" /></a>
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/7a719-6493.gif" /></a>
                         </li>
                         <li>
                             <a href="https://www.maigoo.com/maigoocms/special/qinzi/151lemei.html" target="_blank">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/2eba9-8405.gif" /></a>
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/2eba9-3024.gif" /></a>
                         </li>
                         <li>
                             <a href="https://www.maigoo.com/maigoocms/special/qinzi/151qixin.html" target="_blank">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/c63ba-9766.gif" /></a>
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/c63ba-5340.gif" /></a>
                         </li>
                         <li>
                             <a href="https://www.maigoo.com/maigoocms/special/qinzi/152AIHAO.html" target="_blank">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/ea38c-6024.gif" /></a>
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/ea38c-2087.gif" /></a>
                         </li>
                         <li>
                             <a href="https://www.maigoo.com/maigoocms/special/qinzi/151baixue.html" target="_blank">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/3d415-8545.gif" /></a>
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/3d415-3041.gif" /></a>
                         </li>
                         <li>
                             <a href="https://www.maigoo.com/maigoocms/special/qinzi/151beifa.html" target="_blank">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/907fe-7573.gif" /></a>
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/907fe-3403.gif" /></a>
                         </li>
                         <li>
                             <a href="https://www.maigoo.com/maigoocms/special/bggj/151gb.html" target="_blank">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/df0e8-4234.gif" /></a>
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/df0e8-2928.gif" /></a>
                         </li>
                         <li>
                             <a href="https://www.maigoo.com/maigoocms/special/bggj/151SUNWOOD.html" target="_blank">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/b69dd-2036.gif" /></a>
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/b69dd-1729.gif" /></a>
                         </li>
                         <li>
                             <a href="https://www.maigoo.com/maigoocms/special/qinzi/152jwn.html" target="_blank">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/d6b40-3555.gif" /></a>
-                        </li>
-                        <li>
-                            <a href="https://www.maigoo.com/maigoocms/special/qinzi/152uni.html" target="_blank">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/825eb-8446.gif" /></a>
-                        </li>
-                        <li>
-                            <a href="https://www.maigoo.com/brand/18144.html" target="_blank">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/62c44-3800.gif" /></a>
-                        </li>
-                        <li>
-                            <a href="https://www.maigoo.com/maigoocms/special/qinzi/266zhonghuapai.html" target="_blank">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/62666-4099.gif" /></a>
-                        </li>
-                        <li>
-                            <a href="https://www.maigoo.com/maigoocms/special/qinzi/152yx.html" target="_blank">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/735ee-5912.gif" /></a>
-                        </li>
-                        <li>
-                            <a href="https://www.maigoo.com/brand/18005.html" target="_blank">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/103c7-4133.gif" /></a>
-                        </li>
-                        <li>
-                            <a href="https://www.maigoo.com/maigoocms/special/qinzi/152BAOKE.html" target="_blank">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/dde31-2046.gif" /></a>
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/m/img/d6b40-8960.gif" /></a>
                         </li>
                     </ul>
                     <div class="clear"></div>
                 </div>
                 <a class="downloadapp" href="https://www.cnpp.cn/android/maigooapp/" target="_blank">
-                    <img width="260" height="150" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/fe26f-2598.jpg" /></a>
+                    <img width="260" height="150" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/b3ebb-4215.jpg" /></a>
                 <dl class="datacounts">
                     <dd>
                         <a href="https://www.maigoo.com/brand10/pinpaibang/#posbrandvottelist" target="_blank" class="c666 line2em dhidden">已有
-                            <i>1627202</i>个品牌入驻</a>
+                            <i>1630958</i>个品牌入驻</a>
                         <a href="https://www.maigoo.com/zhaoshang/search/" target="_blank" class="c666 line2em dhidden">更新
-                            <i>514589</i>个招商信息</a>
+                            <i>515648</i>个招商信息</a>
                         <a href="https://www.maigoo.com/zhaoshang/#posjmform" target="_blank" class="c666 line2em dhidden">已发布
-                            <i>1393815</i>个加盟需求</a>
+                            <i>1448515</i>个加盟需求</a>
                         <a href="https://www.maigoo.com/brand10/dianzanbang/#pospraisebang2" target="_blank" class="c666 line2em dhidden">已有
-                            <i>965938</i>条品牌点赞</a>
+                            <i>982522</i>条品牌点赞</a>
                     </dd>
                 </dl>
             </div>
         </div>
         <div class="clear"></div>
     </div>
-</div>
+    <!--footer--></div>
 <div class="webshoplogo">
-    <a target="_blank" href="https://www.maigoo.com/webshop/66213.html">
-        <img width="83" height="37" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/7aac2-9640.png" />
-        <em class="dhidden">晨光</em></a>
-    <a target="_blank" href="https://www.maigoo.com/webshop/155559.html">
-        <img width="83" height="37" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/ded4e-9153.png" />
-        <em class="dhidden">得力</em></a>
-    <a target="_blank" href="https://www.maigoo.com/webshop/245853.html">
-        <img width="83" height="37" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/1db86-6035.png" />
-        <em class="dhidden">真彩</em></a>
-    <a target="_blank" href="https://www.maigoo.com/webshop/334555.html">
-        <img width="83" height="37" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/f418a-1599.png" />
-        <em class="dhidden">齐心</em></a>
-    <a target="_blank" href="https://www.maigoo.com/webshop/317825.html">
-        <img width="83" height="37" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/5dbb1-4729.png" />
-        <em class="dhidden">爱好</em></a>
-    <a target="_blank" href="https://www.maigoo.com/webshop/230909.html">
-        <img width="83" height="37" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/1f90b-9581.png" />
-        <em class="dhidden">白雪</em></a>
-    <a target="_blank" href="https://www.maigoo.com/webshop/271998.html">
-        <img width="83" height="37" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/2b225-5530.png" />
-        <em class="dhidden">贝发</em></a>
-    <a target="_blank" href="https://www.maigoo.com/webshop/155564.html">
-        <img width="83" height="37" src="https://image.maigoo.com/upload2/images/20131113/mbrand__2555_logo.png#" />
-        <em class="dhidden">广博</em></a>
-    <a target="_blank" href="https://www.maigoo.com/webshop/273632.html">
-        <img width="83" height="37" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/04ccc-2062.png" />
-        <em class="dhidden">三木</em></a>
-    <a target="_blank" href="https://www.maigoo.com/webshop/142762.html">
-        <img width="83" height="37" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/15a61-6090.png" />
-        <em class="dhidden">金万年</em></a>
+    <div class="logobox2">
+        <a target="_blank" href="https://www.maigoo.com/webshop/66213.html">
+            <img width="83" height="37" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/7aac2-5783.png" />
+            <em class="dhidden">晨光</em></a>
+        <a target="_blank" href="https://www.maigoo.com/webshop/155559.html">
+            <img width="83" height="37" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/ded4e-9567.png" />
+            <em class="dhidden">得力</em></a>
+        <a target="_blank" href="https://www.maigoo.com/webshop/245853.html">
+            <img width="83" height="37" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/1db86-6802.png" />
+            <em class="dhidden">真彩</em></a>
+        <a target="_blank" href="https://www.maigoo.com/webshop/334555.html">
+            <img width="83" height="37" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/f418a-8167.png" />
+            <em class="dhidden">齐心办公</em></a>
+        <a target="_blank" href="https://www.maigoo.com/webshop/317825.html">
+            <img width="83" height="37" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/5dbb1-2611.png" />
+            <em class="dhidden">爱好</em></a>
+        <a target="_blank" href="https://www.maigoo.com/webshop/230909.html">
+            <img width="83" height="37" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/1f90b-5145.png" />
+            <em class="dhidden">白雪文具</em></a>
+        <a target="_blank" href="https://www.maigoo.com/webshop/271998.html">
+            <img width="83" height="37" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/2b225-1622.png" />
+            <em class="dhidden">贝发</em></a>
+        <a target="_blank" href="https://www.maigoo.com/webshop/155564.html">
+            <img width="83" height="37" src="https://image.maigoo.com/upload2/images/20131113/mbrand__2555_logo.png#" />
+            <em class="dhidden">广博</em></a>
+        <a target="_blank" href="https://www.maigoo.com/webshop/273632.html">
+            <img width="83" height="37" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/04ccc-5068.png" />
+            <em class="dhidden">三木</em></a>
+        <a target="_blank" href="https://www.maigoo.com/webshop/142762.html">
+            <img width="83" height="37" src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/15a61-4374.png" />
+            <em class="dhidden">金万年</em></a>
+    </div>
 </div>
 <footer class="footlist">
     <div id="footer">
@@ -1400,7 +1436,7 @@
             </dl>
         </div>
         <div class="lgimg">
-            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/e9669-2905.png" /></div>
+            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/e9669-2147.png" /></div>
         <div class="words font12 fff center line18em">
             <ul class="words1">
                 <li>商业转载请联系作者获得书面授权，请勿随便复制使用，如有侵权、虚假信息、错误信息，请及时
@@ -1436,17 +1472,17 @@
             <div class="clear"></div>
         </div>
         <div class="center bimg">
-            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/f5b42-3019.png" /></div>
+            <img class="lazy" data-src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/f5b42-1095.png" /></div>
         <div class="center bimg">
-            <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/313c9-1854.png" /></div>
+            <img class="lazy" data-src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/b0e91-5790.png" /></div>
     </div>
 </footer>
 <div id="go_top">
     <ul>
-        <li class="holidayicon getajaxdata" url="/ajaxstream/holiday/?action=getinfo"></li>
+        <li class="holidayicon getajaxdata" url="https://s.maigoo.com/ajaxstream/holiday/?action=getinfo"></li>
         <li>
             <a class="fff" href="javascript:void(0);" id="kefu" onclick="kefulink();">
-                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/7bd6f-1211.gif">
+                <img src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/7bd6f-8721.gif">
                 <div class="wordout">
                     <div class="word">联 系客 服</div></div>
             </a>
@@ -1472,7 +1508,7 @@
             <a class="qrcode fff" href="javascript:;" onmouseover="$(this).find('img').attr('src',$(this).find('img').attr('data-src'))">
                 <i class="iconfont icon-erweima1"></i>
                 <div class="word lh" style="width:42px;">二维码</div>
-                <img width="682" height="194" data-src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/af43f-3932.png" /></a>
+                <img width="682" height="194" data-src="<?= Yii::getAlias('@tasseturl'); ?>/sguide/img/af43f-5320.png" /></a>
         </li>
         <li>
             <a class="gotop fff" href="javascript:;" onclick="$('html,body').animate({'scrollTop':'0'},{duration:300})">
