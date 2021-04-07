@@ -1,0 +1,164 @@
+@charset "UTF-8";
+
+
+p{font:normal 14px/22px "微软雅黑"; color:#666; overflow:hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;} 
+h3{ font:normal 20px/30px "微软雅黑"; color:#000; overflow: hidden;white-space: nowrap; text-overflow: ellipsis;}
+.wid{ width: 1040px !important;}
+/* banner */
+.banner{ width: 100%; height: 450px;}
+.banner_1{ width: 100%; height: 450px;}
+/* 页首 */
+.Bar{ font-size:12px;}
+.BarBox{ background:#FFF; height:35px; margin-bottom:0px; margin:0 auto;}
+.Clocet{ line-height:35px; float:left; color:#999; font-size:12px; background:url(../images/78c32-7723.png) no-repeat 0px 11px; padding-left:18px;}
+.w1000{ width:1022px; margin:0 auto;}
+.Tel400{ float:right; background:url(../images/78c32-7723.png) no-repeat 0px -25px; padding-left:18px; color:#666; line-height:35px;}
+.Subnv{ float:right;margin-right:50px;display:inline;list-style:none;}
+.Subnv li{float:left; line-height:35px; margin-left:10px; display:inline; background:url(../images/78c32-7723.png) no-repeat 0px -62px; padding-left:15px;}
+.Subnv li.li_none{ background:none;}
+.Subnv li a{ color:#666;}
+
+/***footer***/
+.footer{ margin-top:20px; height:40px; line-height:40px; background:#f0f0f0; text-align:center; color:#666;}
+.footer span{ font-family:Arial,Helvetica,sans-serif;}
+.footer a{ color:#666; font-size:12px;}
+.footer a:hover{ text-decoration:underline;}
+
+/* 导航 */
+.nav{ width: 100%; height: 50px; background: #3e3e3e;}
+.nav ul{ width: 1020px; margin: 0 auto;}
+.nav li{ width: 150px; height: 50px; cursor: pointer; float: left;  text-align: center;}
+.nav li:hover{ background: #77bb00;}
+.nav a{ display: block; width: 100%; height: 50px; font:normal 18px/50px "微软雅黑";}
+.nav .nav_link1{ background-position: 0 0;}
+.nav .nav_link2{ background-position: 3px -50px;}
+.nav .nav_link3{ background-position: 0 -100px;}
+.nav .nav_link4{ background-position: 0 -150px;}
+
+/* 狗狗医疗模块一 */
+.main{ width: 1020px; margin: 0 auto; background: rgba(255,255,255,0.8); border-left: 1px #d5d5d5 solid;border-right: 1px #d5d5d5 solid;border-bottom: 1px #d5d5d5 solid; border-radius:0 0 4px 4px; *background-color: #fff; *+background-color: #fff; padding: 30px 0 0 0;}
+
+.main_medical{ width: 1000px; padding-top:7px; margin:0 auto 40px;}
+
+.medical_l{ width: 310px; height:410px; float: left; position:relative;}
+.greenbg{ width:300px; height: 400px; background:#77bb00; position: absolute; left:0; top:0;}
+.l_img{ width:300px; height:400px; position:absolute; left:10px; top:10px;}
+.l_img_t1{ position:absolute; left:0; bottom:0; width:100%; height:40px;}
+.l_img_t1 span{ position: absolute; left:0; top:0; width:100%; height:40px; background:#000; filter:opacity(80); opacity:0.8;}
+.l_img_t1 a{ position:absolute; width:100%; height:40px; left:0; top:0; font:normal 18px/40px "微软雅黑"; text-indent:10px;  overflow: hidden; white-space: nowrap; text-overflow: ellipsis;}
+
+.medical_c{ width: 380px; height:410px; overflow:hidden; float: left; padding-left:20px;}
+.medical_c li{ border-bottom:dotted 1px #000; padding:12px 0 25px 0;}
+.medical_c span{ float: left; width:50px; height:40px; background:url(../images/c98a9-6146.png) no-repeat;margin-top: 5px;}
+.medical_c .num1{ background-position: 0 0;}
+.medical_c .num2{ background-position: 0 -40px;}
+.medical_c .num3{ background-position: 0 -80px;}
+.c_txt{ width:330px;  float: left;}
+.c_txt h3{ width:330px; margin-bottom: 5px;}
+.c_txt h3 a{ color:#000;}
+.c_txt p{ width:330px; height:66px; position: relative;}
+.detail{ color:#77bb00; position: absolute; right: 0; bottom: 0; padding: 0 6px;}
+
+.medical_r{ width:260px;float:right;}
+.medical_r p{ width:260px; height:66px; margin:10px 0; overflow:hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;}
+
+/* 狗医疗模块二（大图） */
+.big_img{ display: block; width:1000px; margin: 0 auto 40px;}
+
+
+/* 狗狗医疗模块三 */
+.medical_baike{ width:1000px; margin: 0 auto 40px;}
+.medical_baike li{ float:left; margin:0 25px 20px 0;}
+.medical_bk_img{ width:200px; height:150px; float: left; margin-right:20px;}
+.medical_bk_txt{ width:255px; float: left; padding-top:10px;}
+.medical_bk_txt h3{ width:255px;margin-bottom: 5px;}
+.medical_bk_txt h3 a{ color: #000;}
+.medical_bk_txt p{ width:255px;height:88px; -webkit-line-clamp: 4; position: relative;}
+
+/* 大标题 */
+.position_c{ margin: 0 auto;}
+.position_l{ float: left; }
+.position_r{ float: right; }
+.title1{text-align: center; padding: 0 10px; margin-bottom: 40px; font: bold 36px/55px "微软雅黑"; border-bottom: 5px solid #77bb00;}
+
+
+/* 给狗狗好形象模块一 */
+.main_exterior{ width:1000px; margin: 0 auto 40px;}
+.pe_con{ width: 235px; height:360px; float: left; margin: 0 20px 20px 0;}
+.title3{ position:relative; left:0; top:-22px; width:210px; height:36px;}
+.title3 span{ position: absolute; left:0; top:0; width:210px; height:36px; background:#77bb00; filter:opacity(80); opacity:0.8;}
+.title3 a{ position:absolute; width:210px; height:36px; left:0; top:0; font:normal 16px/36px "微软雅黑"; text-indent:10px;  overflow: hidden; white-space: nowrap; text-overflow: ellipsis;}
+.pe_con p{ width:210px;height:132px; margin:-10px auto 0; -webkit-line-clamp: 6; }
+
+/* 美容攻略 */
+.main_raiders{ width:1000px; margin:0 auto 40px;}
+.raiders_img{ float:left; width: 320px; height:410px;}
+.raiders_con{ float:right; width:641px;}
+.raiders_con li{ width: 611px; height: 95px; padding:15px 0 0 30px; margin-top:20px; background: url(../images/1541a-5306.png) no-repeat;}
+.raiders_con h3{ width:590px; margin-bottom: 5px;}
+.raiders_con a{ color:#000;}
+.raiders_con p{ width:590px;height:44px; -webkit-line-clamp: 2;}
+
+/* 照片模块 */
+.main_photo{ width:964px; margin: 0 auto 40px; padding-top: 40px;}
+.photo_l{ float: left; margin-right: 2px;}
+.photo_c{ float: left; margin-right: 2px; width:480px; height: 362px; position: relative;}
+.photo_r{ float: left;}
+.main_photo li{ width:240px; height: 180px; position: relative; margin-bottom: 2px;}
+.title4{ position:absolute; left:0; bottom:0; width:100%; height:30px;}
+.title4 span{ position: absolute; left:0; top:0; width:100%; height:30px; background:#000; filter:opacity(80); opacity:0.8;}
+.title4 a{ position:absolute; height:30px; left:0; top:0; width:100%; font:normal 16px/30px "微软雅黑"; text-align: center; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;}
+
+/* 相关商品 */
+.main_product{ width: 1000px; margin:0 auto 40px;}
+.main_product li{ width:229px; height: 292px; padding: 3px; float: left; margin: 0 20px 20px 0;}
+.main_product li:hover{ padding: 0; border: 3px solid #77bb00;}
+.product_img{ display: block; width:209px; height: 215px;margin:10px auto 0; overflow: hidden;}
+.product_t{ width: 190px; height: 36px; margin:3px auto; font:normal 14px/18px "微软雅黑"; text-align: center; overflow:hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;}
+.product_t a{ color:#333;}
+.product_ps{ padding: 0 10px;}
+.price{ float: left; font-size: 14px; color: #e04020;}
+.sold{ float: right; font-size: 14px; color: #999;}
+.sold i{ font-style:normal;}
+
+/* 相关商铺 */
+.main_store{ width: 990px; margin:0 auto 40px;}
+.main_store li{ width:225px; height: 227px; float: left; margin: 0 30px 30px 0;}
+.store_img{ display: block; width:225px; height: 168px; overflow: hidden;}
+.store_t{ width: 210px; height: 20px; margin:10px 0 5px 0; font:normal 16px/18px "微软雅黑"; text-indent:5px; overflow:hidden; white-space: nowrap; text-overflow: ellipsis;}
+.store_t a{ color:#333;}
+.discuss{ display: inline-block; width:69px; height: 13px; background: url(../images/3d1d1-4892.png) no-repeat; }
+.star_5_0{ background-position:0 -265px;}
+.star_4_7{ background-position:0 -427px;}
+.star_4_5{ background-position:0 -442px;}
+.star_4_3{ background-position:0 -457px;}
+.star_4_0{ background-position:0 -280px;}
+.star_3_7{ background-position:0 -472px;}
+.star_3_5{ background-position:0 -487px;}
+.star_3_3{ background-position:0 -502px;}
+.star_3_0{ background-position:0 -295px;}
+.star_2_7{ background-position:0 -518px;}
+.star_2_5{ background-position:0 -533px;}
+.star_2_3{ background-position:0 -548px;}
+.star_2_0{ background-position:0 -310px;}
+.star_1_7{ background-position:0 -563px;}
+.star_1_5{ background-position:0 -578px;}
+.star_1_3{ background-position:0 -593px;}
+.star_1_0{ background-position:0 -325px;}
+.star_0_7{ background-position:0 -609px;}
+.star_0_5{ background-position:0 -624px;}
+.star_0_3{ background-position:0 -639px;}
+
+
+.store_ps{ padding: 0 5px;}
+.star_c{ background:url(../images/aa343-9145.png) no-repeat; }
+.star_p{ background:url(../images/8d4bf-7718.png) no-repeat; }
+.sdiscuss_num{ float: right; font-size: 12px; color: #999;}
+.sdiscuss_num i{ font-style:normal;}
+
+/* 微博墙 */
+.weibo{ width: 1000px; margin: 45px auto 0;}
+.wb{ float: left;}
+.wb_c{ width:824px; margin: 0 auto; float: none;}
+.wj{ float: right; width: 420px;}
+
