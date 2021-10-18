@@ -150,7 +150,7 @@ a.cffff00:hover,a.cffff00.active,.cffff00 a:hover{ color:#fe741c;}
 .votecol1 .top3box .top3:nth-child(2){ border-radius:10px 10px 0 0; padding-bottom:34px; position:relative; z-index:1; box-shadow:0 0 16px #eee;margin-top: 46px;}
 .votecol1 .top3box .top3:nth-child(2)::after{content:""; width:10%; height:200px; background:#fff; background:linear-gradient(180deg,rgba(255,255,255,0),#fff,#fff); position:absolute; left:-5%; bottom:-10px;}
 .votecol1 .top3box .top3:nth-child(2)::before{content:""; width:10%; height:200px; background:#fff; background:linear-gradient(180deg,rgba(255,255,255,0),#fff,#fff); position:absolute; right:-5%; bottom:-10px;}
-.votecol1 .top3box .top3:nth-child(2) i{ background:url(../images/c8a9f-7367.png); width:60px; height:46px; border:0; margin-left:-30px; border-radius:0; top:-46px; font-size:0;}
+.votecol1 .top3box .top3:nth-child(2) i{ background:url(../../images/c8a9f-7367.png); width:60px; height:46px; border:0; margin-left:-30px; border-radius:0; top:-46px; font-size:0;}
 .votecol1 .top3box .top3:nth-child(3){ margin-top:80px; border-radius:0 10px 0 0;}
 .votecol1 .top3box .top3 img{ display:block; margin:0 auto; width:207px; height:90px; background:#fff;margin-bottom: 16px;}
 .votecol1 .top3box .top3 span{ margin:0 auto;text-align: center;}

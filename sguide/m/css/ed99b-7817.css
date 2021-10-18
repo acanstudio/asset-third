@@ -148,7 +148,7 @@ a.cffff00:hover,a.cffff00.active,.cffff00 a:hover{ color:#fe741c;}
 .brand10col1 .item .zhaoshangbang .item2:nth-child(1){ margin-top:80px; border-radius:10px 0 0 0;}
 .brand10col1 .item .zhaoshangbang .item2:nth-child(2){ border-radius:10px 10px 0 0; padding-bottom:30px; position:relative; z-index:1; box-shadow:0 0 16px #eee;}
 .brand10col1 .item .zhaoshangbang .item2:nth-child(2)::after{content:""; width:120%; height:50px; background:#fff; background:linear-gradient(180deg,rgba(255,255,255,0),#fff); position:absolute; left:-10%; bottom:-10px;}
-.brand10col1 .item .zhaoshangbang .item2:nth-child(2) i{ background:url(../images/c8a9f-7367.png); width:60px; height:46px; border:0; margin-left:-30px; border-radius:0; top:-46px; font-size:0;}
+.brand10col1 .item .zhaoshangbang .item2:nth-child(2) i{ background:url(../../images/c8a9f-7367.png); width:60px; height:46px; border:0; margin-left:-30px; border-radius:0; top:-46px; font-size:0;}
 .brand10col1 .item .zhaoshangbang .item2:nth-child(3){ margin-top:80px; border-radius:0 10px 0 0;}
 .brand10col1 .item .zhaoshangbang .item2 img{ display:block; margin:0 auto; width:138px; height:60px; background:#fff;}
 

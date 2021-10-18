@@ -1,9 +1,17 @@
 INSERT INTO `wp_page0104` (`id`, `name`, `site_code`, `code`, `url`, `is_mobile`, `status`) VALUES 
-(NULL, '导购入口', 'sguide', 'entrance', 'https://www.maigoo.com/brand10/', '0', '0'),
-(NULL, '', '', 'sguide', '', '0', '0'),
 
-(NULL, '', '', 'sguide', '', '1', '0'),
-(NULL, '', '', 'sguide', '', '1', '0'),
+(NULL, '首页', 'kongfz', 'home', 'https://m.kongfz.com/', '1', '0'),
+(NULL, '书店', 'kongfz', 'store', 'https://m.kongfz.com/channel/1081', '1', '0'),
+(NULL, '分类', 'kongfz', 'category', 'https://m.kongfz.com/category/', '1', '0'),
+(NULL, '图书首页', 'kongfz', 'bookhome', 'https://mbook.kongfz.com/', '1', '0'),
+(NULL, '图书列表', 'kongfz', 'booklist', 'http://mbook.kongfz.com/Cminguo/', '1', '0'),
+(NULL, '图书详情', 'kongfz', 'bookdetail', 'https://mbook.kongfz.com/12820/4038675393/', '1', '0'),
+(NULL, '人物详情', 'kongfz', 'figure', 'http://promotion.kongfz.com/promotion/Borges_m', '1', '0'),
+(NULL, '人物详情2', 'kongfz', 'figure2', 'http://promotion.kongfz.com/promotion/qianmu_m', '1', '0'),
+(NULL, '频道', 'kongfz', 'channel', 'https://m.kongfz.com/channel/1097', '1', '0'),
+(NULL, '书单', 'kongfz', 'shelf', 'https://m.kongfz.com/booklist/', '1', '0'),
+(NULL, '专辑', 'kongfz', 'collection', 'http://promotion.kongfz.com/promotion/mmyg_m', '1', '0'),
+(NULL, '', 'kongfz', '', '', '1', '0'),
 
 
 
