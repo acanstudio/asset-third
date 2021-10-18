@@ -9,7 +9,7 @@
 <title>商品分类大全_图书分类目录_孔夫子旧书网</title>
 <meta name="keyword" content="商品分类,商品分类大全,图书分类,图书分类目录">
 <meta name="description" content="孔夫子旧书网是国内专业的古旧书交易平台；目前已汇集了全国上万家网上书店与书摊，展示多达9000万种图书书籍，包含大量极具收藏价值的古旧珍本（明清、民国古籍善本、小人书、珍本期刊、名人墨迹、民国珍本、绝版书等）。孔网为广大书友提供二手图书买卖与收藏品交易市场；开二手书店、网上买书、网上卖书、珍品拍卖，首选孔夫子旧书网。">
-<link href="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/css/ed5fa-8517.css" rel="stylesheet"></head>
+<link href="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/css/ed5fa-6372.css" rel="stylesheet"></head>
 
 <body>
 <script type="text/javascript">//这段js的最后面有两个参数记得要设置，一个为设计稿实际宽度，一个为制作稿最大宽度，例如设计稿为750，最大宽度为750，则为(750,750) 1rem = 100px;

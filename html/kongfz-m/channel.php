@@ -12,7 +12,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="format-detection" content="telephone=no,email=no">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0, viewport-fit=cover">
-<link href="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/css/8dd16-3094.css" rel="stylesheet"></head>
+<link href="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/css/8dd16-2859.css" rel="stylesheet"></head>
 
 <body id='index_box'>
 <script type="text/javascript">//这段js的最后面有两个参数记得要设置，一个为设计稿实际宽度，一个为制作稿最大宽度，例如设计稿为750，最大宽度为750，则为(750,750) 1rem = 100px;
@@ -115,35 +115,35 @@
         <div class="swiper-wrapper">
             <div class="swiper-slide">
                 <a href="https://m.kongfz.com/shop/19661/#/list/column_76651">
-                    <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/1fe2f-9499.jpg" onerror="this.style.width=0;" alt=""></a>
+                    <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/1fe2f-6715.jpg" onerror="this.style.width=0;" alt=""></a>
             </div>
             <div class="swiper-slide">
                 <a href="https://m.kongfz.com/shop/19661/#/list/column_76092">
-                    <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/c3dc6-1471.jpg" onerror="this.style.width=0;" alt=""></a>
+                    <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/c3dc6-1073.jpg" onerror="this.style.width=0;" alt=""></a>
             </div>
             <div class="swiper-slide">
                 <a href="https://m.kongfz.com/shop/19661/#/list/column_76522">
-                    <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/df064-5213.jpg" onerror="this.style.width=0;" alt=""></a>
+                    <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/df064-6969.jpg" onerror="this.style.width=0;" alt=""></a>
             </div>
             <div class="swiper-slide">
                 <a href="https://m.kongfz.com/shop/19661/#/list/column_76579">
-                    <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/76608-8518.jpg" onerror="this.style.width=0;" alt=""></a>
+                    <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/76608-6967.jpg" onerror="this.style.width=0;" alt=""></a>
             </div>
             <div class="swiper-slide">
                 <a href="https://m.kongfz.com/shop/19661/#/list/column_76501">
-                    <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/52c51-9422.jpg" onerror="this.style.width=0;" alt=""></a>
+                    <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/52c51-4206.jpg" onerror="this.style.width=0;" alt=""></a>
             </div>
             <div class="swiper-slide">
                 <a href="https://mbook.kongfz.com/19661/3788562862">
-                    <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/e0cc2-1835.jpg" onerror="this.style.width=0;" alt=""></a>
+                    <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/e0cc2-9721.jpg" onerror="this.style.width=0;" alt=""></a>
             </div>
             <div class="swiper-slide">
                 <a href="https://m.kongfz.com/shop/19661/#/list/column_76355">
-                    <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/642a3-9899.jpg" onerror="this.style.width=0;" alt=""></a>
+                    <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/642a3-2565.jpg" onerror="this.style.width=0;" alt=""></a>
             </div>
             <div class="swiper-slide">
                 <a href="https://m.kongfz.com/shop/19661/#/list/column_76350">
-                    <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/53a0e-8879.jpg" onerror="this.style.width=0;" alt=""></a>
+                    <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/53a0e-3845.jpg" onerror="this.style.width=0;" alt=""></a>
             </div>
         </div>
         <div class="swiper-pagination"></div>
@@ -154,61 +154,61 @@
         <li>
             <a href="https://mbook.kongfz.com/Cwenxue/">
                 <div class="img_box">
-                    <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/8a2e9-2693.png" onerror="this.style.width=0;" alt=""></div>
+                    <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/8a2e9-8004.png" onerror="this.style.width=0;" alt=""></div>
                 <div class="name">文学</div></a>
         </li>
         <li>
             <a href="https://mbook.kongfz.com/Cyishu/">
                 <div class="img_box">
-                    <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/97b8d-6428.png" onerror="this.style.width=0;" alt=""></div>
+                    <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/97b8d-7907.png" onerror="this.style.width=0;" alt=""></div>
                 <div class="name">艺术</div></a>
         </li>
         <li>
             <a href="https://mbook.kongfz.com/Clishi/">
                 <div class="img_box">
-                    <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/8f8da-3699.png" onerror="this.style.width=0;" alt=""></div>
+                    <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/8f8da-4781.png" onerror="this.style.width=0;" alt=""></div>
                 <div class="name">历史</div></a>
         </li>
         <li>
             <a href="https://mbook.kongfz.com/Cshwh/">
                 <div class="img_box">
-                    <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/3ae83-3185.png" onerror="this.style.width=0;" alt=""></div>
+                    <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/3ae83-7085.png" onerror="this.style.width=0;" alt=""></div>
                 <div class="name">社会文化</div></a>
         </li>
         <li>
             <a href="https://mbook.kongfz.com/Cxiaoshuo/">
                 <div class="img_box">
-                    <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/75aa2-2062.png" onerror="this.style.width=0;" alt=""></div>
+                    <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/75aa2-8383.png" onerror="this.style.width=0;" alt=""></div>
                 <div class="name">小说</div></a>
         </li>
         <li>
             <a href="https://mbook.kongfz.com/Cjingji/">
                 <div class="img_box">
-                    <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/69400-6555.png" onerror="this.style.width=0;" alt=""></div>
+                    <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/69400-8533.png" onerror="this.style.width=0;" alt=""></div>
                 <div class="name">经济</div></a>
         </li>
         <li>
             <a href="https://mbook.kongfz.com/Cshaoer/">
                 <div class="img_box">
-                    <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/c9ba0-5324.png" onerror="this.style.width=0;" alt=""></div>
+                    <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/c9ba0-1186.png" onerror="this.style.width=0;" alt=""></div>
                 <div class="name">童书</div></a>
         </li>
         <li>
             <a href="https://mbook.kongfz.com/Czhexue/">
                 <div class="img_box">
-                    <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/f4b28-4547.png" onerror="this.style.width=0;" alt=""></div>
+                    <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/f4b28-9078.png" onerror="this.style.width=0;" alt=""></div>
                 <div class="name">哲学心理</div></a>
         </li>
         <li>
             <a href="https://mbook.kongfz.com/Cwaiwenshu/">
                 <div class="img_box">
-                    <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/25e0e-7103.png" onerror="this.style.width=0;" alt=""></div>
+                    <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/25e0e-3336.png" onerror="this.style.width=0;" alt=""></div>
                 <div class="name">外文原版</div></a>
         </li>
         <li>
             <a href="https://mbook.kongfz.com/Cshenghuo/">
                 <div class="img_box">
-                    <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/05a28-7900.png" onerror="this.style.width=0;" alt=""></div>
+                    <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/05a28-1311.png" onerror="this.style.width=0;" alt=""></div>
                 <div class="name">生活</div></a>
         </li>
         <li style="margin:0;height:0;"></li>
@@ -219,7 +219,7 @@
 <div id="index_tmpl_interpolation"></div>
 <!-- 猜你喜欢 -->
 <div id="recommend_list_box" style="margin-top: 0.4rem;"></div>
-<!-- <div class="downApp" id="openApp"><img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/ec25c-4116.png" alt=""></div> -->
+<!-- <div class="downApp" id="openApp"><img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/ec25c-6359.png" alt=""></div> -->
 <!-- 返回顶部 -->
 <div class="top"></div>
 <script id="index_tmpl" type="text/x-dot-template">{
@@ -836,7 +836,7 @@
         { ? it.list.length > 0
         }
     } < !--line_gray--><div class = "line_gray" > <div class = "box" > </div></div > <!--recommend_area--><div class = "area recommend_area" > <div class = "title" > <span style = "font-weight: bold;" > 为您推荐 < /span>
-<!-- <a href="">更多<img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/ba143-7965.png" alt=""></a> --></div>
+<!-- <a href="">更多<img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/ba143-8779.png" alt=""></a> --></div>
 </div>
 {{?}}
 <!-- recommend_list -->

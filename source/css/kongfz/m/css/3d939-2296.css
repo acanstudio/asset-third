@@ -1,0 +1,80 @@
+.kfz-banner{height:auto;width:100%;background:#f0f0f0;overflow:hidden}
+.kfz-banner img{height:auto;width:100%;float:left}
+.height_7{ height:7px; background:#f8f8f8;}
+/*灰色线条*/
+.line_gray_01{height:6px;border-top:1px solid #eee;border-bottom:1px solid #eee;background:#f8f8f8}
+.personal_space{height:7px;background: #f8f8f8;border-top:1px solid #eee;border-bottom:1px solid #eee;}
+/*书店首页样式*/
+.shop-area-hot{ background: #fff; width:100%;height:140px;}
+.shop-area-hot .shop-area-item{border-right:1px solid #eee;width:50%;display:block;float: left;padding-left:16px;position:relative}
+.shop-area-hot .shop-area-item.sort {border-bottom: none;border-top: 1px solid #eee;}
+.shop-area-hot .shop-area-item.h274{height:140px;}
+.shop-area-hot .shop-area-item.h274 img{width:100px;position:absolute;bottom:10px;right:40px;}
+.shop-area-hot .shop-area-item.h274 .shop-area-item-tit { font-size:17px;line-height:24px;margin-top:12px;margin-right:12px;}
+.shop-area-hot .shop-area-item.h274 .shop-area-item-tit span.today {color: #f67a00;font-weight: bold;}
+.shop-area-hot .shop-area-item.h274 .shop-area-item-con {color: #999; line-height:16px; font-size: 13px; padding-top:6px;}
+.shop-area-hot .shop-area-item.h274 .shop-area-item-con em {padding-left: 3px;color: #000000}
+.shop-area-hot .shop-area-item.h137{height:70px; border-right: none; padding: 10px 24px;text-align: center;}
+.shop-area-hot .shop-area-item.h137 .shop-area-item-tit{float: left; font-size:17px;line-height:25px;margin-top:12px;margin-left:8px;}
+.shop-area-hot .shop-area-item.h137 .shop-area-item-tit span.zone {color: #0686e3;font-weight: bold;}
+.shop-area-hot .shop-area-item.h137 .shop-area-item-tit span.sort {color: #e02526;font-weight: bold;}
+.shop-area-hot .shop-area-item.h137 img {width: 26px;margin-top: 15px;margin-left:4px;}
+.shop-area-hot .shop-area-item.h137.shop-area-item-img img{margin-top: 12px;}
+.shop-area-hot .shop-area-item.h180{height:90px;}
+.shop-area-hot .shop-area-item.h180 img{width:134px;position:absolute;bottom:2px;right:0}
+/*图书分类*/
+.kfz-layout-con{background: #fff;}
+.shop-cat-tit , .shop-book-box .book-tit{width: 100%; line-height: 50px;color:#333;font-size: 17px; /*padding-left:30px;*/display:inline-block; border-bottom: 1px solid #eee;height: 50px;}
+.shop-cat-tit h3 {display:inline-block;padding-left:4px; margin-bottom: 12px;margin-left: 2px;font-size: 17px;}
+.shop-cat {margin:0 15px;}
+.shop-cat-tit .border{background: #e91f1e;width: 3px;height: 18px;display: block;float: left;margin-top: 16px;margin-left:14px;}
+.shop-cat ul li{text-align:center;width:33.33%;float:left;border-top:1px solid #eee;}
+.shop-cat ul li.top3 {border-top: none; }
+.shop-cat ul li .text1{font-size: 15px;color:#333;line-height: 24px;margin-top:10px;}
+.shop-cat ul li .text2{font-size:13px;color:#999;line-height: 20px; padding-bottom: 10px;}
+.shop-cat-tit .more {float: left;font-size: 15px; }
+.shop-cat-tit .icon_jt {margin-top: 0; font-size: 15px; color: #333;margin-right:15px;transform:rotate(270deg);-webkit-transform:rotate(270deg);}
+/*珍品古籍*/
+.m_b0 {margin-bottom: 0;}
+.shop-book-box{background:#fff;}
+.shop-book-box .book-tit{padding-left:18px; margin-right: 0;border-left:none;border-bottom: 1px solid #eee;}
+.shop-book-box .book-tit .book-tit-text{display:inline-block;  padding-left: 5px; margin-bottom: 12px;}
+.shop-book-box .book-tit .border{ background: #b70b0d; width: 3px;height: 18px;display: block;float: left;margin-top: 16px;}
+.shop-book-box .book-tit  .yellow{background: #ffa939}
+.shop-book-box .book-tit  .purple{background: #b422e8}
+.shop-book-box .book-tab{font-size: 16px;height: 40px; padding:0 15px;border-bottom: 1px solid #eee;}
+.shop-book-box .book-tab a{display: inline-block; height: 40px;line-height: 40px;margin-right:3px;padding-bottom:4px;}
+.shop-book-box .book-tab a:last-child{margin-right: 0;}
+.shop-book-box .book-tab a.now {border-bottom: 2px solid #d00000;color: #d00000;}
+.shop-book-box .book-box .flex_box{padding:20px 0 0 15px;}
+.shop-book-box .book-box .flex_box:last-child{border-bottom:none}
+.shop-book-box .book-box .book-box-img{width: 80px;height:80px;display:block;margin-right:10px;overflow:hidden;}
+.shop-book-box .book-box .book-box-img img{width: 80px;height: 80px;}
+#bookTab2  a {margin-right:12px; padding:0 6px;}
+.flex_box{width:100%;display:-moz-box;display:-webkit-box;display:box;}
+.flex_box_item{display:block;-moz-box-flex:1;-webkit-box-flex:1;box-flex:1;border-bottom: 1px solid #eee;margin-bottom: -1px;padding-bottom:20px;padding-right:15px;}
+.shop-book-box .book-box .book-box-con .book-box-con-name{color:#333;font-size:16px;padding-top:2px; height:40px;line-height:20px;display:block;overflow:hidden;font-weight: normal;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;}
+.shop-book-box .book-box .book-box-con .book-box-con-grey{color:#999;font-size: 14px;}
+.shop-book-box .book-box .book-box-con .book-box-con-red{color:#d00000;font-size: 16px;}
+.shop-book-box .book-box .book-box-con .book-box-con-red  small {font-size: 17px;}
+.shop-book-box .book-box .book-box-con .m_t32 {padding-top: 16px;}
+.seeMore {display: block; background: #fbfbfb; height: 40px; line-height: 40px; text-align: center; font-size: 15px; color: #333;border-top: 1px solid #eee;}
+.seeMore.no_bor{ border:none;}
+/*友情链接*/
+.book_list_box{background:#fff;}
+.book_list_box ul{ border-bottom: 1px solid #eee;}
+.book_list_box ul li{ float:left; width:33.33333%; font-size: 14px; text-align:center; line-height:18px;}
+.book_list_box ul li:last-child{border: 0}
+.book_list_box ul li div{ padding:12px 6px;}
+
+/*最新上书*/
+.shop_book_list{ background:#fff;}
+.shop_book_list li{ border-bottom: 1px solid #eee; padding: 0 15px; font-size: 15px; height:46.4px; line-height:46.4px; word-break:break-all; overflow:hidden;}
+.more_box{margin:0 18px;background:#e6e6e6;color:#a4a4a4;height:50px;font-size: 14px;display:block;margin-top:10px;overflow:hidden;line-height:50px;text-align:center}
+
+
+/*320以下单独处理*/
+@media screen and (max-width: 320px) {
+    .shop-book-box .book-tab a{font-size: 14px;margin-right:0;}
+    #bookTab2  a {margin-right:6px; padding:0 6px;}
+}

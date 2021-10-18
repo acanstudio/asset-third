@@ -12,12 +12,12 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="format-detection" content="telephone=no,email=no">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-<link rel="stylesheet" type="text/css" href="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/css/30791-9370.css" />
-<link rel="stylesheet" type="text/css" href="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/css/4a1be-5562.css" />
-<link rel="stylesheet" type="text/css" href="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/css/022b9-5270.css" />
-<script type="text/javascript" src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/js/78/m-reactive.js"></script>
-<link rel="stylesheet" type="text/css" href="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/css/7b56f-6867.css" />
-<link rel="stylesheet" type="text/css" href="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/css/3d939-6333.css" />
+<link rel="stylesheet" type="text/css" href="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/css/30791-1795.css" />
+<link rel="stylesheet" type="text/css" href="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/css/4a1be-2227.css" />
+<link rel="stylesheet" type="text/css" href="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/css/022b9-3880.css" />
+<script type="text/javascript" src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/js/66/m-reactive.js"></script>
+<link rel="stylesheet" type="text/css" href="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/css/7b56f-4883.css" />
+<link rel="stylesheet" type="text/css" href="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/css/3d939-2296.css" />
 <script type="text/javascript">document.write('<s' + 'cript src="/ajax/getmshopheader/?mt=' + Math.random() + '"></' + 'script>');</script></head>
 
 <body ng-controller="app">
@@ -28,11 +28,11 @@
             <ul>
                 <li>
                     <a href="#">
-                        <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/492ad-5202.jpg"></a>
+                        <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/492ad-8630.jpg"></a>
                 </li>
                 <li>
                     <a href='#'>
-                        <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/cd157-1242.jpg"></a>
+                        <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/cd157-7505.jpg"></a>
                 </li>
             </ul>
         </div>
@@ -369,7 +369,7 @@
                     <div class="flex_box">
                         <div class="book-box-img">
                             <a href="http://mbook.kongfz.com/196631/4038742528/">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/a7279-9118.jpg" kfz-img-err="/mobile2-0/common/images/none_160.png" /></a>
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/a7279-7767.jpg" kfz-img-err="/mobile2-0/common/images/none_160.png" /></a>
                         </div>
                         <div class="book-box-con flex_box_item">
                             <p class="book-box-con-name">
@@ -384,7 +384,7 @@
                     <div class="flex_box">
                         <div class="book-box-img">
                             <a href="http://mbook.kongfz.com/526796/4038735887/">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/f2ea5-9752.jpg" kfz-img-err="/mobile2-0/common/images/none_160.png" /></a>
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/f2ea5-6250.jpg" kfz-img-err="/mobile2-0/common/images/none_160.png" /></a>
                         </div>
                         <div class="book-box-con flex_box_item">
                             <p class="book-box-con-name">
@@ -399,7 +399,7 @@
                     <div class="flex_box">
                         <div class="book-box-img">
                             <a href="http://mbook.kongfz.com/244407/4038731675/">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/96387-7237.jpg" kfz-img-err="/mobile2-0/common/images/none_160.png" /></a>
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/96387-8928.jpg" kfz-img-err="/mobile2-0/common/images/none_160.png" /></a>
                         </div>
                         <div class="book-box-con flex_box_item">
                             <p class="book-box-con-name">
@@ -414,7 +414,7 @@
                     <div class="flex_box">
                         <div class="book-box-img">
                             <a href="http://mbook.kongfz.com/244407/4038726886/">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/559c8-5233.jpg" kfz-img-err="/mobile2-0/common/images/none_160.png" /></a>
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/559c8-5390.jpg" kfz-img-err="/mobile2-0/common/images/none_160.png" /></a>
                         </div>
                         <div class="book-box-con flex_box_item">
                             <p class="book-box-con-name">
@@ -431,7 +431,7 @@
                     <div class="flex_box">
                         <div class="book-box-img">
                             <a href="http://mbook.kongfz.com/12820/4038675393/">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/60c70-2151.jpg" kfz-img-err="/mobile2-0/common/images/none_160.png" /></a>
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/60c70-4024.jpg" kfz-img-err="/mobile2-0/common/images/none_160.png" /></a>
                         </div>
                         <div class="book-box-con flex_box_item">
                             <p class="book-box-con-name">
@@ -446,7 +446,7 @@
                     <div class="flex_box">
                         <div class="book-box-img">
                             <a href="http://mbook.kongfz.com/12820/4038682953/">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/7ea24-9928.jpg" kfz-img-err="/mobile2-0/common/images/none_160.png" /></a>
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/7ea24-2498.jpg" kfz-img-err="/mobile2-0/common/images/none_160.png" /></a>
                         </div>
                         <div class="book-box-con flex_box_item">
                             <p class="book-box-con-name">
@@ -461,7 +461,7 @@
                     <div class="flex_box">
                         <div class="book-box-img">
                             <a href="http://mbook.kongfz.com/27958/4038696691/">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/084e4-2528.jpg" kfz-img-err="/mobile2-0/common/images/none_160.png" /></a>
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/084e4-6440.jpg" kfz-img-err="/mobile2-0/common/images/none_160.png" /></a>
                         </div>
                         <div class="book-box-con flex_box_item">
                             <p class="book-box-con-name">
@@ -476,7 +476,7 @@
                     <div class="flex_box">
                         <div class="book-box-img">
                             <a href="http://mbook.kongfz.com/20137/4038695645/">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/cba28-4719.jpg" kfz-img-err="/mobile2-0/common/images/none_160.png" /></a>
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/cba28-7248.jpg" kfz-img-err="/mobile2-0/common/images/none_160.png" /></a>
                         </div>
                         <div class="book-box-con flex_box_item">
                             <p class="book-box-con-name">
@@ -493,7 +493,7 @@
                     <div class="flex_box">
                         <div class="book-box-img">
                             <a href="http://mbook.kongfz.com/23792/4038721808/">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/a7f7b-3177.jpg" kfz-img-err="/mobile2-0/common/images/none_160.png" /></a>
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/a7f7b-4612.jpg" kfz-img-err="/mobile2-0/common/images/none_160.png" /></a>
                         </div>
                         <div class="book-box-con flex_box_item">
                             <p class="book-box-con-name">
@@ -508,7 +508,7 @@
                     <div class="flex_box">
                         <div class="book-box-img">
                             <a href="http://mbook.kongfz.com/23792/4038708429/">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/a0182-7797.jpg" kfz-img-err="/mobile2-0/common/images/none_160.png" /></a>
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/a0182-7448.jpg" kfz-img-err="/mobile2-0/common/images/none_160.png" /></a>
                         </div>
                         <div class="book-box-con flex_box_item">
                             <p class="book-box-con-name">
@@ -523,7 +523,7 @@
                     <div class="flex_box">
                         <div class="book-box-img">
                             <a href="http://mbook.kongfz.com/565445/4038705493/">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/a7f03-6208.jpg" kfz-img-err="/mobile2-0/common/images/none_160.png" /></a>
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/a7f03-4122.jpg" kfz-img-err="/mobile2-0/common/images/none_160.png" /></a>
                         </div>
                         <div class="book-box-con flex_box_item">
                             <p class="book-box-con-name">
@@ -538,7 +538,7 @@
                     <div class="flex_box">
                         <div class="book-box-img">
                             <a href="http://mbook.kongfz.com/23792/4038699319/">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/7d7ce-1797.jpg" kfz-img-err="/mobile2-0/common/images/none_160.png" /></a>
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/7d7ce-8666.jpg" kfz-img-err="/mobile2-0/common/images/none_160.png" /></a>
                         </div>
                         <div class="book-box-con flex_box_item">
                             <p class="book-box-con-name">
@@ -555,7 +555,7 @@
                     <div class="flex_box">
                         <div class="book-box-img">
                             <a href="http://mbook.kongfz.com/215948/4038743941/">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/97b48-6483.jpg" kfz-img-err="/mobile2-0/common/images/none_160.png" /></a>
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/97b48-6186.jpg" kfz-img-err="/mobile2-0/common/images/none_160.png" /></a>
                         </div>
                         <div class="book-box-con flex_box_item">
                             <p class="book-box-con-name">
@@ -570,7 +570,7 @@
                     <div class="flex_box">
                         <div class="book-box-img">
                             <a href="http://mbook.kongfz.com/237492/4038743231/">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/503fb-7880.jpg" kfz-img-err="/mobile2-0/common/images/none_160.png" /></a>
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/503fb-5151.jpg" kfz-img-err="/mobile2-0/common/images/none_160.png" /></a>
                         </div>
                         <div class="book-box-con flex_box_item">
                             <p class="book-box-con-name">
@@ -585,7 +585,7 @@
                     <div class="flex_box">
                         <div class="book-box-img">
                             <a href="http://mbook.kongfz.com/425049/4038742213/">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/49f42-7245.jpg" kfz-img-err="/mobile2-0/common/images/none_160.png" /></a>
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/49f42-9548.jpg" kfz-img-err="/mobile2-0/common/images/none_160.png" /></a>
                         </div>
                         <div class="book-box-con flex_box_item">
                             <p class="book-box-con-name">
@@ -600,7 +600,7 @@
                     <div class="flex_box">
                         <div class="book-box-img">
                             <a href="http://mbook.kongfz.com/415707/4038742156/">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/09b0b-6542.jpg" kfz-img-err="/mobile2-0/common/images/none_160.png" /></a>
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/09b0b-7422.jpg" kfz-img-err="/mobile2-0/common/images/none_160.png" /></a>
                         </div>
                         <div class="book-box-con flex_box_item">
                             <p class="book-box-con-name">
@@ -630,7 +630,7 @@
                     <div class="flex_box">
                         <div class="book-box-img">
                             <a href="http://mbook.kongfz.com/498563/4038744366/">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/68d7b-7094.jpg" kfz-img-err="/mobile2-0/common/images/none_160.png" /></a>
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/68d7b-8224.jpg" kfz-img-err="/mobile2-0/common/images/none_160.png" /></a>
                         </div>
                         <div class="book-box-con flex_box_item">
                             <p class="book-box-con-name">
@@ -645,7 +645,7 @@
                     <div class="flex_box">
                         <div class="book-box-img">
                             <a href="http://mbook.kongfz.com/357108/4038742915/">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/a2fb6-8621.jpg" kfz-img-err="/mobile2-0/common/images/none_160.png" /></a>
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/a2fb6-9097.jpg" kfz-img-err="/mobile2-0/common/images/none_160.png" /></a>
                         </div>
                         <div class="book-box-con flex_box_item">
                             <p class="book-box-con-name">
@@ -660,7 +660,7 @@
                     <div class="flex_box">
                         <div class="book-box-img">
                             <a href="http://mbook.kongfz.com/564224/4038740478/">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/71e87-8111.jpg" kfz-img-err="/mobile2-0/common/images/none_160.png" /></a>
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/71e87-7972.jpg" kfz-img-err="/mobile2-0/common/images/none_160.png" /></a>
                         </div>
                         <div class="book-box-con flex_box_item">
                             <p class="book-box-con-name">
@@ -675,7 +675,7 @@
                     <div class="flex_box">
                         <div class="book-box-img">
                             <a href="http://mbook.kongfz.com/357108/4038736600/">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/0257e-4060.jpg" kfz-img-err="/mobile2-0/common/images/none_160.png" /></a>
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/0257e-1191.jpg" kfz-img-err="/mobile2-0/common/images/none_160.png" /></a>
                         </div>
                         <div class="book-box-con flex_box_item">
                             <p class="book-box-con-name">
@@ -692,7 +692,7 @@
                     <div class="flex_box">
                         <div class="book-box-img">
                             <a href="http://mbook.kongfz.com/438732/4038745333/">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/97e82-3828.jpg" kfz-img-err="/mobile2-0/common/images/none_160.png" /></a>
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/97e82-7858.jpg" kfz-img-err="/mobile2-0/common/images/none_160.png" /></a>
                         </div>
                         <div class="book-box-con flex_box_item">
                             <p class="book-box-con-name">
@@ -707,7 +707,7 @@
                     <div class="flex_box">
                         <div class="book-box-img">
                             <a href="http://mbook.kongfz.com/438732/4038742036/">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/40c8b-7416.jpg" kfz-img-err="/mobile2-0/common/images/none_160.png" /></a>
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/40c8b-2567.jpg" kfz-img-err="/mobile2-0/common/images/none_160.png" /></a>
                         </div>
                         <div class="book-box-con flex_box_item">
                             <p class="book-box-con-name">
@@ -722,7 +722,7 @@
                     <div class="flex_box">
                         <div class="book-box-img">
                             <a href="http://mbook.kongfz.com/20558/4038741530/">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/d9854-9486.jpg" kfz-img-err="/mobile2-0/common/images/none_160.png" /></a>
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/d9854-9379.jpg" kfz-img-err="/mobile2-0/common/images/none_160.png" /></a>
                         </div>
                         <div class="book-box-con flex_box_item">
                             <p class="book-box-con-name">
@@ -737,7 +737,7 @@
                     <div class="flex_box">
                         <div class="book-box-img">
                             <a href="http://mbook.kongfz.com/438732/4038739175/">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/bd80a-1717.jpg" kfz-img-err="/mobile2-0/common/images/none_160.png" /></a>
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/bd80a-7525.jpg" kfz-img-err="/mobile2-0/common/images/none_160.png" /></a>
                         </div>
                         <div class="book-box-con flex_box_item">
                             <p class="book-box-con-name">
@@ -754,7 +754,7 @@
                     <div class="flex_box">
                         <div class="book-box-img">
                             <a href="http://mbook.kongfz.com/312914/4038741081/">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/1abc5-9862.jpg" kfz-img-err="/mobile2-0/common/images/none_160.png" /></a>
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/1abc5-9543.jpg" kfz-img-err="/mobile2-0/common/images/none_160.png" /></a>
                         </div>
                         <div class="book-box-con flex_box_item">
                             <p class="book-box-con-name">
@@ -769,7 +769,7 @@
                     <div class="flex_box">
                         <div class="book-box-img">
                             <a href="http://mbook.kongfz.com/222667/4038737903/">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/f21f8-1687.jpg" kfz-img-err="/mobile2-0/common/images/none_160.png" /></a>
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/f21f8-3236.jpg" kfz-img-err="/mobile2-0/common/images/none_160.png" /></a>
                         </div>
                         <div class="book-box-con flex_box_item">
                             <p class="book-box-con-name">
@@ -784,7 +784,7 @@
                     <div class="flex_box">
                         <div class="book-box-img">
                             <a href="http://mbook.kongfz.com/308233/4038733031/">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/992d0-3213.jpg" kfz-img-err="/mobile2-0/common/images/none_160.png" /></a>
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/992d0-5887.jpg" kfz-img-err="/mobile2-0/common/images/none_160.png" /></a>
                         </div>
                         <div class="book-box-con flex_box_item">
                             <p class="book-box-con-name">
@@ -799,7 +799,7 @@
                     <div class="flex_box">
                         <div class="book-box-img">
                             <a href="http://mbook.kongfz.com/550214/4038732629/">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/7d0f4-3033.jpg" kfz-img-err="/mobile2-0/common/images/none_160.png" /></a>
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/7d0f4-3359.jpg" kfz-img-err="/mobile2-0/common/images/none_160.png" /></a>
                         </div>
                         <div class="book-box-con flex_box_item">
                             <p class="book-box-con-name">
@@ -816,7 +816,7 @@
                     <div class="flex_box">
                         <div class="book-box-img">
                             <a href="http://mbook.kongfz.com/176551/4038746570/">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/8c892-3704.jpg" kfz-img-err="/mobile2-0/common/images/none_160.png" /></a>
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/8c892-9766.jpg" kfz-img-err="/mobile2-0/common/images/none_160.png" /></a>
                         </div>
                         <div class="book-box-con flex_box_item">
                             <p class="book-box-con-name">
@@ -831,7 +831,7 @@
                     <div class="flex_box">
                         <div class="book-box-img">
                             <a href="http://mbook.kongfz.com/330394/4038746552/">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/116ce-6272.jpg" kfz-img-err="/mobile2-0/common/images/none_160.png" /></a>
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/116ce-2563.jpg" kfz-img-err="/mobile2-0/common/images/none_160.png" /></a>
                         </div>
                         <div class="book-box-con flex_box_item">
                             <p class="book-box-con-name">
@@ -846,7 +846,7 @@
                     <div class="flex_box">
                         <div class="book-box-img">
                             <a href="http://mbook.kongfz.com/11941/4038746452/">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/de9a6-2019.jpg" kfz-img-err="/mobile2-0/common/images/none_160.png" /></a>
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/de9a6-5223.jpg" kfz-img-err="/mobile2-0/common/images/none_160.png" /></a>
                         </div>
                         <div class="book-box-con flex_box_item">
                             <p class="book-box-con-name">
@@ -861,7 +861,7 @@
                     <div class="flex_box">
                         <div class="book-box-img">
                             <a href="http://mbook.kongfz.com/161296/4038746410/">
-                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/1c25f-7461.jpg" kfz-img-err="/mobile2-0/common/images/none_160.png" /></a>
+                                <img src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/img/1c25f-3989.jpg" kfz-img-err="/mobile2-0/common/images/none_160.png" /></a>
                         </div>
                         <div class="book-box-con flex_box_item">
                             <p class="book-box-con-name">
@@ -935,8 +935,8 @@
 <div kfz-footer url="/mobile2-0/common/footer/footer.html" pc-Url="https://book.kongfz.com/?force_pc=1"></div>
 <!--回到顶部悬浮-->
 <div kfz-back-top url="/mobile2-0/common/back-top/back-top.html"></div>
-<script type="text/javascript" src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/js/81/angular.min.js"></script>
-<script type="text/javascript" src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/js/63/zepto.js"></script>
+<script type="text/javascript" src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/js/95/angular.min.js"></script>
+<script type="text/javascript" src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/js/62/zepto.js"></script>
 <script type="text/javascript" src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/js/common.js"></script>
 <script type="text/javascript" src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/js/header.js"></script>
 <script type="text/javascript" src="<?= Yii::getAlias('@tasseturl'); ?>/kongfz/m/js/footer.js"></script>
