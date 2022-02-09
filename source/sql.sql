@@ -1,4 +1,29 @@
 INSERT INTO `wp_page0104` (`id`, `name`, `site_code`, `code`, `url`, `is_mobile`, `status`) VALUES 
+(NULL, '美国总统', 'graphic', 'president', 'http://114.xixik.com/potus/', '0', '0'),
+(NULL, '朝代', 'graphic', 'dynasty', 'http://114.xixik.com/chaodai/', '0', '0'),
+(NULL, '皇帝', 'graphic', 'emperor', 'http://114.xixik.com/chinese-emperors/qing/', '0', '0'),
+
+(NULL, '美国总统', 'graphic', 'president', 'http://m.114.xixik.com/potus/', '1', '0'),
+(NULL, '朝代', 'graphic', 'dynasty', 'http://m.114.xixik.com/chaodai/', '1', '0'),
+(NULL, '皇帝', 'graphic', 'emperor', 'http://m.114.xixik.com/chinese-emperors/qing/', '1', '0'),
+
+
+(NULL, '排行榜', 'nav', 'rank', 'http://guozhivip.com/rank/', '0', '0'),
+(NULL, '运营', 'nav', 'operation', 'http://guozhivip.com/pod/', '0', '0'),
+(NULL, '工具', 'nav', 'tool', 'http://guozhivip.com/tool/', '0', '0'),
+(NULL, '搜索', 'nav', 'search', 'http://guozhivip.com/so/', '0', '0'),
+(NULL, '酷站', 'nav', 'coolsite', 'http://guozhivip.com/lab/', '0', '0'),
+(NULL, '设计', 'nav', 'design', 'http://guozhivip.com/design/', '0', '0'),
+(NULL, '导航', 'nav', 'nav', 'http://guozhivip.com/', '0', '0'),
+(NULL, '阅读', 'nav', 'readnav', 'http://guozhivip.com/xs/', '0', '0'),
+(NULL, '购物', 'nav', 'shop', 'http://guozhivip.com/hg/', '0', '0'),
+(NULL, '新闻', 'nav', 'news', 'http://guozhivip.com/news/', '0', '0'),
+(NULL, '影视', 'nav', 'tvfilm', 'http://guozhivip.com/mvs.html', '0', '0'),
+(NULL, '游戏', 'nav', 'game', 'http://guozhivip.com/game/', '0', '0'),
+(NULL, '图片', 'nav', 'picture', 'http://guozhivip.com/imgs.html', '0', '0'),
+(NULL, '学习', 'nav', 'study', 'http://guozhivip.com/edu/', '0', '0'),
+(NULL, '动漫', 'nav', 'cartoon', 'http://guozhivip.com/mh/', '0', '0'),
+(NULL, '', 'nav', '', '', '0', '0'),
 
 (NULL, '首页', 'kongfz', 'home', 'https://m.kongfz.com/', '1', '0'),
 (NULL, '书店', 'kongfz', 'store', 'https://m.kongfz.com/channel/1081', '1', '0'),
