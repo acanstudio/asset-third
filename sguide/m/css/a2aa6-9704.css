@@ -1,8 +1,0 @@
-/* CSS Document */
-.md_9029{ padding:0px 30px; background:url(../images/fe73c-8724.jpg); background-size:100%; position:relative; background-repeat:no-repeat; margin-top: -1px;}
-.md_9029 .mod_cont{ color:#43a886;}
-.md_9029 .mod_cont .bgline{ border-radius:20px; background:#14c896; height:24px; padding:5px 12px;}
-.md_9029 .mod_cont .bgline .bgoutline{border-radius:8px; background:#0faa7f; height:14px;}
-.md_9029 .mod_cont .mod_desc{ background:#fff; padding:30px 20px; text-indent:2em; margin:-12px 30px 0 30px;box-shadow: 0 20px 20px #f4faf8; text-align:justify;}
-.md_9029 .mod_cont .mod_desc:after{content:""; display:block; width:100%; height:80px; background:linear-gradient(180deg, #18ad84, #fff); opacity:0.2; position:absolute; top:0; left:0;}
-
