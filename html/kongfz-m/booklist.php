@@ -1,4 +1,4 @@
-<?php class Yii { public static function getAlias($var) { return "http://39.106.102.45/filesys/spider/pages"; } } ?>
+<?php class Yii { public static function getAlias($var) { return "http://39.106.102.45/common/asset"; } } ?>
 <!DOCTYPE html>
 <html ng-app="searchShop" style="background:#fff;">
 

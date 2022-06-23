@@ -1,4 +1,4 @@
-<?php class Yii { public static function getAlias($var) { return "http://39.106.102.45/filesys/spider/pages"; } } ?>
+<?php class Yii { public static function getAlias($var) { return "http://39.106.102.45/common/asset"; } } ?>
 <!doctype html>
 <!--[if lt IE 7]>
 <html class="no-js lt-ie9 lt-ie8 lt-ie7">

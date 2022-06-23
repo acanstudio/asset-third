@@ -1,0 +1,141 @@
+﻿/*八卦图*/
+.baguatu {
+    position: relation;
+	height:60px;
+	letter-spacing:-3px;
+	font-size:9px;
+	line-height:11px;
+	float:left;
+	margin-left:3px;
+	margin-right:3px;
+	background-color:yellow;
+	font-family: "宋体";
+}
+/*标题文字*/
+.title3 {
+	position: relation;
+	height:60px;
+	font-size:36px;
+	font-weight:bold;
+	vertical-align:middle;
+	padding-top:4px;
+	padding-left:4px;
+	padding-right:4px;
+	color:white;
+	background-color:green;
+}
+/*标题序号*/
+.titleno {
+	position: relation;
+	float:left;
+	height:60px;
+	font-size:14px;
+	font-weight:bold;
+	vertical-align:middle;
+	padding-top:2px;
+	padding-left:4px;
+	padding-right:4px;
+	color:white;
+	background-color:green;
+}
+/*标题上下卦名*/
+.title4 {
+	position: relation;
+	float:left;
+	height:58px;
+	font-size:22px;
+	font-weight:bold;
+	line-height:28px;
+	vertical-align:middle;
+	padding-top:4px;
+	padding-left:4px;
+	padding-right:4px;
+	color:white;
+	background-color:green;
+}
+
+/*卦辞*/
+.guaci {
+	font-size:14pt;
+	font-weight:bold;
+	color:#FF6600;
+	margin-left:70px;
+}
+
+/*爻辞*/
+.yaoci {
+	font-size:14pt;
+	font-weight:bold;
+	line-height:25px;
+	color:blue;
+	margin-left:70px;
+}
+
+/*----------------------------*/
+/*彖曰*/
+.tuan {
+	font-size: 13pt;
+	color: #800000;
+	font-weight: lighter;
+	padding:0;
+	margin:0;
+}
+/*象曰*/
+.xiang {
+	font-size: 13pt;
+	color: #0099FF;
+	font-weight: lighter;
+}
+/*文言曰*/
+.wenyan {
+	font-size: 13pt;
+	color: Olive;
+	font-weight: lighter;
+}
+/*子曰*/
+.kongzi {
+	font-size: 13pt;
+	color: DarkMagenta;
+	font-weight: lighter;
+}
+
+big,code {
+	color: white;
+	background: #0066CC;
+	margin-left:1px;
+	margin-right:1px;
+	padding-left:1px;
+	padding-right:1px;
+	padding-top:2px;
+}
+
+
+/*引用*/
+.yin {
+	font-size: 13pt;
+	color: DimGray;
+	font-weight: lighter;
+}
+
+/*-----------------------------*/
+/*其他*/
+.other {
+    text-indent:2em;
+	font-size: 13pt;
+	color: Teal;
+	font-weight: lighter;
+}
+
+/*2字合并*/
+.merge {
+	letter-spacing:-0.5em;
+	font-size:95%;
+}
+
+p {text-indent:0;
+	}
+
+acronym{color:red;}
+.zagua {
+	text-indent:2em;
+}

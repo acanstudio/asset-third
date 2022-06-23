@@ -1,0 +1,114 @@
+﻿@charset "utf-8";
+rb{font-size:16pt;padding-top:3px;}
+rt{font-size:14pt;font-family:Arial;}
+ruby{padding:0 3px;}
+
+
+p {
+	line-height:35px;
+	border-top: 1px  solid #C0DCC0;
+	text-indent: 2em;
+	padding-top:5px;
+	font-size:19px;
+	letter-spacing:1px;
+}
+
+p:hover{background:#f1f1dd;}
+
+pre {
+	color: black;
+	margin-bottom: 0px;
+    font-size: 11pt;
+    font-weight: light;
+}
+
+/*---------------*/
+/*经文*/
+.jingwen {
+	color:          #006600;
+	background:     #FFFFEC;
+    border:         1px solid #000000;
+    padding:        5px;
+	margin-left:    2em;
+	margin-right:   2em;
+}
+
+.tip {
+	color:brown;
+    cursor:         help;
+}
+
+.disp {
+	display:        none;
+}
+
+/*译文*/
+.yiwen {
+	color:Teal;
+}
+
+/*解读 谷梁*/
+.jiedu {
+	color:#660000;
+}
+
+/*注释*/
+.comment {
+	color:DarkSlateGray;
+}
+
+/*注释二，历代大儒中使用,春秋繁露题解用*/
+.zhushi {
+	color:gray;
+	font-size:16px;
+}
+
+/*引用 公羊*/
+.yinyong {
+	color: #3333CC;
+}
+
+/*评析 左传*/
+.pingxi {
+	color:#000000;
+}
+
+/*按钮*/
+.button {
+    border-top:     1px solid #ccccff;
+    border-left:    1px solid #ccccff;
+    border-right:   2px solid #999966;
+    border-bottom:  2px solid #999966;
+    margin:         2px;
+    padding-top:    4px;
+    padding-bottom: 2px;
+    color:          DarkSlateGray;
+    background:     PaleGoldenrod;
+    text-align:     center;
+    font-size:      11pt;
+    font-weight:    bold;
+	line-height:    20px;
+	display:inline-block;
+	text-indent:0;
+}
+
+.width6em {
+    width:          8em;
+}
+
+.width4em {
+    width:          4em;
+    cursor:         hand;
+
+}
+
+table {
+	line-height: 16pt;
+	font-size: 14pt;
+	font-family: "Microsoft YaHei";
+}
+
+.b_center{
+	text-align:		center;
+	margin:				30px 0 5px 0;
+}

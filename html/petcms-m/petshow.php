@@ -1,4 +1,4 @@
-<?php class Yii { public static function getAlias($var) { return "http://39.106.102.45/filesys/spider/pages"; } } ?>
+<?php class Yii { public static function getAlias($var) { return "http://39.106.102.45/common/asset"; } } ?>
 <!-- * @Description: In User Settings Edit * @Author: your name * @Date: 2019-06-18 16:27:52 * @LastEditTime: 2019-11-14 14:28:12 * @LastEditors: Please set LastEditors -->
 <!doctype html>
 <html>
