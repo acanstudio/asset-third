@@ -53,6 +53,9 @@
 	color:white;
 	background-color:green;
 }
+.mobile .title4 {
+	font-size:32px;
+}
 
 /*卦辞*/
 .guaci {
@@ -61,6 +64,9 @@
 	color:#FF6600;
 	margin-left:70px;
 }
+.mobile .guaci {
+	font-size:24pt;
+}
 
 /*爻辞*/
 .yaoci {
@@ -68,7 +74,11 @@
 	font-weight:bold;
 	line-height:25px;
 	color:blue;
-	margin-left:70px;
+	margin-left:40px;
+}
+.mobile .yaoci {
+    font-size: 30px;
+	line-height:45px;
 }
 
 /*----------------------------*/
@@ -80,11 +90,26 @@
 	padding:0;
 	margin:0;
 }
+.mobile .tuan {
+	font-size:24pt;
+margin: 0;
+    margin-top: 10px;
+    margin-right: 0px;
+    margin-bottom: 10px;
+    margin-left: 0px;
+}
 /*象曰*/
 .xiang {
 	font-size: 13pt;
 	color: #0099FF;
 	font-weight: lighter;
+}
+
+.mobile .xiang {
+	font-size: 23pt;
+}
+.mobile .xiangci {
+	font-size: 23pt;
 }
 /*文言曰*/
 .wenyan {
@@ -100,6 +125,7 @@
 }
 
 big,code {
+    line-height:130%;
 	color: white;
 	background: #0066CC;
 	margin-left:1px;
@@ -108,6 +134,14 @@ big,code {
 	padding-right:1px;
 	padding-top:2px;
 }
+.tuan big {
+	margin-right:20px;
+	background: #00897b;
+}
+.daxiang big {
+	margin-right:20px;
+	background: #00897b;
+}
 
 
 /*引用*/
@@ -115,6 +149,10 @@ big,code {
 	font-size: 13pt;
 	color: DimGray;
 	font-weight: lighter;
+}
+
+.mobile .yin {
+	font-size: 23pt;
 }
 
 /*-----------------------------*/

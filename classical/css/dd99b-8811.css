@@ -30,10 +30,13 @@ pre {
 	background:     #FFFFEC;
     border:         1px solid #000000;
     padding:        5px;
-    font-size:      28px;
+    font-size:      20px;
 	/*margin-left:    2em;*/
 	text-align: left;
 	/*margin-right:   2em;*/
+}
+.mobile .jingwen {
+    font-size:      24px;
 }
 
 .tip {
@@ -50,7 +53,10 @@ pre {
 	color:Teal;
 }
 .yiwen p{
-    font-size: 28px;
+    font-size: 22px;
+}
+.mobile .yiwen p{
+    font-size: 30px;
 }
 
 /*解读 谷梁*/
@@ -63,7 +69,11 @@ pre {
 
 /*注释*/
 .comment {
+    font-size: 18px;
 	color:DarkSlateGray;
+}
+.mobile .comment p{
+    font-size: 28px;
 }
 
 /*注释二，历代大儒中使用,春秋繁露题解用*/
@@ -100,15 +110,26 @@ pre {
 	display:inline-block;
 	text-indent:0;
 }
+.mobile .button{
+    font-size:      28pt;
+	line-height:    50px;
+}
 
 .width6em {
     width:          8em;
+}
+.mobile .width6em {
+    width:          5em;
 }
 
 .width4em {
     width:          4em;
     cursor:         hand;
+}
 
+.mobile .width4em {
+    width:          2em;
+    cursor:         hand;
 }
 
 table {
@@ -120,4 +141,8 @@ table {
 .b_center{
 	text-align:		center;
 	margin:				30px 0 5px 0;
+}
+.mobile .b_center{
+	text-align:		center;
+	margin:				30px 0 30px 0;
 }
