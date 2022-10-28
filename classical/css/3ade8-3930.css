@@ -53,9 +53,10 @@ table{border-collapse:collapse;}
 caption {
 	font-family:    "Microsoft YaHei";
 	font-weight:    bold;
-    font-size:      17px;
+    font-size:      24px;
     color:		#222;
-	margin-top:18px;
+	margin-top:1px;
+	margin-bottom:10px;
 }
 
 /* 背景页面 ▲*/
@@ -75,6 +76,9 @@ ridge  outset ▼*/
     padding:5px;
     
 }
+.mobile .base_index {
+    width:               920px;
+}
 
 
 
@@ -87,6 +91,9 @@ ridge  outset ▼*/
     border-bottom-color: LightGrey ;
     border-left-color:   #AAA699 ;
     border-right-color:  #AAA699 ;
+}
+.mobile ._base_index{
+    width:               920px;
 }
 /* 主文字区 ▲*/
 
@@ -143,6 +150,9 @@ p {
     line-height:200%;
 
 }
+.mobile .indextable {
+    font-size:      30pt;
+}
 
 .indextable a:link{text-decoration:none; }
 .indextable a:visited{text-decoration:none; color:#900;}
@@ -161,6 +171,9 @@ p {
     padding-left:  10px;
     height:        26px;
 	font-family:    Microsoft YaHei;
+}
+.mobile .index_left_td a {
+    font-size:      24pt;
 }
 
 

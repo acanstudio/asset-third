@@ -103,7 +103,7 @@ a.logo:visited{text-decoration:none; color: DarkSlateGray; cursor: hand;}
 h1 {
 	position:          relation;
 	height-line:            20px;
-	font-size:         18pt;
+	font-size:         28pt;
 	font-weight:       bold;
 	text-align:        center;
 	padding:           4px;
@@ -200,7 +200,7 @@ h4 {
 	font-size: 17px; 
 	line-height:38px;
 	padding:0 2.5em; 
-	width:85%;
+	width:100%;
 	margin:0 auto;
 	font-family: "Microsoft YaHei";
 }
@@ -331,6 +331,13 @@ font-size:15px;
 font-family:SimSun;
 border:1px solid #ccc;
 background-color:f9f9f9;
+}
+
+.zh_click {
+  font-size:20px;	
+}
+.mobile .zh_click {
+  font-size:36px;	
 }
 
 abbr{color:red;}
