@@ -1,0 +1,30 @@
+    p {border:1px solid red;}
+    p 
+    {
+    	border:1px solid red;
+    	/*outline:green dotted thick;*/
+    	outline-style:dotted;
+    	/*outline-color:#00ff00;*/
+    }
+
+    p.dotted {outline-style:dotted;}
+    p.dashed {outline-style:dashed;}
+    p.solid {outline-style:solid;}
+    p.double {outline-style:double;}
+    p.groove {outline-style:groove;}
+    p.ridge {outline-style:ridge;}
+    p.inset {outline-style:inset;}
+    p.outset {outline-style:outset;}
+
+        p.one
+    {
+    	border:1px solid red;
+    	outline-style:solid;
+    	outline-width:thin;
+    }
+    p.two
+    {
+    	border:1px solid red;
+    	outline-style:dotted;
+    	outline-width:3px;
+    }

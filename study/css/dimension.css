@@ -1,0 +1,41 @@
+    img.normal
+    {
+    	height:auto;
+    }
+    img.big
+    {
+    	height:120px;
+    }
+    p.ex
+    {
+    	height:100px;
+    	width:100px;
+    }
+
+        html {height:100%;}
+    body {height:100%;}
+    img.normal {height:auto;}
+    img.big {height:50%;}
+    img.small {height:10%;}
+
+        img {width:200px;}
+
+p
+{
+	max-height:50px;
+	background-color:yellow;
+}
+
+    p.width 
+    {
+        padding-top:2cm;
+    	max-width:20%;
+    	background-color:green;
+    }
+
+    p.heightmin
+    {
+    	min-height:100px;
+    	    	min-width:150px;
+    	background-color:yellow;
+    }

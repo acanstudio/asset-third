@@ -1,0 +1,68 @@
+    p.pos_fixed
+    {
+    	position:fixed;
+    	top:30px;
+    	right:5px;
+    }
+
+    h2.pos_left
+    {
+    	position:relative;
+    	left:-20px;
+    }
+    
+    h2.pos_right
+    {
+    	position:relative;
+    	left:20px;
+    }
+
+h2.pos_top
+{
+	position:relative;
+	top:-40px;
+}
+
+    .absolute 
+    {
+    	position:absolute;
+    	left:100px;
+    	top:250px;
+    }
+    img
+    {
+    	position:absolute;
+    	left:0px;
+    	top:0px;
+    	z-index:-1;
+    }
+
+    .absoluteimg
+    {
+    	position:absolute;
+    	top:1000px;
+    	clip:rect(0px,60px,200px,0px);
+    }
+
+    div.scroll
+    {
+    	background-color:#00FFFF;
+    	width:100px;
+    	height:100px;
+    	overflow:scroll;
+    }
+    
+    div.hidden 
+    {
+    	background-color:#00FF00;
+    	width:100px;
+    	height:100px;
+    	overflow:hidden;
+    }
+
+    .overflow {
+    	background-color:#00FFFF;
+    	width:150px;
+    	height:150px;
+    	overflow:hidden;
+    }

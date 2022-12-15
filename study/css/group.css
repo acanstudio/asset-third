@@ -1,0 +1,30 @@
+/*h1
+{
+color:green;
+}
+h2
+{
+color:green;
+}
+p
+{
+color:green;
+}*/
+
+h1, h2, p {
+color:green;
+}
+
+    p
+    {
+    	color:blue;
+    	text-align:center;
+    }
+    .marked
+    {
+    	background-color:red;
+    }
+    .marked p
+    {
+    	color:white;
+    }

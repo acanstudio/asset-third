@@ -1,0 +1,67 @@
+    /*img 
+    {
+    	float:right;
+    	border:1px dotted black;
+    	margin:0px 0px 15px 20px;
+    }
+    .thumbnail 
+    {
+    	float:left;
+    	width:110px;
+    	height:90px;
+    	margin:5px;
+    }
+    .text_line
+    {
+    	clear:both;
+    	margin-bottom:2px;
+    }
+    div
+    {
+    	float:right;
+    	width:120px;
+    	margin:0 0 15px 20px;
+    	padding:15px;
+    	border:1px solid black;
+    	text-align:center;
+    }
+    span
+    {
+    	float:left;
+    	width:1.2em;
+    	font-size:400%;
+    	font-family:algerian,courier;
+    	line-height:80%;
+    }*/
+    div.container
+    {
+    	width:100%;
+    	margin:0px;
+    	border:1px solid gray;
+    	
+    }
+    div.header,div.footer
+    {
+    	padding:0.5em;
+    	color:white;
+    	background-color:gray;
+    	clear:left;
+    }
+    h1.header
+    {
+    	padding:0;
+    	margin:0;
+    }
+    div.left
+    {
+    	float:left;
+    	width:160px;
+    	margin:0;
+    	padding:1em;
+    }
+    div.content
+    {
+    	margin-left:190px;
+    	border-left:1px solid gray;
+    	padding:1em;
+    }

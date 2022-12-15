@@ -1,0 +1,31 @@
+p
+{
+	background-color:yellow;
+}
+/*p.padding
+{
+	padding-top:25px;
+	padding-bottom:25px;
+	padding-right:50px;
+	padding-left:50px;
+}*/
+
+p.padding
+{
+	padding:25px 50px;
+}
+
+    p.ex1 {padding:2cm;}
+    p.ex2 {padding:0.5cm 3cm;}
+
+        p.padding {padding-left:2cm;}
+    p.padding2 {padding-left:50%;}
+
+    p.paddingr {padding-right:2cm;}
+p.paddingr2 {padding-right:50%;}
+
+    p.paddingt {padding-top:2cm;}
+    p.paddingt2 {padding-top:50%;}
+
+    p.paddingb {padding-bottom:2cm;}
+    p.paddingb2 {padding-bottom:50%;}

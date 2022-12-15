@@ -1,0 +1,60 @@
+    a:link {color:#FF0000;}    /* unvisited link */
+    a:visited {color:#00FF00;} /* visited link */
+    a:hover {color:#FF00FF;}   /* mouse over link */
+    a:active {color:#0000FF;}  /* selected link */
+
+    .select p:first-child
+    {
+    	color:blue;
+    } 
+
+    /*p > i:first-child
+    {
+    	color:blue;
+    } */
+
+    .sfirst p:first-child i
+    {
+    	color:blue;
+    } 
+
+    q:lang(no)
+    {
+    	quotes: "~" "~";
+    }
+
+    input:focus
+    {
+    	background-color:yellow;
+    }
+
+    .pseudo p:first-line
+    {
+    color:#ff0000;
+    font-variant:small-caps;
+    }
+
+    .psletter p:first-letter 
+    {
+    	color:#ff0000;
+    	font-size:xx-large;
+    }
+
+        p.article:first-letter {color:#ff0000;}
+
+    .psmul     p:first-letter
+    {
+    	color:#ff0000;
+    	font-size:xx-large;
+    }
+    .psmul p:first-line 
+    {
+    	color:#0000ff;
+    	font-variant:small-caps;
+    }   
+
+     h1:before {content:url(/study/images/smiley.gif);}
+
+         h1:after {content:url(/study/images/smiley.gif);}
+
+

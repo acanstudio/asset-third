@@ -1,0 +1,13 @@
+    h1.hidden {visibility:hidden;} /*visible  collapse*/
+    h1.displaynone {display:none;}
+
+    li{display:inline}
+
+span
+{
+	display:block;
+}
+
+    /*p {display:inline;}*/
+
+        tr.collapse {visibility:collapse;}
