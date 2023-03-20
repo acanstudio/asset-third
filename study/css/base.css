@@ -1,0 +1,86 @@
+body {
+	font-size:75%;
+	font-family:verdana,arial,'sans serif';
+	/*font-family:"lucida calligraphy",arial,'sans serif';*/
+	background-image:url('gradient.png');
+	background-repeat:repeat-x;
+	background-color:#FFFFF0;
+    /*background-color:yellow;
+    background-color:tan;
+    background-color:#d0e4fe;
+	background-color:#DCDCDC;*/
+	color:#000080;
+	/*color:#8A2BE2;*/
+	margin:50px;
+}
+
+h1 {
+    color:orange;
+    color:blue;
+    text-align:center;
+	font-size:200%;
+    font-size:36pt;
+    color:maroon;
+    font-size:20pt;
+}
+h2 {
+	font-size:140%;
+}
+h3 {
+	font-size:110%;
+}
+
+p {
+    font-family:"Times New Roman";
+    font-size:20px;
+    margin-left:50px;
+    font-size:11pt;
+    margin-left:15px;
+}
+hr {
+    color:navy;
+}
+th {
+	background-color:#ADD8E6;
+	/*background-color:#D3D3D3;*/
+}
+ul {
+	list-style:circle;
+}
+ol {
+	list-style:upper-roman;
+}
+td {
+	background-color:#FFFAF0;
+}
+
+a:link {
+	/*color:#000080;*/
+	color:#8A2BE2;
+	text-decoration:none;
+}
+a:hover {
+	color:red;
+	font-weight:bold;
+	/*text-decoration:none;*/
+}
+a:visited {
+    color:yellow;
+	text-decoration:none;
+}
+a:active {
+    color:blue;
+}
+
+#redP p {
+    /* 权值 = 100+1=101 */
+    color:#F00;  /* 红色 */
+}
+#redP .red em {
+    /* 权值 = 100+10+1=111 */
+    color:#00F; /* 蓝色 */
+}
+#redP p span em {
+    /* 权值 = 100+1+1+1=103 */
+    color:#FF0;/*黄色*/
+}

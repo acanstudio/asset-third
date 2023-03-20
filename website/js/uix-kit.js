@@ -4,11 +4,11 @@
  * Generated with "npm run build"
  *
  * ## Project Name        :  Uix Kit
- * ## Project Description :  A free web kits for fast web design and development, compatible with Bootstrap v4.
+ * ## Project Description :  A free web kits for fast web design and development, compatible with Bootstrap v5.
  * ## Project URL         :  https://uiux.cc
- * ## Version             :  4.6.5
+ * ## Version             :  4.7.2
  * ## Based on            :  Uix Kit (https://github.com/xizon/uix-kit)
- * ## Last Update         :  June 23, 2022
+ * ## Last Update         :  November 28, 2022
  * ## Created by          :  UIUX Lab (https://uiux.cc) (uiuxlab@gmail.com)
  * ## Released under the MIT license.
  *
@@ -3241,6 +3241,7479 @@ var EventDispatcher = nonGlobals.events.EventDispatcher;
 
 /***/ }),
 
+/***/ 996:
+/***/ ((module, __unused_webpack___webpack_exports__, __webpack_require__) => {
+
+"use strict";
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
+/* module decorator */ module = __webpack_require__.hmd(module);
+
+
+/**
+* Muuri v0.8.0
+* https://github.com/haltu/muuri
+* Copyright (c) 2015-present, Haltu Oy
+* Released under the MIT license
+* https://github.com/haltu/muuri/blob/master/LICENSE.md
+* @license MIT
+*
+* Muuri Packer
+* Copyright (c) 2016-present, Niklas Rämö <inramo@gmail.com>
+* @license MIT
+*
+* Muuri Ticker / Muuri Emitter / Muuri Queue
+* Copyright (c) 2018-present, Niklas Rämö <inramo@gmail.com>
+* @license MIT
+*/
+(function (global, factory) {
+  (typeof exports === "undefined" ? "undefined" : (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .Z)(exports)) === 'object' && "object" !== 'undefined' ? module.exports = factory() : typeof define === 'function' && __webpack_require__.amdO ? define(factory) : (global = global || self, global.Muuri = factory());
+})(undefined, function () {
+  'use strict';
+
+  var namespace = 'Muuri';
+  var gridInstances = {};
+  var actionSwap = 'swap';
+  var actionMove = 'move';
+  var eventSynchronize = 'synchronize';
+  var eventLayoutStart = 'layoutStart';
+  var eventLayoutEnd = 'layoutEnd';
+  var eventAdd = 'add';
+  var eventRemove = 'remove';
+  var eventShowStart = 'showStart';
+  var eventShowEnd = 'showEnd';
+  var eventHideStart = 'hideStart';
+  var eventHideEnd = 'hideEnd';
+  var eventFilter = 'filter';
+  var eventSort = 'sort';
+  var eventMove = 'move';
+  var eventSend = 'send';
+  var eventBeforeSend = 'beforeSend';
+  var eventReceive = 'receive';
+  var eventBeforeReceive = 'beforeReceive';
+  var eventDragInit = 'dragInit';
+  var eventDragStart = 'dragStart';
+  var eventDragMove = 'dragMove';
+  var eventDragScroll = 'dragScroll';
+  var eventDragEnd = 'dragEnd';
+  var eventDragReleaseStart = 'dragReleaseStart';
+  var eventDragReleaseEnd = 'dragReleaseEnd';
+  var eventDestroy = 'destroy';
+  /**
+   * Event emitter constructor.
+   *
+   * @class
+   */
+
+  function Emitter() {
+    this._events = {};
+    this._queue = [];
+    this._counter = 0;
+    this._isDestroyed = false;
+  }
+  /**
+   * Public prototype methods
+   * ************************
+   */
+
+  /**
+   * Bind an event listener.
+   *
+   * @public
+   * @memberof Emitter.prototype
+   * @param {String} event
+   * @param {Function} listener
+   * @returns {Emitter}
+   */
+
+
+  Emitter.prototype.on = function (event, listener) {
+    if (this._isDestroyed) return this; // Get listeners queue and create it if it does not exist.
+
+    var listeners = this._events[event];
+    if (!listeners) listeners = this._events[event] = []; // Add the listener to the queue.
+
+    listeners.push(listener);
+    return this;
+  };
+  /**
+   * Unbind all event listeners that match the provided listener function.
+   *
+   * @public
+   * @memberof Emitter.prototype
+   * @param {String} event
+   * @param {Function} [listener]
+   * @returns {Emitter}
+   */
+
+
+  Emitter.prototype.off = function (event, listener) {
+    if (this._isDestroyed) return this; // Get listeners and return immediately if none is found.
+
+    var listeners = this._events[event];
+    if (!listeners || !listeners.length) return this; // If no specific listener is provided remove all listeners.
+
+    if (!listener) {
+      listeners.length = 0;
+      return this;
+    } // Remove all matching listeners.
+
+
+    var i = listeners.length;
+
+    while (i--) {
+      if (listener === listeners[i]) listeners.splice(i, 1);
+    }
+
+    return this;
+  };
+  /**
+   * Emit all listeners in a specified event with the provided arguments.
+   *
+   * @public
+   * @memberof Emitter.prototype
+   * @param {String} event
+   * @param {*} [arg1]
+   * @param {*} [arg2]
+   * @param {*} [arg3]
+   * @returns {Emitter}
+   */
+
+
+  Emitter.prototype.emit = function (event, arg1, arg2, arg3) {
+    if (this._isDestroyed) return this; // Get event listeners and quit early if there's no listeners.
+
+    var listeners = this._events[event];
+    if (!listeners || !listeners.length) return this;
+    var queue = this._queue;
+    var qLength = queue.length;
+    var aLength = arguments.length - 1;
+    var i; // Add the current listeners to the callback queue before we process them.
+    // This is necessary to guarantee that all of the listeners are called in
+    // correct order even if new event listeners are removed/added during
+    // processing and/or events are emitted during processing.
+
+    for (i = 0; i < listeners.length; i++) {
+      queue.push(listeners[i]);
+    } // Increment queue counter. This is needed for the scenarios where emit is
+    // triggered while the queue is already processing. We need to keep track of
+    // how many "queue processors" there are active so that we can safely reset
+    // the queue in the end when the last queue processor is finished.
+
+
+    ++this._counter; // Process the queue (the specific part of it for this emit).
+
+    for (i = qLength, qLength = queue.length; i < qLength; i++) {
+      // prettier-ignore
+      aLength === 0 ? queue[i]() : aLength === 1 ? queue[i](arg1) : aLength === 2 ? queue[i](arg1, arg2) : queue[i](arg1, arg2, arg3); // Stop processing if the emitter is destroyed.
+
+      if (this._isDestroyed) return this;
+    } // Decrement queue process counter.
+
+
+    --this._counter; // Reset the queue if there are no more queue processes running.
+
+    if (!this._counter) queue.length = 0;
+    return this;
+  };
+  /**
+   * Destroy emitter instance. Basically just removes all bound listeners.
+   *
+   * @public
+   * @memberof Emitter.prototype
+   * @returns {Emitter}
+   */
+
+
+  Emitter.prototype.destroy = function () {
+    if (this._isDestroyed) return this;
+    var events = this._events;
+    var event; // Flag as destroyed.
+
+    this._isDestroyed = true; // Reset queue (if queue is currently processing this will also stop that).
+
+    this._queue.length = this._counter = 0; // Remove all listeners.
+
+    for (event in events) {
+      if (events[event]) {
+        events[event].length = 0;
+        events[event] = undefined;
+      }
+    }
+
+    return this;
+  }; // Set up the default export values.
+
+
+  var transformStyle = 'transform';
+  var transformProp = 'transform'; // Find the supported transform prop and style names.
+
+  var docElemStyle = window.document.documentElement.style;
+  var style = 'transform';
+  var styleCap = 'Transform';
+  var found = false;
+  ['', 'Webkit', 'Moz', 'O', 'ms'].forEach(function (prefix) {
+    if (found) return;
+    var propName = prefix ? prefix + styleCap : style;
+
+    if (docElemStyle[propName] !== undefined) {
+      prefix = prefix.toLowerCase();
+      transformStyle = prefix ? '-' + prefix + '-' + style : style;
+      transformProp = propName;
+      found = true;
+    }
+  });
+  var stylesCache = typeof WeakMap === 'function' ? new WeakMap() : null;
+  /**
+   * Returns the computed value of an element's style property as a string.
+   *
+   * @param {HTMLElement} element
+   * @param {String} style
+   * @returns {String}
+   */
+
+  function getStyle(element, style) {
+    var styles = stylesCache && stylesCache.get(element);
+
+    if (!styles) {
+      styles = window.getComputedStyle(element, null);
+      if (stylesCache) stylesCache.set(element, styles);
+    }
+
+    return styles.getPropertyValue(style === 'transform' ? transformStyle : style);
+  }
+
+  var styleNameRegEx = /([A-Z])/g;
+  /**
+   * Transforms a camel case style property to kebab case style property.
+   *
+   * @param {String} string
+   * @returns {String}
+   */
+
+  function getStyleName(string) {
+    return string.replace(styleNameRegEx, '-$1').toLowerCase();
+  }
+
+  var strFunction = 'function';
+  /**
+   * Check if a value is a function.
+   *
+   * @param {*} val
+   * @returns {Boolean}
+   */
+
+  function isFunction(val) {
+    return (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .Z)(val) === strFunction;
+  }
+
+  var transformStyle$1 = 'transform';
+  /**
+   * Set inline styles to an element.
+   *
+   * @param {HTMLElement} element
+   * @param {Object} styles
+   */
+
+  function setStyles(element, styles) {
+    for (var prop in styles) {
+      element.style[prop === transformStyle$1 ? transformProp : prop] = styles[prop];
+    }
+  }
+  /**
+   * Item animation handler powered by Web Animations API.
+   *
+   * @class
+   * @param {HTMLElement} element
+   */
+
+
+  function ItemAnimate(element) {
+    this._element = element;
+    this._animation = null;
+    this._callback = null;
+    this._props = [];
+    this._values = [];
+    this._keyframes = [];
+    this._options = {};
+    this._isDestroyed = false;
+    this._onFinish = this._onFinish.bind(this);
+  }
+  /**
+   * Public prototype methods
+   * ************************
+   */
+
+  /**
+   * Start instance's animation. Automatically stops current animation if it is
+   * running.
+   *
+   * @public
+   * @memberof ItemAnimate.prototype
+   * @param {Object} propsFrom
+   * @param {Object} propsTo
+   * @param {Object} [options]
+   * @param {Number} [options.duration=300]
+   * @param {String} [options.easing='ease']
+   * @param {Function} [options.onFinish]
+   */
+
+
+  ItemAnimate.prototype.start = function (propsFrom, propsTo, options) {
+    if (this._isDestroyed) return;
+    var animation = this._animation;
+    var currentProps = this._props;
+    var currentValues = this._values;
+    var opts = options || 0;
+    var cancelAnimation = false; // If we have an existing animation running, let's check if it needs to be
+    // cancelled or if it can continue running.
+
+    if (animation) {
+      var propCount = 0;
+      var propIndex; // Check if the requested animation target props and values match with the
+      // current props and values.
+
+      for (var propName in propsTo) {
+        ++propCount;
+        propIndex = currentProps.indexOf(propName);
+
+        if (propIndex === -1 || propsTo[propName] !== currentValues[propIndex]) {
+          cancelAnimation = true;
+          break;
+        }
+      } // Check if the target props count matches current props count. This is
+      // needed for the edge case scenario where target props contain the same
+      // styles as current props, but the current props have some additional
+      // props.
+
+
+      if (!cancelAnimation && propCount !== currentProps.length) {
+        cancelAnimation = true;
+      }
+    } // Cancel animation (if required).
+
+
+    if (cancelAnimation) animation.cancel(); // Store animation callback.
+
+    this._callback = isFunction(opts.onFinish) ? opts.onFinish : null; // If we have a running animation that does not need to be cancelled, let's
+    // call it a day here and let it run.
+
+    if (animation && !cancelAnimation) return; // Store target props and values to instance.
+
+    currentProps.length = currentValues.length = 0;
+
+    for (propName in propsTo) {
+      currentProps.push(propName);
+      currentValues.push(propsTo[propName]);
+    } // Set up keyframes.
+
+
+    var animKeyframes = this._keyframes;
+    animKeyframes[0] = propsFrom;
+    animKeyframes[1] = propsTo; // Set up options.
+
+    var animOptions = this._options;
+    animOptions.duration = opts.duration || 300;
+    animOptions.easing = opts.easing || 'ease'; // Start the animation
+
+    var element = this._element;
+    animation = element.animate(animKeyframes, animOptions);
+    animation.onfinish = this._onFinish;
+    this._animation = animation; // Set the end styles. This makes sure that the element stays at the end
+    // values after animation is finished.
+
+    setStyles(element, propsTo);
+  };
+  /**
+   * Stop instance's current animation if running.
+   *
+   * @public
+   * @memberof ItemAnimate.prototype
+   * @param {Object} [styles]
+   */
+
+
+  ItemAnimate.prototype.stop = function (styles) {
+    if (this._isDestroyed || !this._animation) return;
+    var element = this._element;
+    var currentProps = this._props;
+    var currentValues = this._values;
+    var propName;
+    var propValue;
+    var i; // Calculate (if not provided) and set styles.
+
+    if (!styles) {
+      for (i = 0; i < currentProps.length; i++) {
+        propName = currentProps[i];
+        propValue = getStyle(element, getStyleName(propName));
+        element.style[propName === 'transform' ? transformProp : propName] = propValue;
+      }
+    } else {
+      setStyles(element, styles);
+    } //  Cancel animation.
+
+
+    this._animation.cancel();
+
+    this._animation = this._callback = null; // Reset current props and values.
+
+    currentProps.length = currentValues.length = 0;
+  };
+  /**
+   * Check if the item is being animated currently.
+   *
+   * @public
+   * @memberof ItemAnimate.prototype
+   * @return {Boolean}
+   */
+
+
+  ItemAnimate.prototype.isAnimating = function () {
+    return !!this._animation;
+  };
+  /**
+   * Destroy the instance and stop current animation if it is running.
+   *
+   * @public
+   * @memberof ItemAnimate.prototype
+   */
+
+
+  ItemAnimate.prototype.destroy = function () {
+    if (this._isDestroyed) return;
+    this.stop();
+    this._element = this._options = this._keyframes = null;
+    this._isDestroyed = true;
+  };
+  /**
+   * Private prototype methods
+   * *************************
+   */
+
+  /**
+   * Animation end handler.
+   *
+   * @private
+   * @memberof ItemAnimate.prototype
+   */
+
+
+  ItemAnimate.prototype._onFinish = function () {
+    var callback = this._callback;
+    this._animation = this._callback = null;
+    this._props.length = this._values.length = 0;
+    callback && callback();
+  };
+
+  var vendorPrefixes = ['', 'webkit', 'moz', 'ms', 'o', 'Webkit', 'Moz', 'MS', 'O'];
+  /**
+   * Get prefixed CSS property name when given a non-prefixed CSS property name.
+   * @param {Object} elemStyle
+   * @param {String} propName
+   * @returns {!String}
+   */
+
+  function getPrefixedPropName(elemStyle, propName) {
+    var camelPropName = propName[0].toUpperCase() + propName.slice(1);
+    var i = 0;
+    var prefix;
+    var prefixedPropName;
+
+    while (i < vendorPrefixes.length) {
+      prefix = vendorPrefixes[i];
+      prefixedPropName = prefix ? prefix + camelPropName : propName;
+      if (prefixedPropName in elemStyle) return prefixedPropName;
+      ++i;
+    }
+
+    return null;
+  }
+
+  var dt = 1000 / 60;
+
+  var raf = (window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.msRequestAnimationFrame || function (callback) {
+    return this.setTimeout(function () {
+      callback(dt);
+    }, dt);
+  }).bind(window); // Detect support for passive events:
+  // https://github.com/WICG/EventListenerOptions/blob/gh-pages/explainer.md#feature-detection
+
+
+  var isPassiveEventsSupported = false;
+
+  try {
+    var passiveOpts = Object.defineProperty({}, 'passive', {
+      get: function get() {
+        isPassiveEventsSupported = true;
+      }
+    });
+    window.addEventListener('testPassive', null, passiveOpts);
+    window.removeEventListener('testPassive', null, passiveOpts);
+  } catch (e) {} // Dragger events.
+
+
+  var events = {
+    start: 'start',
+    move: 'move',
+    end: 'end',
+    cancel: 'cancel'
+  };
+  var hasTouchEvents = !!('ontouchstart' in window || window.TouchEvent);
+  var hasPointerEvents = !!window.PointerEvent;
+  var hasMsPointerEvents = !!window.navigator.msPointerEnabled;
+  var isAndroid = /(android)/i.test(window.navigator.userAgent);
+  var listenerOptions = isPassiveEventsSupported ? {
+    passive: true
+  } : false;
+  var taProp = 'touchAction';
+  var taPropPrefixed = getPrefixedPropName(window.document.documentElement.style, taProp);
+  var taDefaultValue = 'auto';
+  /**
+   * Creates a new Dragger instance for an element.
+   *
+   * @public
+   * @class
+   * @param {HTMLElement} element
+   * @param {Object} [cssProps]
+   */
+
+  function Dragger(element, cssProps) {
+    this._element = element;
+    this._emitter = new Emitter();
+    this._isDestroyed = false;
+    this._cssProps = {};
+    this._touchAction = '';
+    this._startEvent = null;
+    this._pointerId = null;
+    this._startTime = 0;
+    this._startX = 0;
+    this._startY = 0;
+    this._currentX = 0;
+    this._currentY = 0;
+    this._preStartCheck = this._preStartCheck.bind(this);
+    this._abortNonCancelable = this._abortNonCancelable.bind(this);
+    this._onStart = this._onStart.bind(this);
+    this._onMove = this._onMove.bind(this);
+    this._onCancel = this._onCancel.bind(this);
+    this._onEnd = this._onEnd.bind(this); // Apply initial css props.
+
+    this.setCssProps(cssProps); // If touch action was not provided with initial css props let's assume it's
+    // auto.
+
+    if (!this._touchAction) {
+      this.setTouchAction(taDefaultValue);
+    } // Prevent native link/image dragging for the item and it's ancestors.
+
+
+    element.addEventListener('dragstart', Dragger._preventDefault, false); // Listen to start event.
+
+    element.addEventListener(Dragger._events.start, this._preStartCheck, listenerOptions); // If we have touch events, but no pointer events we need to also listen for
+    // mouse events in addition to touch events for devices which support both
+    // mouse and touch interaction.
+
+    if (hasTouchEvents && !hasPointerEvents && !hasMsPointerEvents) {
+      element.addEventListener(Dragger._mouseEvents.start, this._preStartCheck, listenerOptions);
+    }
+  }
+  /**
+   * Protected properties
+   * ********************
+   */
+
+
+  Dragger._pointerEvents = {
+    start: 'pointerdown',
+    move: 'pointermove',
+    cancel: 'pointercancel',
+    end: 'pointerup'
+  };
+  Dragger._msPointerEvents = {
+    start: 'MSPointerDown',
+    move: 'MSPointerMove',
+    cancel: 'MSPointerCancel',
+    end: 'MSPointerUp'
+  };
+  Dragger._touchEvents = {
+    start: 'touchstart',
+    move: 'touchmove',
+    cancel: 'touchcancel',
+    end: 'touchend'
+  };
+  Dragger._mouseEvents = {
+    start: 'mousedown',
+    move: 'mousemove',
+    cancel: '',
+    end: 'mouseup'
+  };
+
+  Dragger._events = function () {
+    if (hasPointerEvents) return Dragger._pointerEvents;
+    if (hasMsPointerEvents) return Dragger._msPointerEvents;
+    if (hasTouchEvents) return Dragger._touchEvents;
+    return Dragger._mouseEvents;
+  }();
+
+  Dragger._emitter = new Emitter();
+  Dragger._activeInstances = [];
+  /**
+   * Protected static methods
+   * ************************
+   */
+
+  Dragger._preventDefault = function (e) {
+    if (e.preventDefault && e.cancelable !== false) e.preventDefault();
+  };
+
+  Dragger._activateInstance = function (instance) {
+    var index = Dragger._activeInstances.indexOf(instance);
+
+    if (index > -1) return;
+
+    Dragger._activeInstances.push(instance);
+
+    Dragger._emitter.on(events.move, instance._onMove);
+
+    Dragger._emitter.on(events.cancel, instance._onCancel);
+
+    Dragger._emitter.on(events.end, instance._onEnd);
+
+    if (Dragger._activeInstances.length === 1) {
+      Dragger._bindListeners();
+    }
+  };
+
+  Dragger._deactivateInstance = function (instance) {
+    var index = Dragger._activeInstances.indexOf(instance);
+
+    if (index === -1) return;
+
+    Dragger._activeInstances.splice(index, 1);
+
+    Dragger._emitter.off(events.move, instance._onMove);
+
+    Dragger._emitter.off(events.cancel, instance._onCancel);
+
+    Dragger._emitter.off(events.end, instance._onEnd);
+
+    if (!Dragger._activeInstances.length) {
+      Dragger._unbindListeners();
+    }
+  };
+
+  Dragger._bindListeners = function () {
+    var events = Dragger._events;
+    window.addEventListener(events.move, Dragger._onMove, listenerOptions);
+    window.addEventListener(events.end, Dragger._onEnd, listenerOptions);
+    events.cancel && window.addEventListener(events.cancel, Dragger._onCancel, listenerOptions);
+  };
+
+  Dragger._unbindListeners = function () {
+    var events = Dragger._events;
+    window.removeEventListener(events.move, Dragger._onMove, listenerOptions);
+    window.removeEventListener(events.end, Dragger._onEnd, listenerOptions);
+    events.cancel && window.removeEventListener(events.cancel, Dragger._onCancel, listenerOptions);
+  };
+
+  Dragger._getEventPointerId = function (event) {
+    // If we have pointer id available let's use it.
+    if (typeof event.pointerId === 'number') {
+      return event.pointerId;
+    } // For touch events let's get the first changed touch's identifier.
+
+
+    if (event.changedTouches) {
+      return event.changedTouches[0] ? event.changedTouches[0].identifier : null;
+    } // For mouse/other events let's provide a static id.
+
+
+    return 1;
+  };
+
+  Dragger._getTouchById = function (event, id) {
+    // If we have a pointer event return the whole event if there's a match, and
+    // null otherwise.
+    if (typeof event.pointerId === 'number') {
+      return event.pointerId === id ? event : null;
+    } // For touch events let's check if there's a changed touch object that matches
+    // the pointerId in which case return the touch object.
+
+
+    if (event.changedTouches) {
+      for (var i = 0; i < event.changedTouches.length; i++) {
+        if (event.changedTouches[i].identifier === id) {
+          return event.changedTouches[i];
+        }
+      }
+
+      return null;
+    } // For mouse/other events let's assume there's only one pointer and just
+    // return the event.
+
+
+    return event;
+  };
+
+  Dragger._onMove = function (e) {
+    Dragger._emitter.emit(events.move, e);
+  };
+
+  Dragger._onCancel = function (e) {
+    Dragger._emitter.emit(events.cancel, e);
+  };
+
+  Dragger._onEnd = function (e) {
+    Dragger._emitter.emit(events.end, e);
+  };
+  /**
+   * Private prototype methods
+   * *************************
+   */
+
+  /**
+   * Reset current drag operation (if any).
+   *
+   * @private
+   * @memberof Dragger.prototype
+   */
+
+
+  Dragger.prototype._reset = function () {
+    if (this._isDestroyed) return;
+    this._pointerId = null;
+    this._startTime = 0;
+    this._startX = 0;
+    this._startY = 0;
+    this._currentX = 0;
+    this._currentY = 0;
+    this._startEvent = null;
+
+    this._element.removeEventListener(Dragger._touchEvents.start, this._abortNonCancelable, listenerOptions);
+
+    Dragger._deactivateInstance(this);
+  };
+  /**
+   * Create a custom dragger event from a raw event.
+   *
+   * @private
+   * @memberof Dragger.prototype
+   * @param {String} type
+   * @param {(PointerEvent|TouchEvent|MouseEvent)} e
+   * @returns {DraggerEvent}
+   */
+
+
+  Dragger.prototype._createEvent = function (type, e) {
+    var touch = this._getTrackedTouch(e);
+
+    return {
+      // Hammer.js compatibility interface.
+      type: type,
+      srcEvent: e,
+      distance: this.getDistance(),
+      deltaX: this.getDeltaX(),
+      deltaY: this.getDeltaY(),
+      deltaTime: type === events.start ? 0 : this.getDeltaTime(),
+      isFirst: type === events.start,
+      isFinal: type === events.end || type === events.cancel,
+      // Partial Touch API interface.
+      identifier: this._pointerId,
+      screenX: touch.screenX,
+      screenY: touch.screenY,
+      clientX: touch.clientX,
+      clientY: touch.clientY,
+      pageX: touch.pageX,
+      pageY: touch.pageY,
+      target: touch.target
+    };
+  };
+  /**
+   * Emit a raw event as dragger event internally.
+   *
+   * @private
+   * @memberof Dragger.prototype
+   * @param {String} type
+   * @param {(PointerEvent|TouchEvent|MouseEvent)} e
+   */
+
+
+  Dragger.prototype._emit = function (type, e) {
+    this._emitter.emit(type, this._createEvent(type, e));
+  };
+  /**
+   * If the provided event is a PointerEvent this method will return it if it has
+   * the same pointerId as the instance. If the provided event is a TouchEvent
+   * this method will try to look for a Touch instance in the changedTouches that
+   * has an identifier matching this instance's pointerId. If the provided event
+   * is a MouseEvent (or just any other event than PointerEvent or TouchEvent)
+   * it will be returned immediately.
+   *
+   * @private
+   * @memberof Dragger.prototype
+   * @param {(PointerEvent|TouchEvent|MouseEvent)}
+   * @returns {?(Touch|PointerEvent|MouseEvent)}
+   */
+
+
+  Dragger.prototype._getTrackedTouch = function (e) {
+    if (this._pointerId === null) {
+      return null;
+    } else {
+      return Dragger._getTouchById(e, this._pointerId);
+    }
+  };
+  /**
+   * A pre-handler for start event that checks if we can start dragging.
+   *
+   * @private
+   * @memberof Dragger.prototype
+   * @param {(PointerEvent|TouchEvent|MouseEvent)} e
+   */
+
+
+  Dragger.prototype._preStartCheck = function (e) {
+    if (this._isDestroyed) return; // Make sure the element is not being dragged currently.
+
+    if (this.isDragging()) return; // Special cancelable check for Android to prevent drag procedure from
+    // starting if native scrolling is in progress. Part 1.
+
+    if (isAndroid && e.cancelable === false) return; // Make sure left button is pressed on mouse.
+
+    if (e.button) return; // Get (and set) pointer id.
+
+    this._pointerId = Dragger._getEventPointerId(e);
+    if (this._pointerId === null) return; // Store the start event and trigger start (async or sync). Pointer events
+    // are emitted before touch events if the browser supports both of them. And
+    // if you try to move an element before `touchstart` is emitted the pointer
+    // events for that element will be canceled. The fix is to delay the emitted
+    // pointer events in such a scenario by one frame so that `touchstart` has
+    // time to be emitted before the element is (potentially) moved.
+
+    this._startEvent = e;
+
+    if (hasTouchEvents && (hasPointerEvents || hasMsPointerEvents)) {
+      // Special cancelable check for Android to prevent drag procedure from
+      // starting if native scrolling is in progress. Part 2.
+      if (isAndroid) {
+        this._element.addEventListener(Dragger._touchEvents.start, this._abortNonCancelable, listenerOptions);
+      }
+
+      raf(this._onStart);
+    } else {
+      this._onStart();
+    }
+  };
+  /**
+   * Abort start event if it turns out to be non-cancelable.
+   *
+   * @private
+   * @memberof Dragger.prototype
+   * @param {(PointerEvent|TouchEvent|MouseEvent)} e
+   */
+
+
+  Dragger.prototype._abortNonCancelable = function (e) {
+    this._element.removeEventListener(Dragger._touchEvents.start, this._abortNonCancelable, listenerOptions);
+
+    if (this._startEvent && e.cancelable === false) {
+      this._pointerId = null;
+      this._startEvent = null;
+    }
+  };
+  /**
+   * Start the drag procedure if possible.
+   *
+   * @private
+   * @memberof Dragger.prototype
+   */
+
+
+  Dragger.prototype._onStart = function () {
+    var e = this._startEvent;
+    if (!e) return;
+    this._startEvent = null;
+
+    var touch = this._getTrackedTouch(e);
+
+    if (!touch) return; // Set up init data and emit start event.
+
+    this._startX = this._currentX = touch.clientX;
+    this._startY = this._currentY = touch.clientY;
+    this._startTime = Date.now();
+
+    this._emit(events.start, e);
+
+    Dragger._activateInstance(this);
+  };
+  /**
+   * Handler for move event.
+   *
+   * @private
+   * @memberof Dragger.prototype
+   * @param {(PointerEvent|TouchEvent|MouseEvent)} e
+   */
+
+
+  Dragger.prototype._onMove = function (e) {
+    var touch = this._getTrackedTouch(e);
+
+    if (!touch) return;
+    this._currentX = touch.clientX;
+    this._currentY = touch.clientY;
+
+    this._emit(events.move, e);
+  };
+  /**
+   * Handler for move cancel event.
+   *
+   * @private
+   * @memberof Dragger.prototype
+   * @param {(PointerEvent|TouchEvent|MouseEvent)} e
+   */
+
+
+  Dragger.prototype._onCancel = function (e) {
+    if (!this._getTrackedTouch(e)) return;
+
+    this._emit(events.cancel, e);
+
+    this._reset();
+  };
+  /**
+   * Handler for end event.
+   *
+   * @private
+   * @memberof Dragger.prototype
+   * @param {(PointerEvent|TouchEvent|MouseEvent)} e
+   */
+
+
+  Dragger.prototype._onEnd = function (e) {
+    if (!this._getTrackedTouch(e)) return;
+
+    this._emit(events.end, e);
+
+    this._reset();
+  };
+  /**
+   * Public prototype methods
+   * ************************
+   */
+
+  /**
+   * Check if the element is being dragged at the moment.
+   *
+   * @public
+   * @memberof Dragger.prototype
+   * @returns {Boolean}
+   */
+
+
+  Dragger.prototype.isDragging = function () {
+    return this._pointerId !== null;
+  };
+  /**
+   * Set element's touch-action CSS property.
+   *
+   * @public
+   * @memberof Dragger.prototype
+   * @param {String} value
+   */
+
+
+  Dragger.prototype.setTouchAction = function (value) {
+    // Store unmodified touch action value (we trust user input here).
+    this._touchAction = value; // Set touch-action style.
+
+    if (taPropPrefixed) {
+      this._cssProps[taPropPrefixed] = '';
+      this._element.style[taPropPrefixed] = value;
+    } // If we have an unsupported touch-action value let's add a special listener
+    // that prevents default action on touch start event. A dirty hack, but best
+    // we can do for now. The other options would be to somehow polyfill the
+    // unsupported touch action behavior with custom heuristics which sounds like
+    // a can of worms.
+
+
+    if (hasTouchEvents) {
+      this._element.removeEventListener(Dragger._touchEvents.start, Dragger._preventDefault, false);
+
+      if (this._element.style[taPropPrefixed] !== value) {
+        this._element.addEventListener(Dragger._touchEvents.start, Dragger._preventDefault, false);
+      }
+    }
+  };
+  /**
+   * Update element's CSS properties. Accepts an object with camel cased style
+   * props with value pairs as it's first argument.
+   *
+   * @public
+   * @memberof Dragger.prototype
+   * @param {Object} [newProps]
+   */
+
+
+  Dragger.prototype.setCssProps = function (newProps) {
+    if (!newProps) return;
+    var currentProps = this._cssProps;
+    var element = this._element;
+    var prop;
+    var prefixedProp; // Reset current props.
+
+    for (prop in currentProps) {
+      element.style[prop] = currentProps[prop];
+      delete currentProps[prop];
+    } // Set new props.
+
+
+    for (prop in newProps) {
+      // Make sure we have a value for the prop.
+      if (!newProps[prop]) continue; // Special handling for touch-action.
+
+      if (prop === taProp) {
+        this.setTouchAction(newProps[prop]);
+        continue;
+      } // Get prefixed prop and skip if it does not exist.
+
+
+      prefixedProp = getPrefixedPropName(element.style, prop);
+      if (!prefixedProp) continue; // Store the prop and add the style.
+
+      currentProps[prefixedProp] = '';
+      element.style[prefixedProp] = newProps[prop];
+    }
+  };
+  /**
+   * How much the pointer has moved on x-axis from start position, in pixels.
+   * Positive value indicates movement from left to right.
+   *
+   * @public
+   * @memberof Dragger.prototype
+   * @returns {Number}
+   */
+
+
+  Dragger.prototype.getDeltaX = function () {
+    return this._currentX - this._startX;
+  };
+  /**
+   * How much the pointer has moved on y-axis from start position, in pixels.
+   * Positive value indicates movement from top to bottom.
+   *
+   * @public
+   * @memberof Dragger.prototype
+   * @returns {Number}
+   */
+
+
+  Dragger.prototype.getDeltaY = function () {
+    return this._currentY - this._startY;
+  };
+  /**
+   * How far (in pixels) has pointer moved from start position.
+   *
+   * @public
+   * @memberof Dragger.prototype
+   * @returns {Number}
+   */
+
+
+  Dragger.prototype.getDistance = function () {
+    var x = this.getDeltaX();
+    var y = this.getDeltaY();
+    return Math.sqrt(x * x + y * y);
+  };
+  /**
+   * How long has pointer been dragged.
+   *
+   * @public
+   * @memberof Dragger.prototype
+   * @returns {Number}
+   */
+
+
+  Dragger.prototype.getDeltaTime = function () {
+    return this._startTime ? Date.now() - this._startTime : 0;
+  };
+  /**
+   * Bind drag event listeners.
+   *
+   * @public
+   * @memberof Dragger.prototype
+   * @param {String} eventName
+   *   - 'start', 'move', 'cancel' or 'end'.
+   * @param {Function} listener
+   */
+
+
+  Dragger.prototype.on = function (eventName, listener) {
+    this._emitter.on(eventName, listener);
+  };
+  /**
+   * Unbind drag event listeners.
+   *
+   * @public
+   * @memberof Dragger.prototype
+   * @param {String} eventName
+   *   - 'start', 'move', 'cancel' or 'end'.
+   * @param {Function} listener
+   */
+
+
+  Dragger.prototype.off = function (events, listener) {
+    this._emitter.off(eventName, listener);
+  };
+  /**
+   * Destroy the instance and unbind all drag event listeners.
+   *
+   * @public
+   * @memberof Dragger.prototype
+   */
+
+
+  Dragger.prototype.destroy = function () {
+    if (this._isDestroyed) return;
+    var element = this._element;
+    var events = Dragger._events; // Reset data and deactivate the instance.
+
+    this._reset(); // Destroy emitter.
+
+
+    this._emitter.destroy(); // Unbind event handlers.
+
+
+    element.removeEventListener(events.start, this._preStartCheck, listenerOptions);
+    element.removeEventListener(Dragger._mouseEvents.start, this._preStartCheck, listenerOptions);
+    element.removeEventListener('dragstart', Dragger._preventDefault, false);
+    element.removeEventListener(Dragger._touchEvents.start, Dragger._preventDefault, false); // Reset styles.
+
+    for (var prop in this._cssProps) {
+      element.style[prop] = this._cssProps[prop];
+      delete this._cssProps[prop];
+    } // Reset data.
+
+
+    this._element = null; // Mark as destroyed.
+
+    this._isDestroyed = true;
+  };
+  /**
+   * A ticker system for handling DOM reads and writes in an efficient way.
+   * Contains a read queue and a write queue that are processed on the next
+   * animation frame when needed.
+   *
+   * @class
+   */
+
+
+  function Ticker() {
+    this._nextStep = null;
+    this._queue = [];
+    this._reads = {};
+    this._writes = {};
+    this._batch = [];
+    this._batchReads = {};
+    this._batchWrites = {};
+    this._step = this._step.bind(this);
+  }
+
+  Ticker.prototype.add = function (id, readOperation, writeOperation, isPrioritized) {
+    // First, let's check if an item has been added to the queues with the same id
+    // and if so -> remove it.
+    var currentIndex = this._queue.indexOf(id);
+
+    if (currentIndex > -1) this._queue[currentIndex] = undefined; // Add entry.
+
+    isPrioritized ? this._queue.unshift(id) : this._queue.push(id);
+    this._reads[id] = readOperation;
+    this._writes[id] = writeOperation; // Finally, let's kick-start the next tick if it is not running yet.
+
+    if (!this._nextStep) this._nextStep = raf(this._step);
+  };
+
+  Ticker.prototype.cancel = function (id) {
+    var currentIndex = this._queue.indexOf(id);
+
+    if (currentIndex > -1) {
+      this._queue[currentIndex] = undefined;
+      delete this._reads[id];
+      delete this._writes[id];
+    }
+  };
+
+  Ticker.prototype._step = function () {
+    var queue = this._queue;
+    var reads = this._reads;
+    var writes = this._writes;
+    var batch = this._batch;
+    var batchReads = this._batchReads;
+    var batchWrites = this._batchWrites;
+    var length = queue.length;
+    var id;
+    var i; // Reset ticker.
+
+    this._nextStep = null; // Setup queues and callback placeholders.
+
+    for (i = 0; i < length; i++) {
+      id = queue[i];
+      if (!id) continue;
+      batch.push(id);
+      batchReads[id] = reads[id];
+      delete reads[id];
+      batchWrites[id] = writes[id];
+      delete writes[id];
+    } // Reset queue.
+
+
+    queue.length = 0; // Process read callbacks.
+
+    for (i = 0; i < length; i++) {
+      id = batch[i];
+
+      if (batchReads[id]) {
+        batchReads[id]();
+        delete batchReads[id];
+      }
+    } // Process write callbacks.
+
+
+    for (i = 0; i < length; i++) {
+      id = batch[i];
+
+      if (batchWrites[id]) {
+        batchWrites[id]();
+        delete batchWrites[id];
+      }
+    } // Reset batch.
+
+
+    batch.length = 0; // Restart the ticker if needed.
+
+    if (!this._nextStep && queue.length) {
+      this._nextStep = raf(this._step);
+    }
+  };
+
+  var ticker = new Ticker();
+  var layoutTick = 'layout';
+  var visibilityTick = 'visibility';
+  var moveTick = 'move';
+  var scrollTick = 'scroll';
+  var placeholderTick = 'placeholder';
+
+  function addLayoutTick(itemId, readCallback, writeCallback) {
+    return ticker.add(itemId + layoutTick, readCallback, writeCallback);
+  }
+
+  function cancelLayoutTick(itemId) {
+    return ticker.cancel(itemId + layoutTick);
+  }
+
+  function addVisibilityTick(itemId, readCallback, writeCallback) {
+    return ticker.add(itemId + visibilityTick, readCallback, writeCallback);
+  }
+
+  function cancelVisibilityTick(itemId) {
+    return ticker.cancel(itemId + visibilityTick);
+  }
+
+  function addMoveTick(itemId, readCallback, writeCallback) {
+    return ticker.add(itemId + moveTick, readCallback, writeCallback, true);
+  }
+
+  function cancelMoveTick(itemId) {
+    return ticker.cancel(itemId + moveTick);
+  }
+
+  function addScrollTick(itemId, readCallback, writeCallback) {
+    return ticker.add(itemId + scrollTick, readCallback, writeCallback, true);
+  }
+
+  function cancelScrollTick(itemId) {
+    return ticker.cancel(itemId + scrollTick);
+  }
+
+  function addPlaceholderTick(itemId, readCallback, writeCallback) {
+    return ticker.add(itemId + placeholderTick, readCallback, writeCallback);
+  }
+
+  function cancelPlaceholderTick(itemId) {
+    return ticker.cancel(itemId + placeholderTick);
+  }
+
+  var ElProto = window.Element.prototype;
+
+  var matchesFn = ElProto.matches || ElProto.matchesSelector || ElProto.webkitMatchesSelector || ElProto.mozMatchesSelector || ElProto.msMatchesSelector || ElProto.oMatchesSelector || function () {
+    return false;
+  };
+  /**
+   * Check if element matches a CSS selector.
+   *
+   * @param {Element} el
+   * @param {String} selector
+   * @returns {Boolean}
+   */
+
+
+  function elementMatches(el, selector) {
+    return matchesFn.call(el, selector);
+  }
+  /**
+   * Add class to an element.
+   *
+   * @param {HTMLElement} element
+   * @param {String} className
+   */
+
+
+  function addClass(element, className) {
+    if (element.classList) {
+      element.classList.add(className);
+    } else {
+      if (!elementMatches(element, '.' + className)) {
+        element.className += ' ' + className;
+      }
+    }
+  }
+
+  var tempArray = [];
+  var numberType = 'number';
+  /**
+   * Insert an item or an array of items to array to a specified index. Mutates
+   * the array. The index can be negative in which case the items will be added
+   * to the end of the array.
+   *
+   * @param {Array} array
+   * @param {*} items
+   * @param {Number} [index=-1]
+   */
+
+  function arrayInsert(array, items, index) {
+    var startIndex = (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .Z)(index) === numberType ? index : -1;
+    if (startIndex < 0) startIndex = array.length - startIndex + 1;
+    array.splice.apply(array, tempArray.concat(startIndex, 0, items));
+    tempArray.length = 0;
+  }
+  /**
+   * Normalize array index. Basically this function makes sure that the provided
+   * array index is within the bounds of the provided array and also transforms
+   * negative index to the matching positive index.
+   *
+   * @param {Array} array
+   * @param {Number} index
+   * @param {Boolean} isMigration
+   */
+
+
+  function normalizeArrayIndex(array, index, isMigration) {
+    var length = array.length;
+    var maxIndex = Math.max(0, isMigration ? length : length - 1);
+    return index > maxIndex ? maxIndex : index < 0 ? Math.max(maxIndex + index + 1, 0) : index;
+  }
+  /**
+   * Move array item to another index.
+   *
+   * @param {Array} array
+   * @param {Number} fromIndex
+   *   - Index (positive or negative) of the item that will be moved.
+   * @param {Number} toIndex
+   *   - Index (positive or negative) where the item should be moved to.
+   */
+
+
+  function arrayMove(array, fromIndex, toIndex) {
+    // Make sure the array has two or more items.
+    if (array.length < 2) return; // Normalize the indices.
+
+    var from = normalizeArrayIndex(array, fromIndex);
+    var to = normalizeArrayIndex(array, toIndex); // Add target item to the new position.
+
+    if (from !== to) {
+      array.splice(to, 0, array.splice(from, 1)[0]);
+    }
+  }
+  /**
+   * Swap array items.
+   *
+   * @param {Array} array
+   * @param {Number} index
+   *   - Index (positive or negative) of the item that will be swapped.
+   * @param {Number} withIndex
+   *   - Index (positive or negative) of the other item that will be swapped.
+   */
+
+
+  function arraySwap(array, index, withIndex) {
+    // Make sure the array has two or more items.
+    if (array.length < 2) return; // Normalize the indices.
+
+    var indexA = normalizeArrayIndex(array, index);
+    var indexB = normalizeArrayIndex(array, withIndex);
+    var temp; // Swap the items.
+
+    if (indexA !== indexB) {
+      temp = array[indexA];
+      array[indexA] = array[indexB];
+      array[indexB] = temp;
+    }
+  }
+
+  var actionCancel = 'cancel';
+  var actionFinish = 'finish';
+  var debounceTick = 'debounce';
+  var debounceId = 0;
+  /**
+   * Returns a function, that, as long as it continues to be invoked, will not
+   * be triggered. The function will be called after it stops being called for
+   * N milliseconds. The returned function accepts one argument which, when
+   * being "finish", calls the debounce function immediately if it is currently
+   * waiting to be called, and when being "cancel" cancels the currently queued
+   * function call.
+   *
+   * @param {Function} fn
+   * @param {Number} wait
+   * @returns {Function}
+   */
+
+  function debounce(fn, wait) {
+    var timeout;
+    var tickerId = ++debounceId + debounceTick;
+
+    if (wait > 0) {
+      return function (action) {
+        if (timeout !== undefined) {
+          timeout = window.clearTimeout(timeout);
+          ticker.cancel(tickerId);
+          if (action === actionFinish) fn();
+        }
+
+        if (action !== actionCancel && action !== actionFinish) {
+          timeout = window.setTimeout(function () {
+            timeout = undefined;
+            ticker.add(tickerId, fn, null, true);
+          }, wait);
+        }
+      };
+    }
+
+    return function (action) {
+      if (action !== actionCancel) fn();
+    };
+  }
+  /**
+   * Returns true if element is transformed, false if not. In practice the
+   * element's display value must be anything else than "none" or "inline" as
+   * well as have a valid transform value applied in order to be counted as a
+   * transformed element.
+   *
+   * Borrowed from Mezr (v0.6.1):
+   * https://github.com/niklasramo/mezr/blob/0.6.1/mezr.js#L661
+   *
+   * @param {HTMLElement} element
+   * @returns {Boolean}
+   */
+
+
+  function isTransformed(element) {
+    var transform = getStyle(element, 'transform');
+    if (!transform || transform === 'none') return false;
+    var display = getStyle(element, 'display');
+    if (display === 'inline' || display === 'none') return false;
+    return true;
+  }
+  /**
+   * Returns an absolute positioned element's containing block, which is
+   * considered to be the closest ancestor element that the target element's
+   * positioning is relative to. Disclaimer: this only works as intended for
+   * absolute positioned elements.
+   *
+   * @param {HTMLElement} element
+   * @param {Boolean} [includeSelf=false]
+   *   - When this is set to true the containing block checking is started from
+   *     the provided element. Otherwise the checking is started from the
+   *     provided element's parent element.
+   * @returns {(Document|Element)}
+   */
+
+
+  function getContainingBlock(element, includeSelf) {
+    // As long as the containing block is an element, static and not
+    // transformed, try to get the element's parent element and fallback to
+    // document. https://github.com/niklasramo/mezr/blob/0.6.1/mezr.js#L339
+    var document = window.document;
+    var ret = (includeSelf ? element : element.parentElement) || document;
+
+    while (ret && ret !== document && getStyle(ret, 'position') === 'static' && !isTransformed(ret)) {
+      ret = ret.parentElement || document;
+    }
+
+    return ret;
+  }
+  /**
+   * Returns the computed value of an element's style property transformed into
+   * a float value.
+   *
+   * @param {HTMLElement} el
+   * @param {String} style
+   * @returns {Number}
+   */
+
+
+  function getStyleAsFloat(el, style) {
+    return parseFloat(getStyle(el, style)) || 0;
+  }
+
+  var offsetA = {};
+  var offsetB = {};
+  var offsetDiff = {};
+  /**
+   * Returns the element's document offset, which in practice means the vertical
+   * and horizontal distance between the element's northwest corner and the
+   * document's northwest corner. Note that this function always returns the same
+   * object so be sure to read the data from it instead using it as a reference.
+   *
+   * @param {(Document|Element|Window)} element
+   * @param {Object} [offsetData]
+   *   - Optional data object where the offset data will be inserted to. If not
+   *     provided a new object will be created for the return data.
+   * @returns {Object}
+   */
+
+  function getOffset(element, offsetData) {
+    var ret = offsetData || {};
+    var rect; // Set up return data.
+
+    ret.left = 0;
+    ret.top = 0; // Document's offsets are always 0.
+
+    if (element === document) return ret; // Add viewport scroll left/top to the respective offsets.
+
+    ret.left = window.pageXOffset || 0;
+    ret.top = window.pageYOffset || 0; // Window's offsets are the viewport scroll left/top values.
+
+    if (element.self === window.self) return ret; // Add element's client rects to the offsets.
+
+    rect = element.getBoundingClientRect();
+    ret.left += rect.left;
+    ret.top += rect.top; // Exclude element's borders from the offset.
+
+    ret.left += getStyleAsFloat(element, 'border-left-width');
+    ret.top += getStyleAsFloat(element, 'border-top-width');
+    return ret;
+  }
+  /**
+   * Calculate the offset difference two elements.
+   *
+   * @param {HTMLElement} elemA
+   * @param {HTMLElement} elemB
+   * @param {Boolean} [compareContainingBlocks=false]
+   *   - When this is set to true the containing blocks of the provided elements
+   *     will be used for calculating the difference. Otherwise the provided
+   *     elements will be compared directly.
+   * @returns {Object}
+   */
+
+
+  function getOffsetDiff(elemA, elemB, compareContainingBlocks) {
+    offsetDiff.left = 0;
+    offsetDiff.top = 0; // If elements are same let's return early.
+
+    if (elemA === elemB) return offsetDiff; // Compare containing blocks if necessary.
+
+    if (compareContainingBlocks) {
+      elemA = getContainingBlock(elemA, true);
+      elemB = getContainingBlock(elemB, true); // If containing blocks are identical, let's return early.
+
+      if (elemA === elemB) return offsetDiff;
+    } // Finally, let's calculate the offset diff.
+
+
+    getOffset(elemA, offsetA);
+    getOffset(elemB, offsetB);
+    offsetDiff.left = offsetB.left - offsetA.left;
+    offsetDiff.top = offsetB.top - offsetA.top;
+    return offsetDiff;
+  }
+
+  var styleOverflow = 'overflow';
+  var styleOverflowX = 'overflow-x';
+  var styleOverflowY = 'overflow-y';
+  var overflowAuto = 'auto';
+  var overflowScroll = 'scroll';
+  /**
+   * Check if an element is scrollable.
+   *
+   * @param {HTMLElement} element
+   * @returns {Boolean}
+   */
+
+  function isScrollable(element) {
+    var overflow = getStyle(element, styleOverflow);
+    if (overflow === overflowAuto || overflow === overflowScroll) return true;
+    overflow = getStyle(element, styleOverflowX);
+    if (overflow === overflowAuto || overflow === overflowScroll) return true;
+    overflow = getStyle(element, styleOverflowY);
+    if (overflow === overflowAuto || overflow === overflowScroll) return true;
+    return false;
+  }
+  /**
+   * Collect element's ancestors that are potentially scrollable elements.
+   *
+   * @param {HTMLElement} element
+   * @param {Boolean} [includeSelf=false]
+   * @param {Array} [data]
+   * @returns {Array}
+   */
+
+
+  function getScrollableAncestors(element, includeSelf, data) {
+    var ret = data || [];
+    var parent = includeSelf ? element : element.parentNode; // Find scroll parents.
+
+    while (parent && parent !== document) {
+      // If element is inside ShadowDOM let's get it's host node from the real
+      // DOM and continue looping.
+      if (parent.getRootNode && parent instanceof DocumentFragment) {
+        parent = parent.getRootNode().host;
+        continue;
+      } // If element is scrollable let's add it to the scrollable list.
+
+
+      if (isScrollable(parent)) {
+        ret.push(parent);
+      }
+
+      parent = parent.parentNode;
+    } // Always add window to the results.
+
+
+    ret.push(window);
+    return ret;
+  }
+
+  var translateValue = {};
+  var transformStyle$2 = 'transform';
+  var transformNone = 'none';
+  var rxMat3d = /^matrix3d/;
+  var rxMatTx = /([^,]*,){4}/;
+  var rxMat3dTx = /([^,]*,){12}/;
+  var rxNextItem = /[^,]*,/;
+  /**
+   * Returns the element's computed translateX and translateY values as a floats.
+   * The returned object is always the same object and updated every time this
+   * function is called.
+   *
+   * @param {HTMLElement} element
+   * @returns {Object}
+   */
+
+  function getTranslate(element) {
+    translateValue.x = 0;
+    translateValue.y = 0;
+    var transform = getStyle(element, transformStyle$2);
+
+    if (!transform || transform === transformNone) {
+      return translateValue;
+    } // Transform style can be in either matrix3d(...) or matrix(...).
+
+
+    var isMat3d = rxMat3d.test(transform);
+    var tX = transform.replace(isMat3d ? rxMat3dTx : rxMatTx, '');
+    var tY = tX.replace(rxNextItem, '');
+    translateValue.x = parseFloat(tX) || 0;
+    translateValue.y = parseFloat(tY) || 0;
+    return translateValue;
+  }
+  /**
+   * Transform translateX and translateY value into CSS transform style
+   * property's value.
+   *
+   * @param {Number} x
+   * @param {Number} y
+   * @returns {String}
+   */
+
+
+  function getTranslateString(x, y) {
+    return 'translateX(' + x + 'px) translateY(' + y + 'px)';
+  }
+  /**
+   * Remove class from an element.
+   *
+   * @param {HTMLElement} element
+   * @param {String} className
+   */
+
+
+  function removeClass(element, className) {
+    if (element.classList) {
+      element.classList.remove(className);
+    } else {
+      if (elementMatches(element, '.' + className)) {
+        element.className = (' ' + element.className + ' ').replace(' ' + className + ' ', ' ').trim();
+      }
+    }
+  } // Drag start predicate states.
+
+
+  var startPredicateInactive = 0;
+  var startPredicatePending = 1;
+  var startPredicateResolved = 2;
+  var startPredicateRejected = 3;
+  /**
+   * Bind touch interaction to an item.
+   *
+   * @class
+   * @param {Item} item
+   */
+
+  function ItemDrag(item) {
+    var element = item._element;
+    var grid = item.getGrid();
+    var settings = grid._settings;
+    this._item = item;
+    this._gridId = grid._id;
+    this._isDestroyed = false;
+    this._isMigrating = false; // Start predicate data.
+
+    this._startPredicate = isFunction(settings.dragStartPredicate) ? settings.dragStartPredicate : ItemDrag.defaultStartPredicate;
+    this._startPredicateState = startPredicateInactive;
+    this._startPredicateResult = undefined; // Data for drag sort predicate heuristics.
+
+    this._hBlockedIndex = null;
+    this._hX1 = 0;
+    this._hX2 = 0;
+    this._hY1 = 0;
+    this._hY2 = 0; // Setup item's initial drag data.
+
+    this._reset(); // Bind the methods that needs binding.
+
+
+    this._preStartCheck = this._preStartCheck.bind(this);
+    this._preEndCheck = this._preEndCheck.bind(this);
+    this._onScroll = this._onScroll.bind(this);
+    this._prepareMove = this._prepareMove.bind(this);
+    this._applyMove = this._applyMove.bind(this);
+    this._prepareScroll = this._prepareScroll.bind(this);
+    this._applyScroll = this._applyScroll.bind(this);
+    this._checkOverlap = this._checkOverlap.bind(this); // Create debounce overlap checker function.
+
+    var sortInterval = settings.dragSortHeuristics.sortInterval;
+    this._checkOverlapDebounce = debounce(this._checkOverlap, sortInterval); // Init dragger.
+
+    this._dragger = new Dragger(element, settings.dragCssProps);
+
+    this._dragger.on('start', this._preStartCheck);
+
+    this._dragger.on('move', this._preStartCheck);
+
+    this._dragger.on('cancel', this._preEndCheck);
+
+    this._dragger.on('end', this._preEndCheck);
+  }
+  /**
+   * Public static methods
+   * *********************
+   */
+
+  /**
+   * Default drag start predicate handler that handles anchor elements
+   * gracefully. The return value of this function defines if the drag is
+   * started, rejected or pending. When true is returned the dragging is started
+   * and when false is returned the dragging is rejected. If nothing is returned
+   * the predicate will be called again on the next drag movement.
+   *
+   * @public
+   * @memberof ItemDrag
+   * @param {Item} item
+   * @param {DraggerEvent} event
+   * @param {Object} [options]
+   *   - An optional options object which can be used to pass the predicate
+   *     it's options manually. By default the predicate retrieves the options
+   *     from the grid's settings.
+   * @returns {Boolean}
+   */
+
+
+  ItemDrag.defaultStartPredicate = function (item, event, options) {
+    var drag = item._drag;
+
+    var predicate = drag._startPredicateData || drag._setupStartPredicate(options); // Final event logic. At this stage return value does not matter anymore,
+    // the predicate is either resolved or it's not and there's nothing to do
+    // about it. Here we just reset data and if the item element is a link
+    // we follow it (if there has only been slight movement).
+
+
+    if (event.isFinal) {
+      drag._finishStartPredicate(event);
+
+      return;
+    } // Find and store the handle element so we can check later on if the
+    // cursor is within the handle. If we have a handle selector let's find
+    // the corresponding element. Otherwise let's use the item element as the
+    // handle.
+
+
+    if (!predicate.handleElement) {
+      predicate.handleElement = drag._getStartPredicateHandle(event);
+      if (!predicate.handleElement) return false;
+    } // If delay is defined let's keep track of the latest event and initiate
+    // delay if it has not been done yet.
+
+
+    if (predicate.delay) {
+      predicate.event = event;
+
+      if (!predicate.delayTimer) {
+        predicate.delayTimer = window.setTimeout(function () {
+          predicate.delay = 0;
+
+          if (drag._resolveStartPredicate(predicate.event)) {
+            drag._forceResolveStartPredicate(predicate.event);
+
+            drag._resetStartPredicate();
+          }
+        }, predicate.delay);
+      }
+    }
+
+    return drag._resolveStartPredicate(event);
+  };
+  /**
+   * Default drag sort predicate.
+   *
+   * @public
+   * @memberof ItemDrag
+   * @param {Item} item
+   * @param {Object} [options]
+   * @param {Number} [options.threshold=50]
+   * @param {String} [options.action='move']
+   * @returns {(Boolean|DragSortCommand)}
+   *   - Returns false if no valid index was found. Otherwise returns drag sort
+   *     command.
+   */
+
+
+  ItemDrag.defaultSortPredicate = function () {
+    var itemRect = {};
+    var targetRect = {};
+    var returnData = {};
+    var rootGridArray = [];
+
+    function getTargetGrid(item, rootGrid, threshold) {
+      var target = null;
+      var dragSort = rootGrid._settings.dragSort;
+      var bestScore = -1;
+      var gridScore;
+      var grids;
+      var grid;
+      var i; // Get potential target grids.
+
+      if (dragSort === true) {
+        rootGridArray[0] = rootGrid;
+        grids = rootGridArray;
+      } else {
+        grids = dragSort.call(rootGrid, item);
+      } // Return immediately if there are no grids.
+
+
+      if (!Array.isArray(grids)) return target; // Loop through the grids and get the best match.
+
+      for (i = 0; i < grids.length; i++) {
+        grid = grids[i]; // Filter out all destroyed grids.
+
+        if (grid._isDestroyed) continue; // We need to update the grid's offsets and dimensions since they might
+        // have changed (e.g during scrolling).
+
+        grid._updateBoundingRect(); // Check how much dragged element overlaps the container element.
+
+
+        targetRect.width = grid._width;
+        targetRect.height = grid._height;
+        targetRect.left = grid._left;
+        targetRect.top = grid._top;
+        gridScore = getRectOverlapScore(itemRect, targetRect); // Check if this grid is the best match so far.
+
+        if (gridScore > threshold && gridScore > bestScore) {
+          bestScore = gridScore;
+          target = grid;
+        }
+      } // Always reset root grid array.
+
+
+      rootGridArray.length = 0;
+      return target;
+    }
+
+    return function (item, options) {
+      var drag = item._drag;
+
+      var rootGrid = drag._getGrid(); // Get drag sort predicate settings.
+
+
+      var sortThreshold = options && typeof options.threshold === 'number' ? options.threshold : 50;
+      var sortAction = options && options.action === actionSwap ? actionSwap : actionMove; // Populate item rect data.
+
+      itemRect.width = item._width;
+      itemRect.height = item._height;
+      itemRect.left = drag._elementClientX;
+      itemRect.top = drag._elementClientY; // Calculate the target grid.
+
+      var grid = getTargetGrid(item, rootGrid, sortThreshold); // Return early if we found no grid container element that overlaps the
+      // dragged item enough.
+
+      if (!grid) return false;
+      var gridOffsetLeft = 0;
+      var gridOffsetTop = 0;
+      var matchScore = -1;
+      var matchIndex;
+      var hasValidTargets;
+      var target;
+      var score;
+      var i; // If item is moved within it's originating grid adjust item's left and
+      // top props. Otherwise if item is moved to/within another grid get the
+      // container element's offset (from the element's content edge).
+
+      if (grid === rootGrid) {
+        itemRect.left = drag._gridX + item._marginLeft;
+        itemRect.top = drag._gridY + item._marginTop;
+      } else {
+        grid._updateBorders(1, 0, 1, 0);
+
+        gridOffsetLeft = grid._left + grid._borderLeft;
+        gridOffsetTop = grid._top + grid._borderTop;
+      } // Loop through the target grid items and try to find the best match.
+
+
+      for (i = 0; i < grid._items.length; i++) {
+        target = grid._items[i]; // If the target item is not active or the target item is the dragged
+        // item let's skip to the next item.
+
+        if (!target._isActive || target === item) {
+          continue;
+        } // Mark the grid as having valid target items.
+
+
+        hasValidTargets = true; // Calculate the target's overlap score with the dragged item.
+
+        targetRect.width = target._width;
+        targetRect.height = target._height;
+        targetRect.left = target._left + target._marginLeft + gridOffsetLeft;
+        targetRect.top = target._top + target._marginTop + gridOffsetTop;
+        score = getRectOverlapScore(itemRect, targetRect); // Update best match index and score if the target's overlap score with
+        // the dragged item is higher than the current best match score.
+
+        if (score > matchScore) {
+          matchIndex = i;
+          matchScore = score;
+        }
+      } // If there is no valid match and the item is being moved into another
+      // grid.
+
+
+      if (matchScore < sortThreshold && item.getGrid() !== grid) {
+        matchIndex = hasValidTargets ? -1 : 0;
+        matchScore = Infinity;
+      } // Check if the best match overlaps enough to justify a placement switch.
+
+
+      if (matchScore >= sortThreshold) {
+        returnData.grid = grid;
+        returnData.index = matchIndex;
+        returnData.action = sortAction;
+        return returnData;
+      }
+
+      return false;
+    };
+  }();
+  /**
+   * Public prototype methods
+   * ************************
+   */
+
+  /**
+   * Abort dragging and reset drag data.
+   *
+   * @public
+   * @memberof ItemDrag.prototype
+   * @returns {ItemDrag}
+   */
+
+
+  ItemDrag.prototype.stop = function () {
+    var item = this._item;
+    var element = item._element;
+
+    var grid = this._getGrid();
+
+    if (!this._isActive) return this; // If the item is being dropped into another grid, finish it up and return
+    // immediately.
+
+    if (this._isMigrating) {
+      this._finishMigration();
+
+      return this;
+    } // Cancel queued move and scroll ticks.
+
+
+    cancelMoveTick(item._id);
+    cancelScrollTick(item._id); // Remove scroll listeners.
+
+    this._unbindScrollListeners(); // Cancel overlap check.
+
+
+    this._checkOverlapDebounce('cancel'); // Append item element to the container if it's not it's child. Also make
+    // sure the translate values are adjusted to account for the DOM shift.
+
+
+    if (element.parentNode !== grid._element) {
+      grid._element.appendChild(element);
+
+      element.style[transformProp] = getTranslateString(this._gridX, this._gridY);
+    } // Remove dragging class.
+
+
+    removeClass(element, grid._settings.itemDraggingClass); // Reset drag data.
+
+    this._reset();
+
+    return this;
+  };
+  /**
+   * Destroy instance.
+   *
+   * @public
+   * @memberof ItemDrag.prototype
+   * @returns {ItemDrag}
+   */
+
+
+  ItemDrag.prototype.destroy = function () {
+    if (this._isDestroyed) return this;
+    this.stop();
+
+    this._dragger.destroy();
+
+    this._isDestroyed = true;
+    return this;
+  };
+  /**
+   * Private prototype methods
+   * *************************
+   */
+
+  /**
+   * Get Grid instance.
+   *
+   * @private
+   * @memberof ItemDrag.prototype
+   * @returns {?Grid}
+   */
+
+
+  ItemDrag.prototype._getGrid = function () {
+    return gridInstances[this._gridId] || null;
+  };
+  /**
+   * Setup/reset drag data.
+   *
+   * @private
+   * @memberof ItemDrag.prototype
+   */
+
+
+  ItemDrag.prototype._reset = function () {
+    // Is item being dragged?
+    this._isActive = false; // The dragged item's container element.
+
+    this._container = null; // The dragged item's containing block.
+
+    this._containingBlock = null; // Drag/scroll event data.
+
+    this._dragEvent = null;
+    this._scrollEvent = null; // All the elements which need to be listened for scroll events during
+    // dragging.
+
+    this._scrollers = []; // The current translateX/translateY position.
+
+    this._left = 0;
+    this._top = 0; // Dragged element's current position within the grid.
+
+    this._gridX = 0;
+    this._gridY = 0; // Dragged element's current offset from window's northwest corner. Does
+    // not account for element's margins.
+
+    this._elementClientX = 0;
+    this._elementClientY = 0; // Offset difference between the dragged element's temporary drag
+    // container and it's original container.
+
+    this._containerDiffX = 0;
+    this._containerDiffY = 0;
+  };
+  /**
+   * Bind drag scroll handlers to all scrollable ancestor elements of the
+   * dragged element and the drag container element.
+   *
+   * @private
+   * @memberof ItemDrag.prototype
+   */
+
+
+  ItemDrag.prototype._bindScrollListeners = function () {
+    var gridContainer = this._getGrid()._element;
+
+    var dragContainer = this._container;
+    var scrollers = this._scrollers;
+    var gridScrollers;
+    var i; // Get dragged element's scrolling parents.
+
+    scrollers.length = 0;
+    getScrollableAncestors(this._item._element, false, scrollers); // If drag container is defined and it's not the same element as grid
+    // container then we need to add the grid container and it's scroll parents
+    // to the elements which are going to be listener for scroll events.
+
+    if (dragContainer !== gridContainer) {
+      gridScrollers = [];
+      getScrollableAncestors(gridContainer, true, gridScrollers);
+
+      for (i = 0; i < gridScrollers.length; i++) {
+        if (scrollers.indexOf(gridScrollers[i]) < 0) {
+          scrollers.push(gridScrollers[i]);
+        }
+      }
+    } // Bind scroll listeners.
+
+
+    for (i = 0; i < scrollers.length; i++) {
+      scrollers[i].addEventListener('scroll', this._onScroll);
+    }
+  };
+  /**
+   * Unbind currently bound drag scroll handlers from all scrollable ancestor
+   * elements of the dragged element and the drag container element.
+   *
+   * @private
+   * @memberof ItemDrag.prototype
+   */
+
+
+  ItemDrag.prototype._unbindScrollListeners = function () {
+    var scrollers = this._scrollers;
+    var i;
+
+    for (i = 0; i < scrollers.length; i++) {
+      scrollers[i].removeEventListener('scroll', this._onScroll);
+    }
+
+    scrollers.length = 0;
+  };
+  /**
+   * Setup default start predicate.
+   *
+   * @private
+   * @memberof ItemDrag.prototype
+   * @param {Object} [options]
+   * @returns {Object}
+   */
+
+
+  ItemDrag.prototype._setupStartPredicate = function (options) {
+    var config = options || this._getGrid()._settings.dragStartPredicate || 0;
+    return this._startPredicateData = {
+      distance: Math.abs(config.distance) || 0,
+      delay: Math.max(config.delay, 0) || 0,
+      handle: typeof config.handle === 'string' ? config.handle : false
+    };
+  };
+  /**
+   * Setup default start predicate handle.
+   *
+   * @private
+   * @memberof ItemDrag.prototype
+   * @param {DraggerEvent} event
+   * @returns {?HTMLElement}
+   */
+
+
+  ItemDrag.prototype._getStartPredicateHandle = function (event) {
+    var predicate = this._startPredicateData;
+    var element = this._item._element;
+    var handleElement = element; // No handle, no hassle -> let's use the item element as the handle.
+
+    if (!predicate.handle) return handleElement; // If there is a specific predicate handle defined, let's try to get it.
+
+    handleElement = event.target;
+
+    while (handleElement && !elementMatches(handleElement, predicate.handle)) {
+      handleElement = handleElement !== element ? handleElement.parentElement : null;
+    }
+
+    return handleElement || null;
+  };
+  /**
+   * Unbind currently bound drag scroll handlers from all scrollable ancestor
+   * elements of the dragged element and the drag container element.
+   *
+   * @private
+   * @memberof ItemDrag.prototype
+   * @param {DraggerEvent} event
+   * @returns {Boolean}
+   */
+
+
+  ItemDrag.prototype._resolveStartPredicate = function (event) {
+    var predicate = this._startPredicateData; // If the moved distance is smaller than the threshold distance or there is
+    // some delay left, ignore this predicate cycle.
+
+    if (event.distance < predicate.distance || predicate.delay) return; // Get handle rect data.
+
+    var handleRect = predicate.handleElement.getBoundingClientRect();
+    var handleLeft = handleRect.left + (window.pageXOffset || 0);
+    var handleTop = handleRect.top + (window.pageYOffset || 0);
+    var handleWidth = handleRect.width;
+    var handleHeight = handleRect.height; // Reset predicate data.
+
+    this._resetStartPredicate(); // If the cursor is still within the handle let's start the drag.
+
+
+    return handleWidth && handleHeight && event.pageX >= handleLeft && event.pageX < handleLeft + handleWidth && event.pageY >= handleTop && event.pageY < handleTop + handleHeight;
+  };
+  /**
+   * Forcefully resolve drag start predicate.
+   *
+   * @private
+   * @memberof ItemDrag.prototype
+   * @param {DraggerEvent} event
+   */
+
+
+  ItemDrag.prototype._forceResolveStartPredicate = function (event) {
+    if (!this._isDestroyed && this._startPredicateState === startPredicatePending) {
+      this._startPredicateState = startPredicateResolved;
+
+      this._onStart(event);
+    }
+  };
+  /**
+   * Finalize start predicate.
+   *
+   * @private
+   * @memberof ItemDrag.prototype
+   * @param {DraggerEvent} event
+   */
+
+
+  ItemDrag.prototype._finishStartPredicate = function (event) {
+    var element = this._item._element; // Check if this is a click (very subjective heuristics).
+
+    var isClick = Math.abs(event.deltaX) < 2 && Math.abs(event.deltaY) < 2 && event.deltaTime < 200; // Reset predicate.
+
+    this._resetStartPredicate(); // If the gesture can be interpreted as click let's try to open the element's
+    // href url (if it is an anchor element).
+
+
+    if (isClick) openAnchorHref(element);
+  };
+  /**
+   * Reset drag sort heuristics.
+   *
+   * @private
+   * @memberof ItemDrag.prototype
+   * @param {DraggerEvent} event
+   */
+
+
+  ItemDrag.prototype._resetHeuristics = function (event) {
+    this._hBlockedIndex = null;
+    this._hX1 = this._hX2 = event.clientX;
+    this._hY1 = this._hY2 = event.clientY;
+  };
+  /**
+   * Run heuristics and return true if overlap check can be performed, and false
+   * if it can not.
+   *
+   * @private
+   * @memberof ItemDrag.prototype
+   * @param {DraggerEvent} event
+   * @returns {Boolean}
+   */
+
+
+  ItemDrag.prototype._checkHeuristics = function (event) {
+    var settings = this._getGrid()._settings.dragSortHeuristics;
+
+    var minDist = settings.minDragDistance; // Skip heuristics if not needed.
+
+    if (minDist <= 0) {
+      this._hBlockedIndex = null;
+      return true;
+    }
+
+    var x = event.clientX;
+    var y = event.clientY;
+    var diffX = x - this._hX2;
+    var diffY = y - this._hY2; // If we can't do proper bounce back check make sure that the blocked index
+    // is not set.
+
+    var canCheckBounceBack = minDist > 3 && settings.minBounceBackAngle > 0;
+
+    if (!canCheckBounceBack) {
+      this._hBlockedIndex = null;
+    }
+
+    if (Math.abs(diffX) > minDist || Math.abs(diffY) > minDist) {
+      // Reset blocked index if angle changed enough. This check requires a
+      // minimum value of 3 for minDragDistance to function properly.
+      if (canCheckBounceBack) {
+        var angle = Math.atan2(diffX, diffY);
+        var prevAngle = Math.atan2(this._hX2 - this._hX1, this._hY2 - this._hY1);
+        var deltaAngle = Math.atan2(Math.sin(angle - prevAngle), Math.cos(angle - prevAngle));
+
+        if (Math.abs(deltaAngle) > settings.minBounceBackAngle) {
+          this._hBlockedIndex = null;
+        }
+      } // Update points.
+
+
+      this._hX1 = this._hX2;
+      this._hY1 = this._hY2;
+      this._hX2 = x;
+      this._hY2 = y;
+      return true;
+    }
+
+    return false;
+  };
+  /**
+   * Reset for default drag start predicate function.
+   *
+   * @private
+   * @memberof ItemDrag.prototype
+   */
+
+
+  ItemDrag.prototype._resetStartPredicate = function () {
+    var predicate = this._startPredicateData;
+
+    if (predicate) {
+      if (predicate.delayTimer) {
+        predicate.delayTimer = window.clearTimeout(predicate.delayTimer);
+      }
+
+      this._startPredicateData = null;
+    }
+  };
+  /**
+   * Check (during drag) if an item is overlapping other items and based on
+   * the configuration layout the items.
+   *
+   * @private
+   * @memberof ItemDrag.prototype
+   */
+
+
+  ItemDrag.prototype._checkOverlap = function () {
+    if (!this._isActive) return;
+    var item = this._item;
+
+    var settings = this._getGrid()._settings;
+
+    var result;
+    var currentGrid;
+    var currentIndex;
+    var targetGrid;
+    var targetIndex;
+    var sortAction;
+    var isMigration; // Get overlap check result.
+
+    if (isFunction(settings.dragSortPredicate)) {
+      result = settings.dragSortPredicate(item, this._dragEvent);
+    } else {
+      result = ItemDrag.defaultSortPredicate(item, settings.dragSortPredicate);
+    } // Let's make sure the result object has a valid index before going further.
+
+
+    if (!result || typeof result.index !== 'number') return;
+    currentGrid = item.getGrid();
+    targetGrid = result.grid || currentGrid;
+    isMigration = currentGrid !== targetGrid;
+    currentIndex = currentGrid._items.indexOf(item);
+    targetIndex = normalizeArrayIndex(targetGrid._items, result.index, isMigration);
+    sortAction = result.action === actionSwap ? actionSwap : actionMove; // Prevent position bounce.
+
+    if (!isMigration && targetIndex === this._hBlockedIndex) {
+      return;
+    } // If the item was moved within it's current grid.
+
+
+    if (!isMigration) {
+      // Make sure the target index is not the current index.
+      if (currentIndex !== targetIndex) {
+        this._hBlockedIndex = currentIndex; // Do the sort.
+
+        (sortAction === actionSwap ? arraySwap : arrayMove)(currentGrid._items, currentIndex, targetIndex); // Emit move event.
+
+        if (currentGrid._hasListeners(eventMove)) {
+          currentGrid._emit(eventMove, {
+            item: item,
+            fromIndex: currentIndex,
+            toIndex: targetIndex,
+            action: sortAction
+          });
+        } // Layout the grid.
+
+
+        currentGrid.layout();
+      }
+    } // If the item was moved to another grid.
+    else {
+      this._hBlockedIndex = null; // Emit beforeSend event.
+
+      if (currentGrid._hasListeners(eventBeforeSend)) {
+        currentGrid._emit(eventBeforeSend, {
+          item: item,
+          fromGrid: currentGrid,
+          fromIndex: currentIndex,
+          toGrid: targetGrid,
+          toIndex: targetIndex
+        });
+      } // Emit beforeReceive event.
+
+
+      if (targetGrid._hasListeners(eventBeforeReceive)) {
+        targetGrid._emit(eventBeforeReceive, {
+          item: item,
+          fromGrid: currentGrid,
+          fromIndex: currentIndex,
+          toGrid: targetGrid,
+          toIndex: targetIndex
+        });
+      } // Update item's grid id reference.
+
+
+      item._gridId = targetGrid._id; // Update drag instance's migrating indicator.
+
+      this._isMigrating = item._gridId !== this._gridId; // Move item instance from current grid to target grid.
+
+      currentGrid._items.splice(currentIndex, 1);
+
+      arrayInsert(targetGrid._items, item, targetIndex); // Set sort data as null, which is an indicator for the item comparison
+      // function that the sort data of this specific item should be fetched
+      // lazily.
+
+      item._sortData = null; // Emit send event.
+
+      if (currentGrid._hasListeners(eventSend)) {
+        currentGrid._emit(eventSend, {
+          item: item,
+          fromGrid: currentGrid,
+          fromIndex: currentIndex,
+          toGrid: targetGrid,
+          toIndex: targetIndex
+        });
+      } // Emit receive event.
+
+
+      if (targetGrid._hasListeners(eventReceive)) {
+        targetGrid._emit(eventReceive, {
+          item: item,
+          fromGrid: currentGrid,
+          fromIndex: currentIndex,
+          toGrid: targetGrid,
+          toIndex: targetIndex
+        });
+      } // Layout both grids.
+
+
+      currentGrid.layout();
+      targetGrid.layout();
+    }
+  };
+  /**
+   * If item is dragged into another grid, finish the migration process
+   * gracefully.
+   *
+   * @private
+   * @memberof ItemDrag.prototype
+   */
+
+
+  ItemDrag.prototype._finishMigration = function () {
+    var item = this._item;
+    var release = item._release;
+    var element = item._element;
+    var isActive = item._isActive;
+    var targetGrid = item.getGrid();
+    var targetGridElement = targetGrid._element;
+    var targetSettings = targetGrid._settings;
+    var targetContainer = targetSettings.dragContainer || targetGridElement;
+
+    var currentSettings = this._getGrid()._settings;
+
+    var currentContainer = element.parentNode;
+    var translate;
+    var offsetDiff; // Destroy current drag. Note that we need to set the migrating flag to
+    // false first, because otherwise we create an infinite loop between this
+    // and the drag.stop() method.
+
+    this._isMigrating = false;
+    this.destroy(); // Remove current classnames.
+
+    removeClass(element, currentSettings.itemClass);
+    removeClass(element, currentSettings.itemVisibleClass);
+    removeClass(element, currentSettings.itemHiddenClass); // Add new classnames.
+
+    addClass(element, targetSettings.itemClass);
+    addClass(element, isActive ? targetSettings.itemVisibleClass : targetSettings.itemHiddenClass); // Move the item inside the target container if it's different than the
+    // current container.
+
+    if (targetContainer !== currentContainer) {
+      targetContainer.appendChild(element);
+      offsetDiff = getOffsetDiff(currentContainer, targetContainer, true);
+      translate = getTranslate(element);
+      translate.x -= offsetDiff.left;
+      translate.y -= offsetDiff.top;
+    } // Update item's cached dimensions and sort data.
+
+
+    item._refreshDimensions();
+
+    item._refreshSortData(); // Calculate the offset difference between target's drag container (if any)
+    // and actual grid container element. We save it later for the release
+    // process.
+
+
+    offsetDiff = getOffsetDiff(targetContainer, targetGridElement, true);
+    release._containerDiffX = offsetDiff.left;
+    release._containerDiffY = offsetDiff.top; // Recreate item's drag handler.
+
+    item._drag = targetSettings.dragEnabled ? new ItemDrag(item) : null; // Adjust the position of the item element if it was moved from a container
+    // to another.
+
+    if (targetContainer !== currentContainer) {
+      element.style[transformProp] = getTranslateString(translate.x, translate.y);
+    } // Update child element's styles to reflect the current visibility state.
+
+
+    item._child.removeAttribute('style');
+
+    setStyles(item._child, isActive ? targetSettings.visibleStyles : targetSettings.hiddenStyles); // Start the release.
+
+    release.start();
+  };
+  /**
+   * Drag pre-start handler.
+   *
+   * @private
+   * @memberof ItemDrag.prototype
+   * @param {DraggerEvent} event
+   */
+
+
+  ItemDrag.prototype._preStartCheck = function (event) {
+    // Let's activate drag start predicate state.
+    if (this._startPredicateState === startPredicateInactive) {
+      this._startPredicateState = startPredicatePending;
+    } // If predicate is pending try to resolve it.
+
+
+    if (this._startPredicateState === startPredicatePending) {
+      this._startPredicateResult = this._startPredicate(this._item, event);
+
+      if (this._startPredicateResult === true) {
+        this._startPredicateState = startPredicateResolved;
+
+        this._onStart(event);
+      } else if (this._startPredicateResult === false) {
+        this._startPredicateState = startPredicateRejected;
+      }
+    } // Otherwise if predicate is resolved and drag is active, move the item.
+    else if (this._startPredicateState === startPredicateResolved && this._isActive) {
+      this._onMove(event);
+    }
+  };
+  /**
+   * Drag pre-end handler.
+   *
+   * @private
+   * @memberof ItemDrag.prototype
+   * @param {DraggerEvent} event
+   */
+
+
+  ItemDrag.prototype._preEndCheck = function (event) {
+    // Check if the start predicate was resolved during drag.
+    var isResolved = this._startPredicateState === startPredicateResolved; // Do final predicate check to allow user to unbind stuff for the current
+    // drag procedure within the predicate callback. The return value of this
+    // check will have no effect to the state of the predicate.
+
+    this._startPredicate(this._item, event); // Reset start predicate state.
+
+
+    this._startPredicateState = startPredicateInactive; // If predicate is resolved and dragging is active, call the end handler.
+
+    if (isResolved && this._isActive) this._onEnd(event);
+  };
+  /**
+   * Drag start handler.
+   *
+   * @private
+   * @memberof ItemDrag.prototype
+   * @param {DraggerEvent} event
+   */
+
+
+  ItemDrag.prototype._onStart = function (event) {
+    var item = this._item; // If item is not active, don't start the drag.
+
+    if (!item._isActive) return;
+    var element = item._element;
+
+    var grid = this._getGrid();
+
+    var settings = grid._settings;
+    var release = item._release;
+    var migrate = item._migrate;
+    var gridContainer = grid._element;
+    var dragContainer = settings.dragContainer || gridContainer;
+    var containingBlock = getContainingBlock(dragContainer, true);
+    var translate = getTranslate(element);
+    var currentLeft = translate.x;
+    var currentTop = translate.y;
+    var elementRect = element.getBoundingClientRect();
+    var hasDragContainer = dragContainer !== gridContainer;
+    var offsetDiff; // Reset heuristics data.
+
+    this._resetHeuristics(event); // If grid container is not the drag container, we need to calculate the
+    // offset difference between grid container and drag container's containing
+    // element.
+
+
+    if (hasDragContainer) {
+      offsetDiff = getOffsetDiff(containingBlock, gridContainer);
+    } // Stop current positioning animation.
+
+
+    if (item.isPositioning()) {
+      item._layout.stop(true, {
+        transform: getTranslateString(currentLeft, currentTop)
+      });
+    } // Stop current migration animation.
+
+
+    if (migrate._isActive) {
+      currentLeft -= migrate._containerDiffX;
+      currentTop -= migrate._containerDiffY;
+      migrate.stop(true, {
+        transform: getTranslateString(currentLeft, currentTop)
+      });
+    } // If item is being released reset release data.
+
+
+    if (item.isReleasing()) release._reset(); // Setup drag data.
+
+    this._isActive = true;
+    this._dragEvent = event;
+    this._container = dragContainer;
+    this._containingBlock = containingBlock;
+    this._elementClientX = elementRect.left;
+    this._elementClientY = elementRect.top;
+    this._left = this._gridX = currentLeft;
+    this._top = this._gridY = currentTop; // Create placeholder (if necessary).
+
+    if (settings.dragPlaceholder.enabled) {
+      item._dragPlaceholder.create();
+    } // Emit dragInit event.
+
+
+    grid._emit(eventDragInit, item, event); // If a specific drag container is set and it is different from the
+    // grid's container element we need to cast some extra spells.
+
+
+    if (hasDragContainer) {
+      // Store the container offset diffs to drag data.
+      this._containerDiffX = offsetDiff.left;
+      this._containerDiffY = offsetDiff.top; // If the dragged element is a child of the drag container all we need to
+      // do is setup the relative drag position data.
+
+      if (element.parentNode === dragContainer) {
+        this._gridX = currentLeft - this._containerDiffX;
+        this._gridY = currentTop - this._containerDiffY;
+      } // Otherwise we need to append the element inside the correct container,
+      // setup the actual drag position data and adjust the element's translate
+      // values to account for the DOM position shift.
+      else {
+        this._left = currentLeft + this._containerDiffX;
+        this._top = currentTop + this._containerDiffY;
+        dragContainer.appendChild(element);
+        element.style[transformProp] = getTranslateString(this._left, this._top);
+      }
+    } // Set drag class and bind scrollers.
+
+
+    addClass(element, settings.itemDraggingClass);
+
+    this._bindScrollListeners(); // Emit dragStart event.
+
+
+    grid._emit(eventDragStart, item, event);
+  };
+  /**
+   * Drag move handler.
+   *
+   * @private
+   * @memberof ItemDrag.prototype
+   * @param {DraggerEvent} event
+   */
+
+
+  ItemDrag.prototype._onMove = function (event) {
+    var item = this._item; // If item is not active, reset drag.
+
+    if (!item._isActive) {
+      this.stop();
+      return;
+    }
+
+    var settings = this._getGrid()._settings;
+
+    var axis = settings.dragAxis; // Update horizontal position data.
+
+    if (axis !== 'y') {
+      var xDiff = event.clientX - this._dragEvent.clientX;
+      this._left += xDiff;
+      this._gridX += xDiff;
+      this._elementClientX += xDiff;
+    } // Update vertical position data.
+
+
+    if (axis !== 'x') {
+      var yDiff = event.clientY - this._dragEvent.clientY;
+      this._top += yDiff;
+      this._gridY += yDiff;
+      this._elementClientY += yDiff;
+    } // Update event data.
+
+
+    this._dragEvent = event; // Do move prepare/apply handling in the next tick.
+
+    addMoveTick(item._id, this._prepareMove, this._applyMove);
+  };
+  /**
+   * Prepare dragged item for moving.
+   *
+   * @private
+   * @memberof ItemDrag.prototype
+   */
+
+
+  ItemDrag.prototype._prepareMove = function () {
+    // Do nothing if item is not active.
+    if (!this._item._isActive) return; // If drag sort is enabled -> check overlap.
+
+    if (this._getGrid()._settings.dragSort) {
+      if (this._checkHeuristics(this._dragEvent)) {
+        this._checkOverlapDebounce();
+      }
+    }
+  };
+  /**
+   * Apply movement to dragged item.
+   *
+   * @private
+   * @memberof ItemDrag.prototype
+   */
+
+
+  ItemDrag.prototype._applyMove = function () {
+    var item = this._item; // Do nothing if item is not active.
+
+    if (!item._isActive) return; // Update element's translateX/Y values.
+
+    item._element.style[transformProp] = getTranslateString(this._left, this._top); // Emit dragMove event.
+
+    this._getGrid()._emit(eventDragMove, item, this._dragEvent);
+  };
+  /**
+   * Drag scroll handler.
+   *
+   * @private
+   * @memberof ItemDrag.prototype
+   * @param {Event} event
+   */
+
+
+  ItemDrag.prototype._onScroll = function (event) {
+    var item = this._item; // If item is not active, reset drag.
+
+    if (!item._isActive) {
+      this.stop();
+      return;
+    } // Update last scroll event.
+
+
+    this._scrollEvent = event; // Do scroll prepare/apply handling in the next tick.
+
+    addScrollTick(item._id, this._prepareScroll, this._applyScroll);
+  };
+  /**
+   * Prepare dragged item for scrolling.
+   *
+   * @private
+   * @memberof ItemDrag.prototype
+   */
+
+
+  ItemDrag.prototype._prepareScroll = function () {
+    var item = this._item; // If item is not active do nothing.
+
+    if (!item._isActive) return;
+    var element = item._element;
+
+    var grid = this._getGrid();
+
+    var settings = grid._settings;
+    var axis = settings.dragAxis;
+    var gridContainer = grid._element;
+    var offsetDiff; // Calculate element's rect and x/y diff.
+
+    var rect = element.getBoundingClientRect();
+    var xDiff = this._elementClientX - rect.left;
+    var yDiff = this._elementClientY - rect.top; // Update container diff.
+
+    if (this._container !== gridContainer) {
+      offsetDiff = getOffsetDiff(this._containingBlock, gridContainer);
+      this._containerDiffX = offsetDiff.left;
+      this._containerDiffY = offsetDiff.top;
+    } // Update horizontal position data.
+
+
+    if (axis !== 'y') {
+      this._left += xDiff;
+      this._gridX = this._left - this._containerDiffX;
+    } // Update vertical position data.
+
+
+    if (axis !== 'x') {
+      this._top += yDiff;
+      this._gridY = this._top - this._containerDiffY;
+    } // Overlap handling.
+
+
+    if (settings.dragSort) this._checkOverlapDebounce();
+  };
+  /**
+   * Apply scroll to dragged item.
+   *
+   * @private
+   * @memberof ItemDrag.prototype
+   */
+
+
+  ItemDrag.prototype._applyScroll = function () {
+    var item = this._item; // If item is not active do nothing.
+
+    if (!item._isActive) return; // Update element's translateX/Y values.
+
+    item._element.style[transformProp] = getTranslateString(this._left, this._top); // Emit dragScroll event.
+
+    this._getGrid()._emit(eventDragScroll, item, this._scrollEvent);
+  };
+  /**
+   * Drag end handler.
+   *
+   * @private
+   * @memberof ItemDrag.prototype
+   * @param {DraggerEvent} event
+   */
+
+
+  ItemDrag.prototype._onEnd = function (event) {
+    var item = this._item;
+    var element = item._element;
+
+    var grid = this._getGrid();
+
+    var settings = grid._settings;
+    var release = item._release; // If item is not active, reset drag.
+
+    if (!item._isActive) {
+      this.stop();
+      return;
+    } // Cancel queued move and scroll ticks.
+
+
+    cancelMoveTick(item._id);
+    cancelScrollTick(item._id); // Finish currently queued overlap check.
+
+    settings.dragSort && this._checkOverlapDebounce('finish'); // Remove scroll listeners.
+
+    this._unbindScrollListeners(); // Setup release data.
+
+
+    release._containerDiffX = this._containerDiffX;
+    release._containerDiffY = this._containerDiffY; // Reset drag data.
+
+    this._reset(); // Remove drag class name from element.
+
+
+    removeClass(element, settings.itemDraggingClass); // Emit dragEnd event.
+
+    grid._emit(eventDragEnd, item, event); // Finish up the migration process or start the release process.
+
+
+    this._isMigrating ? this._finishMigration() : release.start();
+  };
+  /**
+   * Private helpers
+   * ***************
+   */
+
+  /**
+   * Calculate how many percent the intersection area of two rectangles is from
+   * the maximum potential intersection area between the rectangles.
+   *
+   * @param {Rectangle} a
+   * @param {Rectangle} b
+   * @returns {Number}
+   *   - A number between 0-100.
+   */
+
+
+  function getRectOverlapScore(a, b) {
+    // Return 0 immediately if the rectangles do not overlap.
+    if (a.left + a.width <= b.left || b.left + b.width <= a.left || a.top + a.height <= b.top || b.top + b.height <= a.top) {
+      return 0;
+    } // Calculate intersection area's width, height, max height and max width.
+
+
+    var width = Math.min(a.left + a.width, b.left + b.width) - Math.max(a.left, b.left);
+    var height = Math.min(a.top + a.height, b.top + b.height) - Math.max(a.top, b.top);
+    var maxWidth = Math.min(a.width, b.width);
+    var maxHeight = Math.min(a.height, b.height);
+    return width * height / (maxWidth * maxHeight) * 100;
+  }
+  /**
+   * Check if an element is an anchor element and open the href url if possible.
+   *
+   * @param {HTMLElement} element
+   */
+
+
+  function openAnchorHref(element) {
+    // Make sure the element is anchor element.
+    if (element.tagName.toLowerCase() !== 'a') return; // Get href and make sure it exists.
+
+    var href = element.getAttribute('href');
+    if (!href) return; // Finally let's navigate to the link href.
+
+    var target = element.getAttribute('target');
+
+    if (target && target !== '_self') {
+      window.open(href, target);
+    } else {
+      window.location.href = href;
+    }
+  }
+  /**
+   * Drag placeholder.
+   *
+   * @class
+   * @param {Item} item
+   */
+
+
+  function ItemDragPlaceholder(item) {
+    this._item = item;
+    this._animate = new ItemAnimate();
+    this._element = null;
+    this._className = '';
+    this._didMigrate = false;
+    this._resetAfterLayout = false;
+    this._currentLeft = 0;
+    this._currentTop = 0;
+    this._nextLeft = 0;
+    this._nextTop = 0; // Bind animation handlers.
+
+    this._setupAnimation = this._setupAnimation.bind(this);
+    this._startAnimation = this._startAnimation.bind(this); // Bind event handlers.
+
+    this._onLayoutStart = this._onLayoutStart.bind(this);
+    this._onLayoutEnd = this._onLayoutEnd.bind(this);
+    this._onReleaseEnd = this._onReleaseEnd.bind(this);
+    this._onMigrate = this._onMigrate.bind(this);
+  }
+  /**
+   * Private prototype methods
+   * *************************
+   */
+
+  /**
+   * Move placeholder to a new position.
+   *
+   * @private
+   * @memberof ItemDragPlaceholder.prototype
+   */
+
+
+  ItemDragPlaceholder.prototype._onLayoutStart = function () {
+    var item = this._item;
+    var grid = item.getGrid(); // Find out the item's new (unapplied) left and top position.
+
+    var itemIndex = grid._items.indexOf(item);
+
+    var nextLeft = grid._layout.slots[itemIndex * 2];
+    var nextTop = grid._layout.slots[itemIndex * 2 + 1]; // If item's position did not change and the item did not migrate we can
+    // safely skip layout.
+
+    if (!this._didMigrate && item._left === nextLeft && item._top === nextTop) {
+      return;
+    } // Slots data is calculated with item margins added to them so we need to add
+    // item's left and top margin to the slot data to get the placeholder's
+    // next position.
+
+
+    nextLeft += item._marginLeft;
+    nextTop += item._marginTop; // Just snap to new position without any animations if no animation is
+    // required or if placeholder moves between grids.
+
+    var animEnabled = grid._settings.dragPlaceholder.duration > 0;
+
+    if (!animEnabled || this._didMigrate) {
+      // Cancel potential (queued) layout tick.
+      cancelPlaceholderTick(item._id); // Snap placeholder to correct position.
+
+      var targetStyles = {
+        transform: getTranslateString(nextLeft, nextTop)
+      };
+
+      if (this._animate.isAnimating()) {
+        this._animate.stop(targetStyles);
+      } else {
+        setStyles(this._element, targetStyles);
+      } // Move placeholder inside correct container after migration.
+
+
+      if (this._didMigrate) {
+        grid.getElement().appendChild(this._element);
+        this._didMigrate = false;
+      }
+
+      return;
+    } // Start the placeholder's layout animation in the next tick. We do this to
+    // avoid layout thrashing.
+
+
+    this._nextLeft = nextLeft;
+    this._nextTop = nextTop;
+    addPlaceholderTick(item._id, this._setupAnimation, this._startAnimation);
+  };
+  /**
+   * Prepare placeholder for layout animation.
+   *
+   * @private
+   * @memberof ItemDragPlaceholder.prototype
+   */
+
+
+  ItemDragPlaceholder.prototype._setupAnimation = function () {
+    if (!this.isActive()) return;
+    var translate = getTranslate(this._element);
+    this._currentLeft = translate.x;
+    this._currentTop = translate.y;
+  };
+  /**
+   * Start layout animation.
+   *
+   * @private
+   * @memberof ItemDragPlaceholder.prototype
+   */
+
+
+  ItemDragPlaceholder.prototype._startAnimation = function () {
+    if (!this.isActive()) return;
+    var animation = this._animate;
+    var currentLeft = this._currentLeft;
+    var currentTop = this._currentTop;
+    var nextLeft = this._nextLeft;
+    var nextTop = this._nextTop;
+    var targetStyles = {
+      transform: getTranslateString(nextLeft, nextTop)
+    }; // If placeholder is already in correct position let's just stop animation
+    // and be done with it.
+
+    if (currentLeft === nextLeft && currentTop === nextTop) {
+      if (animation.isAnimating()) animation.stop(targetStyles);
+      return;
+    } // Otherwise let's start the animation.
+
+
+    var settings = this._item.getGrid()._settings.dragPlaceholder;
+
+    var currentStyles = {
+      transform: getTranslateString(currentLeft, currentTop)
+    };
+    animation.start(currentStyles, targetStyles, {
+      duration: settings.duration,
+      easing: settings.easing,
+      onFinish: this._onLayoutEnd
+    });
+  };
+  /**
+   * Layout end handler.
+   *
+   * @private
+   * @memberof ItemDragPlaceholder.prototype
+   */
+
+
+  ItemDragPlaceholder.prototype._onLayoutEnd = function () {
+    if (this._resetAfterLayout) {
+      this.reset();
+    }
+  };
+  /**
+   * Drag end handler. This handler is called when dragReleaseEnd event is
+   * emitted and receives the event data as it's argument.
+   *
+   * @private
+   * @memberof ItemDragPlaceholder.prototype
+   * @param {Item} item
+   */
+
+
+  ItemDragPlaceholder.prototype._onReleaseEnd = function (item) {
+    if (item._id === this._item._id) {
+      // If the placeholder is not animating anymore we can safely reset it.
+      if (!this._animate.isAnimating()) {
+        this.reset();
+        return;
+      } // If the placeholder item is still animating here, let's wait for it to
+      // finish it's animation.
+
+
+      this._resetAfterLayout = true;
+    }
+  };
+  /**
+   * Migration start handler. This handler is called when beforeSend event is
+   * emitted and receives the event data as it's argument.
+   *
+   * @private
+   * @memberof ItemDragPlaceholder.prototype
+   * @param {Object} data
+   * @param {Item} data.item
+   * @param {Grid} data.fromGrid
+   * @param {Number} data.fromIndex
+   * @param {Grid} data.toGrid
+   * @param {Number} data.toIndex
+   */
+
+
+  ItemDragPlaceholder.prototype._onMigrate = function (data) {
+    // Make sure we have a matching item.
+    if (data.item !== this._item) return;
+
+    var grid = this._item.getGrid();
+
+    var nextGrid = data.toGrid; // Unbind listeners from current grid.
+
+    grid.off(eventDragReleaseEnd, this._onReleaseEnd);
+    grid.off(eventLayoutStart, this._onLayoutStart);
+    grid.off(eventBeforeSend, this._onMigrate); // Bind listeners to the next grid.
+
+    nextGrid.on(eventDragReleaseEnd, this._onReleaseEnd);
+    nextGrid.on(eventLayoutStart, this._onLayoutStart);
+    nextGrid.on(eventBeforeSend, this._onMigrate); // Mark the item as migrated.
+
+    this._didMigrate = true;
+  };
+  /**
+   * Public prototype methods
+   * ************************
+   */
+
+  /**
+   * Create placeholder. Note that this method only writes to DOM and does not
+   * read anything from DOM so it should not cause any additional layout
+   * thrashing when it's called at the end of the drag start procedure.
+   *
+   * @public
+   * @memberof ItemDragPlaceholder.prototype
+   */
+
+
+  ItemDragPlaceholder.prototype.create = function () {
+    // If we already have placeholder set up we can skip the initiation logic.
+    if (this.isActive()) {
+      this._resetAfterLayout = false;
+      return;
+    }
+
+    var item = this._item;
+    var grid = item.getGrid();
+    var settings = grid._settings;
+    var animation = this._animate; // Create placeholder element.
+
+    var element;
+
+    if (isFunction(settings.dragPlaceholder.createElement)) {
+      element = settings.dragPlaceholder.createElement(item);
+    } else {
+      element = window.document.createElement('div');
+    }
+
+    this._element = element; // Update element to animation instance.
+
+    animation._element = element; // Add placeholder class to the placeholder element.
+
+    this._className = settings.itemPlaceholderClass || '';
+
+    if (this._className) {
+      addClass(element, this._className);
+    } // Position the placeholder item correctly.
+
+
+    var left = item._left + item._marginLeft;
+    var top = item._top + item._marginTop;
+    setStyles(element, {
+      display: 'block',
+      position: 'absolute',
+      left: '0',
+      top: '0',
+      width: item._width + 'px',
+      height: item._height + 'px',
+      transform: getTranslateString(left, top)
+    }); // Bind event listeners.
+
+    grid.on(eventLayoutStart, this._onLayoutStart);
+    grid.on(eventDragReleaseEnd, this._onReleaseEnd);
+    grid.on(eventBeforeSend, this._onMigrate); // onCreate hook.
+
+    if (isFunction(settings.dragPlaceholder.onCreate)) {
+      settings.dragPlaceholder.onCreate(item, element);
+    } // Insert the placeholder element to the grid.
+
+
+    grid.getElement().appendChild(element);
+  };
+  /**
+   * Reset placeholder data.
+   *
+   * @public
+   * @memberof ItemDragPlaceholder.prototype
+   */
+
+
+  ItemDragPlaceholder.prototype.reset = function () {
+    if (!this.isActive()) return;
+    var element = this._element;
+    var item = this._item;
+    var grid = item.getGrid();
+    var settings = grid._settings;
+    var animation = this._animate; // Reset flag.
+
+    this._resetAfterLayout = false; // Cancel potential (queued) layout tick.
+
+    cancelPlaceholderTick(item._id); // Reset animation instance.
+
+    animation.stop();
+    animation._element = null; // Unbind event listeners.
+
+    grid.off(eventDragReleaseEnd, this._onReleaseEnd);
+    grid.off(eventLayoutStart, this._onLayoutStart);
+    grid.off(eventBeforeSend, this._onMigrate); // Remove placeholder class from the placeholder element.
+
+    if (this._className) {
+      removeClass(element, this._className);
+      this._className = '';
+    } // Remove element.
+
+
+    element.parentNode.removeChild(element);
+    this._element = null; // onRemove hook. Note that here we use the current grid's onRemove callback
+    // so if the item has migrated during drag the onRemove method will not be
+    // the originating grid's method.
+
+    if (isFunction(settings.dragPlaceholder.onRemove)) {
+      settings.dragPlaceholder.onRemove(item, element);
+    }
+  };
+  /**
+   * Update placeholder's dimensions.
+   *
+   * @public
+   * @memberof ItemDragPlaceholder.prototype
+   * @param {Number} width
+   * @param {height} height
+   */
+
+
+  ItemDragPlaceholder.prototype.updateDimensions = function (width, height) {
+    if (this.isActive()) {
+      setStyles(this._element, {
+        width: width + 'px',
+        height: height + 'px'
+      });
+    }
+  };
+  /**
+   * Check if placeholder is currently active (visible).
+   *
+   * @public
+   * @memberof ItemDragPlaceholder.prototype
+   * @returns {Boolean}
+   */
+
+
+  ItemDragPlaceholder.prototype.isActive = function () {
+    return !!this._element;
+  };
+  /**
+   * Destroy placeholder instance.
+   *
+   * @public
+   * @memberof ItemDragPlaceholder.prototype
+   */
+
+
+  ItemDragPlaceholder.prototype.destroy = function () {
+    this.reset();
+
+    this._animate.destroy();
+
+    this._item = this._animate = null;
+  };
+  /**
+   * Queue constructor.
+   *
+   * @class
+   */
+
+
+  function Queue() {
+    this._queue = [];
+    this._isDestroyed = false;
+  }
+  /**
+   * Public prototype methods
+   * ************************
+   */
+
+  /**
+   * Add callback to the queue.
+   *
+   * @public
+   * @memberof Queue.prototype
+   * @param {Function} callback
+   * @returns {Queue}
+   */
+
+
+  Queue.prototype.add = function (callback) {
+    if (this._isDestroyed) return this;
+
+    this._queue.push(callback);
+
+    return this;
+  };
+  /**
+   * Process queue callbacks and reset the queue.
+   *
+   * @public
+   * @memberof Queue.prototype
+   * @param {*} arg1
+   * @param {*} arg2
+   * @returns {Queue}
+   */
+
+
+  Queue.prototype.flush = function (arg1, arg2) {
+    if (this._isDestroyed) return this;
+    var queue = this._queue;
+    var length = queue.length;
+    var i; // Quit early if the queue is empty.
+
+    if (!length) return this;
+    var singleCallback = length === 1;
+    var snapshot = singleCallback ? queue[0] : queue.slice(0); // Reset queue.
+
+    queue.length = 0; // If we only have a single callback let's just call it.
+
+    if (singleCallback) {
+      snapshot(arg1, arg2);
+      return this;
+    } // If we have multiple callbacks, let's process them.
+
+
+    for (i = 0; i < length; i++) {
+      snapshot[i](arg1, arg2);
+      if (this._isDestroyed) break;
+    }
+
+    return this;
+  };
+  /**
+   * Destroy Queue instance.
+   *
+   * @public
+   * @memberof Queue.prototype
+   * @returns {Queue}
+   */
+
+
+  Queue.prototype.destroy = function () {
+    if (this._isDestroyed) return this;
+    this._isDestroyed = true;
+    this._queue.length = 0;
+    return this;
+  };
+  /**
+   * Layout manager for Item instance.
+   *
+   * @class
+   * @param {Item} item
+   */
+
+
+  function ItemLayout(item) {
+    this._item = item;
+    this._isActive = false;
+    this._isDestroyed = false;
+    this._isInterrupted = false;
+    this._currentStyles = {};
+    this._targetStyles = {};
+    this._currentLeft = 0;
+    this._currentTop = 0;
+    this._offsetLeft = 0;
+    this._offsetTop = 0;
+    this._skipNextAnimation = false;
+    this._animateOptions = {
+      onFinish: this._finish.bind(this)
+    };
+    this._queue = new Queue(); // Bind animation handlers and finish method.
+
+    this._setupAnimation = this._setupAnimation.bind(this);
+    this._startAnimation = this._startAnimation.bind(this);
+  }
+  /**
+   * Public prototype methods
+   * ************************
+   */
+
+  /**
+   * Start item layout based on it's current data.
+   *
+   * @public
+   * @memberof ItemLayout.prototype
+   * @param {Boolean} [instant=false]
+   * @param {Function} [onFinish]
+   * @returns {ItemLayout}
+   */
+
+
+  ItemLayout.prototype.start = function (instant, onFinish) {
+    if (this._isDestroyed) return;
+    var item = this._item;
+    var element = item._element;
+    var release = item._release;
+
+    var gridSettings = item.getGrid()._settings;
+
+    var isPositioning = this._isActive;
+    var isJustReleased = release._isActive && release._isPositioningStarted === false;
+    var animDuration = isJustReleased ? gridSettings.dragReleaseDuration : gridSettings.layoutDuration;
+    var animEasing = isJustReleased ? gridSettings.dragReleaseEasing : gridSettings.layoutEasing;
+    var animEnabled = !instant && !this._skipNextAnimation && animDuration > 0;
+    var isAnimating; // If the item is currently positioning process current layout callback
+    // queue with interrupted flag on.
+
+    if (isPositioning) this._queue.flush(true, item); // Mark release positioning as started.
+
+    if (isJustReleased) release._isPositioningStarted = true; // Push the callback to the callback queue.
+
+    if (isFunction(onFinish)) this._queue.add(onFinish); // If no animations are needed, easy peasy!
+
+    if (!animEnabled) {
+      this._updateOffsets();
+
+      this._updateTargetStyles();
+
+      isAnimating = item._animate.isAnimating();
+      this.stop(false, this._targetStyles);
+      !isAnimating && setStyles(element, this._targetStyles);
+      this._skipNextAnimation = false;
+      return this._finish();
+    } // Set item active and store some data for the animation that is about to be
+    // triggered.
+
+
+    this._isActive = true;
+    this._animateOptions.easing = animEasing;
+    this._animateOptions.duration = animDuration;
+    this._isInterrupted = isPositioning; // Start the item's layout animation in the next tick.
+
+    addLayoutTick(item._id, this._setupAnimation, this._startAnimation);
+    return this;
+  };
+  /**
+   * Stop item's position animation if it is currently animating.
+   *
+   * @public
+   * @memberof ItemLayout.prototype
+   * @param {Boolean} [processCallbackQueue=false]
+   * @param {Object} [targetStyles]
+   * @returns {ItemLayout}
+   */
+
+
+  ItemLayout.prototype.stop = function (processCallbackQueue, targetStyles) {
+    if (this._isDestroyed || !this._isActive) return this;
+    var item = this._item; // Cancel animation init.
+
+    cancelLayoutTick(item._id); // Stop animation.
+
+    item._animate.stop(targetStyles); // Remove positioning class.
+
+
+    removeClass(item._element, item.getGrid()._settings.itemPositioningClass); // Reset active state.
+
+    this._isActive = false; // Process callback queue if needed.
+
+    if (processCallbackQueue) this._queue.flush(true, item);
+    return this;
+  };
+  /**
+   * Destroy the instance and stop current animation if it is running.
+   *
+   * @public
+   * @memberof ItemLayout.prototype
+   * @returns {ItemLayout}
+   */
+
+
+  ItemLayout.prototype.destroy = function () {
+    if (this._isDestroyed) return this;
+    this.stop(true, {});
+
+    this._queue.destroy();
+
+    this._item = this._currentStyles = this._targetStyles = this._animateOptions = null;
+    this._isDestroyed = true;
+    return this;
+  };
+  /**
+   * Private prototype methods
+   * *************************
+   */
+
+  /**
+   * Calculate and update item's current layout offset data.
+   *
+   * @private
+   * @memberof ItemLayout.prototype
+   */
+
+
+  ItemLayout.prototype._updateOffsets = function () {
+    if (this._isDestroyed) return;
+    var item = this._item;
+    var migrate = item._migrate;
+    var release = item._release;
+    this._offsetLeft = release._isActive ? release._containerDiffX : migrate._isActive ? migrate._containerDiffX : 0;
+    this._offsetTop = release._isActive ? release._containerDiffY : migrate._isActive ? migrate._containerDiffY : 0;
+  };
+  /**
+   * Calculate and update item's layout target styles.
+   *
+   * @private
+   * @memberof ItemLayout.prototype
+   */
+
+
+  ItemLayout.prototype._updateTargetStyles = function () {
+    if (this._isDestroyed) return;
+    this._targetStyles.transform = getTranslateString(this._item._left + this._offsetLeft, this._item._top + this._offsetTop);
+  };
+  /**
+   * Finish item layout procedure.
+   *
+   * @private
+   * @memberof ItemLayout.prototype
+   */
+
+
+  ItemLayout.prototype._finish = function () {
+    if (this._isDestroyed) return;
+    var item = this._item;
+    var migrate = item._migrate;
+    var release = item._release; // Mark the item as inactive and remove positioning classes.
+
+    if (this._isActive) {
+      this._isActive = false;
+      removeClass(item._element, item.getGrid()._settings.itemPositioningClass);
+    } // Finish up release and migration.
+
+
+    if (release._isActive) release.stop();
+    if (migrate._isActive) migrate.stop(); // Process the callback queue.
+
+    this._queue.flush(false, item);
+  };
+  /**
+   * Prepare item for layout animation.
+   *
+   * @private
+   * @memberof ItemLayout.prototype
+   */
+
+
+  ItemLayout.prototype._setupAnimation = function () {
+    var translate = getTranslate(this._item._element);
+    this._currentLeft = translate.x;
+    this._currentTop = translate.y;
+  };
+  /**
+   * Start layout animation.
+   *
+   * @private
+   * @memberof ItemLayout.prototype
+   */
+
+
+  ItemLayout.prototype._startAnimation = function () {
+    var item = this._item;
+
+    var settings = item.getGrid()._settings; // Let's update the offset data and target styles.
+
+
+    this._updateOffsets();
+
+    this._updateTargetStyles(); // If the item is already in correct position let's quit early.
+
+
+    if (item._left === this._currentLeft - this._offsetLeft && item._top === this._currentTop - this._offsetTop) {
+      if (this._isInterrupted) this.stop(false, this._targetStyles);
+      this._isActive = false;
+
+      this._finish();
+
+      return;
+    } // Set item's positioning class if needed.
+
+
+    if (!this._isInterrupted) {
+      addClass(item._element, settings.itemPositioningClass);
+    } // Get current styles for animation.
+
+
+    this._currentStyles.transform = getTranslateString(this._currentLeft, this._currentTop); // Animate.
+
+    item._animate.start(this._currentStyles, this._targetStyles, this._animateOptions);
+  };
+
+  var tempStyles = {};
+  /**
+   * The migrate process handler constructor.
+   *
+   * @class
+   * @param {Item} item
+   */
+
+  function ItemMigrate(item) {
+    // Private props.
+    this._item = item;
+    this._isActive = false;
+    this._isDestroyed = false;
+    this._container = false;
+    this._containerDiffX = 0;
+    this._containerDiffY = 0;
+  }
+  /**
+   * Public prototype methods
+   * ************************
+   */
+
+  /**
+   * Start the migrate process of an item.
+   *
+   * @public
+   * @memberof ItemMigrate.prototype
+   * @param {Grid} targetGrid
+   * @param {GridSingleItemQuery} position
+   * @param {HTMLElement} [container]
+   * @returns {ItemMigrate}
+   */
+
+
+  ItemMigrate.prototype.start = function (targetGrid, position, container) {
+    if (this._isDestroyed) return this;
+    var item = this._item;
+    var element = item._element;
+    var isVisible = item.isVisible();
+    var grid = item.getGrid();
+    var settings = grid._settings;
+    var targetSettings = targetGrid._settings;
+    var targetElement = targetGrid._element;
+    var targetItems = targetGrid._items;
+
+    var currentIndex = grid._items.indexOf(item);
+
+    var targetContainer = container || window.document.body;
+    var targetIndex;
+    var targetItem;
+    var currentContainer;
+    var offsetDiff;
+    var containerDiff;
+    var translate;
+    var translateX;
+    var translateY; // Get target index.
+
+    if (typeof position === 'number') {
+      targetIndex = normalizeArrayIndex(targetItems, position, true);
+    } else {
+      targetItem = targetGrid._getItem(position);
+      /** @todo Consider throwing an error here instead of silently failing. */
+
+      if (!targetItem) return this;
+      targetIndex = targetItems.indexOf(targetItem);
+    } // Get current translateX and translateY values if needed.
+
+
+    if (item.isPositioning() || this._isActive || item.isReleasing()) {
+      translate = getTranslate(element);
+      translateX = translate.x;
+      translateY = translate.y;
+    } // Abort current positioning.
+
+
+    if (item.isPositioning()) {
+      item._layout.stop(true, {
+        transform: getTranslateString(translateX, translateY)
+      });
+    } // Abort current migration.
+
+
+    if (this._isActive) {
+      translateX -= this._containerDiffX;
+      translateY -= this._containerDiffY;
+      this.stop(true, {
+        transform: getTranslateString(translateX, translateY)
+      });
+    } // Abort current release.
+
+
+    if (item.isReleasing()) {
+      translateX -= item._release._containerDiffX;
+      translateY -= item._release._containerDiffY;
+
+      item._release.stop(true, {
+        transform: getTranslateString(translateX, translateY)
+      });
+    } // Stop current visibility animations.
+
+
+    item._visibility._stopAnimation(); // Destroy current drag.
+
+
+    if (item._drag) item._drag.destroy(); // Process current visibility animation queue.
+
+    item._visibility._queue.flush(true, item); // Emit beforeSend event.
+
+
+    if (grid._hasListeners(eventBeforeSend)) {
+      grid._emit(eventBeforeSend, {
+        item: item,
+        fromGrid: grid,
+        fromIndex: currentIndex,
+        toGrid: targetGrid,
+        toIndex: targetIndex
+      });
+    } // Emit beforeReceive event.
+
+
+    if (targetGrid._hasListeners(eventBeforeReceive)) {
+      targetGrid._emit(eventBeforeReceive, {
+        item: item,
+        fromGrid: grid,
+        fromIndex: currentIndex,
+        toGrid: targetGrid,
+        toIndex: targetIndex
+      });
+    } // Remove current classnames.
+
+
+    removeClass(element, settings.itemClass);
+    removeClass(element, settings.itemVisibleClass);
+    removeClass(element, settings.itemHiddenClass); // Add new classnames.
+
+    addClass(element, targetSettings.itemClass);
+    addClass(element, isVisible ? targetSettings.itemVisibleClass : targetSettings.itemHiddenClass); // Move item instance from current grid to target grid.
+
+    grid._items.splice(currentIndex, 1);
+
+    arrayInsert(targetItems, item, targetIndex); // Update item's grid id reference.
+
+    item._gridId = targetGrid._id; // Get current container.
+
+    currentContainer = element.parentNode; // Move the item inside the target container if it's different than the
+    // current container.
+
+    if (targetContainer !== currentContainer) {
+      targetContainer.appendChild(element);
+      offsetDiff = getOffsetDiff(targetContainer, currentContainer, true);
+
+      if (!translate) {
+        translate = getTranslate(element);
+        translateX = translate.x;
+        translateY = translate.y;
+      }
+
+      element.style[transformProp] = getTranslateString(translateX + offsetDiff.left, translateY + offsetDiff.top);
+    } // Update child element's styles to reflect the current visibility state.
+
+
+    item._child.removeAttribute('style');
+
+    setStyles(item._child, isVisible ? targetSettings.visibleStyles : targetSettings.hiddenStyles); // Update display style.
+
+    element.style.display = isVisible ? 'block' : 'hidden'; // Get offset diff for the migration data.
+
+    containerDiff = getOffsetDiff(targetContainer, targetElement, true); // Update item's cached dimensions and sort data.
+
+    item._refreshDimensions();
+
+    item._refreshSortData(); // Create new drag handler.
+
+
+    item._drag = targetSettings.dragEnabled ? new ItemDrag(item) : null; // Setup migration data.
+
+    this._isActive = true;
+    this._container = targetContainer;
+    this._containerDiffX = containerDiff.left;
+    this._containerDiffY = containerDiff.top; // Emit send event.
+
+    if (grid._hasListeners(eventSend)) {
+      grid._emit(eventSend, {
+        item: item,
+        fromGrid: grid,
+        fromIndex: currentIndex,
+        toGrid: targetGrid,
+        toIndex: targetIndex
+      });
+    } // Emit receive event.
+
+
+    if (targetGrid._hasListeners(eventReceive)) {
+      targetGrid._emit(eventReceive, {
+        item: item,
+        fromGrid: grid,
+        fromIndex: currentIndex,
+        toGrid: targetGrid,
+        toIndex: targetIndex
+      });
+    }
+
+    return this;
+  };
+  /**
+   * End the migrate process of an item. This method can be used to abort an
+   * ongoing migrate process (animation) or finish the migrate process.
+   *
+   * @public
+   * @memberof ItemMigrate.prototype
+   * @param {Boolean} [abort=false]
+   *  - Should the migration be aborted?
+   * @param {Object} [currentStyles]
+   *  - Optional current translateX and translateY styles.
+   * @returns {ItemMigrate}
+   */
+
+
+  ItemMigrate.prototype.stop = function (abort, currentStyles) {
+    if (this._isDestroyed || !this._isActive) return this;
+    var item = this._item;
+    var element = item._element;
+    var grid = item.getGrid();
+    var gridElement = grid._element;
+    var translate;
+
+    if (this._container !== gridElement) {
+      if (!currentStyles) {
+        if (abort) {
+          translate = getTranslate(element);
+          tempStyles.transform = getTranslateString(translate.x - this._containerDiffX, translate.y - this._containerDiffY);
+        } else {
+          tempStyles.transform = getTranslateString(item._left, item._top);
+        }
+
+        currentStyles = tempStyles;
+      }
+
+      gridElement.appendChild(element);
+      setStyles(element, currentStyles);
+    }
+
+    this._isActive = false;
+    this._container = null;
+    this._containerDiffX = 0;
+    this._containerDiffY = 0;
+    return this;
+  };
+  /**
+   * Destroy instance.
+   *
+   * @public
+   * @memberof ItemMigrate.prototype
+   * @returns {ItemMigrate}
+   */
+
+
+  ItemMigrate.prototype.destroy = function () {
+    if (this._isDestroyed) return this;
+    this.stop(true);
+    this._item = null;
+    this._isDestroyed = true;
+    return this;
+  };
+
+  var tempStyles$1 = {};
+  /**
+   * The release process handler constructor. Although this might seem as proper
+   * fit for the drag process this needs to be separated into it's own logic
+   * because there might be a scenario where drag is disabled, but the release
+   * process still needs to be implemented (dragging from a grid to another).
+   *
+   * @class
+   * @param {Item} item
+   */
+
+  function ItemRelease(item) {
+    this._item = item;
+    this._isActive = false;
+    this._isDestroyed = false;
+    this._isPositioningStarted = false;
+    this._containerDiffX = 0;
+    this._containerDiffY = 0;
+  }
+  /**
+   * Public prototype methods
+   * ************************
+   */
+
+  /**
+   * Start the release process of an item.
+   *
+   * @public
+   * @memberof ItemRelease.prototype
+   * @returns {ItemRelease}
+   */
+
+
+  ItemRelease.prototype.start = function () {
+    if (this._isDestroyed || this._isActive) return this;
+    var item = this._item;
+    var grid = item.getGrid(); // Flag release as active.
+
+    this._isActive = true; // Add release class name to the released element.
+
+    addClass(item._element, grid._settings.itemReleasingClass); // Emit dragReleaseStart event.
+
+    grid._emit(eventDragReleaseStart, item); // Position the released item.
+
+
+    item._layout.start(false);
+
+    return this;
+  };
+  /**
+   * End the release process of an item. This method can be used to abort an
+   * ongoing release process (animation) or finish the release process.
+   *
+   * @public
+   * @memberof ItemRelease.prototype
+   * @param {Boolean} [abort=false]
+   *  - Should the release be aborted? When true, the release end event won't be
+   *    emitted. Set to true only when you need to abort the release process
+   *    while the item is animating to it's position.
+   * @param {Object} [currentStyles]
+   *  - Optional current translateX and translateY styles.
+   * @returns {ItemRelease}
+   */
+
+
+  ItemRelease.prototype.stop = function (abort, currentStyles) {
+    if (this._isDestroyed || !this._isActive) return this;
+    var item = this._item;
+    var element = item._element;
+    var grid = item.getGrid();
+    var container = grid._element;
+    var translate; // Reset data and remove releasing class name from the element.
+
+    this._reset(); // If the released element is outside the grid's container element put it
+    // back there and adjust position accordingly.
+
+
+    if (element.parentNode !== container) {
+      if (!currentStyles) {
+        if (abort) {
+          translate = getTranslate(element);
+          tempStyles$1.transform = getTranslateString(translate.x - this._containerDiffX, translate.y - this._containerDiffY);
+        } else {
+          tempStyles$1.transform = getTranslateString(item._left, item._top);
+        }
+
+        currentStyles = tempStyles$1;
+      }
+
+      container.appendChild(element);
+      setStyles(element, currentStyles);
+    } // Emit dragReleaseEnd event.
+
+
+    if (!abort) grid._emit(eventDragReleaseEnd, item);
+    return this;
+  };
+  /**
+   * Destroy instance.
+   *
+   * @public
+   * @memberof ItemRelease.prototype
+   * @returns {ItemRelease}
+   */
+
+
+  ItemRelease.prototype.destroy = function () {
+    if (this._isDestroyed) return this;
+    this.stop(true);
+    this._item = null;
+    this._isDestroyed = true;
+    return this;
+  };
+  /**
+   * Private prototype methods
+   * *************************
+   */
+
+  /**
+   * Reset public data and remove releasing class.
+   *
+   * @private
+   * @memberof ItemRelease.prototype
+   */
+
+
+  ItemRelease.prototype._reset = function () {
+    if (this._isDestroyed) return;
+    var item = this._item;
+    this._isActive = false;
+    this._isPositioningStarted = false;
+    this._containerDiffX = 0;
+    this._containerDiffY = 0;
+    removeClass(item._element, item.getGrid()._settings.itemReleasingClass);
+  };
+  /**
+   * Get current values of the provided styles definition object.
+   *
+   * @param {HTMLElement} element
+   * @param {Object} styles
+   * @return {Object}
+   */
+
+
+  function getCurrentStyles(element, styles) {
+    var current = {};
+
+    for (var prop in styles) {
+      current[prop] = getStyle(element, getStyleName(prop));
+    }
+
+    return current;
+  }
+  /**
+   * Visibility manager for Item instance.
+   *
+   * @class
+   * @param {Item} item
+   */
+
+
+  function ItemVisibility(item) {
+    var isActive = item._isActive;
+    var element = item._element;
+
+    var settings = item.getGrid()._settings;
+
+    this._item = item;
+    this._isDestroyed = false; // Set up visibility states.
+
+    this._isHidden = !isActive;
+    this._isHiding = false;
+    this._isShowing = false; // Callback queue.
+
+    this._queue = new Queue(); // Bind show/hide finishers.
+
+    this._finishShow = this._finishShow.bind(this);
+    this._finishHide = this._finishHide.bind(this); // Force item to be either visible or hidden on init.
+
+    element.style.display = isActive ? 'block' : 'none'; // Set visible/hidden class.
+
+    addClass(element, isActive ? settings.itemVisibleClass : settings.itemHiddenClass); // Set initial styles for the child element.
+
+    setStyles(item._child, isActive ? settings.visibleStyles : settings.hiddenStyles);
+  }
+  /**
+   * Public prototype methods
+   * ************************
+   */
+
+  /**
+   * Show item.
+   *
+   * @public
+   * @memberof ItemVisibility.prototype
+   * @param {Boolean} instant
+   * @param {Function} [onFinish]
+   * @returns {ItemVisibility}
+   */
+
+
+  ItemVisibility.prototype.show = function (instant, onFinish) {
+    if (this._isDestroyed) return this;
+    var item = this._item;
+    var element = item._element;
+    var queue = this._queue;
+    var callback = isFunction(onFinish) ? onFinish : null;
+    var grid = item.getGrid();
+    var settings = grid._settings; // If item is visible call the callback and be done with it.
+
+    if (!this._isShowing && !this._isHidden) {
+      callback && callback(false, item);
+      return this;
+    } // If item is showing and does not need to be shown instantly, let's just
+    // push callback to the callback queue and be done with it.
+
+
+    if (this._isShowing && !instant) {
+      callback && queue.add(callback);
+      return this;
+    } // If the item is hiding or hidden process the current visibility callback
+    // queue with the interrupted flag active, update classes and set display
+    // to block if necessary.
+
+
+    if (!this._isShowing) {
+      queue.flush(true, item);
+      removeClass(element, settings.itemHiddenClass);
+      addClass(element, settings.itemVisibleClass);
+      if (!this._isHiding) element.style.display = 'block';
+    } // Push callback to the callback queue.
+
+
+    callback && queue.add(callback); // Update visibility states.
+
+    item._isActive = this._isShowing = true;
+    this._isHiding = this._isHidden = false; // Finally let's start show animation.
+
+    this._startAnimation(true, instant, this._finishShow);
+
+    return this;
+  };
+  /**
+   * Hide item.
+   *
+   * @public
+   * @memberof ItemVisibility.prototype
+   * @param {Boolean} instant
+   * @param {Function} [onFinish]
+   * @returns {ItemVisibility}
+   */
+
+
+  ItemVisibility.prototype.hide = function (instant, onFinish) {
+    if (this._isDestroyed) return this;
+    var item = this._item;
+    var element = item._element;
+    var queue = this._queue;
+    var callback = isFunction(onFinish) ? onFinish : null;
+    var grid = item.getGrid();
+    var settings = grid._settings; // If item is already hidden call the callback and be done with it.
+
+    if (!this._isHiding && this._isHidden) {
+      callback && callback(false, item);
+      return this;
+    } // If item is hiding and does not need to be hidden instantly, let's just
+    // push callback to the callback queue and be done with it.
+
+
+    if (this._isHiding && !instant) {
+      callback && queue.add(callback);
+      return this;
+    } // If the item is showing or visible process the current visibility callback
+    // queue with the interrupted flag active, update classes and set display
+    // to block if necessary.
+
+
+    if (!this._isHiding) {
+      queue.flush(true, item);
+      addClass(element, settings.itemHiddenClass);
+      removeClass(element, settings.itemVisibleClass);
+    } // Push callback to the callback queue.
+
+
+    callback && queue.add(callback); // Update visibility states.
+
+    this._isHidden = this._isHiding = true;
+    item._isActive = this._isShowing = false; // Finally let's start hide animation.
+
+    this._startAnimation(false, instant, this._finishHide);
+
+    return this;
+  };
+  /**
+   * Destroy the instance and stop current animation if it is running.
+   *
+   * @public
+   * @memberof ItemVisibility.prototype
+   * @returns {ItemVisibility}
+   */
+
+
+  ItemVisibility.prototype.destroy = function () {
+    if (this._isDestroyed) return this;
+    var item = this._item;
+    var element = item._element;
+    var grid = item.getGrid();
+    var queue = this._queue;
+    var settings = grid._settings; // Stop visibility animation.
+
+    this._stopAnimation({}); // Fire all uncompleted callbacks with interrupted flag and destroy the queue.
+
+
+    queue.flush(true, item).destroy(); // Remove visible/hidden classes.
+
+    removeClass(element, settings.itemVisibleClass);
+    removeClass(element, settings.itemHiddenClass); // Reset state.
+
+    this._item = null;
+    this._isHiding = this._isShowing = false;
+    this._isDestroyed = this._isHidden = true;
+    return this;
+  };
+  /**
+   * Private prototype methods
+   * *************************
+   */
+
+  /**
+   * Start visibility animation.
+   *
+   * @private
+   * @memberof ItemVisibility.prototype
+   * @param {Boolean} toVisible
+   * @param {Boolean} [instant]
+   * @param {Function} [onFinish]
+   */
+
+
+  ItemVisibility.prototype._startAnimation = function (toVisible, instant, onFinish) {
+    if (this._isDestroyed) return;
+    var item = this._item;
+
+    var settings = item.getGrid()._settings;
+
+    var targetStyles = toVisible ? settings.visibleStyles : settings.hiddenStyles;
+    var duration = parseInt(toVisible ? settings.showDuration : settings.hideDuration) || 0;
+    var easing = (toVisible ? settings.showEasing : settings.hideEasing) || 'ease';
+    var isInstant = instant || duration <= 0;
+    var currentStyles; // No target styles? Let's quit early.
+
+    if (!targetStyles) {
+      onFinish && onFinish();
+      return;
+    } // Cancel queued visibility tick.
+
+
+    cancelVisibilityTick(item._id); // If we need to apply the styles instantly without animation.
+
+    if (isInstant) {
+      if (item._animateChild.isAnimating()) {
+        item._animateChild.stop(targetStyles);
+      } else {
+        setStyles(item._child, targetStyles);
+      }
+
+      onFinish && onFinish();
+      return;
+    } // Start the animation in the next tick (to avoid layout thrashing).
+
+
+    addVisibilityTick(item._id, function () {
+      currentStyles = getCurrentStyles(item._child, targetStyles);
+    }, function () {
+      item._animateChild.start(currentStyles, targetStyles, {
+        duration: duration,
+        easing: easing,
+        onFinish: onFinish
+      });
+    });
+  };
+  /**
+   * Stop visibility animation.
+   *
+   * @private
+   * @memberof ItemVisibility.prototype
+   * @param {Object} [targetStyles]
+   */
+
+
+  ItemVisibility.prototype._stopAnimation = function (targetStyles) {
+    if (this._isDestroyed) return;
+    var item = this._item;
+    cancelVisibilityTick(item._id);
+
+    item._animateChild.stop(targetStyles);
+  };
+  /**
+   * Finish show procedure.
+   *
+   * @private
+   * @memberof ItemVisibility.prototype
+   */
+
+
+  ItemVisibility.prototype._finishShow = function () {
+    if (this._isHidden) return;
+    this._isShowing = false;
+
+    this._queue.flush(false, this._item);
+  };
+  /**
+   * Finish hide procedure.
+   *
+   * @private
+   * @memberof ItemVisibility.prototype
+   */
+
+
+  var finishStyles = {};
+
+  ItemVisibility.prototype._finishHide = function () {
+    if (!this._isHidden) return;
+    var item = this._item;
+    this._isHiding = false;
+    finishStyles.transform = getTranslateString(0, 0);
+
+    item._layout.stop(true, finishStyles);
+
+    item._element.style.display = 'none';
+
+    this._queue.flush(false, item);
+  };
+
+  var id = 0;
+  /**
+   * Returns a unique numeric id (increments a base value on every call).
+   * @returns {Number}
+   */
+
+  function createUid() {
+    return ++id;
+  }
+  /**
+   * Creates a new Item instance for a Grid instance.
+   *
+   * @class
+   * @param {Grid} grid
+   * @param {HTMLElement} element
+   * @param {Boolean} [isActive]
+   */
+
+
+  function Item(grid, element, isActive) {
+    var settings = grid._settings; // Create instance id.
+
+    this._id = createUid(); // Reference to connected Grid instance's id.
+
+    this._gridId = grid._id; // Destroyed flag.
+
+    this._isDestroyed = false; // Set up initial positions.
+
+    this._left = 0;
+    this._top = 0; // The elements.
+
+    this._element = element;
+    this._child = element.children[0]; // If the provided item element is not a direct child of the grid container
+    // element, append it to the grid container.
+
+    if (element.parentNode !== grid._element) {
+      grid._element.appendChild(element);
+    } // Set item class.
+
+
+    addClass(element, settings.itemClass); // If isActive is not defined, let's try to auto-detect it.
+
+    if (typeof isActive !== 'boolean') {
+      isActive = getStyle(element, 'display') !== 'none';
+    } // Set up active state (defines if the item is considered part of the layout
+    // or not).
+
+
+    this._isActive = isActive; // Set element's initial position styles.
+
+    element.style.left = '0';
+    element.style.top = '0';
+    element.style[transformProp] = getTranslateString(0, 0); // Initiate item's animation controllers.
+
+    this._animate = new ItemAnimate(element);
+    this._animateChild = new ItemAnimate(this._child); // Setup visibility handler.
+
+    this._visibility = new ItemVisibility(this); // Set up layout handler.
+
+    this._layout = new ItemLayout(this); // Set up migration handler data.
+
+    this._migrate = new ItemMigrate(this); // Set up release handler. Note that although this is fully linked to dragging
+    // this still needs to be always instantiated to handle migration scenarios
+    // correctly.
+
+    this._release = new ItemRelease(this); // Set up drag placeholder handler. Note that although this is fully linked to
+    // dragging this still needs to be always instantiated to handle migration
+    // scenarios correctly.
+
+    this._dragPlaceholder = new ItemDragPlaceholder(this); // Set up drag handler.
+
+    this._drag = settings.dragEnabled ? new ItemDrag(this) : null; // Set up the initial dimensions and sort data.
+
+    this._refreshDimensions();
+
+    this._refreshSortData();
+  }
+  /**
+   * Public prototype methods
+   * ************************
+   */
+
+  /**
+   * Get the instance grid reference.
+   *
+   * @public
+   * @memberof Item.prototype
+   * @returns {Grid}
+   */
+
+
+  Item.prototype.getGrid = function () {
+    return gridInstances[this._gridId];
+  };
+  /**
+   * Get the instance element.
+   *
+   * @public
+   * @memberof Item.prototype
+   * @returns {HTMLElement}
+   */
+
+
+  Item.prototype.getElement = function () {
+    return this._element;
+  };
+  /**
+   * Get instance element's cached width.
+   *
+   * @public
+   * @memberof Item.prototype
+   * @returns {Number}
+   */
+
+
+  Item.prototype.getWidth = function () {
+    return this._width;
+  };
+  /**
+   * Get instance element's cached height.
+   *
+   * @public
+   * @memberof Item.prototype
+   * @returns {Number}
+   */
+
+
+  Item.prototype.getHeight = function () {
+    return this._height;
+  };
+  /**
+   * Get instance element's cached margins.
+   *
+   * @public
+   * @memberof Item.prototype
+   * @returns {Object}
+   *   - The returned object contains left, right, top and bottom properties
+   *     which indicate the item element's cached margins.
+   */
+
+
+  Item.prototype.getMargin = function () {
+    return {
+      left: this._marginLeft,
+      right: this._marginRight,
+      top: this._marginTop,
+      bottom: this._marginBottom
+    };
+  };
+  /**
+   * Get instance element's cached position.
+   *
+   * @public
+   * @memberof Item.prototype
+   * @returns {Object}
+   *   - The returned object contains left and top properties which indicate the
+   *     item element's cached position in the grid.
+   */
+
+
+  Item.prototype.getPosition = function () {
+    return {
+      left: this._left,
+      top: this._top
+    };
+  };
+  /**
+   * Is the item active?
+   *
+   * @public
+   * @memberof Item.prototype
+   * @returns {Boolean}
+   */
+
+
+  Item.prototype.isActive = function () {
+    return this._isActive;
+  };
+  /**
+   * Is the item visible?
+   *
+   * @public
+   * @memberof Item.prototype
+   * @returns {Boolean}
+   */
+
+
+  Item.prototype.isVisible = function () {
+    return !!this._visibility && !this._visibility._isHidden;
+  };
+  /**
+   * Is the item being animated to visible?
+   *
+   * @public
+   * @memberof Item.prototype
+   * @returns {Boolean}
+   */
+
+
+  Item.prototype.isShowing = function () {
+    return !!(this._visibility && this._visibility._isShowing);
+  };
+  /**
+   * Is the item being animated to hidden?
+   *
+   * @public
+   * @memberof Item.prototype
+   * @returns {Boolean}
+   */
+
+
+  Item.prototype.isHiding = function () {
+    return !!(this._visibility && this._visibility._isHiding);
+  };
+  /**
+   * Is the item positioning?
+   *
+   * @public
+   * @memberof Item.prototype
+   * @returns {Boolean}
+   */
+
+
+  Item.prototype.isPositioning = function () {
+    return !!(this._layout && this._layout._isActive);
+  };
+  /**
+   * Is the item being dragged?
+   *
+   * @public
+   * @memberof Item.prototype
+   * @returns {Boolean}
+   */
+
+
+  Item.prototype.isDragging = function () {
+    return !!(this._drag && this._drag._isActive);
+  };
+  /**
+   * Is the item being released?
+   *
+   * @public
+   * @memberof Item.prototype
+   * @returns {Boolean}
+   */
+
+
+  Item.prototype.isReleasing = function () {
+    return !!(this._release && this._release._isActive);
+  };
+  /**
+   * Is the item destroyed?
+   *
+   * @public
+   * @memberof Item.prototype
+   * @returns {Boolean}
+   */
+
+
+  Item.prototype.isDestroyed = function () {
+    return this._isDestroyed;
+  };
+  /**
+   * Private prototype methods
+   * *************************
+   */
+
+  /**
+   * Recalculate item's dimensions.
+   *
+   * @private
+   * @memberof Item.prototype
+   */
+
+
+  Item.prototype._refreshDimensions = function () {
+    if (this._isDestroyed || this._visibility._isHidden) return;
+    var element = this._element;
+    var dragPlaceholder = this._dragPlaceholder;
+    var rect = element.getBoundingClientRect(); // Calculate width and height.
+
+    this._width = rect.width;
+    this._height = rect.height; // Calculate margins (ignore negative margins).
+
+    this._marginLeft = Math.max(0, getStyleAsFloat(element, 'margin-left'));
+    this._marginRight = Math.max(0, getStyleAsFloat(element, 'margin-right'));
+    this._marginTop = Math.max(0, getStyleAsFloat(element, 'margin-top'));
+    this._marginBottom = Math.max(0, getStyleAsFloat(element, 'margin-bottom')); // Keep drag placeholder's dimensions synced with the item's.
+
+    if (dragPlaceholder) {
+      dragPlaceholder.updateDimensions(this._width, this._height);
+    }
+  };
+  /**
+   * Fetch and store item's sort data.
+   *
+   * @private
+   * @memberof Item.prototype
+   */
+
+
+  Item.prototype._refreshSortData = function () {
+    if (this._isDestroyed) return;
+    var data = this._sortData = {};
+
+    var getters = this.getGrid()._settings.sortData;
+
+    var prop;
+
+    for (prop in getters) {
+      data[prop] = getters[prop](this, this._element);
+    }
+  };
+  /**
+   * Destroy item instance.
+   *
+   * @private
+   * @memberof Item.prototype
+   * @param {Boolean} [removeElement=false]
+   */
+
+
+  Item.prototype._destroy = function (removeElement) {
+    if (this._isDestroyed) return;
+    var element = this._element;
+    var grid = this.getGrid();
+    var settings = grid._settings;
+
+    var index = grid._items.indexOf(this); // Destroy handlers.
+
+
+    this._release.destroy();
+
+    this._migrate.destroy();
+
+    this._layout.destroy();
+
+    this._visibility.destroy();
+
+    this._animate.destroy();
+
+    this._animateChild.destroy();
+
+    this._dragPlaceholder.destroy();
+
+    this._drag && this._drag.destroy(); // Remove all inline styles.
+
+    element.removeAttribute('style');
+
+    this._child.removeAttribute('style'); // Remove item class.
+
+
+    removeClass(element, settings.itemClass); // Remove item from Grid instance if it still exists there.
+
+    index > -1 && grid._items.splice(index, 1); // Remove element from DOM.
+
+    removeElement && element.parentNode.removeChild(element); // Reset state.
+
+    this._isActive = false;
+    this._isDestroyed = true;
+  };
+  /**
+   * This is the default layout algorithm for Muuri. Based on MAXRECTS approach
+   * as described by Jukka Jylänki in his survey: "A Thousand Ways to Pack the
+   * Bin - A Practical Approach to Two-Dimensional Rectangle Bin Packing.".
+   *
+   * @class
+   */
+
+
+  function Packer() {
+    this._slots = [];
+    this._slotSizes = [];
+    this._freeSlots = [];
+    this._newSlots = [];
+    this._rectItem = {};
+    this._rectStore = [];
+    this._rectId = 0; // The layout return data, which will be populated in getLayout.
+
+    this._layout = {
+      slots: null,
+      setWidth: false,
+      setHeight: false,
+      width: false,
+      height: false
+    }; // Bind sort handlers.
+
+    this._sortRectsLeftTop = this._sortRectsLeftTop.bind(this);
+    this._sortRectsTopLeft = this._sortRectsTopLeft.bind(this);
+  }
+  /**
+   * @public
+   * @memberof Packer.prototype
+   * @param {Item[]} items
+   * @param {Number} width
+   * @param {Number} height
+   * @param {Number[]} [slots]
+   * @param {Object} [options]
+   * @param {Boolean} [options.fillGaps=false]
+   * @param {Boolean} [options.horizontal=false]
+   * @param {Boolean} [options.alignRight=false]
+   * @param {Boolean} [options.alignBottom=false]
+   * @returns {LayoutData}
+   */
+
+
+  Packer.prototype.getLayout = function (items, width, height, slots, options) {
+    var layout = this._layout;
+    var fillGaps = !!(options && options.fillGaps);
+    var isHorizontal = !!(options && options.horizontal);
+    var alignRight = !!(options && options.alignRight);
+    var alignBottom = !!(options && options.alignBottom);
+    var rounding = !!(options && options.rounding);
+    var slotSizes = this._slotSizes;
+    var i; // Reset layout data.
+
+    layout.slots = slots ? slots : this._slots;
+    layout.width = isHorizontal ? 0 : rounding ? Math.round(width) : width;
+    layout.height = !isHorizontal ? 0 : rounding ? Math.round(height) : height;
+    layout.setWidth = isHorizontal;
+    layout.setHeight = !isHorizontal; // Make sure slots and slot size arrays are reset.
+
+    layout.slots.length = 0;
+    slotSizes.length = 0; // No need to go further if items do not exist.
+
+    if (!items.length) return layout; // Find slots for items.
+
+    for (i = 0; i < items.length; i++) {
+      this._addSlot(items[i], isHorizontal, fillGaps, rounding, alignRight || alignBottom);
+    } // If the alignment is set to right we need to adjust the results.
+
+
+    if (alignRight) {
+      for (i = 0; i < layout.slots.length; i = i + 2) {
+        layout.slots[i] = layout.width - (layout.slots[i] + slotSizes[i]);
+      }
+    } // If the alignment is set to bottom we need to adjust the results.
+
+
+    if (alignBottom) {
+      for (i = 1; i < layout.slots.length; i = i + 2) {
+        layout.slots[i] = layout.height - (layout.slots[i] + slotSizes[i]);
+      }
+    } // Reset slots arrays and rect id.
+
+
+    slotSizes.length = 0;
+    this._freeSlots.length = 0;
+    this._newSlots.length = 0;
+    this._rectId = 0;
+    return layout;
+  };
+  /**
+   * Calculate position for the layout item. Returns the left and top position
+   * of the item in pixels.
+   *
+   * @private
+   * @memberof Packer.prototype
+   * @param {Item} item
+   * @param {Boolean} isHorizontal
+   * @param {Boolean} fillGaps
+   * @param {Boolean} rounding
+   * @returns {Array}
+   */
+
+
+  Packer.prototype._addSlot = function () {
+    var eps = 0.001;
+    var itemSlot = {};
+    return function (item, isHorizontal, fillGaps, rounding, trackSize) {
+      var layout = this._layout;
+      var freeSlots = this._freeSlots;
+      var newSlots = this._newSlots;
+      var rect;
+      var rectId;
+      var potentialSlots;
+      var ignoreCurrentSlots;
+      var i;
+      var ii; // Reset new slots.
+
+      newSlots.length = 0; // Set item slot initial data.
+
+      itemSlot.left = null;
+      itemSlot.top = null;
+      itemSlot.width = item._width + item._marginLeft + item._marginRight;
+      itemSlot.height = item._height + item._marginTop + item._marginBottom; // Round item slot width and height if needed.
+
+      if (rounding) {
+        itemSlot.width = Math.round(itemSlot.width);
+        itemSlot.height = Math.round(itemSlot.height);
+      } // Try to find a slot for the item.
+
+
+      for (i = 0; i < freeSlots.length; i++) {
+        rectId = freeSlots[i];
+        if (!rectId) continue;
+        rect = this._getRect(rectId);
+
+        if (itemSlot.width <= rect.width + eps && itemSlot.height <= rect.height + eps) {
+          itemSlot.left = rect.left;
+          itemSlot.top = rect.top;
+          break;
+        }
+      } // If no slot was found for the item.
+
+
+      if (itemSlot.left === null) {
+        // Position the item in to the bottom left (vertical mode) or top right
+        // (horizontal mode) of the grid.
+        itemSlot.left = !isHorizontal ? 0 : layout.width;
+        itemSlot.top = !isHorizontal ? layout.height : 0; // If gaps don't need filling do not add any current slots to the new
+        // slots array.
+
+        if (!fillGaps) {
+          ignoreCurrentSlots = true;
+        }
+      } // In vertical mode, if the item's bottom overlaps the grid's bottom.
+
+
+      if (!isHorizontal && itemSlot.top + itemSlot.height > layout.height) {
+        // If item is not aligned to the left edge, create a new slot.
+        if (itemSlot.left > 0) {
+          newSlots.push(this._addRect(0, layout.height, itemSlot.left, Infinity));
+        } // If item is not aligned to the right edge, create a new slot.
+
+
+        if (itemSlot.left + itemSlot.width < layout.width) {
+          newSlots.push(this._addRect(itemSlot.left + itemSlot.width, layout.height, layout.width - itemSlot.left - itemSlot.width, Infinity));
+        } // Update grid height.
+
+
+        layout.height = itemSlot.top + itemSlot.height;
+      } // In horizontal mode, if the item's right overlaps the grid's right edge.
+
+
+      if (isHorizontal && itemSlot.left + itemSlot.width > layout.width) {
+        // If item is not aligned to the top, create a new slot.
+        if (itemSlot.top > 0) {
+          newSlots.push(this._addRect(layout.width, 0, Infinity, itemSlot.top));
+        } // If item is not aligned to the bottom, create a new slot.
+
+
+        if (itemSlot.top + itemSlot.height < layout.height) {
+          newSlots.push(this._addRect(layout.width, itemSlot.top + itemSlot.height, Infinity, layout.height - itemSlot.top - itemSlot.height));
+        } // Update grid width.
+
+
+        layout.width = itemSlot.left + itemSlot.width;
+      } // Clean up the current slots making sure there are no old slots that
+      // overlap with the item. If an old slot overlaps with the item, split it
+      // into smaller slots if necessary.
+
+
+      for (i = fillGaps ? 0 : ignoreCurrentSlots ? freeSlots.length : i; i < freeSlots.length; i++) {
+        rectId = freeSlots[i];
+        if (!rectId) continue;
+        rect = this._getRect(rectId);
+        potentialSlots = this._splitRect(rect, itemSlot);
+
+        for (ii = 0; ii < potentialSlots.length; ii++) {
+          rectId = potentialSlots[ii];
+          rect = this._getRect(rectId); // Let's make sure here that we have a big enough slot
+          // (width/height > 0.49px) and also let's make sure that the slot is
+          // within the boundaries of the grid.
+
+          if (rect.width > 0.49 && rect.height > 0.49 && (!isHorizontal && rect.top < layout.height || isHorizontal && rect.left < layout.width)) {
+            newSlots.push(rectId);
+          }
+        }
+      } // Sanitize new slots.
+
+
+      if (newSlots.length) {
+        this._purgeRects(newSlots).sort(isHorizontal ? this._sortRectsLeftTop : this._sortRectsTopLeft);
+      } // Update layout width/height.
+
+
+      if (isHorizontal) {
+        layout.width = Math.max(layout.width, itemSlot.left + itemSlot.width);
+      } else {
+        layout.height = Math.max(layout.height, itemSlot.top + itemSlot.height);
+      } // Add item slot data to layout slots (and store the slot size for later
+      // usage too if necessary).
+
+
+      layout.slots.push(itemSlot.left, itemSlot.top);
+      if (trackSize) this._slotSizes.push(itemSlot.width, itemSlot.height); // Free/new slots switcheroo!
+
+      this._freeSlots = newSlots;
+      this._newSlots = freeSlots;
+    };
+  }();
+  /**
+   * Add a new rectangle to the rectangle store. Returns the id of the new
+   * rectangle.
+   *
+   * @private
+   * @memberof Packer.prototype
+   * @param {Number} left
+   * @param {Number} top
+   * @param {Number} width
+   * @param {Number} height
+   * @returns {RectId}
+   */
+
+
+  Packer.prototype._addRect = function (left, top, width, height) {
+    var rectId = ++this._rectId;
+    var rectStore = this._rectStore;
+    rectStore[rectId] = left || 0;
+    rectStore[++this._rectId] = top || 0;
+    rectStore[++this._rectId] = width || 0;
+    rectStore[++this._rectId] = height || 0;
+    return rectId;
+  };
+  /**
+   * Get rectangle data from the rectangle store by id. Optionally you can
+   * provide a target object where the rectangle data will be written in. By
+   * default an internal object is reused as a target object.
+   *
+   * @private
+   * @memberof Packer.prototype
+   * @param {RectId} id
+   * @param {Object} [target]
+   * @returns {Object}
+   */
+
+
+  Packer.prototype._getRect = function (id, target) {
+    var rectItem = target ? target : this._rectItem;
+    var rectStore = this._rectStore;
+    rectItem.left = rectStore[id] || 0;
+    rectItem.top = rectStore[++id] || 0;
+    rectItem.width = rectStore[++id] || 0;
+    rectItem.height = rectStore[++id] || 0;
+    return rectItem;
+  };
+  /**
+   * Punch a hole into a rectangle and split the remaining area into smaller
+   * rectangles (4 at max).
+   *
+   * @private
+   * @memberof Packer.prototype
+   * @param {Rectangle} rect
+   * @param {Rectangle} hole
+   * @returns {RectId[]}
+   */
+
+
+  Packer.prototype._splitRect = function () {
+    var results = [];
+    return function (rect, hole) {
+      // Reset old results.
+      results.length = 0; // If the rect does not overlap with the hole add rect to the return data
+      // as is.
+
+      if (!this._doRectsOverlap(rect, hole)) {
+        results.push(this._addRect(rect.left, rect.top, rect.width, rect.height));
+        return results;
+      } // Left split.
+
+
+      if (rect.left < hole.left) {
+        results.push(this._addRect(rect.left, rect.top, hole.left - rect.left, rect.height));
+      } // Right split.
+
+
+      if (rect.left + rect.width > hole.left + hole.width) {
+        results.push(this._addRect(hole.left + hole.width, rect.top, rect.left + rect.width - (hole.left + hole.width), rect.height));
+      } // Top split.
+
+
+      if (rect.top < hole.top) {
+        results.push(this._addRect(rect.left, rect.top, rect.width, hole.top - rect.top));
+      } // Bottom split.
+
+
+      if (rect.top + rect.height > hole.top + hole.height) {
+        results.push(this._addRect(rect.left, hole.top + hole.height, rect.width, rect.top + rect.height - (hole.top + hole.height)));
+      }
+
+      return results;
+    };
+  }();
+  /**
+   * Check if two rectangles overlap.
+   *
+   * @private
+   * @memberof Packer.prototype
+   * @param {Rectangle} a
+   * @param {Rectangle} b
+   * @returns {Boolean}
+   */
+
+
+  Packer.prototype._doRectsOverlap = function (a, b) {
+    return !(a.left + a.width <= b.left || b.left + b.width <= a.left || a.top + a.height <= b.top || b.top + b.height <= a.top);
+  };
+  /**
+   * Check if a rectangle is fully within another rectangle.
+   *
+   * @private
+   * @memberof Packer.prototype
+   * @param {Rectangle} a
+   * @param {Rectangle} b
+   * @returns {Boolean}
+   */
+
+
+  Packer.prototype._isRectWithinRect = function (a, b) {
+    return a.left >= b.left && a.top >= b.top && a.left + a.width <= b.left + b.width && a.top + a.height <= b.top + b.height;
+  };
+  /**
+   * Loops through an array of rectangle ids and resets all that are fully
+   * within another rectangle in the array. Resetting in this case means that
+   * the rectangle id value is replaced with zero.
+   *
+   * @private
+   * @memberof Packer.prototype
+   * @param {RectId[]} rectIds
+   * @returns {RectId[]}
+   */
+
+
+  Packer.prototype._purgeRects = function () {
+    var rectA = {};
+    var rectB = {};
+    return function (rectIds) {
+      var i = rectIds.length;
+      var ii;
+
+      while (i--) {
+        ii = rectIds.length;
+        if (!rectIds[i]) continue;
+
+        this._getRect(rectIds[i], rectA);
+
+        while (ii--) {
+          if (!rectIds[ii] || i === ii) continue;
+
+          if (this._isRectWithinRect(rectA, this._getRect(rectIds[ii], rectB))) {
+            rectIds[i] = 0;
+            break;
+          }
+        }
+      }
+
+      return rectIds;
+    };
+  }();
+  /**
+   * Sort rectangles with top-left gravity.
+   *
+   * @private
+   * @memberof Packer.prototype
+   * @param {RectId} aId
+   * @param {RectId} bId
+   * @returns {Number}
+   */
+
+
+  Packer.prototype._sortRectsTopLeft = function () {
+    var rectA = {};
+    var rectB = {};
+    return function (aId, bId) {
+      this._getRect(aId, rectA);
+
+      this._getRect(bId, rectB); // prettier-ignore
+
+
+      return rectA.top < rectB.top ? -1 : rectA.top > rectB.top ? 1 : rectA.left < rectB.left ? -1 : rectA.left > rectB.left ? 1 : 0;
+    };
+  }();
+  /**
+   * Sort rectangles with left-top gravity.
+   *
+   * @private
+   * @memberof Packer.prototype
+   * @param {RectId} aId
+   * @param {RectId} bId
+   * @returns {Number}
+   */
+
+
+  Packer.prototype._sortRectsLeftTop = function () {
+    var rectA = {};
+    var rectB = {};
+    return function (aId, bId) {
+      this._getRect(aId, rectA);
+
+      this._getRect(bId, rectB); // prettier-ignore
+
+
+      return rectA.left < rectB.left ? -1 : rectA.left > rectB.left ? 1 : rectA.top < rectB.top ? -1 : rectA.top > rectB.top ? 1 : 0;
+    };
+  }();
+
+  var htmlCollectionType = '[object HTMLCollection]';
+  var nodeListType = '[object NodeList]';
+  /**
+   * Check if a value is a node list
+   *
+   * @param {*} val
+   * @returns {Boolean}
+   */
+
+  function isNodeList(val) {
+    var type = Object.prototype.toString.call(val);
+    return type === htmlCollectionType || type === nodeListType;
+  }
+
+  var objectType = 'object';
+  var objectToStringType = '[object Object]';
+  var toString = Object.prototype.toString;
+  /**
+   * Check if a value is a plain object.
+   *
+   * @param {*} val
+   * @returns {Boolean}
+   */
+
+  function isPlainObject(val) {
+    return (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .Z)(val) === objectType && toString.call(val) === objectToStringType;
+  }
+  /**
+   * Converts a value to an array or clones an array.
+   *
+   * @param {*} target
+   * @returns {Array}
+   */
+
+
+  function toArray(target) {
+    return isNodeList(target) ? Array.prototype.slice.call(target) : Array.prototype.concat(target);
+  }
+
+  var packer = new Packer();
+
+  var noop = function noop() {};
+
+  var numberType$1 = 'number';
+  var stringType = 'string';
+  var instantLayout = 'instant';
+  /**
+   * Creates a new Grid instance.
+   *
+   * @class
+   * @param {(HTMLElement|String)} element
+   * @param {Object} [options]
+   * @param {?(HTMLElement[]|NodeList|String)} [options.items]
+   * @param {Number} [options.showDuration=300]
+   * @param {String} [options.showEasing="ease"]
+   * @param {Object} [options.visibleStyles]
+   * @param {Number} [options.hideDuration=300]
+   * @param {String} [options.hideEasing="ease"]
+   * @param {Object} [options.hiddenStyles]
+   * @param {(Function|Object)} [options.layout]
+   * @param {Boolean} [options.layout.fillGaps=false]
+   * @param {Boolean} [options.layout.horizontal=false]
+   * @param {Boolean} [options.layout.alignRight=false]
+   * @param {Boolean} [options.layout.alignBottom=false]
+   * @param {Boolean} [options.layout.rounding=true]
+   * @param {(Boolean|Number)} [options.layoutOnResize=100]
+   * @param {Boolean} [options.layoutOnInit=true]
+   * @param {Number} [options.layoutDuration=300]
+   * @param {String} [options.layoutEasing="ease"]
+   * @param {?Object} [options.sortData=null]
+   * @param {Boolean} [options.dragEnabled=false]
+   * @param {?HtmlElement} [options.dragContainer=null]
+   * @param {?Function} [options.dragStartPredicate]
+   * @param {Number} [options.dragStartPredicate.distance=0]
+   * @param {Number} [options.dragStartPredicate.delay=0]
+   * @param {(Boolean|String)} [options.dragStartPredicate.handle=false]
+   * @param {?String} [options.dragAxis]
+   * @param {(Boolean|Function)} [options.dragSort=true]
+   * @param {Object} [options.dragSortHeuristics]
+   * @param {Number} [options.dragSortHeuristics.sortInterval=100]
+   * @param {Number} [options.dragSortHeuristics.minDragDistance=10]
+   * @param {Number} [options.dragSortHeuristics.minBounceBackAngle=1]
+   * @param {(Function|Object)} [options.dragSortPredicate]
+   * @param {Number} [options.dragSortPredicate.threshold=50]
+   * @param {String} [options.dragSortPredicate.action="move"]
+   * @param {Number} [options.dragReleaseDuration=300]
+   * @param {String} [options.dragReleaseEasing="ease"]
+   * @param {Object} [options.dragCssProps]
+   * @param {Object} [options.dragPlaceholder]
+   * @param {Boolean} [options.dragPlaceholder.enabled=false]
+   * @param {Number} [options.dragPlaceholder.duration=300]
+   * @param {String} [options.dragPlaceholder.easing="ease"]
+   * @param {?Function} [options.dragPlaceholder.createElement=null]
+   * @param {?Function} [options.dragPlaceholder.onCreate=null]
+   * @param {?Function} [options.dragPlaceholder.onRemove=null]
+   * @param {String} [options.containerClass="muuri"]
+   * @param {String} [options.itemClass="muuri-item"]
+   * @param {String} [options.itemVisibleClass="muuri-item-visible"]
+   * @param {String} [options.itemHiddenClass="muuri-item-hidden"]
+   * @param {String} [options.itemPositioningClass="muuri-item-positioning"]
+   * @param {String} [options.itemDraggingClass="muuri-item-dragging"]
+   * @param {String} [options.itemReleasingClass="muuri-item-releasing"]
+   * @param {String} [options.itemPlaceholderClass="muuri-item-placeholder"]
+   */
+
+  function Grid(element, options) {
+    var inst = this;
+    var settings;
+    var items;
+    var layoutOnResize; // Allow passing element as selector string. Store element for instance.
+
+    element = this._element = (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .Z)(element) === stringType ? window.document.querySelector(element) : element; // Throw an error if the container element is not body element or does not
+    // exist within the body element.
+
+    var isElementInDom = element.getRootNode ? element.getRootNode({
+      composed: true
+    }) === document : window.document.body.contains(element);
+
+    if (!isElementInDom || element === window.document.documentElement) {
+      throw new Error('Container element must be an existing DOM element');
+    } // Create instance settings by merging the options with default options.
+
+
+    settings = this._settings = mergeSettings(Grid.defaultOptions, options); // Sanitize dragSort setting.
+
+    if (!isFunction(settings.dragSort)) {
+      settings.dragSort = !!settings.dragSort;
+    } // Create instance id and store it to the grid instances collection.
+
+
+    this._id = createUid();
+    gridInstances[this._id] = inst; // Destroyed flag.
+
+    this._isDestroyed = false; // The layout object (mutated on every layout).
+
+    this._layout = {
+      id: 0,
+      items: [],
+      slots: [],
+      setWidth: false,
+      setHeight: false,
+      width: 0,
+      height: 0
+    }; // Create private Emitter instance.
+
+    this._emitter = new Emitter(); // Add container element's class name.
+
+    addClass(element, settings.containerClass); // Create initial items.
+
+    this._items = [];
+    items = settings.items;
+
+    if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .Z)(items) === stringType) {
+      toArray(element.children).forEach(function (itemElement) {
+        if (items === '*' || elementMatches(itemElement, items)) {
+          inst._items.push(new Item(inst, itemElement));
+        }
+      });
+    } else if (Array.isArray(items) || isNodeList(items)) {
+      this._items = toArray(items).map(function (itemElement) {
+        return new Item(inst, itemElement);
+      });
+    } // If layoutOnResize option is a valid number sanitize it and bind the resize
+    // handler.
+
+
+    layoutOnResize = settings.layoutOnResize;
+
+    if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .Z)(layoutOnResize) !== numberType$1) {
+      layoutOnResize = layoutOnResize === true ? 0 : -1;
+    }
+
+    if (layoutOnResize >= 0) {
+      window.addEventListener('resize', inst._resizeHandler = debounce(function () {
+        inst.refreshItems().layout();
+      }, layoutOnResize));
+    } // Layout on init if necessary.
+
+
+    if (settings.layoutOnInit) {
+      this.layout(true);
+    }
+  }
+  /**
+   * Public properties
+   * *****************
+   */
+
+  /**
+   * @see Item
+   */
+
+
+  Grid.Item = Item;
+  /**
+   * @see ItemLayout
+   */
+
+  Grid.ItemLayout = ItemLayout;
+  /**
+   * @see ItemVisibility
+   */
+
+  Grid.ItemVisibility = ItemVisibility;
+  /**
+   * @see ItemMigrate
+   */
+
+  Grid.ItemMigrate = ItemMigrate;
+  /**
+   * @see ItemAnimate
+   */
+
+  Grid.ItemAnimate = ItemAnimate;
+  /**
+   * @see ItemDrag
+   */
+
+  Grid.ItemDrag = ItemDrag;
+  /**
+   * @see ItemRelease
+   */
+
+  Grid.ItemRelease = ItemRelease;
+  /**
+   * @see ItemDragPlaceholder
+   */
+
+  Grid.ItemDragPlaceholder = ItemDragPlaceholder;
+  /**
+   * @see Emitter
+   */
+
+  Grid.Emitter = Emitter;
+  /**
+   * @see Dragger
+   */
+
+  Grid.Dragger = Dragger;
+  /**
+   * @see Packer
+   */
+
+  Grid.Packer = Packer;
+  /**
+   * Default options for Grid instance.
+   *
+   * @public
+   * @memberof Grid
+   */
+
+  Grid.defaultOptions = {
+    // Item elements
+    items: '*',
+    // Default show animation
+    showDuration: 300,
+    showEasing: 'ease',
+    // Default hide animation
+    hideDuration: 300,
+    hideEasing: 'ease',
+    // Item's visible/hidden state styles
+    visibleStyles: {
+      opacity: '1',
+      transform: 'scale(1)'
+    },
+    hiddenStyles: {
+      opacity: '0',
+      transform: 'scale(0.5)'
+    },
+    // Layout
+    layout: {
+      fillGaps: false,
+      horizontal: false,
+      alignRight: false,
+      alignBottom: false,
+      rounding: true
+    },
+    layoutOnResize: 100,
+    layoutOnInit: true,
+    layoutDuration: 300,
+    layoutEasing: 'ease',
+    // Sorting
+    sortData: null,
+    // Drag & Drop
+    dragEnabled: false,
+    dragContainer: null,
+    dragStartPredicate: {
+      distance: 0,
+      delay: 0,
+      handle: false
+    },
+    dragAxis: null,
+    dragSort: true,
+    dragSortHeuristics: {
+      sortInterval: 100,
+      minDragDistance: 10,
+      minBounceBackAngle: 1
+    },
+    dragSortPredicate: {
+      threshold: 50,
+      action: actionMove
+    },
+    dragReleaseDuration: 300,
+    dragReleaseEasing: 'ease',
+    dragCssProps: {
+      touchAction: 'none',
+      userSelect: 'none',
+      userDrag: 'none',
+      tapHighlightColor: 'rgba(0, 0, 0, 0)',
+      touchCallout: 'none',
+      contentZooming: 'none'
+    },
+    dragPlaceholder: {
+      enabled: false,
+      duration: 300,
+      easing: 'ease',
+      createElement: null,
+      onCreate: null,
+      onRemove: null
+    },
+    // Classnames
+    containerClass: 'muuri',
+    itemClass: 'muuri-item',
+    itemVisibleClass: 'muuri-item-shown',
+    itemHiddenClass: 'muuri-item-hidden',
+    itemPositioningClass: 'muuri-item-positioning',
+    itemDraggingClass: 'muuri-item-dragging',
+    itemReleasingClass: 'muuri-item-releasing',
+    itemPlaceholderClass: 'muuri-item-placeholder'
+  };
+  /**
+   * Public prototype methods
+   * ************************
+   */
+
+  /**
+   * Bind an event listener.
+   *
+   * @public
+   * @memberof Grid.prototype
+   * @param {String} event
+   * @param {Function} listener
+   * @returns {Grid}
+   */
+
+  Grid.prototype.on = function (event, listener) {
+    this._emitter.on(event, listener);
+
+    return this;
+  };
+  /**
+   * Unbind an event listener.
+   *
+   * @public
+   * @memberof Grid.prototype
+   * @param {String} event
+   * @param {Function} listener
+   * @returns {Grid}
+   */
+
+
+  Grid.prototype.off = function (event, listener) {
+    this._emitter.off(event, listener);
+
+    return this;
+  };
+  /**
+   * Get the container element.
+   *
+   * @public
+   * @memberof Grid.prototype
+   * @returns {HTMLElement}
+   */
+
+
+  Grid.prototype.getElement = function () {
+    return this._element;
+  };
+  /**
+   * Get all items. Optionally you can provide specific targets (elements and
+   * indices). Note that the returned array is not the same object used by the
+   * instance so modifying it will not affect instance's items. All items that
+   * are not found are omitted from the returned array.
+   *
+   * @public
+   * @memberof Grid.prototype
+   * @param {GridMultiItemQuery} [targets]
+   * @returns {Item[]}
+   */
+
+
+  Grid.prototype.getItems = function (targets) {
+    // Return all items immediately if no targets were provided or if the
+    // instance is destroyed.
+    if (this._isDestroyed || !targets && targets !== 0) {
+      return this._items.slice(0);
+    }
+
+    var ret = [];
+    var targetItems = toArray(targets);
+    var item;
+    var i; // If target items are defined return filtered results.
+
+    for (i = 0; i < targetItems.length; i++) {
+      item = this._getItem(targetItems[i]);
+      item && ret.push(item);
+    }
+
+    return ret;
+  };
+  /**
+   * Update the cached dimensions of the instance's items.
+   *
+   * @public
+   * @memberof Grid.prototype
+   * @param {GridMultiItemQuery} [items]
+   * @returns {Grid}
+   */
+
+
+  Grid.prototype.refreshItems = function (items) {
+    if (this._isDestroyed) return this;
+    var targets = this.getItems(items);
+    var i;
+
+    for (i = 0; i < targets.length; i++) {
+      targets[i]._refreshDimensions();
+    }
+
+    return this;
+  };
+  /**
+   * Update the sort data of the instance's items.
+   *
+   * @public
+   * @memberof Grid.prototype
+   * @param {GridMultiItemQuery} [items]
+   * @returns {Grid}
+   */
+
+
+  Grid.prototype.refreshSortData = function (items) {
+    if (this._isDestroyed) return this;
+    var targetItems = this.getItems(items);
+    var i;
+
+    for (i = 0; i < targetItems.length; i++) {
+      targetItems[i]._refreshSortData();
+    }
+
+    return this;
+  };
+  /**
+   * Synchronize the item elements to match the order of the items in the DOM.
+   * This comes handy if you need to keep the DOM structure matched with the
+   * order of the items. Note that if an item's element is not currently a child
+   * of the container element (if it is dragged for example) it is ignored and
+   * left untouched.
+   *
+   * @public
+   * @memberof Grid.prototype
+   * @returns {Grid}
+   */
+
+
+  Grid.prototype.synchronize = function () {
+    if (this._isDestroyed) return this;
+    var container = this._element;
+    var items = this._items;
+    var fragment;
+    var element;
+    var i; // Append all elements in order to the container element.
+
+    if (items.length) {
+      for (i = 0; i < items.length; i++) {
+        element = items[i]._element;
+
+        if (element.parentNode === container) {
+          fragment = fragment || window.document.createDocumentFragment();
+          fragment.appendChild(element);
+        }
+      }
+
+      if (fragment) container.appendChild(fragment);
+    } // Emit synchronize event.
+
+
+    this._emit(eventSynchronize);
+
+    return this;
+  };
+  /**
+   * Calculate and apply item positions.
+   *
+   * @public
+   * @memberof Grid.prototype
+   * @param {Boolean} [instant=false]
+   * @param {LayoutCallback} [onFinish]
+   * @returns {Grid}
+   */
+
+
+  Grid.prototype.layout = function (instant, onFinish) {
+    if (this._isDestroyed) return this;
+    var inst = this;
+    var element = this._element;
+
+    var layout = this._updateLayout();
+
+    var layoutId = layout.id;
+    var itemsLength = layout.items.length;
+    var counter = itemsLength;
+    var isBorderBox;
+    var item;
+    var i; // The finish function, which will be used for checking if all the items
+    // have laid out yet. After all items have finished their animations call
+    // callback and emit layoutEnd event. Only emit layoutEnd event if there
+    // hasn't been a new layout call during this layout.
+
+    function tryFinish() {
+      if (--counter > 0) return;
+      var hasLayoutChanged = inst._layout.id !== layoutId;
+      var callback = isFunction(instant) ? instant : onFinish;
+
+      if (isFunction(callback)) {
+        callback(hasLayoutChanged, layout.items.slice(0));
+      }
+
+      if (!hasLayoutChanged && inst._hasListeners(eventLayoutEnd)) {
+        inst._emit(eventLayoutEnd, layout.items.slice(0));
+      }
+    } // If grid's width or height was modified, we need to update it's cached
+    // dimensions. Also keep in mind that grid's cached width/height should
+    // always equal to what elem.getBoundingClientRect() would return, so
+    // therefore we need to add the grid element's borders to the dimensions if
+    // it's box-sizing is border-box. Note that we support providing the
+    // dimensions as a string here too so that one can define the unit of the
+    // dimensions, in which case we don't do the border-box check.
+
+
+    if (layout.setHeight && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .Z)(layout.height) === numberType$1 || layout.setWidth && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .Z)(layout.width) === numberType$1) {
+      isBorderBox = getStyle(element, 'box-sizing') === 'border-box';
+    }
+
+    if (layout.setHeight) {
+      if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .Z)(layout.height) === numberType$1) {
+        element.style.height = (isBorderBox ? layout.height + this._borderTop + this._borderBottom : layout.height) + 'px';
+      } else {
+        element.style.height = layout.height;
+      }
+    }
+
+    if (layout.setWidth) {
+      if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .Z)(layout.width) === numberType$1) {
+        element.style.width = (isBorderBox ? layout.width + this._borderLeft + this._borderRight : layout.width) + 'px';
+      } else {
+        element.style.width = layout.width;
+      }
+    } // Emit layoutStart event. Note that this is intentionally emitted after the
+    // container element's dimensions are set, because otherwise there would be
+    // no hook for reacting to container dimension changes.
+
+
+    if (this._hasListeners(eventLayoutStart)) {
+      this._emit(eventLayoutStart, layout.items.slice(0));
+    } // If there are no items let's finish quickly.
+
+
+    if (!itemsLength) {
+      tryFinish();
+      return this;
+    } // If there are items let's position them.
+
+
+    for (i = 0; i < itemsLength; i++) {
+      item = layout.items[i];
+      if (!item) continue; // Update item's position.
+
+      item._left = layout.slots[i * 2];
+      item._top = layout.slots[i * 2 + 1]; // Layout item if it is not dragged.
+
+      item.isDragging() ? tryFinish() : item._layout.start(instant === true, tryFinish);
+    }
+
+    return this;
+  };
+  /**
+   * Add new items by providing the elements you wish to add to the instance and
+   * optionally provide the index where you want the items to be inserted into.
+   * All elements that are not already children of the container element will be
+   * automatically appended to the container element. If an element has it's CSS
+   * display property set to "none" it will be marked as inactive during the
+   * initiation process. As long as the item is inactive it will not be part of
+   * the layout, but it will retain it's index. You can activate items at any
+   * point with grid.show() method. This method will automatically call
+   * grid.layout() if one or more of the added elements are visible. If only
+   * hidden items are added no layout will be called. All the new visible items
+   * are positioned without animation during their first layout.
+   *
+   * @public
+   * @memberof Grid.prototype
+   * @param {(HTMLElement|HTMLElement[])} elements
+   * @param {Object} [options]
+   * @param {Number} [options.index=-1]
+   * @param {Boolean} [options.isActive]
+   * @param {(Boolean|LayoutCallback|String)} [options.layout=true]
+   * @returns {Item[]}
+   */
+
+
+  Grid.prototype.add = function (elements, options) {
+    if (this._isDestroyed || !elements) return [];
+    var newItems = toArray(elements);
+    if (!newItems.length) return newItems;
+    var opts = options || 0;
+    var layout = opts.layout ? opts.layout : opts.layout === undefined;
+    var items = this._items;
+    var needsLayout = false;
+    var item;
+    var i; // Map provided elements into new grid items.
+
+    for (i = 0; i < newItems.length; i++) {
+      item = new Item(this, newItems[i], opts.isActive);
+      newItems[i] = item; // If the item to be added is active, we need to do a layout. Also, we
+      // need to mark the item with the skipNextAnimation flag to make it
+      // position instantly (without animation) during the next layout. Without
+      // the hack the item would animate to it's new position from the northwest
+      // corner of the grid, which feels a bit buggy (imho).
+
+      if (item._isActive) {
+        needsLayout = true;
+        item._layout._skipNextAnimation = true;
+      }
+    } // Add the new items to the items collection to correct index.
+
+
+    arrayInsert(items, newItems, opts.index); // Emit add event.
+
+    if (this._hasListeners(eventAdd)) {
+      this._emit(eventAdd, newItems.slice(0));
+    } // If layout is needed.
+
+
+    if (needsLayout && layout) {
+      this.layout(layout === instantLayout, isFunction(layout) ? layout : undefined);
+    }
+
+    return newItems;
+  };
+  /**
+   * Remove items from the instance.
+   *
+   * @public
+   * @memberof Grid.prototype
+   * @param {GridMultiItemQuery} items
+   * @param {Object} [options]
+   * @param {Boolean} [options.removeElements=false]
+   * @param {(Boolean|LayoutCallback|String)} [options.layout=true]
+   * @returns {Item[]}
+   */
+
+
+  Grid.prototype.remove = function (items, options) {
+    if (this._isDestroyed) return this;
+    var opts = options || 0;
+    var layout = opts.layout ? opts.layout : opts.layout === undefined;
+    var needsLayout = false;
+    var allItems = this.getItems();
+    var targetItems = this.getItems(items);
+    var indices = [];
+    var item;
+    var i; // Remove the individual items.
+
+    for (i = 0; i < targetItems.length; i++) {
+      item = targetItems[i];
+      indices.push(allItems.indexOf(item));
+      if (item._isActive) needsLayout = true;
+
+      item._destroy(opts.removeElements);
+    } // Emit remove event.
+
+
+    if (this._hasListeners(eventRemove)) {
+      this._emit(eventRemove, targetItems.slice(0), indices);
+    } // If layout is needed.
+
+
+    if (needsLayout && layout) {
+      this.layout(layout === instantLayout, isFunction(layout) ? layout : undefined);
+    }
+
+    return targetItems;
+  };
+  /**
+   * Show instance items.
+   *
+   * @public
+   * @memberof Grid.prototype
+   * @param {GridMultiItemQuery} items
+   * @param {Object} [options]
+   * @param {Boolean} [options.instant=false]
+   * @param {ShowCallback} [options.onFinish]
+   * @param {(Boolean|LayoutCallback|String)} [options.layout=true]
+   * @returns {Grid}
+   */
+
+
+  Grid.prototype.show = function (items, options) {
+    if (this._isDestroyed) return this;
+
+    this._setItemsVisibility(items, true, options);
+
+    return this;
+  };
+  /**
+   * Hide instance items.
+   *
+   * @public
+   * @memberof Grid.prototype
+   * @param {GridMultiItemQuery} items
+   * @param {Object} [options]
+   * @param {Boolean} [options.instant=false]
+   * @param {HideCallback} [options.onFinish]
+   * @param {(Boolean|LayoutCallback|String)} [options.layout=true]
+   * @returns {Grid}
+   */
+
+
+  Grid.prototype.hide = function (items, options) {
+    if (this._isDestroyed) return this;
+
+    this._setItemsVisibility(items, false, options);
+
+    return this;
+  };
+  /**
+   * Filter items. Expects at least one argument, a predicate, which should be
+   * either a function or a string. The predicate callback is executed for every
+   * item in the instance. If the return value of the predicate is truthy the
+   * item in question will be shown and otherwise hidden. The predicate callback
+   * receives the item instance as it's argument. If the predicate is a string
+   * it is considered to be a selector and it is checked against every item
+   * element in the instance with the native element.matches() method. All the
+   * matching items will be shown and others hidden.
+   *
+   * @public
+   * @memberof Grid.prototype
+   * @param {(Function|String)} predicate
+   * @param {Object} [options]
+   * @param {Boolean} [options.instant=false]
+   * @param {FilterCallback} [options.onFinish]
+   * @param {(Boolean|LayoutCallback|String)} [options.layout=true]
+   * @returns {Grid}
+   */
+
+
+  Grid.prototype.filter = function (predicate, options) {
+    if (this._isDestroyed || !this._items.length) return this;
+    var itemsToShow = [];
+    var itemsToHide = [];
+    var isPredicateString = (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .Z)(predicate) === stringType;
+    var isPredicateFn = isFunction(predicate);
+    var opts = options || 0;
+    var isInstant = opts.instant === true;
+    var layout = opts.layout ? opts.layout : opts.layout === undefined;
+    var onFinish = isFunction(opts.onFinish) ? opts.onFinish : null;
+    var tryFinishCounter = -1;
+    var tryFinish = noop;
+    var item;
+    var i; // If we have onFinish callback, let's create proper tryFinish callback.
+
+    if (onFinish) {
+      tryFinish = function tryFinish() {
+        ++tryFinishCounter && onFinish(itemsToShow.slice(0), itemsToHide.slice(0));
+      };
+    } // Check which items need to be shown and which hidden.
+
+
+    if (isPredicateFn || isPredicateString) {
+      for (i = 0; i < this._items.length; i++) {
+        item = this._items[i];
+
+        if (isPredicateFn ? predicate(item) : elementMatches(item._element, predicate)) {
+          itemsToShow.push(item);
+        } else {
+          itemsToHide.push(item);
+        }
+      }
+    } // Show items that need to be shown.
+
+
+    if (itemsToShow.length) {
+      this.show(itemsToShow, {
+        instant: isInstant,
+        onFinish: tryFinish,
+        layout: false
+      });
+    } else {
+      tryFinish();
+    } // Hide items that need to be hidden.
+
+
+    if (itemsToHide.length) {
+      this.hide(itemsToHide, {
+        instant: isInstant,
+        onFinish: tryFinish,
+        layout: false
+      });
+    } else {
+      tryFinish();
+    } // If there are any items to filter.
+
+
+    if (itemsToShow.length || itemsToHide.length) {
+      // Emit filter event.
+      if (this._hasListeners(eventFilter)) {
+        this._emit(eventFilter, itemsToShow.slice(0), itemsToHide.slice(0));
+      } // If layout is needed.
+
+
+      if (layout) {
+        this.layout(layout === instantLayout, isFunction(layout) ? layout : undefined);
+      }
+    }
+
+    return this;
+  };
+  /**
+   * Sort items. There are three ways to sort the items. The first is simply by
+   * providing a function as the comparer which works identically to native
+   * array sort. Alternatively you can sort by the sort data you have provided
+   * in the instance's options. Just provide the sort data key(s) as a string
+   * (separated by space) and the items will be sorted based on the provided
+   * sort data keys. Lastly you have the opportunity to provide a presorted
+   * array of items which will be used to sync the internal items array in the
+   * same order.
+   *
+   * @public
+   * @memberof Grid.prototype
+   * @param {(Function|Item[]|String|String[])} comparer
+   * @param {Object} [options]
+   * @param {Boolean} [options.descending=false]
+   * @param {(Boolean|LayoutCallback|String)} [options.layout=true]
+   * @returns {Grid}
+   */
+
+
+  Grid.prototype.sort = function () {
+    var sortComparer;
+    var isDescending;
+    var origItems;
+    var indexMap;
+
+    function parseCriteria(data) {
+      return data.trim().split(' ').map(function (val) {
+        return val.split(':');
+      });
+    }
+
+    function getIndexMap(items) {
+      var ret = {};
+
+      for (var i = 0; i < items.length; i++) {
+        ret[items[i]._id] = i;
+      }
+
+      return ret;
+    }
+
+    function compareIndices(itemA, itemB) {
+      var indexA = indexMap[itemA._id];
+      var indexB = indexMap[itemB._id];
+      return isDescending ? indexB - indexA : indexA - indexB;
+    }
+
+    function defaultComparer(a, b) {
+      var result = 0;
+      var criteriaName;
+      var criteriaOrder;
+      var valA;
+      var valB; // Loop through the list of sort criteria.
+
+      for (var i = 0; i < sortComparer.length; i++) {
+        // Get the criteria name, which should match an item's sort data key.
+        criteriaName = sortComparer[i][0];
+        criteriaOrder = sortComparer[i][1]; // Get items' cached sort values for the criteria. If the item has no sort
+        // data let's update the items sort data (this is a lazy load mechanism).
+
+        valA = (a._sortData ? a : a._refreshSortData())._sortData[criteriaName];
+        valB = (b._sortData ? b : b._refreshSortData())._sortData[criteriaName]; // Sort the items in descending order if defined so explicitly. Otherwise
+        // sort items in ascending order.
+
+        if (criteriaOrder === 'desc' || !criteriaOrder && isDescending) {
+          result = valB < valA ? -1 : valB > valA ? 1 : 0;
+        } else {
+          result = valA < valB ? -1 : valA > valB ? 1 : 0;
+        } // If we have -1 or 1 as the return value, let's return it immediately.
+
+
+        if (result) return result;
+      } // If values are equal let's compare the item indices to make sure we
+      // have a stable sort.
+
+
+      if (!result) {
+        if (!indexMap) indexMap = getIndexMap(origItems);
+        result = compareIndices(a, b);
+      }
+
+      return result;
+    }
+
+    function customComparer(a, b) {
+      var result = sortComparer(a, b); // If descending let's invert the result value.
+
+      if (isDescending && result) result = -result; // If we have a valid result (not zero) let's return it right away.
+
+      if (result) return result; // If result is zero let's compare the item indices to make sure we have a
+      // stable sort.
+
+      if (!indexMap) indexMap = getIndexMap(origItems);
+      return compareIndices(a, b);
+    }
+
+    return function (comparer, options) {
+      if (this._isDestroyed || this._items.length < 2) return this;
+      var items = this._items;
+      var opts = options || 0;
+      var layout = opts.layout ? opts.layout : opts.layout === undefined;
+      var i; // Setup parent scope data.
+
+      sortComparer = comparer;
+      isDescending = !!opts.descending;
+      origItems = items.slice(0);
+      indexMap = null; // If function is provided do a native array sort.
+
+      if (isFunction(sortComparer)) {
+        items.sort(customComparer);
+      } // Otherwise if we got a string, let's sort by the sort data as provided in
+      // the instance's options.
+      else if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .Z)(sortComparer) === stringType) {
+        sortComparer = parseCriteria(comparer);
+        items.sort(defaultComparer);
+      } // Otherwise if we got an array, let's assume it's a presorted array of the
+      // items and order the items based on it.
+      else if (Array.isArray(sortComparer)) {
+        if (sortComparer.length !== items.length) {
+          throw new Error('[' + namespace + '] sort reference items do not match with grid items.');
+        }
+
+        for (i = 0; i < items.length; i++) {
+          if (sortComparer.indexOf(items[i]) < 0) {
+            throw new Error('[' + namespace + '] sort reference items do not match with grid items.');
+          }
+
+          items[i] = sortComparer[i];
+        }
+
+        if (isDescending) items.reverse();
+      } // Otherwise let's just skip it, nothing we can do here.
+      else {
+        /** @todo Maybe throw an error here? */
+        return this;
+      } // Emit sort event.
+
+
+      if (this._hasListeners(eventSort)) {
+        this._emit(eventSort, items.slice(0), origItems);
+      } // If layout is needed.
+
+
+      if (layout) {
+        this.layout(layout === instantLayout, isFunction(layout) ? layout : undefined);
+      }
+
+      return this;
+    };
+  }();
+  /**
+   * Move item to another index or in place of another item.
+   *
+   * @public
+   * @memberof Grid.prototype
+   * @param {GridSingleItemQuery} item
+   * @param {GridSingleItemQuery} position
+   * @param {Object} [options]
+   * @param {String} [options.action="move"]
+   *   - Accepts either "move" or "swap".
+   *   - "move" moves the item in place of the other item.
+   *   - "swap" swaps the position of the items.
+   * @param {(Boolean|LayoutCallback|String)} [options.layout=true]
+   * @returns {Grid}
+   */
+
+
+  Grid.prototype.move = function (item, position, options) {
+    if (this._isDestroyed || this._items.length < 2) return this;
+    var items = this._items;
+    var opts = options || 0;
+    var layout = opts.layout ? opts.layout : opts.layout === undefined;
+    var isSwap = opts.action === actionSwap;
+    var action = isSwap ? actionSwap : actionMove;
+
+    var fromItem = this._getItem(item);
+
+    var toItem = this._getItem(position);
+
+    var fromIndex;
+    var toIndex; // Make sure the items exist and are not the same.
+
+    if (fromItem && toItem && fromItem !== toItem) {
+      // Get the indices of the items.
+      fromIndex = items.indexOf(fromItem);
+      toIndex = items.indexOf(toItem); // Do the move/swap.
+
+      if (isSwap) {
+        arraySwap(items, fromIndex, toIndex);
+      } else {
+        arrayMove(items, fromIndex, toIndex);
+      } // Emit move event.
+
+
+      if (this._hasListeners(eventMove)) {
+        this._emit(eventMove, {
+          item: fromItem,
+          fromIndex: fromIndex,
+          toIndex: toIndex,
+          action: action
+        });
+      } // If layout is needed.
+
+
+      if (layout) {
+        this.layout(layout === instantLayout, isFunction(layout) ? layout : undefined);
+      }
+    }
+
+    return this;
+  };
+  /**
+   * Send item to another Grid instance.
+   *
+   * @public
+   * @memberof Grid.prototype
+   * @param {GridSingleItemQuery} item
+   * @param {Grid} grid
+   * @param {GridSingleItemQuery} position
+   * @param {Object} [options]
+   * @param {HTMLElement} [options.appendTo=document.body]
+   * @param {(Boolean|LayoutCallback|String)} [options.layoutSender=true]
+   * @param {(Boolean|LayoutCallback|String)} [options.layoutReceiver=true]
+   * @returns {Grid}
+   */
+
+
+  Grid.prototype.send = function (item, grid, position, options) {
+    if (this._isDestroyed || grid._isDestroyed || this === grid) return this; // Make sure we have a valid target item.
+
+    item = this._getItem(item);
+    if (!item) return this;
+    var opts = options || 0;
+    var container = opts.appendTo || window.document.body;
+    var layoutSender = opts.layoutSender ? opts.layoutSender : opts.layoutSender === undefined;
+    var layoutReceiver = opts.layoutReceiver ? opts.layoutReceiver : opts.layoutReceiver === undefined; // Start the migration process.
+
+    item._migrate.start(grid, position, container); // If migration was started successfully and the item is active, let's layout
+    // the grids.
+
+
+    if (item._migrate._isActive && item._isActive) {
+      if (layoutSender) {
+        this.layout(layoutSender === instantLayout, isFunction(layoutSender) ? layoutSender : undefined);
+      }
+
+      if (layoutReceiver) {
+        grid.layout(layoutReceiver === instantLayout, isFunction(layoutReceiver) ? layoutReceiver : undefined);
+      }
+    }
+
+    return this;
+  };
+  /**
+   * Destroy the instance.
+   *
+   * @public
+   * @memberof Grid.prototype
+   * @param {Boolean} [removeElements=false]
+   * @returns {Grid}
+   */
+
+
+  Grid.prototype.destroy = function (removeElements) {
+    if (this._isDestroyed) return this;
+    var container = this._element;
+
+    var items = this._items.slice(0);
+
+    var i; // Unbind window resize event listener.
+
+    if (this._resizeHandler) {
+      window.removeEventListener('resize', this._resizeHandler);
+    } // Destroy items.
+
+
+    for (i = 0; i < items.length; i++) {
+      items[i]._destroy(removeElements);
+    } // Restore container.
+
+
+    removeClass(container, this._settings.containerClass);
+    container.style.height = '';
+    container.style.width = ''; // Emit destroy event and unbind all events.
+
+    this._emit(eventDestroy);
+
+    this._emitter.destroy(); // Remove reference from the grid instances collection.
+
+
+    gridInstances[this._id] = undefined; // Flag instance as destroyed.
+
+    this._isDestroyed = true;
+    return this;
+  };
+  /**
+   * Private prototype methods
+   * *************************
+   */
+
+  /**
+   * Get instance's item by element or by index. Target can also be an Item
+   * instance in which case the function returns the item if it exists within
+   * related Grid instance. If nothing is found with the provided target, null
+   * is returned.
+   *
+   * @private
+   * @memberof Grid.prototype
+   * @param {GridSingleItemQuery} [target]
+   * @returns {?Item}
+   */
+
+
+  Grid.prototype._getItem = function (target) {
+    // If no target is specified or the instance is destroyed, return null.
+    if (this._isDestroyed || !target && target !== 0) {
+      return null;
+    } // If target is number return the item in that index. If the number is lower
+    // than zero look for the item starting from the end of the items array. For
+    // example -1 for the last item, -2 for the second last item, etc.
+
+
+    if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .Z)(target) === numberType$1) {
+      return this._items[target > -1 ? target : this._items.length + target] || null;
+    } // If the target is an instance of Item return it if it is attached to this
+    // Grid instance, otherwise return null.
+
+
+    if (target instanceof Item) {
+      return target._gridId === this._id ? target : null;
+    } // In other cases let's assume that the target is an element, so let's try
+    // to find an item that matches the element and return it. If item is not
+    // found return null.
+
+    /** @todo This could be made a lot faster by using Map/WeakMap of elements. */
+
+
+    for (var i = 0; i < this._items.length; i++) {
+      if (this._items[i]._element === target) {
+        return this._items[i];
+      }
+    }
+
+    return null;
+  };
+  /**
+   * Recalculates and updates instance's layout data.
+   *
+   * @private
+   * @memberof Grid.prototype
+   * @returns {LayoutData}
+   */
+
+
+  Grid.prototype._updateLayout = function () {
+    var layout = this._layout;
+    var settings = this._settings.layout;
+    var width;
+    var height;
+    var newLayout;
+    var i; // Let's increment layout id.
+
+    ++layout.id; // Let's update layout items
+
+    layout.items.length = 0;
+
+    for (i = 0; i < this._items.length; i++) {
+      if (this._items[i]._isActive) layout.items.push(this._items[i]);
+    } // Let's make sure we have the correct container dimensions.
+
+
+    this._refreshDimensions(); // Calculate container width and height (without borders).
+
+
+    width = this._width - this._borderLeft - this._borderRight;
+    height = this._height - this._borderTop - this._borderBottom; // Calculate new layout.
+
+    if (isFunction(settings)) {
+      newLayout = settings(layout.items, width, height);
+    } else {
+      newLayout = packer.getLayout(layout.items, width, height, layout.slots, settings);
+    } // Let's update the grid's layout.
+
+
+    layout.slots = newLayout.slots;
+    layout.setWidth = Boolean(newLayout.setWidth);
+    layout.setHeight = Boolean(newLayout.setHeight);
+    layout.width = newLayout.width;
+    layout.height = newLayout.height;
+    return layout;
+  };
+  /**
+   * Emit a grid event.
+   *
+   * @private
+   * @memberof Grid.prototype
+   * @param {String} event
+   * @param {...*} [arg]
+   */
+
+
+  Grid.prototype._emit = function () {
+    if (this._isDestroyed) return;
+
+    this._emitter.emit.apply(this._emitter, arguments);
+  };
+  /**
+   * Check if there are any events listeners for an event.
+   *
+   * @private
+   * @memberof Grid.prototype
+   * @param {String} event
+   * @returns {Boolean}
+   */
+
+
+  Grid.prototype._hasListeners = function (event) {
+    var listeners = this._emitter._events[event];
+    return !!(listeners && listeners.length);
+  };
+  /**
+   * Update container's width, height and offsets.
+   *
+   * @private
+   * @memberof Grid.prototype
+   */
+
+
+  Grid.prototype._updateBoundingRect = function () {
+    var element = this._element;
+    var rect = element.getBoundingClientRect();
+    this._width = rect.width;
+    this._height = rect.height;
+    this._left = rect.left;
+    this._top = rect.top;
+  };
+  /**
+   * Update container's border sizes.
+   *
+   * @private
+   * @memberof Grid.prototype
+   * @param {Boolean} left
+   * @param {Boolean} right
+   * @param {Boolean} top
+   * @param {Boolean} bottom
+   */
+
+
+  Grid.prototype._updateBorders = function (left, right, top, bottom) {
+    var element = this._element;
+    if (left) this._borderLeft = getStyleAsFloat(element, 'border-left-width');
+    if (right) this._borderRight = getStyleAsFloat(element, 'border-right-width');
+    if (top) this._borderTop = getStyleAsFloat(element, 'border-top-width');
+    if (bottom) this._borderBottom = getStyleAsFloat(element, 'border-bottom-width');
+  };
+  /**
+   * Refresh all of container's internal dimensions and offsets.
+   *
+   * @private
+   * @memberof Grid.prototype
+   */
+
+
+  Grid.prototype._refreshDimensions = function () {
+    this._updateBoundingRect();
+
+    this._updateBorders(1, 1, 1, 1);
+  };
+  /**
+   * Show or hide Grid instance's items.
+   *
+   * @private
+   * @memberof Grid.prototype
+   * @param {GridMultiItemQuery} items
+   * @param {Boolean} toVisible
+   * @param {Object} [options]
+   * @param {Boolean} [options.instant=false]
+   * @param {(ShowCallback|HideCallback)} [options.onFinish]
+   * @param {(Boolean|LayoutCallback|String)} [options.layout=true]
+   */
+
+
+  Grid.prototype._setItemsVisibility = function (items, toVisible, options) {
+    var grid = this;
+    var targetItems = this.getItems(items);
+    var opts = options || 0;
+    var isInstant = opts.instant === true;
+    var callback = opts.onFinish;
+    var layout = opts.layout ? opts.layout : opts.layout === undefined;
+    var counter = targetItems.length;
+    var startEvent = toVisible ? eventShowStart : eventHideStart;
+    var endEvent = toVisible ? eventShowEnd : eventHideEnd;
+    var method = toVisible ? 'show' : 'hide';
+    var needsLayout = false;
+    var completedItems = [];
+    var hiddenItems = [];
+    var item;
+    var i; // If there are no items call the callback, but don't emit any events.
+
+    if (!counter) {
+      if (isFunction(callback)) callback(targetItems);
+      return;
+    } // Emit showStart/hideStart event.
+
+
+    if (this._hasListeners(startEvent)) {
+      this._emit(startEvent, targetItems.slice(0));
+    } // Show/hide items.
+
+
+    for (i = 0; i < targetItems.length; i++) {
+      item = targetItems[i]; // If inactive item is shown or active item is hidden we need to do
+      // layout.
+
+      if (toVisible && !item._isActive || !toVisible && item._isActive) {
+        needsLayout = true;
+      } // If inactive item is shown we also need to do a little hack to make the
+      // item not animate it's next positioning (layout).
+
+
+      if (toVisible && !item._isActive) {
+        item._layout._skipNextAnimation = true;
+      } // If a hidden item is being shown we need to refresh the item's
+      // dimensions.
+
+
+      if (toVisible && item._visibility._isHidden) {
+        hiddenItems.push(item);
+      } // Show/hide the item.
+
+
+      item._visibility[method](isInstant, function (interrupted, item) {
+        // If the current item's animation was not interrupted add it to the
+        // completedItems array.
+        if (!interrupted) completedItems.push(item); // If all items have finished their animations call the callback
+        // and emit showEnd/hideEnd event.
+
+        if (--counter < 1) {
+          if (isFunction(callback)) callback(completedItems.slice(0));
+          if (grid._hasListeners(endEvent)) grid._emit(endEvent, completedItems.slice(0));
+        }
+      });
+    } // Refresh hidden items.
+
+
+    if (hiddenItems.length) this.refreshItems(hiddenItems); // Layout if needed.
+
+    if (needsLayout && layout) {
+      this.layout(layout === instantLayout, isFunction(layout) ? layout : undefined);
+    }
+  };
+  /**
+   * Private helpers
+   * ***************
+   */
+
+  /**
+   * Merge default settings with user settings. The returned object is a new
+   * object with merged values. The merging is a deep merge meaning that all
+   * objects and arrays within the provided settings objects will be also merged
+   * so that modifying the values of the settings object will have no effect on
+   * the returned object.
+   *
+   * @param {Object} defaultSettings
+   * @param {Object} [userSettings]
+   * @returns {Object} Returns a new object.
+   */
+
+
+  function mergeSettings(defaultSettings, userSettings) {
+    // Create a fresh copy of default settings.
+    var ret = mergeObjects({}, defaultSettings); // Merge user settings to default settings.
+
+    if (userSettings) {
+      ret = mergeObjects(ret, userSettings);
+    } // Handle visible/hidden styles manually so that the whole object is
+    // overridden instead of the props.
+
+
+    ret.visibleStyles = (userSettings || 0).visibleStyles || (defaultSettings || 0).visibleStyles;
+    ret.hiddenStyles = (userSettings || 0).hiddenStyles || (defaultSettings || 0).hiddenStyles;
+    return ret;
+  }
+  /**
+   * Merge two objects recursively (deep merge). The source object's properties
+   * are merged to the target object.
+   *
+   * @param {Object} target
+   *   - The target object.
+   * @param {Object} source
+   *   - The source object.
+   * @returns {Object} Returns the target object.
+   */
+
+
+  function mergeObjects(target, source) {
+    var sourceKeys = Object.keys(source);
+    var length = sourceKeys.length;
+    var isSourceObject;
+    var propName;
+    var i;
+
+    for (i = 0; i < length; i++) {
+      propName = sourceKeys[i];
+      isSourceObject = isPlainObject(source[propName]); // If target and source values are both objects, merge the objects and
+      // assign the merged value to the target property.
+
+      if (isPlainObject(target[propName]) && isSourceObject) {
+        target[propName] = mergeObjects(mergeObjects({}, target[propName]), source[propName]);
+        continue;
+      } // If source's value is object and target's is not let's clone the object as
+      // the target's value.
+
+
+      if (isSourceObject) {
+        target[propName] = mergeObjects({}, source[propName]);
+        continue;
+      } // If source's value is an array let's clone the array as the target's
+      // value.
+
+
+      if (Array.isArray(source[propName])) {
+        target[propName] = source[propName].slice(0);
+        continue;
+      } // In all other cases let's just directly assign the source's value as the
+      // target's value.
+
+
+      target[propName] = source[propName];
+    }
+
+    return target;
+  }
+
+  return Grid;
+});
+
+/***/ }),
+
+/***/ 642:
+/***/ ((module, __unused_webpack___webpack_exports__, __webpack_require__) => {
+
+"use strict";
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
+/* module decorator */ module = __webpack_require__.hmd(module);
+
+
+/**
+ * Template7 1.4.2
+ * Mobile-first HTML template engine
+ * 
+ * http://www.idangero.us/template7/
+ * 
+ * Copyright 2019, Vladimir Kharlampidi
+ * The iDangero.us
+ * http://www.idangero.us/
+ * 
+ * Licensed under MIT
+ * 
+ * Released on: June 14, 2019
+ */
+(function (global, factory) {
+  (typeof exports === "undefined" ? "undefined" : (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .Z)(exports)) === 'object' && "object" !== 'undefined' ? module.exports = factory() : typeof define === 'function' && __webpack_require__.amdO ? define(factory) : (global = global || self, global.Template7 = factory());
+})(undefined, function () {
+  'use strict';
+
+  var t7ctx;
+
+  if (typeof window !== 'undefined') {
+    t7ctx = window;
+  } else if (typeof __webpack_require__.g !== 'undefined') {
+    t7ctx = __webpack_require__.g;
+  } else {
+    t7ctx = undefined;
+  }
+
+  var Template7Context = t7ctx;
+  var Template7Utils = {
+    quoteSingleRexExp: new RegExp('\'', 'g'),
+    quoteDoubleRexExp: new RegExp('"', 'g'),
+    isFunction: function isFunction(func) {
+      return typeof func === 'function';
+    },
+    escape: function escape(string) {
+      if (string === void 0) string = '';
+      return string.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+    },
+    helperToSlices: function helperToSlices(string) {
+      var quoteDoubleRexExp = Template7Utils.quoteDoubleRexExp;
+      var quoteSingleRexExp = Template7Utils.quoteSingleRexExp;
+      var helperParts = string.replace(/[{}#}]/g, '').trim().split(' ');
+      var slices = [];
+      var shiftIndex;
+      var i;
+      var j;
+
+      for (i = 0; i < helperParts.length; i += 1) {
+        var part = helperParts[i];
+        var blockQuoteRegExp = void 0;
+        var openingQuote = void 0;
+
+        if (i === 0) {
+          slices.push(part);
+        } else if (part.indexOf('"') === 0 || part.indexOf('\'') === 0) {
+          blockQuoteRegExp = part.indexOf('"') === 0 ? quoteDoubleRexExp : quoteSingleRexExp;
+          openingQuote = part.indexOf('"') === 0 ? '"' : '\''; // Plain String
+
+          if (part.match(blockQuoteRegExp).length === 2) {
+            // One word string
+            slices.push(part);
+          } else {
+            // Find closed Index
+            shiftIndex = 0;
+
+            for (j = i + 1; j < helperParts.length; j += 1) {
+              part += " " + helperParts[j];
+
+              if (helperParts[j].indexOf(openingQuote) >= 0) {
+                shiftIndex = j;
+                slices.push(part);
+                break;
+              }
+            }
+
+            if (shiftIndex) {
+              i = shiftIndex;
+            }
+          }
+        } else if (part.indexOf('=') > 0) {
+          // Hash
+          var hashParts = part.split('=');
+          var hashName = hashParts[0];
+          var hashContent = hashParts[1];
+
+          if (!blockQuoteRegExp) {
+            blockQuoteRegExp = hashContent.indexOf('"') === 0 ? quoteDoubleRexExp : quoteSingleRexExp;
+            openingQuote = hashContent.indexOf('"') === 0 ? '"' : '\'';
+          }
+
+          if (hashContent.match(blockQuoteRegExp).length !== 2) {
+            shiftIndex = 0;
+
+            for (j = i + 1; j < helperParts.length; j += 1) {
+              hashContent += " " + helperParts[j];
+
+              if (helperParts[j].indexOf(openingQuote) >= 0) {
+                shiftIndex = j;
+                break;
+              }
+            }
+
+            if (shiftIndex) {
+              i = shiftIndex;
+            }
+          }
+
+          var hash = [hashName, hashContent.replace(blockQuoteRegExp, '')];
+          slices.push(hash);
+        } else {
+          // Plain variable
+          slices.push(part);
+        }
+      }
+
+      return slices;
+    },
+    stringToBlocks: function stringToBlocks(string) {
+      var blocks = [];
+      var i;
+      var j;
+
+      if (!string) {
+        return [];
+      }
+
+      var stringBlocks = string.split(/({{[^{^}]*}})/);
+
+      for (i = 0; i < stringBlocks.length; i += 1) {
+        var block = stringBlocks[i];
+
+        if (block === '') {
+          continue;
+        }
+
+        if (block.indexOf('{{') < 0) {
+          blocks.push({
+            type: 'plain',
+            content: block
+          });
+        } else {
+          if (block.indexOf('{/') >= 0) {
+            continue;
+          }
+
+          block = block.replace(/{{([#/])*([ ])*/, '{{$1').replace(/([ ])*}}/, '}}');
+
+          if (block.indexOf('{#') < 0 && block.indexOf(' ') < 0 && block.indexOf('else') < 0) {
+            // Simple variable
+            blocks.push({
+              type: 'variable',
+              contextName: block.replace(/[{}]/g, '')
+            });
+            continue;
+          } // Helpers
+
+
+          var helperSlices = Template7Utils.helperToSlices(block);
+          var helperName = helperSlices[0];
+          var isPartial = helperName === '>';
+          var helperContext = [];
+          var helperHash = {};
+
+          for (j = 1; j < helperSlices.length; j += 1) {
+            var slice = helperSlices[j];
+
+            if (Array.isArray(slice)) {
+              // Hash
+              helperHash[slice[0]] = slice[1] === 'false' ? false : slice[1];
+            } else {
+              helperContext.push(slice);
+            }
+          }
+
+          if (block.indexOf('{#') >= 0) {
+            // Condition/Helper
+            var helperContent = '';
+            var elseContent = '';
+            var toSkip = 0;
+            var shiftIndex = void 0;
+            var foundClosed = false;
+            var foundElse = false;
+            var depth = 0;
+
+            for (j = i + 1; j < stringBlocks.length; j += 1) {
+              if (stringBlocks[j].indexOf('{{#') >= 0) {
+                depth += 1;
+              }
+
+              if (stringBlocks[j].indexOf('{{/') >= 0) {
+                depth -= 1;
+              }
+
+              if (stringBlocks[j].indexOf("{{#" + helperName) >= 0) {
+                helperContent += stringBlocks[j];
+
+                if (foundElse) {
+                  elseContent += stringBlocks[j];
+                }
+
+                toSkip += 1;
+              } else if (stringBlocks[j].indexOf("{{/" + helperName) >= 0) {
+                if (toSkip > 0) {
+                  toSkip -= 1;
+                  helperContent += stringBlocks[j];
+
+                  if (foundElse) {
+                    elseContent += stringBlocks[j];
+                  }
+                } else {
+                  shiftIndex = j;
+                  foundClosed = true;
+                  break;
+                }
+              } else if (stringBlocks[j].indexOf('else') >= 0 && depth === 0) {
+                foundElse = true;
+              } else {
+                if (!foundElse) {
+                  helperContent += stringBlocks[j];
+                }
+
+                if (foundElse) {
+                  elseContent += stringBlocks[j];
+                }
+              }
+            }
+
+            if (foundClosed) {
+              if (shiftIndex) {
+                i = shiftIndex;
+              }
+
+              if (helperName === 'raw') {
+                blocks.push({
+                  type: 'plain',
+                  content: helperContent
+                });
+              } else {
+                blocks.push({
+                  type: 'helper',
+                  helperName: helperName,
+                  contextName: helperContext,
+                  content: helperContent,
+                  inverseContent: elseContent,
+                  hash: helperHash
+                });
+              }
+            }
+          } else if (block.indexOf(' ') > 0) {
+            if (isPartial) {
+              helperName = '_partial';
+
+              if (helperContext[0]) {
+                if (helperContext[0].indexOf('[') === 0) {
+                  helperContext[0] = helperContext[0].replace(/[[\]]/g, '');
+                } else {
+                  helperContext[0] = "\"" + helperContext[0].replace(/"|'/g, '') + "\"";
+                }
+              }
+            }
+
+            blocks.push({
+              type: 'helper',
+              helperName: helperName,
+              contextName: helperContext,
+              hash: helperHash
+            });
+          }
+        }
+      }
+
+      return blocks;
+    },
+    parseJsVariable: function parseJsVariable(expression, replace, object) {
+      return expression.split(/([+ \-*/^()&=|<>!%:?])/g).reduce(function (arr, part) {
+        if (!part) {
+          return arr;
+        }
+
+        if (part.indexOf(replace) < 0) {
+          arr.push(part);
+          return arr;
+        }
+
+        if (!object) {
+          arr.push(JSON.stringify(''));
+          return arr;
+        }
+
+        var variable = object;
+
+        if (part.indexOf(replace + ".") >= 0) {
+          part.split(replace + ".")[1].split('.').forEach(function (partName) {
+            if (partName in variable) {
+              variable = variable[partName];
+            } else {
+              variable = undefined;
+            }
+          });
+        }
+
+        if (typeof variable === 'string' || Array.isArray(variable) || variable.constructor && variable.constructor === Object) {
+          variable = JSON.stringify(variable);
+        }
+
+        if (variable === undefined) {
+          variable = 'undefined';
+        }
+
+        arr.push(variable);
+        return arr;
+      }, []).join('');
+    },
+    parseJsParents: function parseJsParents(expression, parents) {
+      return expression.split(/([+ \-*^()&=|<>!%:?])/g).reduce(function (arr, part) {
+        if (!part) {
+          return arr;
+        }
+
+        if (part.indexOf('../') < 0) {
+          arr.push(part);
+          return arr;
+        }
+
+        if (!parents || parents.length === 0) {
+          arr.push(JSON.stringify(''));
+          return arr;
+        }
+
+        var levelsUp = part.split('../').length - 1;
+        var parentData = levelsUp > parents.length ? parents[parents.length - 1] : parents[levelsUp - 1];
+        var variable = parentData;
+        var parentPart = part.replace(/..\//g, '');
+        parentPart.split('.').forEach(function (partName) {
+          if (typeof variable[partName] !== 'undefined') {
+            variable = variable[partName];
+          } else {
+            variable = 'undefined';
+          }
+        });
+
+        if (variable === false || variable === true) {
+          arr.push(JSON.stringify(variable));
+          return arr;
+        }
+
+        if (variable === null || variable === 'undefined') {
+          arr.push(JSON.stringify(''));
+          return arr;
+        }
+
+        arr.push(JSON.stringify(variable));
+        return arr;
+      }, []).join('');
+    },
+    getCompileVar: function getCompileVar(name, ctx, data) {
+      if (data === void 0) data = 'data_1';
+      var variable = ctx;
+      var parts;
+      var levelsUp = 0;
+      var newDepth;
+
+      if (name.indexOf('../') === 0) {
+        levelsUp = name.split('../').length - 1;
+        newDepth = variable.split('_')[1] - levelsUp;
+        variable = "ctx_" + (newDepth >= 1 ? newDepth : 1);
+        parts = name.split('../')[levelsUp].split('.');
+      } else if (name.indexOf('@global') === 0) {
+        variable = 'Template7.global';
+        parts = name.split('@global.')[1].split('.');
+      } else if (name.indexOf('@root') === 0) {
+        variable = 'root';
+        parts = name.split('@root.')[1].split('.');
+      } else {
+        parts = name.split('.');
+      }
+
+      for (var i = 0; i < parts.length; i += 1) {
+        var part = parts[i];
+
+        if (part.indexOf('@') === 0) {
+          var dataLevel = data.split('_')[1];
+
+          if (levelsUp > 0) {
+            dataLevel = newDepth;
+          }
+
+          if (i > 0) {
+            variable += "[(data_" + dataLevel + " && data_" + dataLevel + "." + part.replace('@', '') + ")]";
+          } else {
+            variable = "(data_" + dataLevel + " && data_" + dataLevel + "." + part.replace('@', '') + ")";
+          }
+        } else if (Number.isFinite ? Number.isFinite(part) : Template7Context.isFinite(part)) {
+          variable += "[" + part + "]";
+        } else if (part === 'this' || part.indexOf('this.') >= 0 || part.indexOf('this[') >= 0 || part.indexOf('this(') >= 0) {
+          variable = part.replace('this', ctx);
+        } else {
+          variable += "." + part;
+        }
+      }
+
+      return variable;
+    },
+    getCompiledArguments: function getCompiledArguments(contextArray, ctx, data) {
+      var arr = [];
+
+      for (var i = 0; i < contextArray.length; i += 1) {
+        if (/^['"]/.test(contextArray[i])) {
+          arr.push(contextArray[i]);
+        } else if (/^(true|false|\d+)$/.test(contextArray[i])) {
+          arr.push(contextArray[i]);
+        } else {
+          arr.push(Template7Utils.getCompileVar(contextArray[i], ctx, data));
+        }
+      }
+
+      return arr.join(', ');
+    }
+  };
+  /* eslint no-eval: "off" */
+
+  var Template7Helpers = {
+    _partial: function _partial(partialName, options) {
+      var ctx = this;
+      var p = Template7Class.partials[partialName];
+
+      if (!p || p && !p.template) {
+        return '';
+      }
+
+      if (!p.compiled) {
+        p.compiled = new Template7Class(p.template).compile();
+      }
+
+      Object.keys(options.hash).forEach(function (hashName) {
+        ctx[hashName] = options.hash[hashName];
+      });
+      return p.compiled(ctx, options.data, options.root);
+    },
+    escape: function escape(context) {
+      if (typeof context === 'undefined' || context === null) {
+        return '';
+      }
+
+      if (typeof context !== 'string') {
+        throw new Error('Template7: Passed context to "escape" helper should be a string');
+      }
+
+      return Template7Utils.escape(context);
+    },
+    "if": function if$1(context, options) {
+      var ctx = context;
+
+      if (Template7Utils.isFunction(ctx)) {
+        ctx = ctx.call(this);
+      }
+
+      if (ctx) {
+        return options.fn(this, options.data);
+      }
+
+      return options.inverse(this, options.data);
+    },
+    unless: function unless(context, options) {
+      var ctx = context;
+
+      if (Template7Utils.isFunction(ctx)) {
+        ctx = ctx.call(this);
+      }
+
+      if (!ctx) {
+        return options.fn(this, options.data);
+      }
+
+      return options.inverse(this, options.data);
+    },
+    each: function each(context, options) {
+      var ctx = context;
+      var ret = '';
+      var i = 0;
+
+      if (Template7Utils.isFunction(ctx)) {
+        ctx = ctx.call(this);
+      }
+
+      if (Array.isArray(ctx)) {
+        if (options.hash.reverse) {
+          ctx = ctx.reverse();
+        }
+
+        for (i = 0; i < ctx.length; i += 1) {
+          ret += options.fn(ctx[i], {
+            first: i === 0,
+            last: i === ctx.length - 1,
+            index: i
+          });
+        }
+
+        if (options.hash.reverse) {
+          ctx = ctx.reverse();
+        }
+      } else {
+        // eslint-disable-next-line
+        for (var key in ctx) {
+          i += 1;
+          ret += options.fn(ctx[key], {
+            key: key
+          });
+        }
+      }
+
+      if (i > 0) {
+        return ret;
+      }
+
+      return options.inverse(this);
+    },
+    "with": function with$1(context, options) {
+      var ctx = context;
+
+      if (Template7Utils.isFunction(ctx)) {
+        ctx = context.call(this);
+      }
+
+      return options.fn(ctx);
+    },
+    join: function join(context, options) {
+      var ctx = context;
+
+      if (Template7Utils.isFunction(ctx)) {
+        ctx = ctx.call(this);
+      }
+
+      return ctx.join(options.hash.delimiter || options.hash.delimeter);
+    },
+    js: function js(expression, options) {
+      var data = options.data;
+      var func;
+      var execute = expression;
+      'index first last key'.split(' ').forEach(function (prop) {
+        if (typeof data[prop] !== 'undefined') {
+          var re1 = new RegExp("this.@" + prop, 'g');
+          var re2 = new RegExp("@" + prop, 'g');
+          execute = execute.replace(re1, JSON.stringify(data[prop])).replace(re2, JSON.stringify(data[prop]));
+        }
+      });
+
+      if (options.root && execute.indexOf('@root') >= 0) {
+        execute = Template7Utils.parseJsVariable(execute, '@root', options.root);
+      }
+
+      if (execute.indexOf('@global') >= 0) {
+        execute = Template7Utils.parseJsVariable(execute, '@global', Template7Context.Template7.global);
+      }
+
+      if (execute.indexOf('../') >= 0) {
+        execute = Template7Utils.parseJsParents(execute, options.parents);
+      }
+
+      if (execute.indexOf('return') >= 0) {
+        func = "(function(){" + execute + "})";
+      } else {
+        func = "(function(){return (" + execute + ")})";
+      }
+
+      return eval(func).call(this);
+    },
+    js_if: function js_if(expression, options) {
+      var data = options.data;
+      var func;
+      var execute = expression;
+      'index first last key'.split(' ').forEach(function (prop) {
+        if (typeof data[prop] !== 'undefined') {
+          var re1 = new RegExp("this.@" + prop, 'g');
+          var re2 = new RegExp("@" + prop, 'g');
+          execute = execute.replace(re1, JSON.stringify(data[prop])).replace(re2, JSON.stringify(data[prop]));
+        }
+      });
+
+      if (options.root && execute.indexOf('@root') >= 0) {
+        execute = Template7Utils.parseJsVariable(execute, '@root', options.root);
+      }
+
+      if (execute.indexOf('@global') >= 0) {
+        execute = Template7Utils.parseJsVariable(execute, '@global', Template7Context.Template7.global);
+      }
+
+      if (execute.indexOf('../') >= 0) {
+        execute = Template7Utils.parseJsParents(execute, options.parents);
+      }
+
+      if (execute.indexOf('return') >= 0) {
+        func = "(function(){" + execute + "})";
+      } else {
+        func = "(function(){return (" + execute + ")})";
+      }
+
+      var condition = eval(func).call(this);
+
+      if (condition) {
+        return options.fn(this, options.data);
+      }
+
+      return options.inverse(this, options.data);
+    }
+  };
+  Template7Helpers.js_compare = Template7Helpers.js_if;
+  var Template7Options = {};
+  var Template7Partials = {};
+
+  var Template7Class = function Template7Class(template) {
+    var t = this;
+    t.template = template;
+  };
+
+  var staticAccessors = {
+    options: {
+      configurable: true
+    },
+    partials: {
+      configurable: true
+    },
+    helpers: {
+      configurable: true
+    }
+  };
+
+  Template7Class.prototype.compile = function compile(template, depth) {
+    if (template === void 0) template = this.template;
+    if (depth === void 0) depth = 1;
+    var t = this;
+
+    if (t.compiled) {
+      return t.compiled;
+    }
+
+    if (typeof template !== 'string') {
+      throw new Error('Template7: Template must be a string');
+    }
+
+    var stringToBlocks = Template7Utils.stringToBlocks;
+    var getCompileVar = Template7Utils.getCompileVar;
+    var getCompiledArguments = Template7Utils.getCompiledArguments;
+    var blocks = stringToBlocks(template);
+    var ctx = "ctx_" + depth;
+    var data = "data_" + depth;
+
+    if (blocks.length === 0) {
+      return function empty() {
+        return '';
+      };
+    }
+
+    function getCompileFn(block, newDepth) {
+      if (block.content) {
+        return t.compile(block.content, newDepth);
+      }
+
+      return function empty() {
+        return '';
+      };
+    }
+
+    function getCompileInverse(block, newDepth) {
+      if (block.inverseContent) {
+        return t.compile(block.inverseContent, newDepth);
+      }
+
+      return function empty() {
+        return '';
+      };
+    }
+
+    var resultString = '';
+
+    if (depth === 1) {
+      resultString += "(function (" + ctx + ", " + data + ", root) {\n";
+    } else {
+      resultString += "(function (" + ctx + ", " + data + ") {\n";
+    }
+
+    if (depth === 1) {
+      resultString += 'function isArray(arr){return Array.isArray(arr);}\n';
+      resultString += 'function isFunction(func){return (typeof func === \'function\');}\n';
+      resultString += 'function c(val, ctx) {if (typeof val !== "undefined" && val !== null) {if (isFunction(val)) {return val.call(ctx);} else return val;} else return "";}\n';
+      resultString += 'root = root || ctx_1 || {};\n';
+    }
+
+    resultString += 'var r = \'\';\n';
+    var i;
+
+    for (i = 0; i < blocks.length; i += 1) {
+      var block = blocks[i]; // Plain block
+
+      if (block.type === 'plain') {
+        // eslint-disable-next-line
+        resultString += "r +='" + block.content.replace(/\r/g, '\\r').replace(/\n/g, '\\n').replace(/'/g, '\\' + '\'') + "';";
+        continue;
+      }
+
+      var variable = void 0;
+      var compiledArguments = void 0; // Variable block
+
+      if (block.type === 'variable') {
+        variable = getCompileVar(block.contextName, ctx, data);
+        resultString += "r += c(" + variable + ", " + ctx + ");";
+      } // Helpers block
+
+
+      if (block.type === 'helper') {
+        var parents = void 0;
+
+        if (ctx !== 'ctx_1') {
+          var level = ctx.split('_')[1];
+          var parentsString = "ctx_" + (level - 1);
+
+          for (var j = level - 2; j >= 1; j -= 1) {
+            parentsString += ", ctx_" + j;
+          }
+
+          parents = "[" + parentsString + "]";
+        } else {
+          parents = "[" + ctx + "]";
+        }
+
+        var dynamicHelper = void 0;
+
+        if (block.helperName.indexOf('[') === 0) {
+          block.helperName = getCompileVar(block.helperName.replace(/[[\]]/g, ''), ctx, data);
+          dynamicHelper = true;
+        }
+
+        if (dynamicHelper || block.helperName in Template7Helpers) {
+          compiledArguments = getCompiledArguments(block.contextName, ctx, data);
+          resultString += "r += (Template7Helpers" + (dynamicHelper ? "[" + block.helperName + "]" : "." + block.helperName) + ").call(" + ctx + ", " + (compiledArguments && compiledArguments + ", ") + "{hash:" + JSON.stringify(block.hash) + ", data: " + data + " || {}, fn: " + getCompileFn(block, depth + 1) + ", inverse: " + getCompileInverse(block, depth + 1) + ", root: root, parents: " + parents + "});";
+        } else if (block.contextName.length > 0) {
+          throw new Error("Template7: Missing helper: \"" + block.helperName + "\"");
+        } else {
+          variable = getCompileVar(block.helperName, ctx, data);
+          resultString += "if (" + variable + ") {";
+          resultString += "if (isArray(" + variable + ")) {";
+          resultString += "r += (Template7Helpers.each).call(" + ctx + ", " + variable + ", {hash:" + JSON.stringify(block.hash) + ", data: " + data + " || {}, fn: " + getCompileFn(block, depth + 1) + ", inverse: " + getCompileInverse(block, depth + 1) + ", root: root, parents: " + parents + "});";
+          resultString += '}else {';
+          resultString += "r += (Template7Helpers.with).call(" + ctx + ", " + variable + ", {hash:" + JSON.stringify(block.hash) + ", data: " + data + " || {}, fn: " + getCompileFn(block, depth + 1) + ", inverse: " + getCompileInverse(block, depth + 1) + ", root: root, parents: " + parents + "});";
+          resultString += '}}';
+        }
+      }
+    }
+
+    resultString += '\nreturn r;})';
+
+    if (depth === 1) {
+      // eslint-disable-next-line
+      t.compiled = eval(resultString);
+      return t.compiled;
+    }
+
+    return resultString;
+  };
+
+  staticAccessors.options.get = function () {
+    return Template7Options;
+  };
+
+  staticAccessors.partials.get = function () {
+    return Template7Partials;
+  };
+
+  staticAccessors.helpers.get = function () {
+    return Template7Helpers;
+  };
+
+  Object.defineProperties(Template7Class, staticAccessors);
+
+  function Template7() {
+    var args = [],
+        len = arguments.length;
+
+    while (len--) {
+      args[len] = arguments[len];
+    }
+
+    var template = args[0];
+    var data = args[1];
+
+    if (args.length === 2) {
+      var instance = new Template7Class(template);
+      var rendered = instance.compile()(data);
+      instance = null;
+      return rendered;
+    }
+
+    return new Template7Class(template);
+  }
+
+  Template7.registerHelper = function registerHelper(name, fn) {
+    Template7Class.helpers[name] = fn;
+  };
+
+  Template7.unregisterHelper = function unregisterHelper(name) {
+    Template7Class.helpers[name] = undefined;
+    delete Template7Class.helpers[name];
+  };
+
+  Template7.registerPartial = function registerPartial(name, template) {
+    Template7Class.partials[name] = {
+      template: template
+    };
+  };
+
+  Template7.unregisterPartial = function unregisterPartial(name) {
+    if (Template7Class.partials[name]) {
+      Template7Class.partials[name] = undefined;
+      delete Template7Class.partials[name];
+    }
+  };
+
+  Template7.compile = function compile(template, options) {
+    var instance = new Template7Class(template, options);
+    return instance.compile();
+  };
+
+  Template7.options = Template7Class.options;
+  Template7.helpers = Template7Class.helpers;
+  Template7.partials = Template7Class.partials;
+  return Template7;
+});
+
+/***/ }),
+
 /***/ 782:
 /***/ (() => {
 
@@ -3311,17 +10784,11 @@ jQuery.fn.sortElements = function () {
 function _typeof(obj) {
   "@babel/helpers - typeof";
 
-  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
-    _typeof = function _typeof(obj) {
-      return typeof obj;
-    };
-  } else {
-    _typeof = function _typeof(obj) {
-      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-    };
-  }
-
-  return _typeof(obj);
+  return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) {
+    return typeof obj;
+  } : function (obj) {
+    return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+  }, _typeof(obj);
 }
 
 /***/ })
@@ -3356,6 +10823,11 @@ function _typeof(obj) {
 /******/ 	}
 /******/ 	
 /************************************************************************/
+/******/ 	/* webpack/runtime/amd options */
+/******/ 	(() => {
+/******/ 		__webpack_require__.amdO = {};
+/******/ 	})();
+/******/ 	
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	(() => {
 /******/ 		// define getter functions for harmony exports
@@ -3408,9 +10880,298 @@ var __webpack_exports__ = {};
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/typeof.js
 var esm_typeof = __webpack_require__(2);
+;// CONCATENATED MODULE: ./src/components/_global/js/utils/global-vars.js
+/*
+ * Global variables from front pages
+ *
+ * @private
+ */
+var //If the file is in the root directory, you can leave it empty.
+//If in another directory, you can write: "/blog"
+templateUrl, //Eg. https://uiux.cc
+homeUrl, //Eg. https://uiux.cc/wp-admin/admin-ajax.php
+ajaxUrl;
+
+if (typeof APP_ROOTPATH === 'undefined') {
+  templateUrl = '';
+  homeUrl = '';
+  ajaxUrl = '';
+} else {
+  templateUrl = APP_ROOTPATH.templateUrl.replace(/\/\s*$/, '');
+  homeUrl = APP_ROOTPATH.homeUrl.replace(/\/\s*$/, '');
+  ajaxUrl = APP_ROOTPATH.ajaxUrl.replace(/\/\s*$/, '');
+}
+
+
+;// CONCATENATED MODULE: ./src/components/_global/js/utils/browser.js
+/*
+ * Determine whether it is a special browser
+ *
+ * @private
+ */
+// Add feature test for passive event listener support
+var supportsPassive = false;
+
+try {
+  document.addEventListener("test", null, {
+    get passive() {
+      supportsPassive = true;
+    }
+
+  });
+} catch (e) {}
+
+var UixBrowser = {
+  isMobile: /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent),
+  isAndroid: /(android)/i.test(navigator.userAgent),
+  isPC: !navigator.userAgent.match(/(iPhone|iPod|Android|ios|Mobile)/i),
+  isSafari: !!navigator.userAgent.match(/Version\/[\d\.]+.*Safari/),
+
+  /*Test to 9, 10. */
+  isIE: !!window.ActiveXObject || "ActiveXObject" in window,
+
+  /*Test to 6 ~ 11 (not edge) */
+  supportsPassive: supportsPassive
+};
+;// CONCATENATED MODULE: ./src/components/_global/js/utils/module-instance.js
+
+
+/*
+ * Core scripts for current site
+ *
+ * @private
+ * @description Used for all modules from ./src/components/[__]/js
+ * @requires ./examples/assets/js/min/jquery.waitforimages.min.js
+ * @requires ./examples/assets/js/min/video.min.js
+ * @requires ./examples/assets/js/min/TweenMax.min.js
+ */
+var UixModuleInstance = function ($, window, document) {
+  var _APP = {},
+      components = {
+    documentReady: [],
+    pageLoaded: []
+  };
+
+  if ($('img').length == 0) {
+    $('body').prepend('<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="" style="display:none">');
+  }
+
+  if ($.isFunction($.fn.waitForImages)) {
+    $('body').waitForImages(pageLoaded);
+  } else {
+    $(window).on('load', pageLoaded);
+  }
+
+  $(document).ready(documentReady);
+
+  function documentReady(context) {
+    context = (0,esm_typeof/* default */.Z)(context) == ( true ? "undefined" : 0) ? $ : context;
+    components.documentReady.forEach(function (component) {
+      component(context);
+    });
+  }
+
+  function pageLoaded(context) {
+    context = (0,esm_typeof/* default */.Z)(context) == "object" ? $ : context;
+    components.pageLoaded.forEach(function (component) {
+      component(context);
+    });
+  }
+
+  _APP.setContext = function (contextSelector) {
+    var context = $;
+
+    if ((0,esm_typeof/* default */.Z)(contextSelector) !== ( true ? "undefined" : 0)) {
+      return function (selector) {
+        return $(contextSelector).find(selector);
+      };
+    }
+
+    return context;
+  };
+
+  _APP.components = components;
+  _APP.documentReady = documentReady;
+  _APP.pageLoaded = pageLoaded;
+  return _APP;
+}($, window, document);
+;// CONCATENATED MODULE: ./src/components/_global/js/utils/GUID.js
+/*
+ * Create GUID / UUID
+ *
+ * @private
+ * @description This function can be used separately in HTML pages or custom JavaScript.
+ * @return {String}                        - The globally-unique identifiers.
+ */
+var UixGUID = UixGUID || function () {
+  function t() {}
+
+  return t.version = "0.0.1", t.create = function () {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+      var r = Math.random() * 16 | 0,
+          v = c == 'x' ? r : r & 0x3 | 0x8;
+      return v.toString(16);
+    });
+  }, //
+  t;
+}();
+;// CONCATENATED MODULE: ./src/components/_global/js/utils/math.js
+/*
+ * Evaluating a string as a mathematical expression in JavaScript
+ *
+ * @private
+ * @description This function can be used separately in HTML pages or custom JavaScript.
+ * @return {String}            - New calculation result.
+ */
+var UixMath = UixMath || function () {
+  function t() {}
+
+  return t.version = "0.0.1", t.evaluate = function (s) {
+    var chars = s.replace(/\s/g, '').split("");
+    var n = [],
+        op = [],
+        index = 0,
+        oplast = true;
+    n[index] = ""; // Parse the expression
+
+    for (var c = 0; c < chars.length; c++) {
+      if (isNaN(parseInt(chars[c])) && chars[c] !== "." && !oplast) {
+        op[index] = chars[c];
+        index++;
+        n[index] = "";
+        oplast = true;
+      } else {
+        n[index] += chars[c];
+        oplast = false;
+      }
+    } // Calculate the expression
+
+
+    s = parseFloat(n[0]);
+
+    for (var o = 0; o < op.length; o++) {
+      var num = parseFloat(n[o + 1]);
+
+      switch (op[o]) {
+        case "+":
+          s = s + num;
+          break;
+
+        case "-":
+          s = s - num;
+          break;
+
+        case "*":
+          s = s * num;
+          break;
+
+        case "/":
+          s = s / num;
+          break;
+      }
+    }
+
+    return s;
+  }, //
+  t;
+}();
+;// CONCATENATED MODULE: ./src/components/_global/js/utils/css-property.js
+
+
+/*
+ * Get the CSS property
+ *
+ * @private
+ * @description This function can be used separately in HTML pages or custom JavaScript.
+ * @param  {!Element} el     - The Element for which to get the computed style. Using class name or ID to locate.
+ * @return {String|Object}   - The value of property.
+ */
+var UixCssProperty = UixCssProperty || function () {
+  function t() {}
+
+  return t.version = "0.0.1", t.getTransitionDuration = function (el) {
+    if ((0,esm_typeof/* default */.Z)(el) === ( true ? "undefined" : 0)) {
+      return 0;
+    }
+
+    var style = window.getComputedStyle(el),
+        duration = style.webkitTransitionDuration,
+        delay = style.webkitTransitionDelay;
+
+    if ((0,esm_typeof/* default */.Z)(duration) != ( true ? "undefined" : 0)) {
+      // fix miliseconds vs seconds
+      duration = duration.indexOf("ms") > -1 ? parseFloat(duration) : parseFloat(duration) * 1000;
+      delay = delay.indexOf("ms") > -1 ? parseFloat(delay) : parseFloat(delay) * 1000;
+      return duration;
+    } else {
+      return 0;
+    }
+  }, //
+  t.getAbsoluteCoordinates = function (el) {
+    var windowWidth = window.innerWidth,
+        leftPos = null,
+        topPos = null;
+
+    if (!document.getElementsByTagName('body')[0].className.match(/rtl/)) {
+      leftPos = el.offsetLeft == 0 ? el.parentElement.offsetLeft : el.offsetLeft;
+      topPos = el.offsetTop == 0 ? el.parentElement.offsetTop : el.offsetTop;
+    } else {
+      // width and height in pixels, including padding and border
+      // Corresponds to jQuery outerWidth(), outerHeight()
+      leftPos = el.offsetLeft == 0 ? windowWidth - (el.parentElement.offsetLeft + el.parentElement.offsetWidth) : windowWidth - (el.offsetLeft + el.offsetWidth);
+      topPos = el.offsetTop == 0 ? windowWidth - (el.parentElement.offsetTop + el.parentElement.offsetHeight) : windowWidth - (el.offsetTop + el.offsetHeight);
+    }
+
+    return {
+      'left': leftPos,
+      'top': topPos
+    };
+  }, //
+  t;
+}();
+;// CONCATENATED MODULE: ./src/components/_global/js/utils/performance.js
+/*
+* Debounce
+*
+* @param  {Function} fn    - A function to be executed within the time limit.
+* @param  {Number} limit   - Waiting time.
+* @return {Function}       - Returns a new function.
+*/
+var UixDebounce = function UixDebounce(fn) {
+  var limit = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 300;
+  var timer;
+  return function () {
+    //Every time this returned function is called, the timer is cleared to ensure that fn is not executed
+    clearTimeout(timer); // When the returned function is called for the last time (that is the user stops a continuous operation)
+    // Execute fn after another delay milliseconds
+
+    timer = setTimeout(function () {
+      fn.apply(this, arguments);
+    }, limit);
+  };
+};
+/*
+* Throttle
+*
+* @param  {Function} fn    - A function to be executed within the time limit.
+* @param  {Number} limit   - Waiting time.
+* @return {Function}       - Returns a new function.
+*/
+
+var UixThrottle = function UixThrottle(fn) {
+  var limit = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 300;
+  var waiting = false;
+  return function () {
+    if (!waiting) {
+      fn.apply(this, arguments);
+      waiting = true;
+      setTimeout(function () {
+        waiting = false;
+      }, limit);
+    }
+  };
+};
 ;// CONCATENATED MODULE: ./src/components/_global/js/index.js
-
-
 /**
 
 	TABLE OF CONTENTS
@@ -3477,6 +11238,34 @@ var esm_typeof = __webpack_require__(2);
     58.SVG Map (China)
     59.SVG Map (World)
     60.SVG Mask Slider
+    61.Swiper
+    62.3D Background 1 with three.js
+    63.3D Background 2 with three.js
+    64.3D Background 3 with three.js
+    65.3D Background
+    66.3D Carousel
+    67.3D Gallery with three.js
+    68.3D Image Transition with three.js
+    69.3D Model
+    70.3D Pages
+    71.3D Particle Effect
+    72.3D Sphere Rotation
+    73.3D Object Anim When Click
+    74.3D Mouse Interaction with three.js
+    75.3D Mouse Interaction with three.js
+    76.3D Shatter Slider
+    77.3D Explosive Particle Slider
+    78.3D Liquid Scrollspy Slider
+    79.3D Filmic Effects
+    80.Simulate HTML Layout with threejs
+    81.Responsive Table
+    82.Table Sorter
+    83.Tabs
+    84.Team Focus
+    85.Text effect
+    86.Timeline
+    87.Vertical Menu
+    88.WordPress Core Scripts
 
 
 */
@@ -3489,292 +11278,13 @@ var esm_typeof = __webpack_require__(2);
 
 /* !!! To build a table of contents (TOC), you need to import this scss file into JS */
 
-/*
- * Global variables from front pages
- *
- * @private
- */
-
-var //If the file is in the root directory, you can leave it empty.
-//If in another directory, you can write: "/blog"
-templateUrl, //Eg. https://uiux.cc
-homeUrl, //Eg. https://uiux.cc/wp-admin/admin-ajax.php
-ajaxUrl;
-
-if (typeof APP_ROOTPATH === 'undefined') {
-  templateUrl = '';
-  homeUrl = '';
-  ajaxUrl = '';
-} else {
-  templateUrl = APP_ROOTPATH.templateUrl.replace(/\/\s*$/, '');
-  homeUrl = APP_ROOTPATH.homeUrl.replace(/\/\s*$/, '');
-  ajaxUrl = APP_ROOTPATH.ajaxUrl.replace(/\/\s*$/, '');
-}
-/*
- * Determine whether it is a special browser
- *
- * @private
- */
-// Add feature test for passive event listener support
 
 
-var supportsPassive = false;
-
-try {
-  document.addEventListener("test", null, {
-    get passive() {
-      supportsPassive = true;
-    }
-
-  });
-} catch (e) {}
-
-var browser = {
-  isMobile: /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent),
-  isAndroid: /(android)/i.test(navigator.userAgent),
-  isPC: !navigator.userAgent.match(/(iPhone|iPod|Android|ios|Mobile)/i),
-  isSafari: !!navigator.userAgent.match(/Version\/[\d\.]+.*Safari/),
-
-  /*Test to 9, 10. */
-  isIE: !!window.ActiveXObject || "ActiveXObject" in window,
-
-  /*Test to 6 ~ 11 (not edge) */
-  supportsPassive: supportsPassive
-};
-/*
- * Core scripts for current site
- *
- * @private
- * @description Used for all modules from ./src/components/[__]/js
- * @requires ./examples/assets/js/min/jquery.waitforimages.min.js
- * @requires ./examples/assets/js/min/video.min.js
- * @requires ./examples/assets/js/min/TweenMax.min.js
- */
-
-var UixModuleInstance = function ($, window, document) {
-  var _APP = {},
-      components = {
-    documentReady: [],
-    pageLoaded: []
-  };
-
-  if ($('img').length == 0) {
-    $('body').prepend('<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="" style="display:none">');
-  }
-
-  if ($.isFunction($.fn.waitForImages)) {
-    $('body').waitForImages(pageLoaded);
-  } else {
-    $(window).on('load', pageLoaded);
-  }
-
-  $(document).ready(documentReady);
-
-  function documentReady(context) {
-    context = (0,esm_typeof/* default */.Z)(context) == ( true ? "undefined" : 0) ? $ : context;
-    components.documentReady.forEach(function (component) {
-      component(context);
-    });
-  }
-
-  function pageLoaded(context) {
-    context = (0,esm_typeof/* default */.Z)(context) == "object" ? $ : context;
-    components.pageLoaded.forEach(function (component) {
-      component(context);
-    });
-  }
-
-  _APP.setContext = function (contextSelector) {
-    var context = $;
-
-    if ((0,esm_typeof/* default */.Z)(contextSelector) !== ( true ? "undefined" : 0)) {
-      return function (selector) {
-        return $(contextSelector).find(selector);
-      };
-    }
-
-    return context;
-  };
-
-  _APP.components = components;
-  _APP.documentReady = documentReady;
-  _APP.pageLoaded = pageLoaded;
-  return _APP;
-}($, window, document);
-/*
- * Create GUID / UUID
- *
- * @private
- * @description This function can be used separately in HTML pages or custom JavaScript.
- * @return {String}                        - The globally-unique identifiers.
- */
-
-var UixGUID = UixGUID || function () {
-  function t() {}
-
-  return t.version = "0.0.1", t.create = function () {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-      var r = Math.random() * 16 | 0,
-          v = c == 'x' ? r : r & 0x3 | 0x8;
-      return v.toString(16);
-    });
-  }, //
-  t;
-}();
-/*
- * Evaluating a string as a mathematical expression in JavaScript
- *
- * @private
- * @description This function can be used separately in HTML pages or custom JavaScript.
- * @return {String}            - New calculation result.
- */
-
-var UixMath = UixMath || function () {
-  function t() {}
-
-  return t.version = "0.0.1", t.evaluate = function (s) {
-    var chars = s.replace(/\s/g, '').split("");
-    var n = [],
-        op = [],
-        index = 0,
-        oplast = true;
-    n[index] = ""; // Parse the expression
-
-    for (var c = 0; c < chars.length; c++) {
-      if (isNaN(parseInt(chars[c])) && chars[c] !== "." && !oplast) {
-        op[index] = chars[c];
-        index++;
-        n[index] = "";
-        oplast = true;
-      } else {
-        n[index] += chars[c];
-        oplast = false;
-      }
-    } // Calculate the expression
 
 
-    s = parseFloat(n[0]);
 
-    for (var o = 0; o < op.length; o++) {
-      var num = parseFloat(n[o + 1]);
 
-      switch (op[o]) {
-        case "+":
-          s = s + num;
-          break;
 
-        case "-":
-          s = s - num;
-          break;
-
-        case "*":
-          s = s * num;
-          break;
-
-        case "/":
-          s = s / num;
-          break;
-      }
-    }
-
-    return s;
-  }, //
-  t;
-}();
-/*
- * Get the CSS property
- *
- * @private
- * @description This function can be used separately in HTML pages or custom JavaScript.
- * @param  {!Element} el     - The Element for which to get the computed style. Using class name or ID to locate.
- * @return {String|Object}   - The value of property.
- */
-
-var UixCssProperty = UixCssProperty || function () {
-  function t() {}
-
-  return t.version = "0.0.1", t.getTransitionDuration = function (el) {
-    if ((0,esm_typeof/* default */.Z)(el) === ( true ? "undefined" : 0)) {
-      return 0;
-    }
-
-    var style = window.getComputedStyle(el),
-        duration = style.webkitTransitionDuration,
-        delay = style.webkitTransitionDelay;
-
-    if ((0,esm_typeof/* default */.Z)(duration) != ( true ? "undefined" : 0)) {
-      // fix miliseconds vs seconds
-      duration = duration.indexOf("ms") > -1 ? parseFloat(duration) : parseFloat(duration) * 1000;
-      delay = delay.indexOf("ms") > -1 ? parseFloat(delay) : parseFloat(delay) * 1000;
-      return duration;
-    } else {
-      return 0;
-    }
-  }, //
-  t.getAbsoluteCoordinates = function (el) {
-    var windowWidth = window.innerWidth,
-        leftPos = null,
-        topPos = null;
-
-    if (!document.getElementsByTagName('body')[0].className.match(/rtl/)) {
-      leftPos = el.offsetLeft == 0 ? el.parentElement.offsetLeft : el.offsetLeft;
-      topPos = el.offsetTop == 0 ? el.parentElement.offsetTop : el.offsetTop;
-    } else {
-      // width and height in pixels, including padding and border
-      // Corresponds to jQuery outerWidth(), outerHeight()
-      leftPos = el.offsetLeft == 0 ? windowWidth - (el.parentElement.offsetLeft + el.parentElement.offsetWidth) : windowWidth - (el.offsetLeft + el.offsetWidth);
-      topPos = el.offsetTop == 0 ? windowWidth - (el.parentElement.offsetTop + el.parentElement.offsetHeight) : windowWidth - (el.offsetTop + el.offsetHeight);
-    }
-
-    return {
-      'left': leftPos,
-      'top': topPos
-    };
-  }, //
-  t;
-}();
-/*
-* Throttle
-*
-* @param  {Function} fn    - A function to be executed within the time limit.
-* @param  {Number} limit   - Waiting time.
-* @return {Void}    
-*/
-
-var UixThrottle = function UixThrottle(fn) {
-  var limit = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 300;
-  var waiting = false;
-  return function () {
-    if (!waiting) {
-      fn.apply(this, arguments);
-      waiting = true;
-      setTimeout(function () {
-        waiting = false;
-      }, limit);
-    }
-  };
-};
-/*
-* Debounce
-*
-* @param  {Function} fn    - A function to be executed within the time limit.
-* @param  {Number} limit   - Waiting time.
-* @return {Void}    
-*/
-
-var UixDebounce = function UixDebounce(fn) {
-  var limit = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 300;
-  var timer;
-  return function () {
-    //Every time this returned function is called, the timer is cleared to ensure that fn is not executed
-    clearTimeout(timer); // When the returned function is called for the last time (that is the user stops a continuous operation)
-    // Execute fn after another delay milliseconds
-
-    timer = setTimeout(function () {
-      fn.apply(this, arguments);
-    }, limit);
-  };
-};
 ;// CONCATENATED MODULE: ./src/components/_global/js/fn/UixModuleFilter.js
 
 
@@ -4126,6 +11636,25 @@ window.MAIN = null;
     });
   };
 })(jQuery);
+;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/createClass.js
+function _defineProperties(target, props) {
+  for (var i = 0; i < props.length; i++) {
+    var descriptor = props[i];
+    descriptor.enumerable = descriptor.enumerable || false;
+    descriptor.configurable = true;
+    if ("value" in descriptor) descriptor.writable = true;
+    Object.defineProperty(target, descriptor.key, descriptor);
+  }
+}
+
+function _createClass(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+  if (staticProps) _defineProperties(Constructor, staticProps);
+  Object.defineProperty(Constructor, "prototype", {
+    writable: false
+  });
+  return Constructor;
+}
 ;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/classCallCheck.js
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
@@ -4133,6 +11662,7 @@ function _classCallCheck(instance, Constructor) {
   }
 }
 ;// CONCATENATED MODULE: ./src/components/_global/js/modules/body-and-header.js
+
 
 
 /* 
@@ -4204,13 +11734,14 @@ var BODY_AND_HEADER = function (module, $, window, document) {
   };
 
   module.components.documentReady.push(module.BODY_AND_HEADER.documentReady);
-  return function BODY_AND_HEADER() {
+  return /*#__PURE__*/_createClass(function BODY_AND_HEADER() {
     _classCallCheck(this, BODY_AND_HEADER);
 
     this.module = module;
-  };
+  });
 }(UixModuleInstance, jQuery, window, document);
 ;// CONCATENATED MODULE: ./src/components/_global/js/modules/common-height.js
+
 
 
 /* 
@@ -4295,15 +11826,16 @@ var COMMON_HEIGHT = function (module, $, window, document) {
   };
 
   module.components.pageLoaded.push(module.COMMON_HEIGHT.pageLoaded);
-  return function COMMON_HEIGHT() {
+  return /*#__PURE__*/_createClass(function COMMON_HEIGHT() {
     _classCallCheck(this, COMMON_HEIGHT);
 
     this.module = module;
-  };
+  });
 }(UixModuleInstance, jQuery, window, document);
 // EXTERNAL MODULE: ./src/components/_third-party-plugins/Miscellaneous/attrExt.js
 var attrExt = __webpack_require__(319);
 ;// CONCATENATED MODULE: ./src/components/_global/js/modules/custom-data-attrs.js
+
 
 
 /* 
@@ -4334,13 +11866,14 @@ var GET_CUSTOM_ATTRS = function (module, $, window, document) {
   };
 
   module.components.documentReady.push(module.GET_CUSTOM_ATTRS.documentReady);
-  return function GET_CUSTOM_ATTRS() {
+  return /*#__PURE__*/_createClass(function GET_CUSTOM_ATTRS() {
     _classCallCheck(this, GET_CUSTOM_ATTRS);
 
     this.module = module;
-  };
+  });
 }(UixModuleInstance, jQuery, window, document);
 ;// CONCATENATED MODULE: ./src/components/_global/js/modules/loader.js
+
 
 
 
@@ -4484,13 +12017,14 @@ var LOADER = function (module, $, window, document) {
   };
 
   module.components.documentReady.push(module.LOADER.documentReady);
-  return function LOADER() {
+  return /*#__PURE__*/_createClass(function LOADER() {
     _classCallCheck(this, LOADER);
 
     this.module = module;
-  };
+  });
 }(UixModuleInstance, jQuery, window, document);
 ;// CONCATENATED MODULE: ./src/components/_global/js/modules/mega-menu.js
+
 
 
 /* 
@@ -4533,7 +12067,7 @@ var MEGA_MENU = function (module, $, window, document) {
           //The maximum width of the mega menu wrapper
       //This value is equal to the $nav-mega-li-w variable in the SCSS
       perDefaultW = 270; //Default width of each column
-      //New XL container for Bootstrap 4.x
+      //New XL container for Bootstrap 5.x
 
       if (w > 1430) maxWidth = 1278; //Full width container
 
@@ -4628,13 +12162,14 @@ var MEGA_MENU = function (module, $, window, document) {
   };
 
   module.components.pageLoaded.push(module.MEGA_MENU.pageLoaded);
-  return function MEGA_MENU() {
+  return /*#__PURE__*/_createClass(function MEGA_MENU() {
     _classCallCheck(this, MEGA_MENU);
 
     this.module = module;
-  };
+  });
 }(UixModuleInstance, jQuery, window, document);
 ;// CONCATENATED MODULE: ./src/components/_global/js/modules/mobile-menu.js
+
 
 
 
@@ -4790,13 +12325,14 @@ var MOBILE_MENU = function (module, $, window, document) {
   };
 
   module.components.documentReady.push(module.MOBILE_MENU.documentReady);
-  return function MOBILE_MENU() {
+  return /*#__PURE__*/_createClass(function MOBILE_MENU() {
     _classCallCheck(this, MOBILE_MENU);
 
     this.module = module;
-  };
+  });
 }(UixModuleInstance, jQuery, window, document);
 ;// CONCATENATED MODULE: ./src/components/_global/js/modules/navigation.js
+
 
 
 
@@ -4886,11 +12422,11 @@ var NAVIGATION = function (module, $, window, document) {
   };
 
   module.components.documentReady.push(module.NAVIGATION.documentReady);
-  return function NAVIGATION() {
+  return /*#__PURE__*/_createClass(function NAVIGATION() {
     _classCallCheck(this, NAVIGATION);
 
     this.module = module;
-  };
+  });
 }(UixModuleInstance, jQuery, window, document);
 ;// CONCATENATED MODULE: ./src/components/_global/js/fn/UixParallax.js
 /* 
@@ -4991,6 +12527,7 @@ var NAVIGATION = function (module, $, window, document) {
   };
 })(jQuery);
 ;// CONCATENATED MODULE: ./src/components/_global/js/modules/set-background.js
+
 
 
 
@@ -5163,13 +12700,14 @@ var SET_BG = function (module, $, window, document) {
   };
 
   module.components.documentReady.push(module.SET_BG.documentReady);
-  return function SET_BG() {
+  return /*#__PURE__*/_createClass(function SET_BG() {
     _classCallCheck(this, SET_BG);
 
     this.module = module;
-  };
+  });
 }(UixModuleInstance, jQuery, window, document);
 ;// CONCATENATED MODULE: ./src/components/_global/js/modules/videos.js
+
 
 
 
@@ -5237,7 +12775,7 @@ var VIDEOS = function (module, $, window, document) {
           $('#' + coverPlayBtnID).hide();
         }); //Prevent some devices from automatically playing video and trigger with buttons
 
-        if (!dataAuto || browser.isAndroid) {
+        if (!dataAuto || UixBrowser.isAndroid) {
           $('#' + coverPlayBtnID + ' .uix-video__cover__playbtn').show();
         }
       }
@@ -5376,7 +12914,7 @@ var VIDEOS = function (module, $, window, document) {
 
         if ($this.find('[data-video-iframe]').length > 0 && videoSrcIfm != '') {
           //If iframe
-          v += '<div id="' + videoContainerVid + '" class="embed-responsive embed-responsive-16by9">';
+          v += '<div id="' + videoContainerVid + '" class="ratio ratio-16x9">';
           v += videoSrcIfm;
           v += '</div>';
         } else {
@@ -5453,7 +12991,7 @@ var VIDEOS = function (module, $, window, document) {
           if (windowWidth <= 768) {
             $ifm.css({
               'top': 0
-            }).parent('.embed-responsive').css({
+            }).parent('.ratio').css({
               'top': (newMaxH - newH) / 2 + 'px'
             });
           }
@@ -5559,13 +13097,14 @@ var VIDEOS = function (module, $, window, document) {
   };
 
   module.components.documentReady.push(module.VIDEOS.documentReady);
-  return function VIDEOS() {
+  return /*#__PURE__*/_createClass(function VIDEOS() {
     _classCallCheck(this, VIDEOS);
 
     this.module = module;
-  };
+  });
 }(UixModuleInstance, jQuery, window, document);
 ;// CONCATENATED MODULE: ./src/components/_main/js/index.js
+
 
 
 /* 
@@ -5600,13 +13139,14 @@ var MAIN = function (module, $, window, document) {
 
   module.components.documentReady.push(module.MAIN.documentReady);
   module.components.pageLoaded.push(module.MAIN.pageLoaded);
-  return function MAIN() {
+  return /*#__PURE__*/_createClass(function MAIN() {
     _classCallCheck(this, MAIN);
 
     this.module = module;
-  };
+  });
 }(UixModuleInstance, jQuery, window, document);
 ;// CONCATENATED MODULE: ./src/components/accordion-img/js/index.js
+
 
 
 
@@ -5728,13 +13268,14 @@ var ACCORDION_BG = function (module, $, window, document) {
   };
 
   module.components.documentReady.push(module.ACCORDION_BG.documentReady);
-  return function ACCORDION_BG() {
+  return /*#__PURE__*/_createClass(function ACCORDION_BG() {
     _classCallCheck(this, ACCORDION_BG);
 
     this.module = module;
-  };
+  });
 }(UixModuleInstance, jQuery, window, document);
 ;// CONCATENATED MODULE: ./src/components/accordion/js/index.js
+
 
 
 
@@ -5814,13 +13355,14 @@ var ACCORDION = function (module, $, window, document) {
   };
 
   module.components.documentReady.push(module.ACCORDION.documentReady);
-  return function ACCORDION() {
+  return /*#__PURE__*/_createClass(function ACCORDION() {
     _classCallCheck(this, ACCORDION);
 
     this.module = module;
-  };
+  });
 }(UixModuleInstance, jQuery, window, document);
 ;// CONCATENATED MODULE: ./src/components/advanced-slider/js/basic.js
+
 
 
 
@@ -6550,11 +14092,11 @@ var ADVANCED_SLIDER = function (module, $, window, document) {
   };
 
   module.components.pageLoaded.push(module.ADVANCED_SLIDER.pageLoaded);
-  return function ADVANCED_SLIDER() {
+  return /*#__PURE__*/_createClass(function ADVANCED_SLIDER() {
     _classCallCheck(this, ADVANCED_SLIDER);
 
     this.module = module;
-  };
+  });
 }(UixModuleInstance, jQuery, window, document);
 // EXTERNAL MODULE: ./src/components/_third-party-plugins/GSAP/esm/TweenLite.js
 var esm_TweenLite = __webpack_require__(696);
@@ -7181,6 +14723,7 @@ PixiPlugin.registerPIXI = function (PIXI) {
 
 
 ;// CONCATENATED MODULE: ./src/components/advanced-slider/js/special.js
+
 
 
 
@@ -9115,13 +16658,14 @@ var ADVANCED_SLIDER_FILTER = function (module, $, window, document) {
   };
 
   module.components.pageLoaded.push(module.ADVANCED_SLIDER_FILTER.pageLoaded);
-  return function ADVANCED_SLIDER_FILTER() {
+  return /*#__PURE__*/_createClass(function ADVANCED_SLIDER_FILTER() {
     _classCallCheck(this, ADVANCED_SLIDER_FILTER);
 
     this.module = module;
-  };
+  });
 }(UixModuleInstance, jQuery, window, document);
 ;// CONCATENATED MODULE: ./src/components/AJAX-push/js/index.js
+
 
 
 
@@ -9321,7 +16865,6 @@ var AJAX_PUSH_CONTENT = function (module, $, window, document) {
               ///////////   
               promises.push(new Promise(function (resolve, reject) {
                 var img = document.createElement("img");
-                img.crossOrigin = "anonymous";
                 img.src = sources[i].url;
 
                 img.onload = function (image) {
@@ -9516,13 +17059,14 @@ var AJAX_PUSH_CONTENT = function (module, $, window, document) {
   };
 
   module.components.documentReady.push(module.AJAX_PUSH_CONTENT.documentReady);
-  return function AJAX_PUSH_CONTENT() {
+  return /*#__PURE__*/_createClass(function AJAX_PUSH_CONTENT() {
     _classCallCheck(this, AJAX_PUSH_CONTENT);
 
     this.module = module;
-  };
+  });
 }(UixModuleInstance, jQuery, window, document);
 ;// CONCATENATED MODULE: ./src/components/AJAX/js/index.js
+
 
 
 
@@ -9850,7 +17394,6 @@ var AJAX_PAGE_LOADER = function (module, $, window, document) {
                 ///////////   
                 promises.push(new Promise(function (resolve, reject) {
                   var img = document.createElement("img");
-                  img.crossOrigin = "anonymous";
                   img.src = sources[i].url;
 
                   img.onload = function (image) {
@@ -10126,23 +17669,23 @@ var AJAX_PAGE_LOADER = function (module, $, window, document) {
       scrollMoveInit(e, dir);
     };
 
-    window.addEventListener('wheel', onDeviceWheel, browser.supportsPassive ? {
+    window.addEventListener('wheel', onDeviceWheel, UixBrowser.supportsPassive ? {
       passive: true
     } : false);
-    window.addEventListener('touchstart', onTouchStart, browser.supportsPassive ? {
+    window.addEventListener('touchstart', onTouchStart, UixBrowser.supportsPassive ? {
       passive: true
     } : false);
-    window.addEventListener('touchmove', onDeviceWheel, browser.supportsPassive ? {
+    window.addEventListener('touchmove', onDeviceWheel, UixBrowser.supportsPassive ? {
       passive: true
     } : false);
   };
 
   module.components.documentReady.push(module.AJAX_PAGE_LOADER.documentReady);
-  return function AJAX_PAGE_LOADER() {
+  return /*#__PURE__*/_createClass(function AJAX_PAGE_LOADER() {
     _classCallCheck(this, AJAX_PAGE_LOADER);
 
     this.module = module;
-  };
+  });
 }(UixModuleInstance, jQuery, window, document);
 ;// CONCATENATED MODULE: ./src/components/_third-party-plugins/GSAP/esm/ScrollToPlugin.js
 
@@ -10365,6 +17908,7 @@ ScrollToPlugin_p._kill = function (lookup) {
 ;// CONCATENATED MODULE: ./src/components/back-to-top/js/index.js
 
 
+
 /* 
  *************************************
  * <!-- Back to Top -->
@@ -10421,13 +17965,14 @@ var BACK_TO_TOP = function (module, $, window, document) {
   };
 
   module.components.documentReady.push(module.BACK_TO_TOP.documentReady);
-  return function BACK_TO_TOP() {
+  return /*#__PURE__*/_createClass(function BACK_TO_TOP() {
     _classCallCheck(this, BACK_TO_TOP);
 
     this.module = module;
-  };
+  });
 }(UixModuleInstance, jQuery, window, document);
 ;// CONCATENATED MODULE: ./src/components/circle-layout/js/index.js
+
 
 
 
@@ -10507,15 +18052,16 @@ var CIRCLE_LAYOUT = function (module, $, window, document) {
   };
 
   module.components.documentReady.push(module.CIRCLE_LAYOUT.documentReady);
-  return function CIRCLE_LAYOUT() {
+  return /*#__PURE__*/_createClass(function CIRCLE_LAYOUT() {
     _classCallCheck(this, CIRCLE_LAYOUT);
 
     this.module = module;
-  };
+  });
 }(UixModuleInstance, jQuery, window, document);
 // EXTERNAL MODULE: ./src/components/counter/js/fn/count-to.js
 var count_to = __webpack_require__(798);
 ;// CONCATENATED MODULE: ./src/components/counter/js/index.js
+
 
 
 
@@ -10563,13 +18109,14 @@ var COUNTER = function (module, $, window, document) {
   };
 
   module.components.documentReady.push(module.COUNTER.documentReady);
-  return function COUNTER() {
+  return /*#__PURE__*/_createClass(function COUNTER() {
     _classCallCheck(this, COUNTER);
 
     this.module = module;
-  };
+  });
 }(UixModuleInstance, jQuery, window, document);
 ;// CONCATENATED MODULE: ./src/components/dropdown-menu/js/index.js
+
 
 
 
@@ -10635,13 +18182,14 @@ var DROPDOWN_MENU = function (module, $, window, document) {
   };
 
   module.components.documentReady.push(module.DROPDOWN_MENU.documentReady);
-  return function DROPDOWN_MENU() {
+  return /*#__PURE__*/_createClass(function DROPDOWN_MENU() {
     _classCallCheck(this, DROPDOWN_MENU);
 
     this.module = module;
-  };
+  });
 }(UixModuleInstance, jQuery, window, document);
 ;// CONCATENATED MODULE: ./src/components/dropdown-menu2/js/index.js
+
 
 
 /* 
@@ -10709,13 +18257,14 @@ var DROPDOWN_MENU2 = function (module, $, window, document) {
   };
 
   module.components.documentReady.push(module.DROPDOWN_MENU2.documentReady);
-  return function DROPDOWN_MENU2() {
+  return /*#__PURE__*/_createClass(function DROPDOWN_MENU2() {
     _classCallCheck(this, DROPDOWN_MENU2);
 
     this.module = module;
-  };
+  });
 }(UixModuleInstance, jQuery, window, document);
 ;// CONCATENATED MODULE: ./src/components/cascading-dropdown-list/js/index.js
+
 
 
 
@@ -11076,11 +18625,11 @@ var CASCADING_DD_LIST = function (module, $, window, document) {
   };
 
   module.components.documentReady.push(module.CASCADING_DD_LIST.documentReady);
-  return function CASCADING_DD_LIST() {
+  return /*#__PURE__*/_createClass(function CASCADING_DD_LIST() {
     _classCallCheck(this, CASCADING_DD_LIST);
 
     this.module = module;
-  };
+  });
 }(UixModuleInstance, jQuery, window, document);
 ;// CONCATENATED MODULE: ./src/components/flexslider/js/third-party/jquery.flexslider.js
 
@@ -12526,6 +20075,7 @@ var CASCADING_DD_LIST = function (module, $, window, document) {
 
 
 
+
 /* 
  *************************************
  * <!-- Flexslider (Third-party plugin) -->
@@ -13121,7 +20671,7 @@ var FLEXSLIDER = function (module, $, window, document) {
         timer = setTimeout(function () {
           wheeling = false;
         }, 60);
-      }, browser.supportsPassive ? {
+      }, UixBrowser.supportsPassive ? {
         passive: true
       } : false);
     }
@@ -13366,13 +20916,14 @@ var FLEXSLIDER = function (module, $, window, document) {
   };
 
   module.components.documentReady.push(module.FLEXSLIDER.documentReady);
-  return function FLEXSLIDER() {
+  return /*#__PURE__*/_createClass(function FLEXSLIDER() {
     _classCallCheck(this, FLEXSLIDER);
 
     this.module = module;
-  };
+  });
 }(UixModuleInstance, jQuery, window, document);
 ;// CONCATENATED MODULE: ./src/components/floating-side-element/js/index.js
+
 
 
 /* 
@@ -13438,11 +20989,11 @@ var FLOATING_SIDE_EL = function (module, $, window, document) {
   };
 
   module.components.documentReady.push(module.FLOATING_SIDE_EL.documentReady);
-  return function FLOATING_SIDE_EL() {
+  return /*#__PURE__*/_createClass(function FLOATING_SIDE_EL() {
     _classCallCheck(this, FLOATING_SIDE_EL);
 
     this.module = module;
-  };
+  });
 }(UixModuleInstance, jQuery, window, document);
 ;// CONCATENATED MODULE: ./src/components/form-progress/js/fn/form-progress-to-next.js
 
@@ -13586,6 +21137,7 @@ var FLOATING_SIDE_EL = function (module, $, window, document) {
 
 
 
+
 /* 
  *************************************
  * <!-- Form Progress -->
@@ -13685,11 +21237,11 @@ var FORM_PROGRESS = function (module, $, window, document) {
   };
 
   module.components.pageLoaded.push(module.FORM_PROGRESS.pageLoaded);
-  return function FORM_PROGRESS() {
+  return /*#__PURE__*/_createClass(function FORM_PROGRESS() {
     _classCallCheck(this, FORM_PROGRESS);
 
     this.module = module;
-  };
+  });
 }(UixModuleInstance, jQuery, window, document);
 ;// CONCATENATED MODULE: ./src/components/form/js/fn/normal-radio.js
 
@@ -17542,6 +25094,7 @@ var controls_disable = __webpack_require__(260);
 ;// CONCATENATED MODULE: ./src/components/form/js/index.js
 
 
+
 /* 
  *************************************
  * <!-- Form -->
@@ -17631,13 +25184,16 @@ var FORM = function (module, $, window, document) {
   };
 
   module.components.documentReady.push(module.FORM.documentReady);
-  return function FORM() {
+  return /*#__PURE__*/_createClass(function FORM() {
     _classCallCheck(this, FORM);
 
     this.module = module;
-  };
+  });
 }(UixModuleInstance, jQuery, window, document);
+// EXTERNAL MODULE: ./src/components/gallery/js/third-party/muuri.js
+var muuri = __webpack_require__(996);
 ;// CONCATENATED MODULE: ./src/components/gallery/js/index.js
+
 
 
 /* 
@@ -17645,6 +25201,7 @@ var FORM = function (module, $, window, document) {
  * <!-- Gallery -->
  *************************************
  */
+
 
 
 var GALLERY = function (module, $, window, document) {
@@ -17756,13 +25313,14 @@ var GALLERY = function (module, $, window, document) {
   };
 
   module.components.documentReady.push(module.GALLERY.documentReady);
-  return function GALLERY() {
+  return /*#__PURE__*/_createClass(function GALLERY() {
     _classCallCheck(this, GALLERY);
 
     this.module = module;
-  };
+  });
 }(UixModuleInstance, jQuery, window, document);
 ;// CONCATENATED MODULE: ./src/components/hybrid-content-slider/js/index.js
+
 
 
 
@@ -18563,13 +26121,14 @@ var HYBRID_CONTENT_SLIDER = function (module, $, window, document) {
   };
 
   module.components.pageLoaded.push(module.HYBRID_CONTENT_SLIDER.pageLoaded);
-  return function HYBRID_CONTENT_SLIDER() {
+  return /*#__PURE__*/_createClass(function HYBRID_CONTENT_SLIDER() {
     _classCallCheck(this, HYBRID_CONTENT_SLIDER);
 
     this.module = module;
-  };
+  });
 }(UixModuleInstance, jQuery, window, document);
 ;// CONCATENATED MODULE: ./src/components/hover-delay-interaction/js/index.js
+
 
 
 /* 
@@ -18609,13 +26168,14 @@ var HOVER_DELAY_INTERACTION = function (module, $, window, document) {
   };
 
   module.components.documentReady.push(module.HOVER_DELAY_INTERACTION.documentReady);
-  return function HOVER_DELAY_INTERACTION() {
+  return /*#__PURE__*/_createClass(function HOVER_DELAY_INTERACTION() {
     _classCallCheck(this, HOVER_DELAY_INTERACTION);
 
     this.module = module;
-  };
+  });
 }(UixModuleInstance, jQuery, window, document);
 ;// CONCATENATED MODULE: ./src/components/image-shapes/js/index.js
+
 
 
 /* 
@@ -18706,13 +26266,14 @@ var IMAGE_SHAPES = function (module, $, window, document) {
   };
 
   module.components.documentReady.push(module.IMAGE_SHAPES.documentReady);
-  return function IMAGE_SHAPES() {
+  return /*#__PURE__*/_createClass(function IMAGE_SHAPES() {
     _classCallCheck(this, IMAGE_SHAPES);
 
     this.module = module;
-  };
+  });
 }(UixModuleInstance, jQuery, window, document);
 ;// CONCATENATED MODULE: ./src/components/infinite-scrolling-element/js/index.js
+
 
 
 
@@ -18814,13 +26375,14 @@ var INFINITE_SCROLLING_EL = function (module, $, window, document) {
   };
 
   module.components.documentReady.push(module.INFINITE_SCROLLING_EL.documentReady);
-  return function INFINITE_SCROLLING_EL() {
+  return /*#__PURE__*/_createClass(function INFINITE_SCROLLING_EL() {
     _classCallCheck(this, INFINITE_SCROLLING_EL);
 
     this.module = module;
-  };
+  });
 }(UixModuleInstance, jQuery, window, document);
 ;// CONCATENATED MODULE: ./src/components/lava-lamp-style-menu/js/index.js
+
 
 
 /* 
@@ -18878,15 +26440,16 @@ var LAVA_LAMP_STYLE_MENU = function (module, $, window, document) {
   };
 
   module.components.documentReady.push(module.LAVA_LAMP_STYLE_MENU.documentReady);
-  return function LAVA_LAMP_STYLE_MENU() {
+  return /*#__PURE__*/_createClass(function LAVA_LAMP_STYLE_MENU() {
     _classCallCheck(this, LAVA_LAMP_STYLE_MENU);
 
     this.module = module;
-  };
+  });
 }(UixModuleInstance, jQuery, window, document);
 // EXTERNAL MODULE: ./src/components/_third-party-plugins/Miscellaneous/scrollLock.js
 var scrollLock = __webpack_require__(111);
 ;// CONCATENATED MODULE: ./src/components/lightbox/js/index.js
+
 
 
 
@@ -18902,7 +26465,7 @@ var scrollLock = __webpack_require__(111);
 var LIGHTBOX = function (module, $, window, document) {
   if (window.LIGHTBOX === null) return false;
   module.LIGHTBOX = module.LIGHTBOX || {};
-  module.LIGHTBOX.version = '0.2.2';
+  module.LIGHTBOX.version = '0.2.3';
 
   module.LIGHTBOX.pageLoaded = function () {
     if ($('.uix-lightbox__container').length == 0) {
@@ -18913,7 +26476,7 @@ var LIGHTBOX = function (module, $, window, document) {
     $('template').each(function () {
       var _content = $(this).html(function (index, html) {
         return html.replace(/[\r\n]/g, '');
-      }).context.innerHTML,
+      }).html(),
           _id = $(this).attr('id'); //If it is dialog, clone the contents of the <template> into the body
 
 
@@ -19445,13 +27008,14 @@ var LIGHTBOX = function (module, $, window, document) {
   };
 
   module.components.pageLoaded.push(module.LIGHTBOX.pageLoaded);
-  return function LIGHTBOX() {
+  return /*#__PURE__*/_createClass(function LIGHTBOX() {
     _classCallCheck(this, LIGHTBOX);
 
     this.module = module;
-  };
+  });
 }(UixModuleInstance, jQuery, window, document);
 ;// CONCATENATED MODULE: ./src/components/list-bulleted/js/index.js
+
 
 
 /* 
@@ -19475,13 +27039,16 @@ var BULLETED_LIST = function (module, $, window, document) {
   };
 
   module.components.documentReady.push(module.BULLETED_LIST.documentReady);
-  return function BULLETED_LIST() {
+  return /*#__PURE__*/_createClass(function BULLETED_LIST() {
     _classCallCheck(this, BULLETED_LIST);
 
     this.module = module;
-  };
+  });
 }(UixModuleInstance, jQuery, window, document);
+// EXTERNAL MODULE: ./src/components/list-posts/js/third-party/template7.js
+var template7 = __webpack_require__(642);
 ;// CONCATENATED MODULE: ./src/components/list-posts/js/index.js
+
 
 
 
@@ -19490,6 +27057,7 @@ var BULLETED_LIST = function (module, $, window, document) {
  * <!-- Posts List With Ajax -->
  *************************************
  */
+
 
 
 
@@ -19939,13 +27507,14 @@ var POST_LIST_AJAX = function (module, $, window, document) {
   };
 
   module.components.documentReady.push(module.POST_LIST_AJAX.documentReady);
-  return function POST_LIST_AJAX() {
+  return /*#__PURE__*/_createClass(function POST_LIST_AJAX() {
     _classCallCheck(this, POST_LIST_AJAX);
 
     this.module = module;
-  };
+  });
 }(UixModuleInstance, jQuery, window, document);
 ;// CONCATENATED MODULE: ./src/components/fullwidth-column-to-edge/js/index.js
+
 
 
 
@@ -20009,13 +27578,14 @@ var FULL_WIDTH_COLUMN_TO_EDGE = function (module, $, window, document) {
   };
 
   module.components.pageLoaded.push(module.FULL_WIDTH_COLUMN_TO_EDGE.pageLoaded);
-  return function FULL_WIDTH_COLUMN_TO_EDGE() {
+  return /*#__PURE__*/_createClass(function FULL_WIDTH_COLUMN_TO_EDGE() {
     _classCallCheck(this, FULL_WIDTH_COLUMN_TO_EDGE);
 
     this.module = module;
-  };
+  });
 }(UixModuleInstance, jQuery, window, document);
 ;// CONCATENATED MODULE: ./src/components/login-templates/js/index.js
+
 
 
 /* 
@@ -20071,11 +27641,11 @@ var LOGIN_UI = function (module, $, window, document) {
   };
 
   module.components.documentReady.push(module.LOGIN_UI.documentReady);
-  return function LOGIN_UI() {
+  return /*#__PURE__*/_createClass(function LOGIN_UI() {
     _classCallCheck(this, LOGIN_UI);
 
     this.module = module;
-  };
+  });
 }(UixModuleInstance, jQuery, window, document);
 ;// CONCATENATED MODULE: ./src/components/modal-dialog/js/fn/fire-modal-dialog.js
 
@@ -20244,6 +27814,7 @@ var LOGIN_UI = function (module, $, window, document) {
 
 
 
+
 /* 
  *************************************
  * <!-- Modal Dialog -->
@@ -20256,7 +27827,7 @@ var LOGIN_UI = function (module, $, window, document) {
 var MODAL_DIALOG = function (module, $, window, document) {
   if (window.MODAL_DIALOG === null) return false;
   module.MODAL_DIALOG = module.MODAL_DIALOG || {};
-  module.MODAL_DIALOG.version = '0.1.8';
+  module.MODAL_DIALOG.version = '0.1.9';
 
   module.MODAL_DIALOG.documentReady = function ($) {
     //Delay Time when Full Screen Effect is fired.
@@ -20265,7 +27836,7 @@ var MODAL_DIALOG = function (module, $, window, document) {
     $('template').each(function () {
       var _content = $(this).html(function (index, html) {
         return html.replace(/[\r\n]/g, '');
-      }).context.innerHTML,
+      }).html(),
           _id = $(this).attr('id'); //If it is dialog, clone the contents of the <template> into the body
 
 
@@ -20342,13 +27913,14 @@ var MODAL_DIALOG = function (module, $, window, document) {
   };
 
   module.components.documentReady.push(module.MODAL_DIALOG.documentReady);
-  return function MODAL_DIALOG() {
+  return /*#__PURE__*/_createClass(function MODAL_DIALOG() {
     _classCallCheck(this, MODAL_DIALOG);
 
     this.module = module;
-  };
+  });
 }(UixModuleInstance, jQuery, window, document);
 ;// CONCATENATED MODULE: ./src/components/mousewheel-interaction/js/index.js
+
 
 
 /* 
@@ -20419,13 +27991,13 @@ var MOUSEWHEEL_INTERACTION = function (module, $, window, document) {
       scrollMoveInit(e, dir);
     };
 
-    window.addEventListener('wheel', onDeviceWheel, browser.supportsPassive ? {
+    window.addEventListener('wheel', onDeviceWheel, UixBrowser.supportsPassive ? {
       passive: true
     } : false);
-    window.addEventListener('touchstart', onTouchStart, browser.supportsPassive ? {
+    window.addEventListener('touchstart', onTouchStart, UixBrowser.supportsPassive ? {
       passive: true
     } : false);
-    window.addEventListener('touchmove', onDeviceWheel, browser.supportsPassive ? {
+    window.addEventListener('touchmove', onDeviceWheel, UixBrowser.supportsPassive ? {
       passive: true
     } : false);
     /*
@@ -20458,11 +28030,11 @@ var MOUSEWHEEL_INTERACTION = function (module, $, window, document) {
   };
 
   module.components.documentReady.push(module.MOUSEWHEEL_INTERACTION.documentReady);
-  return function MOUSEWHEEL_INTERACTION() {
+  return /*#__PURE__*/_createClass(function MOUSEWHEEL_INTERACTION() {
     _classCallCheck(this, MOUSEWHEEL_INTERACTION);
 
     this.module = module;
-  };
+  });
 }(UixModuleInstance, jQuery, window, document);
 ;// CONCATENATED MODULE: ./src/components/_third-party-plugins/GSAP/esm/ModifiersPlugin.js
 
@@ -20659,6 +28231,7 @@ if (Number(ModifiersPlugin_p[0]) <= 1 && Number(ModifiersPlugin_p[1]) < 19 && es
 
 
 ;// CONCATENATED MODULE: ./src/components/multi-items-carousel/js/index.js
+
 
 
 
@@ -21088,13 +28661,14 @@ var MULTI_ITEMS_CAROUSEL = function (module, $, window, document) {
   };
 
   module.components.documentReady.push(module.MULTI_ITEMS_CAROUSEL.documentReady);
-  return function MULTI_ITEMS_CAROUSEL() {
+  return /*#__PURE__*/_createClass(function MULTI_ITEMS_CAROUSEL() {
     _classCallCheck(this, MULTI_ITEMS_CAROUSEL);
 
     this.module = module;
-  };
+  });
 }(UixModuleInstance, jQuery, window, document);
 ;// CONCATENATED MODULE: ./src/components/one-page/js/index.js
+
 
 
 /* 
@@ -21107,7 +28681,7 @@ var MULTI_ITEMS_CAROUSEL = function (module, $, window, document) {
 var ONEPAGE = function (module, $, window, document) {
   if (window.ONEPAGE === null) return false;
   module.ONEPAGE = module.ONEPAGE || {};
-  module.ONEPAGE.version = '0.1.0';
+  module.ONEPAGE.version = '0.1.1';
 
   module.ONEPAGE.documentReady = function ($) {
     var windowWidth = window.innerWidth,
@@ -21292,9 +28866,9 @@ var ONEPAGE = function (module, $, window, document) {
 
     function getRelatedNavigation(el, menuObj, echoIndex) {
       if (echoIndex) {
-        return menuObj.find('li > a[href=#' + $(el).attr('id') + ']').parent('li').index();
+        return menuObj.find('li > a[href="#' + $(el).attr('id') + '"]').parent('li').index();
       } else {
-        return menuObj.find('li > a[href=#' + $(el).attr('id') + ']').parent('li');
+        return menuObj.find('li > a[href="#' + $(el).attr('id') + '"]').parent('li');
       }
     }
     /*
@@ -21432,13 +29006,14 @@ var ONEPAGE = function (module, $, window, document) {
   };
 
   module.components.documentReady.push(module.ONEPAGE.documentReady);
-  return function ONEPAGE() {
+  return /*#__PURE__*/_createClass(function ONEPAGE() {
     _classCallCheck(this, ONEPAGE);
 
     this.module = module;
-  };
+  });
 }(UixModuleInstance, jQuery, window, document);
 ;// CONCATENATED MODULE: ./src/components/one-page2/js/index.js
+
 
 
 /* 
@@ -21763,25 +29338,26 @@ var ONEPAGE2 = function (module, $, window, document) {
       scrollMoveInit(e, dir);
     };
 
-    window.addEventListener('wheel', onDeviceWheel, browser.supportsPassive ? {
+    window.addEventListener('wheel', onDeviceWheel, UixBrowser.supportsPassive ? {
       passive: true
     } : false);
-    window.addEventListener('touchstart', onTouchStart, browser.supportsPassive ? {
+    window.addEventListener('touchstart', onTouchStart, UixBrowser.supportsPassive ? {
       passive: true
     } : false);
-    window.addEventListener('touchmove', onDeviceWheel, browser.supportsPassive ? {
+    window.addEventListener('touchmove', onDeviceWheel, UixBrowser.supportsPassive ? {
       passive: true
     } : false);
   };
 
   module.components.documentReady.push(module.ONEPAGE2.documentReady);
-  return function ONEPAGE2() {
+  return /*#__PURE__*/_createClass(function ONEPAGE2() {
     _classCallCheck(this, ONEPAGE2);
 
     this.module = module;
-  };
+  });
 }(UixModuleInstance, jQuery, window, document);
 ;// CONCATENATED MODULE: ./src/components/parallax/js/index.js
+
 
 
 
@@ -21983,13 +29559,14 @@ var PARALLAX = function (module, $, window, document) {
   };
 
   module.components.documentReady.push(module.PARALLAX.documentReady);
-  return function PARALLAX() {
+  return /*#__PURE__*/_createClass(function PARALLAX() {
     _classCallCheck(this, PARALLAX);
 
     this.module = module;
-  };
+  });
 }(UixModuleInstance, jQuery, window, document);
 ;// CONCATENATED MODULE: ./src/components/periodical-scroll/js/index.js
+
 
 
 
@@ -22080,13 +29657,14 @@ var PERIODICAL_SCROLL = function (module, $, window, document) {
   };
 
   module.components.documentReady.push(module.PERIODICAL_SCROLL.documentReady);
-  return function PERIODICAL_SCROLL() {
+  return /*#__PURE__*/_createClass(function PERIODICAL_SCROLL() {
     _classCallCheck(this, PERIODICAL_SCROLL);
 
     this.module = module;
-  };
+  });
 }(UixModuleInstance, jQuery, window, document);
 ;// CONCATENATED MODULE: ./src/components/pricing/js/index.js
+
 
 
 /* 
@@ -22169,13 +29747,14 @@ var PRICING = function (module, $, window, document) {
   };
 
   module.components.documentReady.push(module.PRICING.documentReady);
-  return function PRICING() {
+  return /*#__PURE__*/_createClass(function PRICING() {
     _classCallCheck(this, PRICING);
 
     this.module = module;
-  };
+  });
 }(UixModuleInstance, jQuery, window, document);
 ;// CONCATENATED MODULE: ./src/components/progress-bar/js/index.js
+
 
 
 
@@ -22245,13 +29824,14 @@ var PROGRESS_BAR = function (module, $, window, document) {
   };
 
   module.components.documentReady.push(module.PROGRESS_BAR.documentReady);
-  return function PROGRESS_BAR() {
+  return /*#__PURE__*/_createClass(function PROGRESS_BAR() {
     _classCallCheck(this, PROGRESS_BAR);
 
     this.module = module;
-  };
+  });
 }(UixModuleInstance, jQuery, window, document);
 ;// CONCATENATED MODULE: ./src/components/progress-line/js/index.js
+
 
 
 /* 
@@ -22305,13 +29885,14 @@ var PROGRESS_LINE = function (module, $, window, document) {
   };
 
   module.components.documentReady.push(module.PROGRESS_LINE.documentReady);
-  return function PROGRESS_LINE() {
+  return /*#__PURE__*/_createClass(function PROGRESS_LINE() {
     _classCallCheck(this, PROGRESS_LINE);
 
     this.module = module;
-  };
+  });
 }(UixModuleInstance, jQuery, window, document);
 ;// CONCATENATED MODULE: ./src/components/retina/js/index.js
+
 
 
 /* 
@@ -22346,13 +29927,14 @@ var RETINA = function (module, $, window, document) {
   };
 
   module.components.documentReady.push(module.RETINA.documentReady);
-  return function RETINA() {
+  return /*#__PURE__*/_createClass(function RETINA() {
     _classCallCheck(this, RETINA);
 
     this.module = module;
-  };
+  });
 }(UixModuleInstance, jQuery, window, document);
 ;// CONCATENATED MODULE: ./src/components/rotating-elements/js/index.js
+
 
 
 
@@ -22415,13 +29997,14 @@ var ROTATING_EL = function (module, $, window, document) {
   };
 
   module.components.documentReady.push(module.ROTATING_EL.documentReady);
-  return function ROTATING_EL() {
+  return /*#__PURE__*/_createClass(function ROTATING_EL() {
     _classCallCheck(this, ROTATING_EL);
 
     this.module = module;
-  };
+  });
 }(UixModuleInstance, jQuery, window, document);
 ;// CONCATENATED MODULE: ./src/components/scroll-reveal/js/index.js
+
 
 
 
@@ -22593,13 +30176,14 @@ var SCROLL_REVEAL = function (module, $, window, document) {
   };
 
   module.components.documentReady.push(module.SCROLL_REVEAL.documentReady);
-  return function SCROLL_REVEAL() {
+  return /*#__PURE__*/_createClass(function SCROLL_REVEAL() {
     _classCallCheck(this, SCROLL_REVEAL);
 
     this.module = module;
-  };
+  });
 }(UixModuleInstance, jQuery, window, document);
 ;// CONCATENATED MODULE: ./src/components/scrollspy-animate/js/index.js
+
 
 
 /* 
@@ -22727,13 +30311,14 @@ var SCROLLSPY_ANIM = function (module, $, window, document) {
   };
 
   module.components.documentReady.push(module.SCROLLSPY_ANIM.documentReady);
-  return function SCROLLSPY_ANIM() {
+  return /*#__PURE__*/_createClass(function SCROLLSPY_ANIM() {
     _classCallCheck(this, SCROLLSPY_ANIM);
 
     this.module = module;
-  };
+  });
 }(UixModuleInstance, jQuery, window, document);
 ;// CONCATENATED MODULE: ./src/components/show-more-less/js/index.js
+
 
 
 /* 
@@ -22789,13 +30374,14 @@ var SHOW_MORELESS = function (module, $, window, document) {
   };
 
   module.components.documentReady.push(module.SHOW_MORELESS.documentReady);
-  return function SHOW_MORELESS() {
+  return /*#__PURE__*/_createClass(function SHOW_MORELESS() {
     _classCallCheck(this, SHOW_MORELESS);
 
     this.module = module;
-  };
+  });
 }(UixModuleInstance, jQuery, window, document);
 ;// CONCATENATED MODULE: ./src/components/skew-on-scroll/js/index.js
+
 
 
 /* 
@@ -22830,13 +30416,14 @@ var SKEW_ON_SCROLL = function (module, $, window, document) {
   };
 
   module.components.documentReady.push(module.SKEW_ON_SCROLL.documentReady);
-  return function SKEW_ON_SCROLL() {
+  return /*#__PURE__*/_createClass(function SKEW_ON_SCROLL() {
     _classCallCheck(this, SKEW_ON_SCROLL);
 
     this.module = module;
-  };
+  });
 }(UixModuleInstance, jQuery, window, document);
 ;// CONCATENATED MODULE: ./src/components/smooth-scrolling-anchor-link/js/index.js
+
 
 
 /* 
@@ -22938,13 +30525,14 @@ var SMOOTH_SCROLLING_ANCHORLINK = function (module, $, window, document) {
   };
 
   module.components.documentReady.push(module.SMOOTH_SCROLLING_ANCHORLINK.documentReady);
-  return function SMOOTH_SCROLLING_ANCHORLINK() {
+  return /*#__PURE__*/_createClass(function SMOOTH_SCROLLING_ANCHORLINK() {
     _classCallCheck(this, SMOOTH_SCROLLING_ANCHORLINK);
 
     this.module = module;
-  };
+  });
 }(UixModuleInstance, jQuery, window, document);
 ;// CONCATENATED MODULE: ./src/components/smooth-scrolling-page/js/index.js
+
 
 
 /* 
@@ -23216,13 +30804,14 @@ var SMOOTH_SCROLLING_PAGE = function (module, $, window, document) {
   };
 
   module.components.pageLoaded.push(module.SMOOTH_SCROLLING_PAGE.pageLoaded);
-  return function SMOOTH_SCROLLING_PAGE() {
+  return /*#__PURE__*/_createClass(function SMOOTH_SCROLLING_PAGE() {
     _classCallCheck(this, SMOOTH_SCROLLING_PAGE);
 
     this.module = module;
-  };
+  });
 }(UixModuleInstance, jQuery, window, document);
 ;// CONCATENATED MODULE: ./src/components/sticky-elements/js/index.js
+
 
 
 
@@ -23286,13 +30875,14 @@ var STICKY_EL = function (module, $, window, document) {
      */
 
     function stickyInit(w) {
-      if (w > 768) {
+      if (true) {//w > 768) {
         $('.js-uix-sticky-el').each(function () {
           var $el = $(this),
               elTop = $el.offset().top,
               oWidth = $el.width(),
               clsID = $el.data('sticky-id'),
               $ph = $('[data-sticky-id="' + clsID + '"].is-placeholder');
+            console.log($el);
 
           function scrollUpdate() {
             var scrolled = $(window).scrollTop(),
@@ -23301,6 +30891,7 @@ var STICKY_EL = function (module, $, window, document) {
             if (parseFloat(scrolled + topSpacing) > elTop) {
               $el.addClass('is-active').css({
                 'width': oWidth + 'px',
+                //'width': '100%',
                 'top': topSpacing + 'px'
               });
               $ph.css('display', 'block');
@@ -23347,13 +30938,14 @@ var STICKY_EL = function (module, $, window, document) {
   };
 
   module.components.pageLoaded.push(module.STICKY_EL.pageLoaded);
-  return function STICKY_EL() {
+  return /*#__PURE__*/_createClass(function STICKY_EL() {
     _classCallCheck(this, STICKY_EL);
 
     this.module = module;
-  };
+  });
 }(UixModuleInstance, jQuery, window, document);
 ;// CONCATENATED MODULE: ./src/components/svg-map/js/china.js
+
 
 
 /* 
@@ -23441,13 +31033,14 @@ var SVG_MAP_CHINA = function (module, $, window, document) {
   };
 
   module.components.documentReady.push(module.SVG_MAP_CHINA.documentReady);
-  return function SVG_MAP_CHINA() {
+  return /*#__PURE__*/_createClass(function SVG_MAP_CHINA() {
     _classCallCheck(this, SVG_MAP_CHINA);
 
     this.module = module;
-  };
+  });
 }(UixModuleInstance, jQuery, window, document);
 ;// CONCATENATED MODULE: ./src/components/svg-map/js/world.js
+
 
 
 /* 
@@ -23532,13 +31125,14 @@ var SVG_MAP_WORLD = function (module, $, window, document) {
   };
 
   module.components.documentReady.push(module.SVG_MAP_WORLD.documentReady);
-  return function SVG_MAP_WORLD() {
+  return /*#__PURE__*/_createClass(function SVG_MAP_WORLD() {
     _classCallCheck(this, SVG_MAP_WORLD);
 
     this.module = module;
-  };
+  });
 }(UixModuleInstance, jQuery, window, document);
 ;// CONCATENATED MODULE: ./src/components/svg-mask-slider/js/index.js
+
 
 
 
@@ -24185,11 +31779,11 @@ var SVG_MASK_SLIDER = function (module, $, window, document) {
   };
 
   module.components.pageLoaded.push(module.SVG_MASK_SLIDER.pageLoaded);
-  return function SVG_MASK_SLIDER() {
+  return /*#__PURE__*/_createClass(function SVG_MASK_SLIDER() {
     _classCallCheck(this, SVG_MASK_SLIDER);
 
     this.module = module;
-  };
+  });
 }(UixModuleInstance, jQuery, window, document);
 ;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/defineProperty.js
 function _defineProperty(obj, key, value) {
@@ -24205,22 +31799,6 @@ function _defineProperty(obj, key, value) {
   }
 
   return obj;
-}
-;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/createClass.js
-function _defineProperties(target, props) {
-  for (var i = 0; i < props.length; i++) {
-    var descriptor = props[i];
-    descriptor.enumerable = descriptor.enumerable || false;
-    descriptor.configurable = true;
-    if ("value" in descriptor) descriptor.writable = true;
-    Object.defineProperty(target, descriptor.key, descriptor);
-  }
-}
-
-function _createClass(Constructor, protoProps, staticProps) {
-  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
-  if (staticProps) _defineProperties(Constructor, staticProps);
-  return Constructor;
 }
 ;// CONCATENATED MODULE: ./src/components/swiper/third-party/Swiper/src/ssr-window/package/ssr-window.esm.js
 
@@ -26493,9 +34071,9 @@ var supportsResizeObserver = function supportsResizeObserver() {
 ;// CONCATENATED MODULE: ./src/components/swiper/third-party/Swiper/src/modules/observer/observer.js
 
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 
 
 
@@ -29554,4 +37132,17609 @@ function preloadImages() {
   swiper.imagesToLoad = swiper.$el.find('img');
 
   function onReady() {
-    if (typeof swiper === 'undefined' || swiper === null || !swiper || swiper.destr
+    if (typeof swiper === 'undefined' || swiper === null || !swiper || swiper.destroyed) return;
+    if (swiper.imagesLoaded !== undefined) swiper.imagesLoaded += 1;
+
+    if (swiper.imagesLoaded === swiper.imagesToLoad.length) {
+      if (swiper.params.updateOnImagesReady) swiper.update();
+      swiper.emit('imagesReady');
+    }
+  }
+
+  for (var i = 0; i < swiper.imagesToLoad.length; i += 1) {
+    var imageEl = swiper.imagesToLoad[i];
+    swiper.loadImage(imageEl, imageEl.currentSrc || imageEl.getAttribute('src'), imageEl.srcset || imageEl.getAttribute('srcset'), imageEl.sizes || imageEl.getAttribute('sizes'), true, onReady);
+  }
+}
+;// CONCATENATED MODULE: ./src/components/swiper/third-party/Swiper/src/components/core/images/index.js
+
+
+/* harmony default export */ const core_images = ({
+  loadImage: loadImage,
+  preloadImages: preloadImages
+});
+;// CONCATENATED MODULE: ./src/components/swiper/third-party/Swiper/src/components/core/check-overflow/index.js
+function checkOverflow() {
+  var swiper = this;
+  var params = swiper.params;
+  var wasLocked = swiper.isLocked;
+  var lastSlidePosition = swiper.slides.length > 0 && params.slidesOffsetBefore + params.spaceBetween * (swiper.slides.length - 1) + swiper.slides[0].offsetWidth * swiper.slides.length;
+
+  if (params.slidesOffsetBefore && params.slidesOffsetAfter && lastSlidePosition) {
+    swiper.isLocked = lastSlidePosition <= swiper.size;
+  } else {
+    swiper.isLocked = swiper.snapGrid.length === 1;
+  }
+
+  swiper.allowSlideNext = !swiper.isLocked;
+  swiper.allowSlidePrev = !swiper.isLocked; // events
+
+  if (wasLocked !== swiper.isLocked) swiper.emit(swiper.isLocked ? 'lock' : 'unlock');
+
+  if (wasLocked && wasLocked !== swiper.isLocked) {
+    swiper.isEnd = false;
+    if (swiper.navigation) swiper.navigation.update();
+  }
+}
+
+/* harmony default export */ const check_overflow = ({
+  checkOverflow: checkOverflow
+});
+;// CONCATENATED MODULE: ./src/components/swiper/third-party/Swiper/src/components/core/defaults.js
+/* harmony default export */ const defaults = ({
+  init: true,
+  direction: 'horizontal',
+  touchEventsTarget: 'container',
+  initialSlide: 0,
+  speed: 300,
+  cssMode: false,
+  updateOnWindowResize: true,
+  resizeObserver: false,
+  nested: false,
+  // Overrides
+  width: null,
+  height: null,
+  //
+  preventInteractionOnTransition: false,
+  // ssr
+  userAgent: null,
+  url: null,
+  // To support iOS's swipe-to-go-back gesture (when being used in-app).
+  edgeSwipeDetection: false,
+  edgeSwipeThreshold: 20,
+  // Free mode
+  freeMode: false,
+  freeModeMomentum: true,
+  freeModeMomentumRatio: 1,
+  freeModeMomentumBounce: true,
+  freeModeMomentumBounceRatio: 1,
+  freeModeMomentumVelocityRatio: 1,
+  freeModeSticky: false,
+  freeModeMinimumVelocity: 0.02,
+  // Autoheight
+  autoHeight: false,
+  // Set wrapper width
+  setWrapperSize: false,
+  // Virtual Translate
+  virtualTranslate: false,
+  // Effects
+  effect: 'slide',
+  // 'slide' or 'fade' or 'cube' or 'coverflow' or 'flip'
+  // Breakpoints
+  breakpoints: undefined,
+  breakpointsBase: 'window',
+  // Slides grid
+  spaceBetween: 0,
+  slidesPerView: 1,
+  slidesPerColumn: 1,
+  slidesPerColumnFill: 'column',
+  slidesPerGroup: 1,
+  slidesPerGroupSkip: 0,
+  centeredSlides: false,
+  centeredSlidesBounds: false,
+  slidesOffsetBefore: 0,
+  // in px
+  slidesOffsetAfter: 0,
+  // in px
+  normalizeSlideIndex: true,
+  centerInsufficientSlides: false,
+  // Disable swiper and hide navigation when container not overflow
+  watchOverflow: false,
+  // Round length
+  roundLengths: false,
+  // Touches
+  touchRatio: 1,
+  touchAngle: 45,
+  simulateTouch: true,
+  shortSwipes: true,
+  longSwipes: true,
+  longSwipesRatio: 0.5,
+  longSwipesMs: 300,
+  followFinger: true,
+  allowTouchMove: true,
+  threshold: 0,
+  touchMoveStopPropagation: false,
+  touchStartPreventDefault: true,
+  touchStartForcePreventDefault: false,
+  touchReleaseOnEdges: false,
+  // Unique Navigation Elements
+  uniqueNavElements: true,
+  // Resistance
+  resistance: true,
+  resistanceRatio: 0.85,
+  // Progress
+  watchSlidesProgress: false,
+  watchSlidesVisibility: false,
+  // Cursor
+  grabCursor: false,
+  // Clicks
+  preventClicks: true,
+  preventClicksPropagation: true,
+  slideToClickedSlide: false,
+  // Images
+  preloadImages: true,
+  updateOnImagesReady: true,
+  // loop
+  loop: false,
+  loopAdditionalSlides: 0,
+  loopedSlides: null,
+  loopFillGroupWithBlank: false,
+  loopPreventsSlide: true,
+  // Swiping/no swiping
+  allowSlidePrev: true,
+  allowSlideNext: true,
+  swipeHandler: null,
+  // '.swipe-handler',
+  noSwiping: true,
+  noSwipingClass: 'swiper-no-swiping',
+  noSwipingSelector: null,
+  // Passive Listeners
+  passiveListeners: true,
+  // NS
+  containerModifierClass: 'swiper-container-',
+  // NEW
+  slideClass: 'swiper-slide',
+  slideBlankClass: 'swiper-slide-invisible-blank',
+  slideActiveClass: 'swiper-slide-active',
+  slideDuplicateActiveClass: 'swiper-slide-duplicate-active',
+  slideVisibleClass: 'swiper-slide-visible',
+  slideDuplicateClass: 'swiper-slide-duplicate',
+  slideNextClass: 'swiper-slide-next',
+  slideDuplicateNextClass: 'swiper-slide-duplicate-next',
+  slidePrevClass: 'swiper-slide-prev',
+  slideDuplicatePrevClass: 'swiper-slide-duplicate-prev',
+  wrapperClass: 'swiper-wrapper',
+  // Callbacks
+  runCallbacksOnInit: true,
+  // Internals
+  _emitClasses: false
+});
+;// CONCATENATED MODULE: ./src/components/swiper/third-party/Swiper/src/components/core/core-class.js
+
+
+
+
+/* eslint no-param-reassign: "off" */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var prototypes = {
+  modular: modular,
+  eventsEmitter: events_emitter,
+  update: update,
+  translate: translate,
+  transition: core_transition,
+  slide: slide,
+  loop: loop,
+  grabCursor: grab_cursor,
+  manipulation: manipulation,
+  events: events,
+  breakpoints: breakpoints,
+  checkOverflow: check_overflow,
+  classes: classes,
+  images: core_images
+};
+var extendedDefaults = {};
+
+var Swiper = /*#__PURE__*/function () {
+  function Swiper() {
+    _classCallCheck(this, Swiper);
+
+    var el;
+    var params;
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    if (args.length === 1 && args[0].constructor && Object.prototype.toString.call(args[0]).slice(8, -1) === 'Object') {
+      params = args[0];
+    } else {
+      el = args[0];
+      params = args[1];
+    }
+
+    if (!params) params = {};
+    params = utils_extend({}, params);
+    if (el && !params.el) params.el = el;
+
+    if (params.el && dom(params.el).length > 1) {
+      var swipers = [];
+      dom(params.el).each(function (containerEl) {
+        var newParams = utils_extend({}, params, {
+          el: containerEl
+        });
+        swipers.push(new Swiper(newParams));
+      });
+      return swipers;
+    } // Swiper Instance
+
+
+    var swiper = this;
+    swiper.__swiper__ = true;
+    swiper.support = getSupport();
+    swiper.device = getDevice({
+      userAgent: params.userAgent
+    });
+    swiper.browser = getBrowser();
+    swiper.eventsListeners = {};
+    swiper.eventsAnyListeners = [];
+
+    if (typeof swiper.modules === 'undefined') {
+      swiper.modules = {};
+    }
+
+    Object.keys(swiper.modules).forEach(function (moduleName) {
+      var module = swiper.modules[moduleName];
+
+      if (module.params) {
+        var moduleParamName = Object.keys(module.params)[0];
+        var moduleParams = module.params[moduleParamName];
+        if ((0,esm_typeof/* default */.Z)(moduleParams) !== 'object' || moduleParams === null) return;
+        if (!(moduleParamName in params && 'enabled' in moduleParams)) return;
+
+        if (params[moduleParamName] === true) {
+          params[moduleParamName] = {
+            enabled: true
+          };
+        }
+
+        if ((0,esm_typeof/* default */.Z)(params[moduleParamName]) === 'object' && !('enabled' in params[moduleParamName])) {
+          params[moduleParamName].enabled = true;
+        }
+
+        if (!params[moduleParamName]) params[moduleParamName] = {
+          enabled: false
+        };
+      }
+    }); // Extend defaults with modules params
+
+    var swiperParams = utils_extend({}, defaults);
+    swiper.useParams(swiperParams); // Extend defaults with passed params
+
+    swiper.params = utils_extend({}, swiperParams, extendedDefaults, params);
+    swiper.originalParams = utils_extend({}, swiper.params);
+    swiper.passedParams = utils_extend({}, params); // add event listeners
+
+    if (swiper.params && swiper.params.on) {
+      Object.keys(swiper.params.on).forEach(function (eventName) {
+        swiper.on(eventName, swiper.params.on[eventName]);
+      });
+    }
+
+    if (swiper.params && swiper.params.onAny) {
+      swiper.onAny(swiper.params.onAny);
+    } // Save Dom lib
+
+
+    swiper.$ = dom; // Extend Swiper
+
+    utils_extend(swiper, {
+      el: el,
+      // Classes
+      classNames: [],
+      // Slides
+      slides: dom(),
+      slidesGrid: [],
+      snapGrid: [],
+      slidesSizesGrid: [],
+      // isDirection
+      isHorizontal: function isHorizontal() {
+        return swiper.params.direction === 'horizontal';
+      },
+      isVertical: function isVertical() {
+        return swiper.params.direction === 'vertical';
+      },
+      // Indexes
+      activeIndex: 0,
+      realIndex: 0,
+      //
+      isBeginning: true,
+      isEnd: false,
+      // Props
+      translate: 0,
+      previousTranslate: 0,
+      progress: 0,
+      velocity: 0,
+      animating: false,
+      // Locks
+      allowSlideNext: swiper.params.allowSlideNext,
+      allowSlidePrev: swiper.params.allowSlidePrev,
+      // Touch Events
+      touchEvents: function touchEvents() {
+        var touch = ['touchstart', 'touchmove', 'touchend', 'touchcancel'];
+        var desktop = ['mousedown', 'mousemove', 'mouseup'];
+
+        if (swiper.support.pointerEvents) {
+          desktop = ['pointerdown', 'pointermove', 'pointerup'];
+        }
+
+        swiper.touchEventsTouch = {
+          start: touch[0],
+          move: touch[1],
+          end: touch[2],
+          cancel: touch[3]
+        };
+        swiper.touchEventsDesktop = {
+          start: desktop[0],
+          move: desktop[1],
+          end: desktop[2]
+        };
+        return swiper.support.touch || !swiper.params.simulateTouch ? swiper.touchEventsTouch : swiper.touchEventsDesktop;
+      }(),
+      touchEventsData: {
+        isTouched: undefined,
+        isMoved: undefined,
+        allowTouchCallbacks: undefined,
+        touchStartTime: undefined,
+        isScrolling: undefined,
+        currentTranslate: undefined,
+        startTranslate: undefined,
+        allowThresholdMove: undefined,
+        // Form elements to match
+        formElements: 'input, select, option, textarea, button, video, label',
+        // Last click time
+        lastClickTime: now(),
+        clickTimeout: undefined,
+        // Velocities
+        velocities: [],
+        allowMomentumBounce: undefined,
+        isTouchEvent: undefined,
+        startMoving: undefined
+      },
+      // Clicks
+      allowClick: true,
+      // Touches
+      allowTouchMove: swiper.params.allowTouchMove,
+      touches: {
+        startX: 0,
+        startY: 0,
+        currentX: 0,
+        currentY: 0,
+        diff: 0
+      },
+      // Images
+      imagesToLoad: [],
+      imagesLoaded: 0
+    }); // Install Modules
+
+    swiper.useModules();
+    swiper.emit('_swiper'); // Init
+
+    if (swiper.params.init) {
+      swiper.init();
+    } // Return app instance
+
+
+    return swiper;
+  }
+
+  _createClass(Swiper, [{
+    key: "setProgress",
+    value: function setProgress(progress, speed) {
+      var swiper = this;
+      progress = Math.min(Math.max(progress, 0), 1);
+      var min = swiper.minTranslate();
+      var max = swiper.maxTranslate();
+      var current = (max - min) * progress + min;
+      swiper.translateTo(current, typeof speed === 'undefined' ? 0 : speed);
+      swiper.updateActiveIndex();
+      swiper.updateSlidesClasses();
+    }
+  }, {
+    key: "emitContainerClasses",
+    value: function emitContainerClasses() {
+      var swiper = this;
+      if (!swiper.params._emitClasses || !swiper.el) return;
+      var classes = swiper.el.className.split(' ').filter(function (className) {
+        return className.indexOf('swiper-container') === 0 || className.indexOf(swiper.params.containerModifierClass) === 0;
+      });
+      swiper.emit('_containerClasses', classes.join(' '));
+    }
+  }, {
+    key: "getSlideClasses",
+    value: function getSlideClasses(slideEl) {
+      var swiper = this;
+      return slideEl.className.split(' ').filter(function (className) {
+        return className.indexOf('swiper-slide') === 0 || className.indexOf(swiper.params.slideClass) === 0;
+      }).join(' ');
+    }
+  }, {
+    key: "emitSlidesClasses",
+    value: function emitSlidesClasses() {
+      var swiper = this;
+      if (!swiper.params._emitClasses || !swiper.el) return;
+      var updates = [];
+      swiper.slides.each(function (slideEl) {
+        var classNames = swiper.getSlideClasses(slideEl);
+        updates.push({
+          slideEl: slideEl,
+          classNames: classNames
+        });
+        swiper.emit('_slideClass', slideEl, classNames);
+      });
+      swiper.emit('_slideClasses', updates);
+    }
+  }, {
+    key: "slidesPerViewDynamic",
+    value: function slidesPerViewDynamic() {
+      var swiper = this;
+      var params = swiper.params,
+          slides = swiper.slides,
+          slidesGrid = swiper.slidesGrid,
+          swiperSize = swiper.size,
+          activeIndex = swiper.activeIndex;
+      var spv = 1;
+
+      if (params.centeredSlides) {
+        var slideSize = slides[activeIndex].swiperSlideSize;
+        var breakLoop;
+
+        for (var i = activeIndex + 1; i < slides.length; i += 1) {
+          if (slides[i] && !breakLoop) {
+            slideSize += slides[i].swiperSlideSize;
+            spv += 1;
+            if (slideSize > swiperSize) breakLoop = true;
+          }
+        }
+
+        for (var _i = activeIndex - 1; _i >= 0; _i -= 1) {
+          if (slides[_i] && !breakLoop) {
+            slideSize += slides[_i].swiperSlideSize;
+            spv += 1;
+            if (slideSize > swiperSize) breakLoop = true;
+          }
+        }
+      } else {
+        for (var _i2 = activeIndex + 1; _i2 < slides.length; _i2 += 1) {
+          if (slidesGrid[_i2] - slidesGrid[activeIndex] < swiperSize) {
+            spv += 1;
+          }
+        }
+      }
+
+      return spv;
+    }
+  }, {
+    key: "update",
+    value: function update() {
+      var swiper = this;
+      if (!swiper || swiper.destroyed) return;
+      var snapGrid = swiper.snapGrid,
+          params = swiper.params; // Breakpoints
+
+      if (params.breakpoints) {
+        swiper.setBreakpoint();
+      }
+
+      swiper.updateSize();
+      swiper.updateSlides();
+      swiper.updateProgress();
+      swiper.updateSlidesClasses();
+
+      function setTranslate() {
+        var translateValue = swiper.rtlTranslate ? swiper.translate * -1 : swiper.translate;
+        var newTranslate = Math.min(Math.max(translateValue, swiper.maxTranslate()), swiper.minTranslate());
+        swiper.setTranslate(newTranslate);
+        swiper.updateActiveIndex();
+        swiper.updateSlidesClasses();
+      }
+
+      var translated;
+
+      if (swiper.params.freeMode) {
+        setTranslate();
+
+        if (swiper.params.autoHeight) {
+          swiper.updateAutoHeight();
+        }
+      } else {
+        if ((swiper.params.slidesPerView === 'auto' || swiper.params.slidesPerView > 1) && swiper.isEnd && !swiper.params.centeredSlides) {
+          translated = swiper.slideTo(swiper.slides.length - 1, 0, false, true);
+        } else {
+          translated = swiper.slideTo(swiper.activeIndex, 0, false, true);
+        }
+
+        if (!translated) {
+          setTranslate();
+        }
+      }
+
+      if (params.watchOverflow && snapGrid !== swiper.snapGrid) {
+        swiper.checkOverflow();
+      }
+
+      swiper.emit('update');
+    }
+  }, {
+    key: "changeDirection",
+    value: function changeDirection(newDirection) {
+      var needUpdate = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+      var swiper = this;
+      var currentDirection = swiper.params.direction;
+
+      if (!newDirection) {
+        // eslint-disable-next-line
+        newDirection = currentDirection === 'horizontal' ? 'vertical' : 'horizontal';
+      }
+
+      if (newDirection === currentDirection || newDirection !== 'horizontal' && newDirection !== 'vertical') {
+        return swiper;
+      }
+
+      swiper.$el.removeClass("".concat(swiper.params.containerModifierClass).concat(currentDirection)).addClass("".concat(swiper.params.containerModifierClass).concat(newDirection));
+      swiper.emitContainerClasses();
+      swiper.params.direction = newDirection;
+      swiper.slides.each(function (slideEl) {
+        if (newDirection === 'vertical') {
+          slideEl.style.width = '';
+        } else {
+          slideEl.style.height = '';
+        }
+      });
+      swiper.emit('changeDirection');
+      if (needUpdate) swiper.update();
+      return swiper;
+    }
+  }, {
+    key: "mount",
+    value: function mount(el) {
+      var swiper = this;
+      if (swiper.mounted) return true; // Find el
+
+      var $el = dom(el || swiper.params.el);
+      el = $el[0];
+
+      if (!el) {
+        return false;
+      }
+
+      el.swiper = swiper; // Find Wrapper
+
+      var $wrapperEl;
+
+      if (el && el.shadowRoot && el.shadowRoot.querySelector) {
+        $wrapperEl = dom(el.shadowRoot.querySelector(".".concat(swiper.params.wrapperClass))); // Children needs to return slot items
+
+        $wrapperEl.children = function (options) {
+          return $el.children(options);
+        };
+      } else {
+        $wrapperEl = $el.children(".".concat(swiper.params.wrapperClass));
+      }
+
+      utils_extend(swiper, {
+        $el: $el,
+        el: el,
+        $wrapperEl: $wrapperEl,
+        wrapperEl: $wrapperEl[0],
+        mounted: true,
+        // RTL
+        rtl: el.dir.toLowerCase() === 'rtl' || $el.css('direction') === 'rtl',
+        rtlTranslate: swiper.params.direction === 'horizontal' && (el.dir.toLowerCase() === 'rtl' || $el.css('direction') === 'rtl'),
+        wrongRTL: $wrapperEl.css('display') === '-webkit-box'
+      });
+      return true;
+    }
+  }, {
+    key: "init",
+    value: function init(el) {
+      var swiper = this;
+      if (swiper.initialized) return swiper;
+      var mounted = swiper.mount(el);
+      if (mounted === false) return swiper;
+      swiper.emit('beforeInit'); // Set breakpoint
+
+      if (swiper.params.breakpoints) {
+        swiper.setBreakpoint();
+      } // Add Classes
+
+
+      swiper.addClasses(); // Create loop
+
+      if (swiper.params.loop) {
+        swiper.loopCreate();
+      } // Update size
+
+
+      swiper.updateSize(); // Update slides
+
+      swiper.updateSlides();
+
+      if (swiper.params.watchOverflow) {
+        swiper.checkOverflow();
+      } // Set Grab Cursor
+
+
+      if (swiper.params.grabCursor) {
+        swiper.setGrabCursor();
+      }
+
+      if (swiper.params.preloadImages) {
+        swiper.preloadImages();
+      } // Slide To Initial Slide
+
+
+      if (swiper.params.loop) {
+        swiper.slideTo(swiper.params.initialSlide + swiper.loopedSlides, 0, swiper.params.runCallbacksOnInit);
+      } else {
+        swiper.slideTo(swiper.params.initialSlide, 0, swiper.params.runCallbacksOnInit);
+      } // Attach events
+
+
+      swiper.attachEvents(); // Init Flag
+
+      swiper.initialized = true; // Emit
+
+      swiper.emit('init');
+      swiper.emit('afterInit');
+      return swiper;
+    }
+  }, {
+    key: "destroy",
+    value: function destroy() {
+      var deleteInstance = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
+      var cleanStyles = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+      var swiper = this;
+      var params = swiper.params,
+          $el = swiper.$el,
+          $wrapperEl = swiper.$wrapperEl,
+          slides = swiper.slides;
+
+      if (typeof swiper.params === 'undefined' || swiper.destroyed) {
+        return null;
+      }
+
+      swiper.emit('beforeDestroy'); // Init Flag
+
+      swiper.initialized = false; // Detach events
+
+      swiper.detachEvents(); // Destroy loop
+
+      if (params.loop) {
+        swiper.loopDestroy();
+      } // Cleanup styles
+
+
+      if (cleanStyles) {
+        swiper.removeClasses();
+        $el.removeAttr('style');
+        $wrapperEl.removeAttr('style');
+
+        if (slides && slides.length) {
+          slides.removeClass([params.slideVisibleClass, params.slideActiveClass, params.slideNextClass, params.slidePrevClass].join(' ')).removeAttr('style').removeAttr('data-swiper-slide-index');
+        }
+      }
+
+      swiper.emit('destroy'); // Detach emitter events
+
+      Object.keys(swiper.eventsListeners).forEach(function (eventName) {
+        swiper.off(eventName);
+      });
+
+      if (deleteInstance !== false) {
+        swiper.$el[0].swiper = null;
+        deleteProps(swiper);
+      }
+
+      swiper.destroyed = true;
+      return null;
+    }
+  }], [{
+    key: "extendDefaults",
+    value: function extendDefaults(newDefaults) {
+      utils_extend(extendedDefaults, newDefaults);
+    }
+  }, {
+    key: "extendedDefaults",
+    get: function get() {
+      return extendedDefaults;
+    }
+  }, {
+    key: "defaults",
+    get: function get() {
+      return defaults;
+    }
+  }, {
+    key: "installModule",
+    value: function installModule(module) {
+      if (!Swiper.prototype.modules) Swiper.prototype.modules = {};
+      var name = module.name || "".concat(Object.keys(Swiper.prototype.modules).length, "_").concat(now());
+      Swiper.prototype.modules[name] = module;
+    }
+  }, {
+    key: "use",
+    value: function use(module) {
+      if (Array.isArray(module)) {
+        module.forEach(function (m) {
+          return Swiper.installModule(m);
+        });
+        return Swiper;
+      }
+
+      Swiper.installModule(module);
+      return Swiper;
+    }
+  }]);
+
+  return Swiper;
+}();
+
+Object.keys(prototypes).forEach(function (prototypeGroup) {
+  Object.keys(prototypes[prototypeGroup]).forEach(function (protoMethod) {
+    Swiper.prototype[protoMethod] = prototypes[prototypeGroup][protoMethod];
+  });
+});
+Swiper.use([resize_resize, observer]);
+/* harmony default export */ const core_class = (Swiper);
+;// CONCATENATED MODULE: ./src/components/swiper/third-party/Swiper/src/components/zoom/zoom.js
+
+
+function zoom_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function zoom_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? zoom_ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : zoom_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+
+
+
+var Zoom = {
+  // Calc Scale From Multi-touches
+  getDistanceBetweenTouches: function getDistanceBetweenTouches(e) {
+    if (e.targetTouches.length < 2) return 1;
+    var x1 = e.targetTouches[0].pageX;
+    var y1 = e.targetTouches[0].pageY;
+    var x2 = e.targetTouches[1].pageX;
+    var y2 = e.targetTouches[1].pageY;
+    var distance = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+    return distance;
+  },
+  // Events
+  onGestureStart: function onGestureStart(e) {
+    var swiper = this;
+    var support = swiper.support;
+    var params = swiper.params.zoom;
+    var zoom = swiper.zoom;
+    var gesture = zoom.gesture;
+    zoom.fakeGestureTouched = false;
+    zoom.fakeGestureMoved = false;
+
+    if (!support.gestures) {
+      if (e.type !== 'touchstart' || e.type === 'touchstart' && e.targetTouches.length < 2) {
+        return;
+      }
+
+      zoom.fakeGestureTouched = true;
+      gesture.scaleStart = Zoom.getDistanceBetweenTouches(e);
+    }
+
+    if (!gesture.$slideEl || !gesture.$slideEl.length) {
+      gesture.$slideEl = dom(e.target).closest(".".concat(swiper.params.slideClass));
+      if (gesture.$slideEl.length === 0) gesture.$slideEl = swiper.slides.eq(swiper.activeIndex);
+      gesture.$imageEl = gesture.$slideEl.find('img, svg, canvas, picture, .swiper-zoom-target');
+      gesture.$imageWrapEl = gesture.$imageEl.parent(".".concat(params.containerClass));
+      gesture.maxRatio = gesture.$imageWrapEl.attr('data-swiper-zoom') || params.maxRatio;
+
+      if (gesture.$imageWrapEl.length === 0) {
+        gesture.$imageEl = undefined;
+        return;
+      }
+    }
+
+    if (gesture.$imageEl) {
+      gesture.$imageEl.transition(0);
+    }
+
+    swiper.zoom.isScaling = true;
+  },
+  onGestureChange: function onGestureChange(e) {
+    var swiper = this;
+    var support = swiper.support;
+    var params = swiper.params.zoom;
+    var zoom = swiper.zoom;
+    var gesture = zoom.gesture;
+
+    if (!support.gestures) {
+      if (e.type !== 'touchmove' || e.type === 'touchmove' && e.targetTouches.length < 2) {
+        return;
+      }
+
+      zoom.fakeGestureMoved = true;
+      gesture.scaleMove = Zoom.getDistanceBetweenTouches(e);
+    }
+
+    if (!gesture.$imageEl || gesture.$imageEl.length === 0) {
+      if (e.type === 'gesturechange') zoom.onGestureStart(e);
+      return;
+    }
+
+    if (support.gestures) {
+      zoom.scale = e.scale * zoom.currentScale;
+    } else {
+      zoom.scale = gesture.scaleMove / gesture.scaleStart * zoom.currentScale;
+    }
+
+    if (zoom.scale > gesture.maxRatio) {
+      zoom.scale = gesture.maxRatio - 1 + Math.pow(zoom.scale - gesture.maxRatio + 1, 0.5);
+    }
+
+    if (zoom.scale < params.minRatio) {
+      zoom.scale = params.minRatio + 1 - Math.pow(params.minRatio - zoom.scale + 1, 0.5);
+    }
+
+    gesture.$imageEl.transform("translate3d(0,0,0) scale(".concat(zoom.scale, ")"));
+  },
+  onGestureEnd: function onGestureEnd(e) {
+    var swiper = this;
+    var device = swiper.device;
+    var support = swiper.support;
+    var params = swiper.params.zoom;
+    var zoom = swiper.zoom;
+    var gesture = zoom.gesture;
+
+    if (!support.gestures) {
+      if (!zoom.fakeGestureTouched || !zoom.fakeGestureMoved) {
+        return;
+      }
+
+      if (e.type !== 'touchend' || e.type === 'touchend' && e.changedTouches.length < 2 && !device.android) {
+        return;
+      }
+
+      zoom.fakeGestureTouched = false;
+      zoom.fakeGestureMoved = false;
+    }
+
+    if (!gesture.$imageEl || gesture.$imageEl.length === 0) return;
+    zoom.scale = Math.max(Math.min(zoom.scale, gesture.maxRatio), params.minRatio);
+    gesture.$imageEl.transition(swiper.params.speed).transform("translate3d(0,0,0) scale(".concat(zoom.scale, ")"));
+    zoom.currentScale = zoom.scale;
+    zoom.isScaling = false;
+    if (zoom.scale === 1) gesture.$slideEl = undefined;
+  },
+  onTouchStart: function onTouchStart(e) {
+    var swiper = this;
+    var device = swiper.device;
+    var zoom = swiper.zoom;
+    var gesture = zoom.gesture,
+        image = zoom.image;
+    if (!gesture.$imageEl || gesture.$imageEl.length === 0) return;
+    if (image.isTouched) return;
+    if (device.android && e.cancelable) e.preventDefault();
+    image.isTouched = true;
+    image.touchesStart.x = e.type === 'touchstart' ? e.targetTouches[0].pageX : e.pageX;
+    image.touchesStart.y = e.type === 'touchstart' ? e.targetTouches[0].pageY : e.pageY;
+  },
+  onTouchMove: function onTouchMove(e) {
+    var swiper = this;
+    var zoom = swiper.zoom;
+    var gesture = zoom.gesture,
+        image = zoom.image,
+        velocity = zoom.velocity;
+    if (!gesture.$imageEl || gesture.$imageEl.length === 0) return;
+    swiper.allowClick = false;
+    if (!image.isTouched || !gesture.$slideEl) return;
+
+    if (!image.isMoved) {
+      image.width = gesture.$imageEl[0].offsetWidth;
+      image.height = gesture.$imageEl[0].offsetHeight;
+      image.startX = getTranslate(gesture.$imageWrapEl[0], 'x') || 0;
+      image.startY = getTranslate(gesture.$imageWrapEl[0], 'y') || 0;
+      gesture.slideWidth = gesture.$slideEl[0].offsetWidth;
+      gesture.slideHeight = gesture.$slideEl[0].offsetHeight;
+      gesture.$imageWrapEl.transition(0);
+
+      if (swiper.rtl) {
+        image.startX = -image.startX;
+        image.startY = -image.startY;
+      }
+    } // Define if we need image drag
+
+
+    var scaledWidth = image.width * zoom.scale;
+    var scaledHeight = image.height * zoom.scale;
+    if (scaledWidth < gesture.slideWidth && scaledHeight < gesture.slideHeight) return;
+    image.minX = Math.min(gesture.slideWidth / 2 - scaledWidth / 2, 0);
+    image.maxX = -image.minX;
+    image.minY = Math.min(gesture.slideHeight / 2 - scaledHeight / 2, 0);
+    image.maxY = -image.minY;
+    image.touchesCurrent.x = e.type === 'touchmove' ? e.targetTouches[0].pageX : e.pageX;
+    image.touchesCurrent.y = e.type === 'touchmove' ? e.targetTouches[0].pageY : e.pageY;
+
+    if (!image.isMoved && !zoom.isScaling) {
+      if (swiper.isHorizontal() && (Math.floor(image.minX) === Math.floor(image.startX) && image.touchesCurrent.x < image.touchesStart.x || Math.floor(image.maxX) === Math.floor(image.startX) && image.touchesCurrent.x > image.touchesStart.x)) {
+        image.isTouched = false;
+        return;
+      }
+
+      if (!swiper.isHorizontal() && (Math.floor(image.minY) === Math.floor(image.startY) && image.touchesCurrent.y < image.touchesStart.y || Math.floor(image.maxY) === Math.floor(image.startY) && image.touchesCurrent.y > image.touchesStart.y)) {
+        image.isTouched = false;
+        return;
+      }
+    }
+
+    if (e.cancelable) {
+      e.preventDefault();
+    }
+
+    e.stopPropagation();
+    image.isMoved = true;
+    image.currentX = image.touchesCurrent.x - image.touchesStart.x + image.startX;
+    image.currentY = image.touchesCurrent.y - image.touchesStart.y + image.startY;
+
+    if (image.currentX < image.minX) {
+      image.currentX = image.minX + 1 - Math.pow(image.minX - image.currentX + 1, 0.8);
+    }
+
+    if (image.currentX > image.maxX) {
+      image.currentX = image.maxX - 1 + Math.pow(image.currentX - image.maxX + 1, 0.8);
+    }
+
+    if (image.currentY < image.minY) {
+      image.currentY = image.minY + 1 - Math.pow(image.minY - image.currentY + 1, 0.8);
+    }
+
+    if (image.currentY > image.maxY) {
+      image.currentY = image.maxY - 1 + Math.pow(image.currentY - image.maxY + 1, 0.8);
+    } // Velocity
+
+
+    if (!velocity.prevPositionX) velocity.prevPositionX = image.touchesCurrent.x;
+    if (!velocity.prevPositionY) velocity.prevPositionY = image.touchesCurrent.y;
+    if (!velocity.prevTime) velocity.prevTime = Date.now();
+    velocity.x = (image.touchesCurrent.x - velocity.prevPositionX) / (Date.now() - velocity.prevTime) / 2;
+    velocity.y = (image.touchesCurrent.y - velocity.prevPositionY) / (Date.now() - velocity.prevTime) / 2;
+    if (Math.abs(image.touchesCurrent.x - velocity.prevPositionX) < 2) velocity.x = 0;
+    if (Math.abs(image.touchesCurrent.y - velocity.prevPositionY) < 2) velocity.y = 0;
+    velocity.prevPositionX = image.touchesCurrent.x;
+    velocity.prevPositionY = image.touchesCurrent.y;
+    velocity.prevTime = Date.now();
+    gesture.$imageWrapEl.transform("translate3d(".concat(image.currentX, "px, ").concat(image.currentY, "px,0)"));
+  },
+  onTouchEnd: function onTouchEnd() {
+    var swiper = this;
+    var zoom = swiper.zoom;
+    var gesture = zoom.gesture,
+        image = zoom.image,
+        velocity = zoom.velocity;
+    if (!gesture.$imageEl || gesture.$imageEl.length === 0) return;
+
+    if (!image.isTouched || !image.isMoved) {
+      image.isTouched = false;
+      image.isMoved = false;
+      return;
+    }
+
+    image.isTouched = false;
+    image.isMoved = false;
+    var momentumDurationX = 300;
+    var momentumDurationY = 300;
+    var momentumDistanceX = velocity.x * momentumDurationX;
+    var newPositionX = image.currentX + momentumDistanceX;
+    var momentumDistanceY = velocity.y * momentumDurationY;
+    var newPositionY = image.currentY + momentumDistanceY; // Fix duration
+
+    if (velocity.x !== 0) momentumDurationX = Math.abs((newPositionX - image.currentX) / velocity.x);
+    if (velocity.y !== 0) momentumDurationY = Math.abs((newPositionY - image.currentY) / velocity.y);
+    var momentumDuration = Math.max(momentumDurationX, momentumDurationY);
+    image.currentX = newPositionX;
+    image.currentY = newPositionY; // Define if we need image drag
+
+    var scaledWidth = image.width * zoom.scale;
+    var scaledHeight = image.height * zoom.scale;
+    image.minX = Math.min(gesture.slideWidth / 2 - scaledWidth / 2, 0);
+    image.maxX = -image.minX;
+    image.minY = Math.min(gesture.slideHeight / 2 - scaledHeight / 2, 0);
+    image.maxY = -image.minY;
+    image.currentX = Math.max(Math.min(image.currentX, image.maxX), image.minX);
+    image.currentY = Math.max(Math.min(image.currentY, image.maxY), image.minY);
+    gesture.$imageWrapEl.transition(momentumDuration).transform("translate3d(".concat(image.currentX, "px, ").concat(image.currentY, "px,0)"));
+  },
+  onTransitionEnd: function onTransitionEnd() {
+    var swiper = this;
+    var zoom = swiper.zoom;
+    var gesture = zoom.gesture;
+
+    if (gesture.$slideEl && swiper.previousIndex !== swiper.activeIndex) {
+      if (gesture.$imageEl) {
+        gesture.$imageEl.transform('translate3d(0,0,0) scale(1)');
+      }
+
+      if (gesture.$imageWrapEl) {
+        gesture.$imageWrapEl.transform('translate3d(0,0,0)');
+      }
+
+      zoom.scale = 1;
+      zoom.currentScale = 1;
+      gesture.$slideEl = undefined;
+      gesture.$imageEl = undefined;
+      gesture.$imageWrapEl = undefined;
+    }
+  },
+  // Toggle Zoom
+  toggle: function toggle(e) {
+    var swiper = this;
+    var zoom = swiper.zoom;
+
+    if (zoom.scale && zoom.scale !== 1) {
+      // Zoom Out
+      zoom.out();
+    } else {
+      // Zoom In
+      zoom["in"](e);
+    }
+  },
+  "in": function _in(e) {
+    var swiper = this;
+    var window = ssr_window_esm_getWindow();
+    var zoom = swiper.zoom;
+    var params = swiper.params.zoom;
+    var gesture = zoom.gesture,
+        image = zoom.image;
+
+    if (!gesture.$slideEl) {
+      if (swiper.params.virtual && swiper.params.virtual.enabled && swiper.virtual) {
+        gesture.$slideEl = swiper.$wrapperEl.children(".".concat(swiper.params.slideActiveClass));
+      } else {
+        gesture.$slideEl = swiper.slides.eq(swiper.activeIndex);
+      }
+
+      gesture.$imageEl = gesture.$slideEl.find('img, svg, canvas, picture, .swiper-zoom-target');
+      gesture.$imageWrapEl = gesture.$imageEl.parent(".".concat(params.containerClass));
+    }
+
+    if (!gesture.$imageEl || gesture.$imageEl.length === 0) return;
+    gesture.$slideEl.addClass("".concat(params.zoomedSlideClass));
+    var touchX;
+    var touchY;
+    var offsetX;
+    var offsetY;
+    var diffX;
+    var diffY;
+    var translateX;
+    var translateY;
+    var imageWidth;
+    var imageHeight;
+    var scaledWidth;
+    var scaledHeight;
+    var translateMinX;
+    var translateMinY;
+    var translateMaxX;
+    var translateMaxY;
+    var slideWidth;
+    var slideHeight;
+
+    if (typeof image.touchesStart.x === 'undefined' && e) {
+      touchX = e.type === 'touchend' ? e.changedTouches[0].pageX : e.pageX;
+      touchY = e.type === 'touchend' ? e.changedTouches[0].pageY : e.pageY;
+    } else {
+      touchX = image.touchesStart.x;
+      touchY = image.touchesStart.y;
+    }
+
+    zoom.scale = gesture.$imageWrapEl.attr('data-swiper-zoom') || params.maxRatio;
+    zoom.currentScale = gesture.$imageWrapEl.attr('data-swiper-zoom') || params.maxRatio;
+
+    if (e) {
+      slideWidth = gesture.$slideEl[0].offsetWidth;
+      slideHeight = gesture.$slideEl[0].offsetHeight;
+      offsetX = gesture.$slideEl.offset().left + window.scrollX;
+      offsetY = gesture.$slideEl.offset().top + window.scrollY;
+      diffX = offsetX + slideWidth / 2 - touchX;
+      diffY = offsetY + slideHeight / 2 - touchY;
+      imageWidth = gesture.$imageEl[0].offsetWidth;
+      imageHeight = gesture.$imageEl[0].offsetHeight;
+      scaledWidth = imageWidth * zoom.scale;
+      scaledHeight = imageHeight * zoom.scale;
+      translateMinX = Math.min(slideWidth / 2 - scaledWidth / 2, 0);
+      translateMinY = Math.min(slideHeight / 2 - scaledHeight / 2, 0);
+      translateMaxX = -translateMinX;
+      translateMaxY = -translateMinY;
+      translateX = diffX * zoom.scale;
+      translateY = diffY * zoom.scale;
+
+      if (translateX < translateMinX) {
+        translateX = translateMinX;
+      }
+
+      if (translateX > translateMaxX) {
+        translateX = translateMaxX;
+      }
+
+      if (translateY < translateMinY) {
+        translateY = translateMinY;
+      }
+
+      if (translateY > translateMaxY) {
+        translateY = translateMaxY;
+      }
+    } else {
+      translateX = 0;
+      translateY = 0;
+    }
+
+    gesture.$imageWrapEl.transition(300).transform("translate3d(".concat(translateX, "px, ").concat(translateY, "px,0)"));
+    gesture.$imageEl.transition(300).transform("translate3d(0,0,0) scale(".concat(zoom.scale, ")"));
+  },
+  out: function out() {
+    var swiper = this;
+    var zoom = swiper.zoom;
+    var params = swiper.params.zoom;
+    var gesture = zoom.gesture;
+
+    if (!gesture.$slideEl) {
+      if (swiper.params.virtual && swiper.params.virtual.enabled && swiper.virtual) {
+        gesture.$slideEl = swiper.$wrapperEl.children(".".concat(swiper.params.slideActiveClass));
+      } else {
+        gesture.$slideEl = swiper.slides.eq(swiper.activeIndex);
+      }
+
+      gesture.$imageEl = gesture.$slideEl.find('img, svg, canvas, picture, .swiper-zoom-target');
+      gesture.$imageWrapEl = gesture.$imageEl.parent(".".concat(params.containerClass));
+    }
+
+    if (!gesture.$imageEl || gesture.$imageEl.length === 0) return;
+    zoom.scale = 1;
+    zoom.currentScale = 1;
+    gesture.$imageWrapEl.transition(300).transform('translate3d(0,0,0)');
+    gesture.$imageEl.transition(300).transform('translate3d(0,0,0) scale(1)');
+    gesture.$slideEl.removeClass("".concat(params.zoomedSlideClass));
+    gesture.$slideEl = undefined;
+  },
+  toggleGestures: function toggleGestures(method) {
+    var swiper = this;
+    var zoom = swiper.zoom;
+    var selector = zoom.slideSelector,
+        passive = zoom.passiveListener;
+    swiper.$wrapperEl[method]('gesturestart', selector, zoom.onGestureStart, passive);
+    swiper.$wrapperEl[method]('gesturechange', selector, zoom.onGestureChange, passive);
+    swiper.$wrapperEl[method]('gestureend', selector, zoom.onGestureEnd, passive);
+  },
+  enableGestures: function enableGestures() {
+    if (this.zoom.gesturesEnabled) return;
+    this.zoom.gesturesEnabled = true;
+    this.zoom.toggleGestures('on');
+  },
+  disableGestures: function disableGestures() {
+    if (!this.zoom.gesturesEnabled) return;
+    this.zoom.gesturesEnabled = false;
+    this.zoom.toggleGestures('off');
+  },
+  // Attach/Detach Events
+  enable: function enable() {
+    var swiper = this;
+    var support = swiper.support;
+    var zoom = swiper.zoom;
+    if (zoom.enabled) return;
+    zoom.enabled = true;
+    var passiveListener = swiper.touchEvents.start === 'touchstart' && support.passiveListener && swiper.params.passiveListeners ? {
+      passive: true,
+      capture: false
+    } : false;
+    var activeListenerWithCapture = support.passiveListener ? {
+      passive: false,
+      capture: true
+    } : true;
+    var slideSelector = ".".concat(swiper.params.slideClass);
+    swiper.zoom.passiveListener = passiveListener;
+    swiper.zoom.slideSelector = slideSelector; // Scale image
+
+    if (support.gestures) {
+      swiper.$wrapperEl.on(swiper.touchEvents.start, swiper.zoom.enableGestures, passiveListener);
+      swiper.$wrapperEl.on(swiper.touchEvents.end, swiper.zoom.disableGestures, passiveListener);
+    } else if (swiper.touchEvents.start === 'touchstart') {
+      swiper.$wrapperEl.on(swiper.touchEvents.start, slideSelector, zoom.onGestureStart, passiveListener);
+      swiper.$wrapperEl.on(swiper.touchEvents.move, slideSelector, zoom.onGestureChange, activeListenerWithCapture);
+      swiper.$wrapperEl.on(swiper.touchEvents.end, slideSelector, zoom.onGestureEnd, passiveListener);
+
+      if (swiper.touchEvents.cancel) {
+        swiper.$wrapperEl.on(swiper.touchEvents.cancel, slideSelector, zoom.onGestureEnd, passiveListener);
+      }
+    } // Move image
+
+
+    swiper.$wrapperEl.on(swiper.touchEvents.move, ".".concat(swiper.params.zoom.containerClass), zoom.onTouchMove, activeListenerWithCapture);
+  },
+  disable: function disable() {
+    var swiper = this;
+    var zoom = swiper.zoom;
+    if (!zoom.enabled) return;
+    var support = swiper.support;
+    swiper.zoom.enabled = false;
+    var passiveListener = swiper.touchEvents.start === 'touchstart' && support.passiveListener && swiper.params.passiveListeners ? {
+      passive: true,
+      capture: false
+    } : false;
+    var activeListenerWithCapture = support.passiveListener ? {
+      passive: false,
+      capture: true
+    } : true;
+    var slideSelector = ".".concat(swiper.params.slideClass); // Scale image
+
+    if (support.gestures) {
+      swiper.$wrapperEl.off(swiper.touchEvents.start, swiper.zoom.enableGestures, passiveListener);
+      swiper.$wrapperEl.off(swiper.touchEvents.end, swiper.zoom.disableGestures, passiveListener);
+    } else if (swiper.touchEvents.start === 'touchstart') {
+      swiper.$wrapperEl.off(swiper.touchEvents.start, slideSelector, zoom.onGestureStart, passiveListener);
+      swiper.$wrapperEl.off(swiper.touchEvents.move, slideSelector, zoom.onGestureChange, activeListenerWithCapture);
+      swiper.$wrapperEl.off(swiper.touchEvents.end, slideSelector, zoom.onGestureEnd, passiveListener);
+
+      if (swiper.touchEvents.cancel) {
+        swiper.$wrapperEl.off(swiper.touchEvents.cancel, slideSelector, zoom.onGestureEnd, passiveListener);
+      }
+    } // Move image
+
+
+    swiper.$wrapperEl.off(swiper.touchEvents.move, ".".concat(swiper.params.zoom.containerClass), zoom.onTouchMove, activeListenerWithCapture);
+  }
+};
+/* harmony default export */ const zoom = ({
+  name: 'zoom',
+  params: {
+    zoom: {
+      enabled: false,
+      maxRatio: 3,
+      minRatio: 1,
+      toggle: true,
+      containerClass: 'swiper-zoom-container',
+      zoomedSlideClass: 'swiper-slide-zoomed'
+    }
+  },
+  create: function create() {
+    var swiper = this;
+    bindModuleMethods(swiper, {
+      zoom: zoom_objectSpread({
+        enabled: false,
+        scale: 1,
+        currentScale: 1,
+        isScaling: false,
+        gesture: {
+          $slideEl: undefined,
+          slideWidth: undefined,
+          slideHeight: undefined,
+          $imageEl: undefined,
+          $imageWrapEl: undefined,
+          maxRatio: 3
+        },
+        image: {
+          isTouched: undefined,
+          isMoved: undefined,
+          currentX: undefined,
+          currentY: undefined,
+          minX: undefined,
+          minY: undefined,
+          maxX: undefined,
+          maxY: undefined,
+          width: undefined,
+          height: undefined,
+          startX: undefined,
+          startY: undefined,
+          touchesStart: {},
+          touchesCurrent: {}
+        },
+        velocity: {
+          x: undefined,
+          y: undefined,
+          prevPositionX: undefined,
+          prevPositionY: undefined,
+          prevTime: undefined
+        }
+      }, Zoom)
+    });
+    var scale = 1;
+    Object.defineProperty(swiper.zoom, 'scale', {
+      get: function get() {
+        return scale;
+      },
+      set: function set(value) {
+        if (scale !== value) {
+          var imageEl = swiper.zoom.gesture.$imageEl ? swiper.zoom.gesture.$imageEl[0] : undefined;
+          var slideEl = swiper.zoom.gesture.$slideEl ? swiper.zoom.gesture.$slideEl[0] : undefined;
+          swiper.emit('zoomChange', value, imageEl, slideEl);
+        }
+
+        scale = value;
+      }
+    });
+  },
+  on: {
+    init: function init(swiper) {
+      if (swiper.params.zoom.enabled) {
+        swiper.zoom.enable();
+      }
+    },
+    destroy: function destroy(swiper) {
+      swiper.zoom.disable();
+    },
+    touchStart: function touchStart(swiper, e) {
+      if (!swiper.zoom.enabled) return;
+      swiper.zoom.onTouchStart(e);
+    },
+    touchEnd: function touchEnd(swiper, e) {
+      if (!swiper.zoom.enabled) return;
+      swiper.zoom.onTouchEnd(e);
+    },
+    doubleTap: function doubleTap(swiper, e) {
+      if (!swiper.animating && swiper.params.zoom.enabled && swiper.zoom.enabled && swiper.params.zoom.toggle) {
+        swiper.zoom.toggle(e);
+      }
+    },
+    transitionEnd: function transitionEnd(swiper) {
+      if (swiper.zoom.enabled && swiper.params.zoom.enabled) {
+        swiper.zoom.onTransitionEnd();
+      }
+    },
+    slideChange: function slideChange(swiper) {
+      if (swiper.zoom.enabled && swiper.params.zoom.enabled && swiper.params.cssMode) {
+        swiper.zoom.onTransitionEnd();
+      }
+    }
+  }
+});
+;// CONCATENATED MODULE: ./src/components/swiper/third-party/Swiper/src/components/virtual/virtual.js
+
+
+
+function virtual_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function virtual_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? virtual_ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : virtual_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+
+
+var Virtual = {
+  update: function update(force) {
+    var swiper = this;
+    var _swiper$params = swiper.params,
+        slidesPerView = _swiper$params.slidesPerView,
+        slidesPerGroup = _swiper$params.slidesPerGroup,
+        centeredSlides = _swiper$params.centeredSlides;
+    var _swiper$params$virtua = swiper.params.virtual,
+        addSlidesBefore = _swiper$params$virtua.addSlidesBefore,
+        addSlidesAfter = _swiper$params$virtua.addSlidesAfter;
+    var _swiper$virtual = swiper.virtual,
+        previousFrom = _swiper$virtual.from,
+        previousTo = _swiper$virtual.to,
+        slides = _swiper$virtual.slides,
+        previousSlidesGrid = _swiper$virtual.slidesGrid,
+        renderSlide = _swiper$virtual.renderSlide,
+        previousOffset = _swiper$virtual.offset;
+    swiper.updateActiveIndex();
+    var activeIndex = swiper.activeIndex || 0;
+    var offsetProp;
+    if (swiper.rtlTranslate) offsetProp = 'right';else offsetProp = swiper.isHorizontal() ? 'left' : 'top';
+    var slidesAfter;
+    var slidesBefore;
+
+    if (centeredSlides) {
+      slidesAfter = Math.floor(slidesPerView / 2) + slidesPerGroup + addSlidesAfter;
+      slidesBefore = Math.floor(slidesPerView / 2) + slidesPerGroup + addSlidesBefore;
+    } else {
+      slidesAfter = slidesPerView + (slidesPerGroup - 1) + addSlidesAfter;
+      slidesBefore = slidesPerGroup + addSlidesBefore;
+    }
+
+    var from = Math.max((activeIndex || 0) - slidesBefore, 0);
+    var to = Math.min((activeIndex || 0) + slidesAfter, slides.length - 1);
+    var offset = (swiper.slidesGrid[from] || 0) - (swiper.slidesGrid[0] || 0);
+    utils_extend(swiper.virtual, {
+      from: from,
+      to: to,
+      offset: offset,
+      slidesGrid: swiper.slidesGrid
+    });
+
+    function onRendered() {
+      swiper.updateSlides();
+      swiper.updateProgress();
+      swiper.updateSlidesClasses();
+
+      if (swiper.lazy && swiper.params.lazy.enabled) {
+        swiper.lazy.load();
+      }
+    }
+
+    if (previousFrom === from && previousTo === to && !force) {
+      if (swiper.slidesGrid !== previousSlidesGrid && offset !== previousOffset) {
+        swiper.slides.css(offsetProp, "".concat(offset, "px"));
+      }
+
+      swiper.updateProgress();
+      return;
+    }
+
+    if (swiper.params.virtual.renderExternal) {
+      swiper.params.virtual.renderExternal.call(swiper, {
+        offset: offset,
+        from: from,
+        to: to,
+        slides: function getSlides() {
+          var slidesToRender = [];
+
+          for (var i = from; i <= to; i += 1) {
+            slidesToRender.push(slides[i]);
+          }
+
+          return slidesToRender;
+        }()
+      });
+
+      if (swiper.params.virtual.renderExternalUpdate) {
+        onRendered();
+      }
+
+      return;
+    }
+
+    var prependIndexes = [];
+    var appendIndexes = [];
+
+    if (force) {
+      swiper.$wrapperEl.find(".".concat(swiper.params.slideClass)).remove();
+    } else {
+      for (var i = previousFrom; i <= previousTo; i += 1) {
+        if (i < from || i > to) {
+          swiper.$wrapperEl.find(".".concat(swiper.params.slideClass, "[data-swiper-slide-index=\"").concat(i, "\"]")).remove();
+        }
+      }
+    }
+
+    for (var _i = 0; _i < slides.length; _i += 1) {
+      if (_i >= from && _i <= to) {
+        if (typeof previousTo === 'undefined' || force) {
+          appendIndexes.push(_i);
+        } else {
+          if (_i > previousTo) appendIndexes.push(_i);
+          if (_i < previousFrom) prependIndexes.push(_i);
+        }
+      }
+    }
+
+    appendIndexes.forEach(function (index) {
+      swiper.$wrapperEl.append(renderSlide(slides[index], index));
+    });
+    prependIndexes.sort(function (a, b) {
+      return b - a;
+    }).forEach(function (index) {
+      swiper.$wrapperEl.prepend(renderSlide(slides[index], index));
+    });
+    swiper.$wrapperEl.children('.swiper-slide').css(offsetProp, "".concat(offset, "px"));
+    onRendered();
+  },
+  renderSlide: function renderSlide(slide, index) {
+    var swiper = this;
+    var params = swiper.params.virtual;
+
+    if (params.cache && swiper.virtual.cache[index]) {
+      return swiper.virtual.cache[index];
+    }
+
+    var $slideEl = params.renderSlide ? dom(params.renderSlide.call(swiper, slide, index)) : dom("<div class=\"".concat(swiper.params.slideClass, "\" data-swiper-slide-index=\"").concat(index, "\">").concat(slide, "</div>"));
+    if (!$slideEl.attr('data-swiper-slide-index')) $slideEl.attr('data-swiper-slide-index', index);
+    if (params.cache) swiper.virtual.cache[index] = $slideEl;
+    return $slideEl;
+  },
+  appendSlide: function appendSlide(slides) {
+    var swiper = this;
+
+    if ((0,esm_typeof/* default */.Z)(slides) === 'object' && 'length' in slides) {
+      for (var i = 0; i < slides.length; i += 1) {
+        if (slides[i]) swiper.virtual.slides.push(slides[i]);
+      }
+    } else {
+      swiper.virtual.slides.push(slides);
+    }
+
+    swiper.virtual.update(true);
+  },
+  prependSlide: function prependSlide(slides) {
+    var swiper = this;
+    var activeIndex = swiper.activeIndex;
+    var newActiveIndex = activeIndex + 1;
+    var numberOfNewSlides = 1;
+
+    if (Array.isArray(slides)) {
+      for (var i = 0; i < slides.length; i += 1) {
+        if (slides[i]) swiper.virtual.slides.unshift(slides[i]);
+      }
+
+      newActiveIndex = activeIndex + slides.length;
+      numberOfNewSlides = slides.length;
+    } else {
+      swiper.virtual.slides.unshift(slides);
+    }
+
+    if (swiper.params.virtual.cache) {
+      var cache = swiper.virtual.cache;
+      var newCache = {};
+      Object.keys(cache).forEach(function (cachedIndex) {
+        var $cachedEl = cache[cachedIndex];
+        var cachedElIndex = $cachedEl.attr('data-swiper-slide-index');
+
+        if (cachedElIndex) {
+          $cachedEl.attr('data-swiper-slide-index', parseInt(cachedElIndex, 10) + 1);
+        }
+
+        newCache[parseInt(cachedIndex, 10) + numberOfNewSlides] = $cachedEl;
+      });
+      swiper.virtual.cache = newCache;
+    }
+
+    swiper.virtual.update(true);
+    swiper.slideTo(newActiveIndex, 0);
+  },
+  removeSlide: function removeSlide(slidesIndexes) {
+    var swiper = this;
+    if (typeof slidesIndexes === 'undefined' || slidesIndexes === null) return;
+    var activeIndex = swiper.activeIndex;
+
+    if (Array.isArray(slidesIndexes)) {
+      for (var i = slidesIndexes.length - 1; i >= 0; i -= 1) {
+        swiper.virtual.slides.splice(slidesIndexes[i], 1);
+
+        if (swiper.params.virtual.cache) {
+          delete swiper.virtual.cache[slidesIndexes[i]];
+        }
+
+        if (slidesIndexes[i] < activeIndex) activeIndex -= 1;
+        activeIndex = Math.max(activeIndex, 0);
+      }
+    } else {
+      swiper.virtual.slides.splice(slidesIndexes, 1);
+
+      if (swiper.params.virtual.cache) {
+        delete swiper.virtual.cache[slidesIndexes];
+      }
+
+      if (slidesIndexes < activeIndex) activeIndex -= 1;
+      activeIndex = Math.max(activeIndex, 0);
+    }
+
+    swiper.virtual.update(true);
+    swiper.slideTo(activeIndex, 0);
+  },
+  removeAllSlides: function removeAllSlides() {
+    var swiper = this;
+    swiper.virtual.slides = [];
+
+    if (swiper.params.virtual.cache) {
+      swiper.virtual.cache = {};
+    }
+
+    swiper.virtual.update(true);
+    swiper.slideTo(0, 0);
+  }
+};
+/* harmony default export */ const virtual = ({
+  name: 'virtual',
+  params: {
+    virtual: {
+      enabled: false,
+      slides: [],
+      cache: true,
+      renderSlide: null,
+      renderExternal: null,
+      renderExternalUpdate: true,
+      addSlidesBefore: 0,
+      addSlidesAfter: 0
+    }
+  },
+  create: function create() {
+    var swiper = this;
+    bindModuleMethods(swiper, {
+      virtual: virtual_objectSpread(virtual_objectSpread({}, Virtual), {}, {
+        slides: swiper.params.virtual.slides,
+        cache: {}
+      })
+    });
+  },
+  on: {
+    beforeInit: function beforeInit(swiper) {
+      if (!swiper.params.virtual.enabled) return;
+      swiper.classNames.push("".concat(swiper.params.containerModifierClass, "virtual"));
+      var overwriteParams = {
+        watchSlidesProgress: true
+      };
+      utils_extend(swiper.params, overwriteParams);
+      utils_extend(swiper.originalParams, overwriteParams);
+
+      if (!swiper.params.initialSlide) {
+        swiper.virtual.update();
+      }
+    },
+    setTranslate: function setTranslate(swiper) {
+      if (!swiper.params.virtual.enabled) return;
+      swiper.virtual.update();
+    }
+  }
+});
+;// CONCATENATED MODULE: ./src/components/swiper/third-party/Swiper/src/components/thumbs/thumbs.js
+
+
+function thumbs_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function thumbs_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? thumbs_ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : thumbs_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+
+
+var Thumbs = {
+  init: function init() {
+    var swiper = this;
+    var thumbsParams = swiper.params.thumbs;
+    if (swiper.thumbs.initialized) return false;
+    swiper.thumbs.initialized = true;
+    var SwiperClass = swiper.constructor;
+
+    if (thumbsParams.swiper instanceof SwiperClass) {
+      swiper.thumbs.swiper = thumbsParams.swiper;
+      utils_extend(swiper.thumbs.swiper.originalParams, {
+        watchSlidesProgress: true,
+        slideToClickedSlide: false
+      });
+      utils_extend(swiper.thumbs.swiper.params, {
+        watchSlidesProgress: true,
+        slideToClickedSlide: false
+      });
+    } else if (utils_isObject(thumbsParams.swiper)) {
+      swiper.thumbs.swiper = new SwiperClass(utils_extend({}, thumbsParams.swiper, {
+        watchSlidesVisibility: true,
+        watchSlidesProgress: true,
+        slideToClickedSlide: false
+      }));
+      swiper.thumbs.swiperCreated = true;
+    }
+
+    swiper.thumbs.swiper.$el.addClass(swiper.params.thumbs.thumbsContainerClass);
+    swiper.thumbs.swiper.on('tap', swiper.thumbs.onThumbClick);
+    return true;
+  },
+  onThumbClick: function onThumbClick() {
+    var swiper = this;
+    var thumbsSwiper = swiper.thumbs.swiper;
+    if (!thumbsSwiper) return;
+    var clickedIndex = thumbsSwiper.clickedIndex;
+    var clickedSlide = thumbsSwiper.clickedSlide;
+    if (clickedSlide && dom(clickedSlide).hasClass(swiper.params.thumbs.slideThumbActiveClass)) return;
+    if (typeof clickedIndex === 'undefined' || clickedIndex === null) return;
+    var slideToIndex;
+
+    if (thumbsSwiper.params.loop) {
+      slideToIndex = parseInt(dom(thumbsSwiper.clickedSlide).attr('data-swiper-slide-index'), 10);
+    } else {
+      slideToIndex = clickedIndex;
+    }
+
+    if (swiper.params.loop) {
+      var currentIndex = swiper.activeIndex;
+
+      if (swiper.slides.eq(currentIndex).hasClass(swiper.params.slideDuplicateClass)) {
+        swiper.loopFix(); // eslint-disable-next-line
+
+        swiper._clientLeft = swiper.$wrapperEl[0].clientLeft;
+        currentIndex = swiper.activeIndex;
+      }
+
+      var prevIndex = swiper.slides.eq(currentIndex).prevAll("[data-swiper-slide-index=\"".concat(slideToIndex, "\"]")).eq(0).index();
+      var nextIndex = swiper.slides.eq(currentIndex).nextAll("[data-swiper-slide-index=\"".concat(slideToIndex, "\"]")).eq(0).index();
+      if (typeof prevIndex === 'undefined') slideToIndex = nextIndex;else if (typeof nextIndex === 'undefined') slideToIndex = prevIndex;else if (nextIndex - currentIndex < currentIndex - prevIndex) slideToIndex = nextIndex;else slideToIndex = prevIndex;
+    }
+
+    swiper.slideTo(slideToIndex);
+  },
+  update: function update(initial) {
+    var swiper = this;
+    var thumbsSwiper = swiper.thumbs.swiper;
+    if (!thumbsSwiper) return;
+    var slidesPerView = thumbsSwiper.params.slidesPerView === 'auto' ? thumbsSwiper.slidesPerViewDynamic() : thumbsSwiper.params.slidesPerView;
+    var autoScrollOffset = swiper.params.thumbs.autoScrollOffset;
+    var useOffset = autoScrollOffset && !thumbsSwiper.params.loop;
+
+    if (swiper.realIndex !== thumbsSwiper.realIndex || useOffset) {
+      var currentThumbsIndex = thumbsSwiper.activeIndex;
+      var newThumbsIndex;
+      var direction;
+
+      if (thumbsSwiper.params.loop) {
+        if (thumbsSwiper.slides.eq(currentThumbsIndex).hasClass(thumbsSwiper.params.slideDuplicateClass)) {
+          thumbsSwiper.loopFix(); // eslint-disable-next-line
+
+          thumbsSwiper._clientLeft = thumbsSwiper.$wrapperEl[0].clientLeft;
+          currentThumbsIndex = thumbsSwiper.activeIndex;
+        } // Find actual thumbs index to slide to
+
+
+        var prevThumbsIndex = thumbsSwiper.slides.eq(currentThumbsIndex).prevAll("[data-swiper-slide-index=\"".concat(swiper.realIndex, "\"]")).eq(0).index();
+        var nextThumbsIndex = thumbsSwiper.slides.eq(currentThumbsIndex).nextAll("[data-swiper-slide-index=\"".concat(swiper.realIndex, "\"]")).eq(0).index();
+        if (typeof prevThumbsIndex === 'undefined') newThumbsIndex = nextThumbsIndex;else if (typeof nextThumbsIndex === 'undefined') newThumbsIndex = prevThumbsIndex;else if (nextThumbsIndex - currentThumbsIndex === currentThumbsIndex - prevThumbsIndex) newThumbsIndex = currentThumbsIndex;else if (nextThumbsIndex - currentThumbsIndex < currentThumbsIndex - prevThumbsIndex) newThumbsIndex = nextThumbsIndex;else newThumbsIndex = prevThumbsIndex;
+        direction = swiper.activeIndex > swiper.previousIndex ? 'next' : 'prev';
+      } else {
+        newThumbsIndex = swiper.realIndex;
+        direction = newThumbsIndex > swiper.previousIndex ? 'next' : 'prev';
+      }
+
+      if (useOffset) {
+        newThumbsIndex += direction === 'next' ? autoScrollOffset : -1 * autoScrollOffset;
+      }
+
+      if (thumbsSwiper.visibleSlidesIndexes && thumbsSwiper.visibleSlidesIndexes.indexOf(newThumbsIndex) < 0) {
+        if (thumbsSwiper.params.centeredSlides) {
+          if (newThumbsIndex > currentThumbsIndex) {
+            newThumbsIndex = newThumbsIndex - Math.floor(slidesPerView / 2) + 1;
+          } else {
+            newThumbsIndex = newThumbsIndex + Math.floor(slidesPerView / 2) - 1;
+          }
+        } else if (newThumbsIndex > currentThumbsIndex) {
+          newThumbsIndex = newThumbsIndex - slidesPerView + 1;
+        }
+
+        thumbsSwiper.slideTo(newThumbsIndex, initial ? 0 : undefined);
+      }
+    } // Activate thumbs
+
+
+    var thumbsToActivate = 1;
+    var thumbActiveClass = swiper.params.thumbs.slideThumbActiveClass;
+
+    if (swiper.params.slidesPerView > 1 && !swiper.params.centeredSlides) {
+      thumbsToActivate = swiper.params.slidesPerView;
+    }
+
+    if (!swiper.params.thumbs.multipleActiveThumbs) {
+      thumbsToActivate = 1;
+    }
+
+    thumbsToActivate = Math.floor(thumbsToActivate);
+    thumbsSwiper.slides.removeClass(thumbActiveClass);
+
+    if (thumbsSwiper.params.loop || thumbsSwiper.params.virtual && thumbsSwiper.params.virtual.enabled) {
+      for (var i = 0; i < thumbsToActivate; i += 1) {
+        thumbsSwiper.$wrapperEl.children("[data-swiper-slide-index=\"".concat(swiper.realIndex + i, "\"]")).addClass(thumbActiveClass);
+      }
+    } else {
+      for (var _i = 0; _i < thumbsToActivate; _i += 1) {
+        thumbsSwiper.slides.eq(swiper.realIndex + _i).addClass(thumbActiveClass);
+      }
+    }
+  }
+};
+/* harmony default export */ const thumbs = ({
+  name: 'thumbs',
+  params: {
+    thumbs: {
+      swiper: null,
+      multipleActiveThumbs: true,
+      autoScrollOffset: 0,
+      slideThumbActiveClass: 'swiper-slide-thumb-active',
+      thumbsContainerClass: 'swiper-container-thumbs'
+    }
+  },
+  create: function create() {
+    var swiper = this;
+    bindModuleMethods(swiper, {
+      thumbs: thumbs_objectSpread({
+        swiper: null,
+        initialized: false
+      }, Thumbs)
+    });
+  },
+  on: {
+    beforeInit: function beforeInit(swiper) {
+      var thumbs = swiper.params.thumbs;
+      if (!thumbs || !thumbs.swiper) return;
+      swiper.thumbs.init();
+      swiper.thumbs.update(true);
+    },
+    slideChange: function slideChange(swiper) {
+      if (!swiper.thumbs.swiper) return;
+      swiper.thumbs.update();
+    },
+    update: function update(swiper) {
+      if (!swiper.thumbs.swiper) return;
+      swiper.thumbs.update();
+    },
+    resize: function resize(swiper) {
+      if (!swiper.thumbs.swiper) return;
+      swiper.thumbs.update();
+    },
+    observerUpdate: function observerUpdate(swiper) {
+      if (!swiper.thumbs.swiper) return;
+      swiper.thumbs.update();
+    },
+    setTransition: function setTransition(swiper, duration) {
+      var thumbsSwiper = swiper.thumbs.swiper;
+      if (!thumbsSwiper) return;
+      thumbsSwiper.setTransition(duration);
+    },
+    beforeDestroy: function beforeDestroy(swiper) {
+      var thumbsSwiper = swiper.thumbs.swiper;
+      if (!thumbsSwiper) return;
+
+      if (swiper.thumbs.swiperCreated && thumbsSwiper) {
+        thumbsSwiper.destroy();
+      }
+    }
+  }
+});
+;// CONCATENATED MODULE: ./src/components/swiper/third-party/Swiper/src/components/scrollbar/scrollbar.js
+
+
+function scrollbar_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function scrollbar_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? scrollbar_ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : scrollbar_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+
+
+
+var Scrollbar = {
+  setTranslate: function setTranslate() {
+    var swiper = this;
+    if (!swiper.params.scrollbar.el || !swiper.scrollbar.el) return;
+    var scrollbar = swiper.scrollbar,
+        rtl = swiper.rtlTranslate,
+        progress = swiper.progress;
+    var dragSize = scrollbar.dragSize,
+        trackSize = scrollbar.trackSize,
+        $dragEl = scrollbar.$dragEl,
+        $el = scrollbar.$el;
+    var params = swiper.params.scrollbar;
+    var newSize = dragSize;
+    var newPos = (trackSize - dragSize) * progress;
+
+    if (rtl) {
+      newPos = -newPos;
+
+      if (newPos > 0) {
+        newSize = dragSize - newPos;
+        newPos = 0;
+      } else if (-newPos + dragSize > trackSize) {
+        newSize = trackSize + newPos;
+      }
+    } else if (newPos < 0) {
+      newSize = dragSize + newPos;
+      newPos = 0;
+    } else if (newPos + dragSize > trackSize) {
+      newSize = trackSize - newPos;
+    }
+
+    if (swiper.isHorizontal()) {
+      $dragEl.transform("translate3d(".concat(newPos, "px, 0, 0)"));
+      $dragEl[0].style.width = "".concat(newSize, "px");
+    } else {
+      $dragEl.transform("translate3d(0px, ".concat(newPos, "px, 0)"));
+      $dragEl[0].style.height = "".concat(newSize, "px");
+    }
+
+    if (params.hide) {
+      clearTimeout(swiper.scrollbar.timeout);
+      $el[0].style.opacity = 1;
+      swiper.scrollbar.timeout = setTimeout(function () {
+        $el[0].style.opacity = 0;
+        $el.transition(400);
+      }, 1000);
+    }
+  },
+  setTransition: function setTransition(duration) {
+    var swiper = this;
+    if (!swiper.params.scrollbar.el || !swiper.scrollbar.el) return;
+    swiper.scrollbar.$dragEl.transition(duration);
+  },
+  updateSize: function updateSize() {
+    var swiper = this;
+    if (!swiper.params.scrollbar.el || !swiper.scrollbar.el) return;
+    var scrollbar = swiper.scrollbar;
+    var $dragEl = scrollbar.$dragEl,
+        $el = scrollbar.$el;
+    $dragEl[0].style.width = '';
+    $dragEl[0].style.height = '';
+    var trackSize = swiper.isHorizontal() ? $el[0].offsetWidth : $el[0].offsetHeight;
+    var divider = swiper.size / swiper.virtualSize;
+    var moveDivider = divider * (trackSize / swiper.size);
+    var dragSize;
+
+    if (swiper.params.scrollbar.dragSize === 'auto') {
+      dragSize = trackSize * divider;
+    } else {
+      dragSize = parseInt(swiper.params.scrollbar.dragSize, 10);
+    }
+
+    if (swiper.isHorizontal()) {
+      $dragEl[0].style.width = "".concat(dragSize, "px");
+    } else {
+      $dragEl[0].style.height = "".concat(dragSize, "px");
+    }
+
+    if (divider >= 1) {
+      $el[0].style.display = 'none';
+    } else {
+      $el[0].style.display = '';
+    }
+
+    if (swiper.params.scrollbar.hide) {
+      $el[0].style.opacity = 0;
+    }
+
+    utils_extend(scrollbar, {
+      trackSize: trackSize,
+      divider: divider,
+      moveDivider: moveDivider,
+      dragSize: dragSize
+    });
+    scrollbar.$el[swiper.params.watchOverflow && swiper.isLocked ? 'addClass' : 'removeClass'](swiper.params.scrollbar.lockClass);
+  },
+  getPointerPosition: function getPointerPosition(e) {
+    var swiper = this;
+
+    if (swiper.isHorizontal()) {
+      return e.type === 'touchstart' || e.type === 'touchmove' ? e.targetTouches[0].clientX : e.clientX;
+    }
+
+    return e.type === 'touchstart' || e.type === 'touchmove' ? e.targetTouches[0].clientY : e.clientY;
+  },
+  setDragPosition: function setDragPosition(e) {
+    var swiper = this;
+    var scrollbar = swiper.scrollbar,
+        rtl = swiper.rtlTranslate;
+    var $el = scrollbar.$el,
+        dragSize = scrollbar.dragSize,
+        trackSize = scrollbar.trackSize,
+        dragStartPos = scrollbar.dragStartPos;
+    var positionRatio;
+    positionRatio = (scrollbar.getPointerPosition(e) - $el.offset()[swiper.isHorizontal() ? 'left' : 'top'] - (dragStartPos !== null ? dragStartPos : dragSize / 2)) / (trackSize - dragSize);
+    positionRatio = Math.max(Math.min(positionRatio, 1), 0);
+
+    if (rtl) {
+      positionRatio = 1 - positionRatio;
+    }
+
+    var position = swiper.minTranslate() + (swiper.maxTranslate() - swiper.minTranslate()) * positionRatio;
+    swiper.updateProgress(position);
+    swiper.setTranslate(position);
+    swiper.updateActiveIndex();
+    swiper.updateSlidesClasses();
+  },
+  onDragStart: function onDragStart(e) {
+    var swiper = this;
+    var params = swiper.params.scrollbar;
+    var scrollbar = swiper.scrollbar,
+        $wrapperEl = swiper.$wrapperEl;
+    var $el = scrollbar.$el,
+        $dragEl = scrollbar.$dragEl;
+    swiper.scrollbar.isTouched = true;
+    swiper.scrollbar.dragStartPos = e.target === $dragEl[0] || e.target === $dragEl ? scrollbar.getPointerPosition(e) - e.target.getBoundingClientRect()[swiper.isHorizontal() ? 'left' : 'top'] : null;
+    e.preventDefault();
+    e.stopPropagation();
+    $wrapperEl.transition(100);
+    $dragEl.transition(100);
+    scrollbar.setDragPosition(e);
+    clearTimeout(swiper.scrollbar.dragTimeout);
+    $el.transition(0);
+
+    if (params.hide) {
+      $el.css('opacity', 1);
+    }
+
+    if (swiper.params.cssMode) {
+      swiper.$wrapperEl.css('scroll-snap-type', 'none');
+    }
+
+    swiper.emit('scrollbarDragStart', e);
+  },
+  onDragMove: function onDragMove(e) {
+    var swiper = this;
+    var scrollbar = swiper.scrollbar,
+        $wrapperEl = swiper.$wrapperEl;
+    var $el = scrollbar.$el,
+        $dragEl = scrollbar.$dragEl;
+    if (!swiper.scrollbar.isTouched) return;
+    if (e.preventDefault) e.preventDefault();else e.returnValue = false;
+    scrollbar.setDragPosition(e);
+    $wrapperEl.transition(0);
+    $el.transition(0);
+    $dragEl.transition(0);
+    swiper.emit('scrollbarDragMove', e);
+  },
+  onDragEnd: function onDragEnd(e) {
+    var swiper = this;
+    var params = swiper.params.scrollbar;
+    var scrollbar = swiper.scrollbar,
+        $wrapperEl = swiper.$wrapperEl;
+    var $el = scrollbar.$el;
+    if (!swiper.scrollbar.isTouched) return;
+    swiper.scrollbar.isTouched = false;
+
+    if (swiper.params.cssMode) {
+      swiper.$wrapperEl.css('scroll-snap-type', '');
+      $wrapperEl.transition('');
+    }
+
+    if (params.hide) {
+      clearTimeout(swiper.scrollbar.dragTimeout);
+      swiper.scrollbar.dragTimeout = nextTick(function () {
+        $el.css('opacity', 0);
+        $el.transition(400);
+      }, 1000);
+    }
+
+    swiper.emit('scrollbarDragEnd', e);
+
+    if (params.snapOnRelease) {
+      swiper.slideToClosest();
+    }
+  },
+  enableDraggable: function enableDraggable() {
+    var swiper = this;
+    if (!swiper.params.scrollbar.el) return;
+    var document = getDocument();
+    var scrollbar = swiper.scrollbar,
+        touchEventsTouch = swiper.touchEventsTouch,
+        touchEventsDesktop = swiper.touchEventsDesktop,
+        params = swiper.params,
+        support = swiper.support;
+    var $el = scrollbar.$el;
+    var target = $el[0];
+    var activeListener = support.passiveListener && params.passiveListeners ? {
+      passive: false,
+      capture: false
+    } : false;
+    var passiveListener = support.passiveListener && params.passiveListeners ? {
+      passive: true,
+      capture: false
+    } : false;
+    if (!target) return;
+
+    if (!support.touch) {
+      target.addEventListener(touchEventsDesktop.start, swiper.scrollbar.onDragStart, activeListener);
+      document.addEventListener(touchEventsDesktop.move, swiper.scrollbar.onDragMove, activeListener);
+      document.addEventListener(touchEventsDesktop.end, swiper.scrollbar.onDragEnd, passiveListener);
+    } else {
+      target.addEventListener(touchEventsTouch.start, swiper.scrollbar.onDragStart, activeListener);
+      target.addEventListener(touchEventsTouch.move, swiper.scrollbar.onDragMove, activeListener);
+      target.addEventListener(touchEventsTouch.end, swiper.scrollbar.onDragEnd, passiveListener);
+    }
+  },
+  disableDraggable: function disableDraggable() {
+    var swiper = this;
+    if (!swiper.params.scrollbar.el) return;
+    var document = getDocument();
+    var scrollbar = swiper.scrollbar,
+        touchEventsTouch = swiper.touchEventsTouch,
+        touchEventsDesktop = swiper.touchEventsDesktop,
+        params = swiper.params,
+        support = swiper.support;
+    var $el = scrollbar.$el;
+    var target = $el[0];
+    var activeListener = support.passiveListener && params.passiveListeners ? {
+      passive: false,
+      capture: false
+    } : false;
+    var passiveListener = support.passiveListener && params.passiveListeners ? {
+      passive: true,
+      capture: false
+    } : false;
+    if (!target) return;
+
+    if (!support.touch) {
+      target.removeEventListener(touchEventsDesktop.start, swiper.scrollbar.onDragStart, activeListener);
+      document.removeEventListener(touchEventsDesktop.move, swiper.scrollbar.onDragMove, activeListener);
+      document.removeEventListener(touchEventsDesktop.end, swiper.scrollbar.onDragEnd, passiveListener);
+    } else {
+      target.removeEventListener(touchEventsTouch.start, swiper.scrollbar.onDragStart, activeListener);
+      target.removeEventListener(touchEventsTouch.move, swiper.scrollbar.onDragMove, activeListener);
+      target.removeEventListener(touchEventsTouch.end, swiper.scrollbar.onDragEnd, passiveListener);
+    }
+  },
+  init: function init() {
+    var swiper = this;
+    if (!swiper.params.scrollbar.el) return;
+    var scrollbar = swiper.scrollbar,
+        $swiperEl = swiper.$el;
+    var params = swiper.params.scrollbar;
+    var $el = dom(params.el);
+
+    if (swiper.params.uniqueNavElements && typeof params.el === 'string' && $el.length > 1 && $swiperEl.find(params.el).length === 1) {
+      $el = $swiperEl.find(params.el);
+    }
+
+    var $dragEl = $el.find(".".concat(swiper.params.scrollbar.dragClass));
+
+    if ($dragEl.length === 0) {
+      $dragEl = dom("<div class=\"".concat(swiper.params.scrollbar.dragClass, "\"></div>"));
+      $el.append($dragEl);
+    }
+
+    utils_extend(scrollbar, {
+      $el: $el,
+      el: $el[0],
+      $dragEl: $dragEl,
+      dragEl: $dragEl[0]
+    });
+
+    if (params.draggable) {
+      scrollbar.enableDraggable();
+    }
+  },
+  destroy: function destroy() {
+    var swiper = this;
+    swiper.scrollbar.disableDraggable();
+  }
+};
+/* harmony default export */ const scrollbar = ({
+  name: 'scrollbar',
+  params: {
+    scrollbar: {
+      el: null,
+      dragSize: 'auto',
+      hide: false,
+      draggable: false,
+      snapOnRelease: true,
+      lockClass: 'swiper-scrollbar-lock',
+      dragClass: 'swiper-scrollbar-drag'
+    }
+  },
+  create: function create() {
+    var swiper = this;
+    bindModuleMethods(swiper, {
+      scrollbar: scrollbar_objectSpread({
+        isTouched: false,
+        timeout: null,
+        dragTimeout: null
+      }, Scrollbar)
+    });
+  },
+  on: {
+    init: function init(swiper) {
+      swiper.scrollbar.init();
+      swiper.scrollbar.updateSize();
+      swiper.scrollbar.setTranslate();
+    },
+    update: function update(swiper) {
+      swiper.scrollbar.updateSize();
+    },
+    resize: function resize(swiper) {
+      swiper.scrollbar.updateSize();
+    },
+    observerUpdate: function observerUpdate(swiper) {
+      swiper.scrollbar.updateSize();
+    },
+    setTranslate: function setTranslate(swiper) {
+      swiper.scrollbar.setTranslate();
+    },
+    setTransition: function setTransition(swiper, duration) {
+      swiper.scrollbar.setTransition(duration);
+    },
+    destroy: function destroy(swiper) {
+      swiper.scrollbar.destroy();
+    }
+  }
+});
+;// CONCATENATED MODULE: ./src/components/swiper/third-party/Swiper/src/components/parallax/parallax.js
+
+
+function parallax_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function parallax_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? parallax_ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : parallax_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+
+
+var Parallax = {
+  setTransform: function setTransform(el, progress) {
+    var swiper = this;
+    var rtl = swiper.rtl;
+    var $el = dom(el);
+    var rtlFactor = rtl ? -1 : 1;
+    var p = $el.attr('data-swiper-parallax') || '0';
+    var x = $el.attr('data-swiper-parallax-x');
+    var y = $el.attr('data-swiper-parallax-y');
+    var scale = $el.attr('data-swiper-parallax-scale');
+    var opacity = $el.attr('data-swiper-parallax-opacity');
+
+    if (x || y) {
+      x = x || '0';
+      y = y || '0';
+    } else if (swiper.isHorizontal()) {
+      x = p;
+      y = '0';
+    } else {
+      y = p;
+      x = '0';
+    }
+
+    if (x.indexOf('%') >= 0) {
+      x = "".concat(parseInt(x, 10) * progress * rtlFactor, "%");
+    } else {
+      x = "".concat(x * progress * rtlFactor, "px");
+    }
+
+    if (y.indexOf('%') >= 0) {
+      y = "".concat(parseInt(y, 10) * progress, "%");
+    } else {
+      y = "".concat(y * progress, "px");
+    }
+
+    if (typeof opacity !== 'undefined' && opacity !== null) {
+      var currentOpacity = opacity - (opacity - 1) * (1 - Math.abs(progress));
+      $el[0].style.opacity = currentOpacity;
+    }
+
+    if (typeof scale === 'undefined' || scale === null) {
+      $el.transform("translate3d(".concat(x, ", ").concat(y, ", 0px)"));
+    } else {
+      var currentScale = scale - (scale - 1) * (1 - Math.abs(progress));
+      $el.transform("translate3d(".concat(x, ", ").concat(y, ", 0px) scale(").concat(currentScale, ")"));
+    }
+  },
+  setTranslate: function setTranslate() {
+    var swiper = this;
+    var $el = swiper.$el,
+        slides = swiper.slides,
+        progress = swiper.progress,
+        snapGrid = swiper.snapGrid;
+    $el.children('[data-swiper-parallax], [data-swiper-parallax-x], [data-swiper-parallax-y], [data-swiper-parallax-opacity], [data-swiper-parallax-scale]').each(function (el) {
+      swiper.parallax.setTransform(el, progress);
+    });
+    slides.each(function (slideEl, slideIndex) {
+      var slideProgress = slideEl.progress;
+
+      if (swiper.params.slidesPerGroup > 1 && swiper.params.slidesPerView !== 'auto') {
+        slideProgress += Math.ceil(slideIndex / 2) - progress * (snapGrid.length - 1);
+      }
+
+      slideProgress = Math.min(Math.max(slideProgress, -1), 1);
+      dom(slideEl).find('[data-swiper-parallax], [data-swiper-parallax-x], [data-swiper-parallax-y], [data-swiper-parallax-opacity], [data-swiper-parallax-scale]').each(function (el) {
+        swiper.parallax.setTransform(el, slideProgress);
+      });
+    });
+  },
+  setTransition: function setTransition() {
+    var duration = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.params.speed;
+    var swiper = this;
+    var $el = swiper.$el;
+    $el.find('[data-swiper-parallax], [data-swiper-parallax-x], [data-swiper-parallax-y], [data-swiper-parallax-opacity], [data-swiper-parallax-scale]').each(function (parallaxEl) {
+      var $parallaxEl = dom(parallaxEl);
+      var parallaxDuration = parseInt($parallaxEl.attr('data-swiper-parallax-duration'), 10) || duration;
+      if (duration === 0) parallaxDuration = 0;
+      $parallaxEl.transition(parallaxDuration);
+    });
+  }
+};
+/* harmony default export */ const parallax = ({
+  name: 'parallax',
+  params: {
+    parallax: {
+      enabled: false
+    }
+  },
+  create: function create() {
+    var swiper = this;
+    bindModuleMethods(swiper, {
+      parallax: parallax_objectSpread({}, Parallax)
+    });
+  },
+  on: {
+    beforeInit: function beforeInit(swiper) {
+      if (!swiper.params.parallax.enabled) return;
+      swiper.params.watchSlidesProgress = true;
+      swiper.originalParams.watchSlidesProgress = true;
+    },
+    init: function init(swiper) {
+      if (!swiper.params.parallax.enabled) return;
+      swiper.parallax.setTranslate();
+    },
+    setTranslate: function setTranslate(swiper) {
+      if (!swiper.params.parallax.enabled) return;
+      swiper.parallax.setTranslate();
+    },
+    setTransition: function setTransition(swiper, duration) {
+      if (!swiper.params.parallax.enabled) return;
+      swiper.parallax.setTransition(duration);
+    }
+  }
+});
+;// CONCATENATED MODULE: ./src/components/swiper/third-party/Swiper/src/components/pagination/pagination.js
+
+
+function pagination_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function pagination_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? pagination_ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : pagination_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+
+
+var Pagination = {
+  update: function update() {
+    // Render || Update Pagination bullets/items
+    var swiper = this;
+    var rtl = swiper.rtl;
+    var params = swiper.params.pagination;
+    if (!params.el || !swiper.pagination.el || !swiper.pagination.$el || swiper.pagination.$el.length === 0) return;
+    var slidesLength = swiper.virtual && swiper.params.virtual.enabled ? swiper.virtual.slides.length : swiper.slides.length;
+    var $el = swiper.pagination.$el; // Current/Total
+
+    var current;
+    var total = swiper.params.loop ? Math.ceil((slidesLength - swiper.loopedSlides * 2) / swiper.params.slidesPerGroup) : swiper.snapGrid.length;
+
+    if (swiper.params.loop) {
+      current = Math.ceil((swiper.activeIndex - swiper.loopedSlides) / swiper.params.slidesPerGroup);
+
+      if (current > slidesLength - 1 - swiper.loopedSlides * 2) {
+        current -= slidesLength - swiper.loopedSlides * 2;
+      }
+
+      if (current > total - 1) current -= total;
+      if (current < 0 && swiper.params.paginationType !== 'bullets') current = total + current;
+    } else if (typeof swiper.snapIndex !== 'undefined') {
+      current = swiper.snapIndex;
+    } else {
+      current = swiper.activeIndex || 0;
+    } // Types
+
+
+    if (params.type === 'bullets' && swiper.pagination.bullets && swiper.pagination.bullets.length > 0) {
+      var bullets = swiper.pagination.bullets;
+      var firstIndex;
+      var lastIndex;
+      var midIndex;
+
+      if (params.dynamicBullets) {
+        swiper.pagination.bulletSize = bullets.eq(0)[swiper.isHorizontal() ? 'outerWidth' : 'outerHeight'](true);
+        $el.css(swiper.isHorizontal() ? 'width' : 'height', "".concat(swiper.pagination.bulletSize * (params.dynamicMainBullets + 4), "px"));
+
+        if (params.dynamicMainBullets > 1 && swiper.previousIndex !== undefined) {
+          swiper.pagination.dynamicBulletIndex += current - swiper.previousIndex;
+
+          if (swiper.pagination.dynamicBulletIndex > params.dynamicMainBullets - 1) {
+            swiper.pagination.dynamicBulletIndex = params.dynamicMainBullets - 1;
+          } else if (swiper.pagination.dynamicBulletIndex < 0) {
+            swiper.pagination.dynamicBulletIndex = 0;
+          }
+        }
+
+        firstIndex = current - swiper.pagination.dynamicBulletIndex;
+        lastIndex = firstIndex + (Math.min(bullets.length, params.dynamicMainBullets) - 1);
+        midIndex = (lastIndex + firstIndex) / 2;
+      }
+
+      bullets.removeClass("".concat(params.bulletActiveClass, " ").concat(params.bulletActiveClass, "-next ").concat(params.bulletActiveClass, "-next-next ").concat(params.bulletActiveClass, "-prev ").concat(params.bulletActiveClass, "-prev-prev ").concat(params.bulletActiveClass, "-main"));
+
+      if ($el.length > 1) {
+        bullets.each(function (bullet) {
+          var $bullet = dom(bullet);
+          var bulletIndex = $bullet.index();
+
+          if (bulletIndex === current) {
+            $bullet.addClass(params.bulletActiveClass);
+          }
+
+          if (params.dynamicBullets) {
+            if (bulletIndex >= firstIndex && bulletIndex <= lastIndex) {
+              $bullet.addClass("".concat(params.bulletActiveClass, "-main"));
+            }
+
+            if (bulletIndex === firstIndex) {
+              $bullet.prev().addClass("".concat(params.bulletActiveClass, "-prev")).prev().addClass("".concat(params.bulletActiveClass, "-prev-prev"));
+            }
+
+            if (bulletIndex === lastIndex) {
+              $bullet.next().addClass("".concat(params.bulletActiveClass, "-next")).next().addClass("".concat(params.bulletActiveClass, "-next-next"));
+            }
+          }
+        });
+      } else {
+        var $bullet = bullets.eq(current);
+        var bulletIndex = $bullet.index();
+        $bullet.addClass(params.bulletActiveClass);
+
+        if (params.dynamicBullets) {
+          var $firstDisplayedBullet = bullets.eq(firstIndex);
+          var $lastDisplayedBullet = bullets.eq(lastIndex);
+
+          for (var i = firstIndex; i <= lastIndex; i += 1) {
+            bullets.eq(i).addClass("".concat(params.bulletActiveClass, "-main"));
+          }
+
+          if (swiper.params.loop) {
+            if (bulletIndex >= bullets.length - params.dynamicMainBullets) {
+              for (var _i = params.dynamicMainBullets; _i >= 0; _i -= 1) {
+                bullets.eq(bullets.length - _i).addClass("".concat(params.bulletActiveClass, "-main"));
+              }
+
+              bullets.eq(bullets.length - params.dynamicMainBullets - 1).addClass("".concat(params.bulletActiveClass, "-prev"));
+            } else {
+              $firstDisplayedBullet.prev().addClass("".concat(params.bulletActiveClass, "-prev")).prev().addClass("".concat(params.bulletActiveClass, "-prev-prev"));
+              $lastDisplayedBullet.next().addClass("".concat(params.bulletActiveClass, "-next")).next().addClass("".concat(params.bulletActiveClass, "-next-next"));
+            }
+          } else {
+            $firstDisplayedBullet.prev().addClass("".concat(params.bulletActiveClass, "-prev")).prev().addClass("".concat(params.bulletActiveClass, "-prev-prev"));
+            $lastDisplayedBullet.next().addClass("".concat(params.bulletActiveClass, "-next")).next().addClass("".concat(params.bulletActiveClass, "-next-next"));
+          }
+        }
+      }
+
+      if (params.dynamicBullets) {
+        var dynamicBulletsLength = Math.min(bullets.length, params.dynamicMainBullets + 4);
+        var bulletsOffset = (swiper.pagination.bulletSize * dynamicBulletsLength - swiper.pagination.bulletSize) / 2 - midIndex * swiper.pagination.bulletSize;
+        var offsetProp = rtl ? 'right' : 'left';
+        bullets.css(swiper.isHorizontal() ? offsetProp : 'top', "".concat(bulletsOffset, "px"));
+      }
+    }
+
+    if (params.type === 'fraction') {
+      $el.find(classesToSelector(params.currentClass)).text(params.formatFractionCurrent(current + 1));
+      $el.find(classesToSelector(params.totalClass)).text(params.formatFractionTotal(total));
+    }
+
+    if (params.type === 'progressbar') {
+      var progressbarDirection;
+
+      if (params.progressbarOpposite) {
+        progressbarDirection = swiper.isHorizontal() ? 'vertical' : 'horizontal';
+      } else {
+        progressbarDirection = swiper.isHorizontal() ? 'horizontal' : 'vertical';
+      }
+
+      var scale = (current + 1) / total;
+      var scaleX = 1;
+      var scaleY = 1;
+
+      if (progressbarDirection === 'horizontal') {
+        scaleX = scale;
+      } else {
+        scaleY = scale;
+      }
+
+      $el.find(classesToSelector(params.progressbarFillClass)).transform("translate3d(0,0,0) scaleX(".concat(scaleX, ") scaleY(").concat(scaleY, ")")).transition(swiper.params.speed);
+    }
+
+    if (params.type === 'custom' && params.renderCustom) {
+      $el.html(params.renderCustom(swiper, current + 1, total));
+      swiper.emit('paginationRender', $el[0]);
+    } else {
+      swiper.emit('paginationUpdate', $el[0]);
+    }
+
+    $el[swiper.params.watchOverflow && swiper.isLocked ? 'addClass' : 'removeClass'](params.lockClass);
+  },
+  render: function render() {
+    // Render Container
+    var swiper = this;
+    var params = swiper.params.pagination;
+    if (!params.el || !swiper.pagination.el || !swiper.pagination.$el || swiper.pagination.$el.length === 0) return;
+    var slidesLength = swiper.virtual && swiper.params.virtual.enabled ? swiper.virtual.slides.length : swiper.slides.length;
+    var $el = swiper.pagination.$el;
+    var paginationHTML = '';
+
+    if (params.type === 'bullets') {
+      var numberOfBullets = swiper.params.loop ? Math.ceil((slidesLength - swiper.loopedSlides * 2) / swiper.params.slidesPerGroup) : swiper.snapGrid.length;
+
+      if (swiper.params.freeMode && !swiper.params.loop && numberOfBullets > slidesLength) {
+        numberOfBullets = slidesLength;
+      }
+
+      for (var i = 0; i < numberOfBullets; i += 1) {
+        if (params.renderBullet) {
+          paginationHTML += params.renderBullet.call(swiper, i, params.bulletClass);
+        } else {
+          paginationHTML += "<".concat(params.bulletElement, " class=\"").concat(params.bulletClass, "\"></").concat(params.bulletElement, ">");
+        }
+      }
+
+      $el.html(paginationHTML);
+      swiper.pagination.bullets = $el.find(classesToSelector(params.bulletClass));
+    }
+
+    if (params.type === 'fraction') {
+      if (params.renderFraction) {
+        paginationHTML = params.renderFraction.call(swiper, params.currentClass, params.totalClass);
+      } else {
+        paginationHTML = "<span class=\"".concat(params.currentClass, "\"></span>") + ' / ' + "<span class=\"".concat(params.totalClass, "\"></span>");
+      }
+
+      $el.html(paginationHTML);
+    }
+
+    if (params.type === 'progressbar') {
+      if (params.renderProgressbar) {
+        paginationHTML = params.renderProgressbar.call(swiper, params.progressbarFillClass);
+      } else {
+        paginationHTML = "<span class=\"".concat(params.progressbarFillClass, "\"></span>");
+      }
+
+      $el.html(paginationHTML);
+    }
+
+    if (params.type !== 'custom') {
+      swiper.emit('paginationRender', swiper.pagination.$el[0]);
+    }
+  },
+  init: function init() {
+    var swiper = this;
+    var params = swiper.params.pagination;
+    if (!params.el) return;
+    var $el = dom(params.el);
+    if ($el.length === 0) return;
+
+    if (swiper.params.uniqueNavElements && typeof params.el === 'string' && $el.length > 1) {
+      $el = swiper.$el.find(params.el);
+    }
+
+    if (params.type === 'bullets' && params.clickable) {
+      $el.addClass(params.clickableClass);
+    }
+
+    $el.addClass(params.modifierClass + params.type);
+
+    if (params.type === 'bullets' && params.dynamicBullets) {
+      $el.addClass("".concat(params.modifierClass).concat(params.type, "-dynamic"));
+      swiper.pagination.dynamicBulletIndex = 0;
+
+      if (params.dynamicMainBullets < 1) {
+        params.dynamicMainBullets = 1;
+      }
+    }
+
+    if (params.type === 'progressbar' && params.progressbarOpposite) {
+      $el.addClass(params.progressbarOppositeClass);
+    }
+
+    if (params.clickable) {
+      $el.on('click', classesToSelector(params.bulletClass), function onClick(e) {
+        e.preventDefault();
+        var index = dom(this).index() * swiper.params.slidesPerGroup;
+        if (swiper.params.loop) index += swiper.loopedSlides;
+        swiper.slideTo(index);
+      });
+    }
+
+    utils_extend(swiper.pagination, {
+      $el: $el,
+      el: $el[0]
+    });
+  },
+  destroy: function destroy() {
+    var swiper = this;
+    var params = swiper.params.pagination;
+    if (!params.el || !swiper.pagination.el || !swiper.pagination.$el || swiper.pagination.$el.length === 0) return;
+    var $el = swiper.pagination.$el;
+    $el.removeClass(params.hiddenClass);
+    $el.removeClass(params.modifierClass + params.type);
+    if (swiper.pagination.bullets) swiper.pagination.bullets.removeClass(params.bulletActiveClass);
+
+    if (params.clickable) {
+      $el.off('click', classesToSelector(params.bulletClass));
+    }
+  }
+};
+/* harmony default export */ const pagination = ({
+  name: 'pagination',
+  params: {
+    pagination: {
+      el: null,
+      bulletElement: 'span',
+      clickable: false,
+      hideOnClick: false,
+      renderBullet: null,
+      renderProgressbar: null,
+      renderFraction: null,
+      renderCustom: null,
+      progressbarOpposite: false,
+      type: 'bullets',
+      // 'bullets' or 'progressbar' or 'fraction' or 'custom'
+      dynamicBullets: false,
+      dynamicMainBullets: 1,
+      formatFractionCurrent: function formatFractionCurrent(number) {
+        return number;
+      },
+      formatFractionTotal: function formatFractionTotal(number) {
+        return number;
+      },
+      bulletClass: 'swiper-pagination-bullet',
+      bulletActiveClass: 'swiper-pagination-bullet-active',
+      modifierClass: 'swiper-pagination-',
+      // NEW
+      currentClass: 'swiper-pagination-current',
+      totalClass: 'swiper-pagination-total',
+      hiddenClass: 'swiper-pagination-hidden',
+      progressbarFillClass: 'swiper-pagination-progressbar-fill',
+      progressbarOppositeClass: 'swiper-pagination-progressbar-opposite',
+      clickableClass: 'swiper-pagination-clickable',
+      // NEW
+      lockClass: 'swiper-pagination-lock'
+    }
+  },
+  create: function create() {
+    var swiper = this;
+    bindModuleMethods(swiper, {
+      pagination: pagination_objectSpread({
+        dynamicBulletIndex: 0
+      }, Pagination)
+    });
+  },
+  on: {
+    init: function init(swiper) {
+      swiper.pagination.init();
+      swiper.pagination.render();
+      swiper.pagination.update();
+    },
+    activeIndexChange: function activeIndexChange(swiper) {
+      if (swiper.params.loop) {
+        swiper.pagination.update();
+      } else if (typeof swiper.snapIndex === 'undefined') {
+        swiper.pagination.update();
+      }
+    },
+    snapIndexChange: function snapIndexChange(swiper) {
+      if (!swiper.params.loop) {
+        swiper.pagination.update();
+      }
+    },
+    slidesLengthChange: function slidesLengthChange(swiper) {
+      if (swiper.params.loop) {
+        swiper.pagination.render();
+        swiper.pagination.update();
+      }
+    },
+    snapGridLengthChange: function snapGridLengthChange(swiper) {
+      if (!swiper.params.loop) {
+        swiper.pagination.render();
+        swiper.pagination.update();
+      }
+    },
+    destroy: function destroy(swiper) {
+      swiper.pagination.destroy();
+    },
+    click: function click(swiper, e) {
+      var targetEl = e.target;
+
+      if (swiper.params.pagination.el && swiper.params.pagination.hideOnClick && swiper.pagination.$el.length > 0 && !dom(targetEl).hasClass(swiper.params.pagination.bulletClass)) {
+        if (swiper.navigation && (swiper.navigation.nextEl && targetEl === swiper.navigation.nextEl || swiper.navigation.prevEl && targetEl === swiper.navigation.prevEl)) return;
+        var isHidden = swiper.pagination.$el.hasClass(swiper.params.pagination.hiddenClass);
+
+        if (isHidden === true) {
+          swiper.emit('paginationShow');
+        } else {
+          swiper.emit('paginationHide');
+        }
+
+        swiper.pagination.$el.toggleClass(swiper.params.pagination.hiddenClass);
+      }
+    }
+  }
+});
+;// CONCATENATED MODULE: ./src/components/swiper/third-party/Swiper/src/components/navigation/navigation.js
+
+
+function navigation_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function navigation_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? navigation_ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : navigation_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+
+
+var Navigation = {
+  toggleEl: function toggleEl($el, disabled) {
+    $el[disabled ? 'addClass' : 'removeClass'](this.params.navigation.disabledClass);
+    if ($el[0] && $el[0].tagName === 'BUTTON') $el[0].disabled = disabled;
+  },
+  update: function update() {
+    // Update Navigation Buttons
+    var swiper = this;
+    var params = swiper.params.navigation;
+    var toggleEl = swiper.navigation.toggleEl;
+    if (swiper.params.loop) return;
+    var _swiper$navigation = swiper.navigation,
+        $nextEl = _swiper$navigation.$nextEl,
+        $prevEl = _swiper$navigation.$prevEl;
+
+    if ($prevEl && $prevEl.length > 0) {
+      if (swiper.isBeginning) {
+        toggleEl($prevEl, true);
+      } else {
+        toggleEl($prevEl, false);
+      }
+
+      $prevEl[swiper.params.watchOverflow && swiper.isLocked ? 'addClass' : 'removeClass'](params.lockClass);
+    }
+
+    if ($nextEl && $nextEl.length > 0) {
+      if (swiper.isEnd) {
+        toggleEl($nextEl, true);
+      } else {
+        toggleEl($nextEl, false);
+      }
+
+      $nextEl[swiper.params.watchOverflow && swiper.isLocked ? 'addClass' : 'removeClass'](params.lockClass);
+    }
+  },
+  onPrevClick: function onPrevClick(e) {
+    var swiper = this;
+    e.preventDefault();
+    if (swiper.isBeginning && !swiper.params.loop) return;
+    swiper.slidePrev();
+  },
+  onNextClick: function onNextClick(e) {
+    var swiper = this;
+    e.preventDefault();
+    if (swiper.isEnd && !swiper.params.loop) return;
+    swiper.slideNext();
+  },
+  init: function init() {
+    var swiper = this;
+    var params = swiper.params.navigation;
+    if (!(params.nextEl || params.prevEl)) return;
+    var $nextEl;
+    var $prevEl;
+
+    if (params.nextEl) {
+      $nextEl = dom(params.nextEl);
+
+      if (swiper.params.uniqueNavElements && typeof params.nextEl === 'string' && $nextEl.length > 1 && swiper.$el.find(params.nextEl).length === 1) {
+        $nextEl = swiper.$el.find(params.nextEl);
+      }
+    }
+
+    if (params.prevEl) {
+      $prevEl = dom(params.prevEl);
+
+      if (swiper.params.uniqueNavElements && typeof params.prevEl === 'string' && $prevEl.length > 1 && swiper.$el.find(params.prevEl).length === 1) {
+        $prevEl = swiper.$el.find(params.prevEl);
+      }
+    }
+
+    if ($nextEl && $nextEl.length > 0) {
+      $nextEl.on('click', swiper.navigation.onNextClick);
+    }
+
+    if ($prevEl && $prevEl.length > 0) {
+      $prevEl.on('click', swiper.navigation.onPrevClick);
+    }
+
+    utils_extend(swiper.navigation, {
+      $nextEl: $nextEl,
+      nextEl: $nextEl && $nextEl[0],
+      $prevEl: $prevEl,
+      prevEl: $prevEl && $prevEl[0]
+    });
+  },
+  destroy: function destroy() {
+    var swiper = this;
+    var _swiper$navigation2 = swiper.navigation,
+        $nextEl = _swiper$navigation2.$nextEl,
+        $prevEl = _swiper$navigation2.$prevEl;
+
+    if ($nextEl && $nextEl.length) {
+      $nextEl.off('click', swiper.navigation.onNextClick);
+      $nextEl.removeClass(swiper.params.navigation.disabledClass);
+    }
+
+    if ($prevEl && $prevEl.length) {
+      $prevEl.off('click', swiper.navigation.onPrevClick);
+      $prevEl.removeClass(swiper.params.navigation.disabledClass);
+    }
+  }
+};
+/* harmony default export */ const navigation = ({
+  name: 'navigation',
+  params: {
+    navigation: {
+      nextEl: null,
+      prevEl: null,
+      hideOnClick: false,
+      disabledClass: 'swiper-button-disabled',
+      hiddenClass: 'swiper-button-hidden',
+      lockClass: 'swiper-button-lock'
+    }
+  },
+  create: function create() {
+    var swiper = this;
+    bindModuleMethods(swiper, {
+      navigation: navigation_objectSpread({}, Navigation)
+    });
+  },
+  on: {
+    init: function init(swiper) {
+      swiper.navigation.init();
+      swiper.navigation.update();
+    },
+    toEdge: function toEdge(swiper) {
+      swiper.navigation.update();
+    },
+    fromEdge: function fromEdge(swiper) {
+      swiper.navigation.update();
+    },
+    destroy: function destroy(swiper) {
+      swiper.navigation.destroy();
+    },
+    click: function click(swiper, e) {
+      var _swiper$navigation3 = swiper.navigation,
+          $nextEl = _swiper$navigation3.$nextEl,
+          $prevEl = _swiper$navigation3.$prevEl;
+      var targetEl = e.target;
+
+      if (swiper.params.navigation.hideOnClick && !dom(targetEl).is($prevEl) && !dom(targetEl).is($nextEl)) {
+        if (swiper.pagination && swiper.params.pagination && swiper.params.pagination.clickable && (swiper.pagination.el === targetEl || swiper.pagination.el.contains(targetEl))) return;
+        var isHidden;
+
+        if ($nextEl) {
+          isHidden = $nextEl.hasClass(swiper.params.navigation.hiddenClass);
+        } else if ($prevEl) {
+          isHidden = $prevEl.hasClass(swiper.params.navigation.hiddenClass);
+        }
+
+        if (isHidden === true) {
+          swiper.emit('navigationShow');
+        } else {
+          swiper.emit('navigationHide');
+        }
+
+        if ($nextEl) {
+          $nextEl.toggleClass(swiper.params.navigation.hiddenClass);
+        }
+
+        if ($prevEl) {
+          $prevEl.toggleClass(swiper.params.navigation.hiddenClass);
+        }
+      }
+    }
+  }
+});
+;// CONCATENATED MODULE: ./src/components/swiper/third-party/Swiper/src/components/mousewheel/mousewheel.js
+
+
+
+
+function isEventSupported() {
+  var document = getDocument();
+  var eventName = 'onwheel';
+  var isSupported = (eventName in document);
+
+  if (!isSupported) {
+    var element = document.createElement('div');
+    element.setAttribute(eventName, 'return;');
+    isSupported = typeof element[eventName] === 'function';
+  }
+
+  if (!isSupported && document.implementation && document.implementation.hasFeature && // always returns true in newer browsers as per the standard.
+  // @see http://dom.spec.whatwg.org/#dom-domimplementation-hasfeature
+  document.implementation.hasFeature('', '') !== true) {
+    // This is the only way to test support for the `wheel` event in IE9+.
+    isSupported = document.implementation.hasFeature('Events.wheel', '3.0');
+  }
+
+  return isSupported;
+}
+
+var Mousewheel = {
+  lastScrollTime: now(),
+  lastEventBeforeSnap: undefined,
+  recentWheelEvents: [],
+  event: function event() {
+    var window = ssr_window_esm_getWindow();
+    if (window.navigator.userAgent.indexOf('firefox') > -1) return 'DOMMouseScroll';
+    return isEventSupported() ? 'wheel' : 'mousewheel';
+  },
+  normalize: function normalize(e) {
+    // Reasonable defaults
+    var PIXEL_STEP = 10;
+    var LINE_HEIGHT = 40;
+    var PAGE_HEIGHT = 800;
+    var sX = 0;
+    var sY = 0; // spinX, spinY
+
+    var pX = 0;
+    var pY = 0; // pixelX, pixelY
+    // Legacy
+
+    if ('detail' in e) {
+      sY = e.detail;
+    }
+
+    if ('wheelDelta' in e) {
+      sY = -e.wheelDelta / 120;
+    }
+
+    if ('wheelDeltaY' in e) {
+      sY = -e.wheelDeltaY / 120;
+    }
+
+    if ('wheelDeltaX' in e) {
+      sX = -e.wheelDeltaX / 120;
+    } // side scrolling on FF with DOMMouseScroll
+
+
+    if ('axis' in e && e.axis === e.HORIZONTAL_AXIS) {
+      sX = sY;
+      sY = 0;
+    }
+
+    pX = sX * PIXEL_STEP;
+    pY = sY * PIXEL_STEP;
+
+    if ('deltaY' in e) {
+      pY = e.deltaY;
+    }
+
+    if ('deltaX' in e) {
+      pX = e.deltaX;
+    }
+
+    if (e.shiftKey && !pX) {
+      // if user scrolls with shift he wants horizontal scroll
+      pX = pY;
+      pY = 0;
+    }
+
+    if ((pX || pY) && e.deltaMode) {
+      if (e.deltaMode === 1) {
+        // delta in LINE units
+        pX *= LINE_HEIGHT;
+        pY *= LINE_HEIGHT;
+      } else {
+        // delta in PAGE units
+        pX *= PAGE_HEIGHT;
+        pY *= PAGE_HEIGHT;
+      }
+    } // Fall-back if spin cannot be determined
+
+
+    if (pX && !sX) {
+      sX = pX < 1 ? -1 : 1;
+    }
+
+    if (pY && !sY) {
+      sY = pY < 1 ? -1 : 1;
+    }
+
+    return {
+      spinX: sX,
+      spinY: sY,
+      pixelX: pX,
+      pixelY: pY
+    };
+  },
+  handleMouseEnter: function handleMouseEnter() {
+    var swiper = this;
+    swiper.mouseEntered = true;
+  },
+  handleMouseLeave: function handleMouseLeave() {
+    var swiper = this;
+    swiper.mouseEntered = false;
+  },
+  handle: function handle(event) {
+    var e = event;
+    var disableParentSwiper = true;
+    var swiper = this;
+    var params = swiper.params.mousewheel;
+
+    if (swiper.params.cssMode) {
+      e.preventDefault();
+    }
+
+    var target = swiper.$el;
+
+    if (swiper.params.mousewheel.eventsTarget !== 'container') {
+      target = dom(swiper.params.mousewheel.eventsTarget);
+    }
+
+    if (!swiper.mouseEntered && !target[0].contains(e.target) && !params.releaseOnEdges) return true;
+    if (e.originalEvent) e = e.originalEvent; // jquery fix
+
+    var delta = 0;
+    var rtlFactor = swiper.rtlTranslate ? -1 : 1;
+    var data = Mousewheel.normalize(e);
+
+    if (params.forceToAxis) {
+      if (swiper.isHorizontal()) {
+        if (Math.abs(data.pixelX) > Math.abs(data.pixelY)) delta = -data.pixelX * rtlFactor;else return true;
+      } else if (Math.abs(data.pixelY) > Math.abs(data.pixelX)) delta = -data.pixelY;else return true;
+    } else {
+      delta = Math.abs(data.pixelX) > Math.abs(data.pixelY) ? -data.pixelX * rtlFactor : -data.pixelY;
+    }
+
+    if (delta === 0) return true;
+    if (params.invert) delta = -delta; // Get the scroll positions
+
+    var positions = swiper.getTranslate() + delta * params.sensitivity;
+    if (positions >= swiper.minTranslate()) positions = swiper.minTranslate();
+    if (positions <= swiper.maxTranslate()) positions = swiper.maxTranslate(); // When loop is true:
+    //     the disableParentSwiper will be true.
+    // When loop is false:
+    //     if the scroll positions is not on edge,
+    //     then the disableParentSwiper will be true.
+    //     if the scroll on edge positions,
+    //     then the disableParentSwiper will be false.
+
+    disableParentSwiper = swiper.params.loop ? true : !(positions === swiper.minTranslate() || positions === swiper.maxTranslate());
+    if (disableParentSwiper && swiper.params.nested) e.stopPropagation();
+
+    if (!swiper.params.freeMode) {
+      // Register the new event in a variable which stores the relevant data
+      var newEvent = {
+        time: now(),
+        delta: Math.abs(delta),
+        direction: Math.sign(delta),
+        raw: event
+      }; // Keep the most recent events
+
+      var recentWheelEvents = swiper.mousewheel.recentWheelEvents;
+
+      if (recentWheelEvents.length >= 2) {
+        recentWheelEvents.shift(); // only store the last N events
+      }
+
+      var prevEvent = recentWheelEvents.length ? recentWheelEvents[recentWheelEvents.length - 1] : undefined;
+      recentWheelEvents.push(newEvent); // If there is at least one previous recorded event:
+      //   If direction has changed or
+      //   if the scroll is quicker than the previous one:
+      //     Animate the slider.
+      // Else (this is the first time the wheel is moved):
+      //     Animate the slider.
+
+      if (prevEvent) {
+        if (newEvent.direction !== prevEvent.direction || newEvent.delta > prevEvent.delta || newEvent.time > prevEvent.time + 150) {
+          swiper.mousewheel.animateSlider(newEvent);
+        }
+      } else {
+        swiper.mousewheel.animateSlider(newEvent);
+      } // If it's time to release the scroll:
+      //   Return now so you don't hit the preventDefault.
+
+
+      if (swiper.mousewheel.releaseScroll(newEvent)) {
+        return true;
+      }
+    } else {
+      // Freemode or scrollContainer:
+      // If we recently snapped after a momentum scroll, then ignore wheel events
+      // to give time for the deceleration to finish. Stop ignoring after 500 msecs
+      // or if it's a new scroll (larger delta or inverse sign as last event before
+      // an end-of-momentum snap).
+      var _newEvent = {
+        time: now(),
+        delta: Math.abs(delta),
+        direction: Math.sign(delta)
+      };
+      var lastEventBeforeSnap = swiper.mousewheel.lastEventBeforeSnap;
+      var ignoreWheelEvents = lastEventBeforeSnap && _newEvent.time < lastEventBeforeSnap.time + 500 && _newEvent.delta <= lastEventBeforeSnap.delta && _newEvent.direction === lastEventBeforeSnap.direction;
+
+      if (!ignoreWheelEvents) {
+        swiper.mousewheel.lastEventBeforeSnap = undefined;
+
+        if (swiper.params.loop) {
+          swiper.loopFix();
+        }
+
+        var position = swiper.getTranslate() + delta * params.sensitivity;
+        var wasBeginning = swiper.isBeginning;
+        var wasEnd = swiper.isEnd;
+        if (position >= swiper.minTranslate()) position = swiper.minTranslate();
+        if (position <= swiper.maxTranslate()) position = swiper.maxTranslate();
+        swiper.setTransition(0);
+        swiper.setTranslate(position);
+        swiper.updateProgress();
+        swiper.updateActiveIndex();
+        swiper.updateSlidesClasses();
+
+        if (!wasBeginning && swiper.isBeginning || !wasEnd && swiper.isEnd) {
+          swiper.updateSlidesClasses();
+        }
+
+        if (swiper.params.freeModeSticky) {
+          // When wheel scrolling starts with sticky (aka snap) enabled, then detect
+          // the end of a momentum scroll by storing recent (N=15?) wheel events.
+          // 1. do all N events have decreasing or same (absolute value) delta?
+          // 2. did all N events arrive in the last M (M=500?) msecs?
+          // 3. does the earliest event have an (absolute value) delta that's
+          //    at least P (P=1?) larger than the most recent event's delta?
+          // 4. does the latest event have a delta that's smaller than Q (Q=6?) pixels?
+          // If 1-4 are "yes" then we're near the end of a momentum scroll deceleration.
+          // Snap immediately and ignore remaining wheel events in this scroll.
+          // See comment above for "remaining wheel events in this scroll" determination.
+          // If 1-4 aren't satisfied, then wait to snap until 500ms after the last event.
+          clearTimeout(swiper.mousewheel.timeout);
+          swiper.mousewheel.timeout = undefined;
+          var _recentWheelEvents = swiper.mousewheel.recentWheelEvents;
+
+          if (_recentWheelEvents.length >= 15) {
+            _recentWheelEvents.shift(); // only store the last N events
+
+          }
+
+          var _prevEvent = _recentWheelEvents.length ? _recentWheelEvents[_recentWheelEvents.length - 1] : undefined;
+
+          var firstEvent = _recentWheelEvents[0];
+
+          _recentWheelEvents.push(_newEvent);
+
+          if (_prevEvent && (_newEvent.delta > _prevEvent.delta || _newEvent.direction !== _prevEvent.direction)) {
+            // Increasing or reverse-sign delta means the user started scrolling again. Clear the wheel event log.
+            _recentWheelEvents.splice(0);
+          } else if (_recentWheelEvents.length >= 15 && _newEvent.time - firstEvent.time < 500 && firstEvent.delta - _newEvent.delta >= 1 && _newEvent.delta <= 6) {
+            // We're at the end of the deceleration of a momentum scroll, so there's no need
+            // to wait for more events. Snap ASAP on the next tick.
+            // Also, because there's some remaining momentum we'll bias the snap in the
+            // direction of the ongoing scroll because it's better UX for the scroll to snap
+            // in the same direction as the scroll instead of reversing to snap.  Therefore,
+            // if it's already scrolled more than 20% in the current direction, keep going.
+            var snapToThreshold = delta > 0 ? 0.8 : 0.2;
+            swiper.mousewheel.lastEventBeforeSnap = _newEvent;
+
+            _recentWheelEvents.splice(0);
+
+            swiper.mousewheel.timeout = nextTick(function () {
+              swiper.slideToClosest(swiper.params.speed, true, undefined, snapToThreshold);
+            }, 0); // no delay; move on next tick
+          }
+
+          if (!swiper.mousewheel.timeout) {
+            // if we get here, then we haven't detected the end of a momentum scroll, so
+            // we'll consider a scroll "complete" when there haven't been any wheel events
+            // for 500ms.
+            swiper.mousewheel.timeout = nextTick(function () {
+              var snapToThreshold = 0.5;
+              swiper.mousewheel.lastEventBeforeSnap = _newEvent;
+
+              _recentWheelEvents.splice(0);
+
+              swiper.slideToClosest(swiper.params.speed, true, undefined, snapToThreshold);
+            }, 500);
+          }
+        } // Emit event
+
+
+        if (!ignoreWheelEvents) swiper.emit('scroll', e); // Stop autoplay
+
+        if (swiper.params.autoplay && swiper.params.autoplayDisableOnInteraction) swiper.autoplay.stop(); // Return page scroll on edge positions
+
+        if (position === swiper.minTranslate() || position === swiper.maxTranslate()) return true;
+      }
+    }
+
+    if (e.preventDefault) e.preventDefault();else e.returnValue = false;
+    return false;
+  },
+  animateSlider: function animateSlider(newEvent) {
+    var swiper = this;
+    var window = ssr_window_esm_getWindow();
+
+    if (this.params.mousewheel.thresholdDelta && newEvent.delta < this.params.mousewheel.thresholdDelta) {
+      // Prevent if delta of wheel scroll delta is below configured threshold
+      return false;
+    }
+
+    if (this.params.mousewheel.thresholdTime && now() - swiper.mousewheel.lastScrollTime < this.params.mousewheel.thresholdTime) {
+      // Prevent if time between scrolls is below configured threshold
+      return false;
+    } // If the movement is NOT big enough and
+    // if the last time the user scrolled was too close to the current one (avoid continuously triggering the slider):
+    //   Don't go any further (avoid insignificant scroll movement).
+
+
+    if (newEvent.delta >= 6 && now() - swiper.mousewheel.lastScrollTime < 60) {
+      // Return false as a default
+      return true;
+    } // If user is scrolling towards the end:
+    //   If the slider hasn't hit the latest slide or
+    //   if the slider is a loop and
+    //   if the slider isn't moving right now:
+    //     Go to next slide and
+    //     emit a scroll event.
+    // Else (the user is scrolling towards the beginning) and
+    // if the slider hasn't hit the first slide or
+    // if the slider is a loop and
+    // if the slider isn't moving right now:
+    //   Go to prev slide and
+    //   emit a scroll event.
+
+
+    if (newEvent.direction < 0) {
+      if ((!swiper.isEnd || swiper.params.loop) && !swiper.animating) {
+        swiper.slideNext();
+        swiper.emit('scroll', newEvent.raw);
+      }
+    } else if ((!swiper.isBeginning || swiper.params.loop) && !swiper.animating) {
+      swiper.slidePrev();
+      swiper.emit('scroll', newEvent.raw);
+    } // If you got here is because an animation has been triggered so store the current time
+
+
+    swiper.mousewheel.lastScrollTime = new window.Date().getTime(); // Return false as a default
+
+    return false;
+  },
+  releaseScroll: function releaseScroll(newEvent) {
+    var swiper = this;
+    var params = swiper.params.mousewheel;
+
+    if (newEvent.direction < 0) {
+      if (swiper.isEnd && !swiper.params.loop && params.releaseOnEdges) {
+        // Return true to animate scroll on edges
+        return true;
+      }
+    } else if (swiper.isBeginning && !swiper.params.loop && params.releaseOnEdges) {
+      // Return true to animate scroll on edges
+      return true;
+    }
+
+    return false;
+  },
+  enable: function enable() {
+    var swiper = this;
+    var event = Mousewheel.event();
+
+    if (swiper.params.cssMode) {
+      swiper.wrapperEl.removeEventListener(event, swiper.mousewheel.handle);
+      return true;
+    }
+
+    if (!event) return false;
+    if (swiper.mousewheel.enabled) return false;
+    var target = swiper.$el;
+
+    if (swiper.params.mousewheel.eventsTarget !== 'container') {
+      target = dom(swiper.params.mousewheel.eventsTarget);
+    }
+
+    target.on('mouseenter', swiper.mousewheel.handleMouseEnter);
+    target.on('mouseleave', swiper.mousewheel.handleMouseLeave);
+    target.on(event, swiper.mousewheel.handle);
+    swiper.mousewheel.enabled = true;
+    return true;
+  },
+  disable: function disable() {
+    var swiper = this;
+    var event = Mousewheel.event();
+
+    if (swiper.params.cssMode) {
+      swiper.wrapperEl.addEventListener(event, swiper.mousewheel.handle);
+      return true;
+    }
+
+    if (!event) return false;
+    if (!swiper.mousewheel.enabled) return false;
+    var target = swiper.$el;
+
+    if (swiper.params.mousewheel.eventsTarget !== 'container') {
+      target = dom(swiper.params.mousewheel.eventsTarget);
+    }
+
+    target.off(event, swiper.mousewheel.handle);
+    swiper.mousewheel.enabled = false;
+    return true;
+  }
+};
+/* harmony default export */ const mousewheel = ({
+  name: 'mousewheel',
+  params: {
+    mousewheel: {
+      enabled: false,
+      releaseOnEdges: false,
+      invert: false,
+      forceToAxis: false,
+      sensitivity: 1,
+      eventsTarget: 'container',
+      thresholdDelta: null,
+      thresholdTime: null
+    }
+  },
+  create: function create() {
+    var swiper = this;
+    bindModuleMethods(swiper, {
+      mousewheel: {
+        enabled: false,
+        lastScrollTime: now(),
+        lastEventBeforeSnap: undefined,
+        recentWheelEvents: [],
+        enable: Mousewheel.enable,
+        disable: Mousewheel.disable,
+        handle: Mousewheel.handle,
+        handleMouseEnter: Mousewheel.handleMouseEnter,
+        handleMouseLeave: Mousewheel.handleMouseLeave,
+        animateSlider: Mousewheel.animateSlider,
+        releaseScroll: Mousewheel.releaseScroll
+      }
+    });
+  },
+  on: {
+    init: function init(swiper) {
+      if (!swiper.params.mousewheel.enabled && swiper.params.cssMode) {
+        swiper.mousewheel.disable();
+      }
+
+      if (swiper.params.mousewheel.enabled) swiper.mousewheel.enable();
+    },
+    destroy: function destroy(swiper) {
+      if (swiper.params.cssMode) {
+        swiper.mousewheel.enable();
+      }
+
+      if (swiper.mousewheel.enabled) swiper.mousewheel.disable();
+    }
+  }
+});
+;// CONCATENATED MODULE: ./src/components/swiper/third-party/Swiper/src/components/lazy/lazy.js
+
+
+function lazy_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function lazy_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? lazy_ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : lazy_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+
+
+
+var Lazy = {
+  loadInSlide: function loadInSlide(index) {
+    var loadInDuplicate = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+    var swiper = this;
+    var params = swiper.params.lazy;
+    if (typeof index === 'undefined') return;
+    if (swiper.slides.length === 0) return;
+    var isVirtual = swiper.virtual && swiper.params.virtual.enabled;
+    var $slideEl = isVirtual ? swiper.$wrapperEl.children(".".concat(swiper.params.slideClass, "[data-swiper-slide-index=\"").concat(index, "\"]")) : swiper.slides.eq(index);
+    var $images = $slideEl.find(".".concat(params.elementClass, ":not(.").concat(params.loadedClass, "):not(.").concat(params.loadingClass, ")"));
+
+    if ($slideEl.hasClass(params.elementClass) && !$slideEl.hasClass(params.loadedClass) && !$slideEl.hasClass(params.loadingClass)) {
+      $images.push($slideEl[0]);
+    }
+
+    if ($images.length === 0) return;
+    $images.each(function (imageEl) {
+      var $imageEl = dom(imageEl);
+      $imageEl.addClass(params.loadingClass);
+      var background = $imageEl.attr('data-background');
+      var src = $imageEl.attr('data-src');
+      var srcset = $imageEl.attr('data-srcset');
+      var sizes = $imageEl.attr('data-sizes');
+      var $pictureEl = $imageEl.parent('picture');
+      swiper.loadImage($imageEl[0], src || background, srcset, sizes, false, function () {
+        if (typeof swiper === 'undefined' || swiper === null || !swiper || swiper && !swiper.params || swiper.destroyed) return;
+
+        if (background) {
+          $imageEl.css('background-image', "url(\"".concat(background, "\")"));
+          $imageEl.removeAttr('data-background');
+        } else {
+          if (srcset) {
+            $imageEl.attr('srcset', srcset);
+            $imageEl.removeAttr('data-srcset');
+          }
+
+          if (sizes) {
+            $imageEl.attr('sizes', sizes);
+            $imageEl.removeAttr('data-sizes');
+          }
+
+          if ($pictureEl.length) {
+            $pictureEl.children('source').each(function (sourceEl) {
+              var $source = dom(sourceEl);
+
+              if ($source.attr('data-srcset')) {
+                $source.attr('srcset', $source.attr('data-srcset'));
+                $source.removeAttr('data-srcset');
+              }
+            });
+          }
+
+          if (src) {
+            $imageEl.attr('src', src);
+            $imageEl.removeAttr('data-src');
+          }
+        }
+
+        $imageEl.addClass(params.loadedClass).removeClass(params.loadingClass);
+        $slideEl.find(".".concat(params.preloaderClass)).remove();
+
+        if (swiper.params.loop && loadInDuplicate) {
+          var slideOriginalIndex = $slideEl.attr('data-swiper-slide-index');
+
+          if ($slideEl.hasClass(swiper.params.slideDuplicateClass)) {
+            var originalSlide = swiper.$wrapperEl.children("[data-swiper-slide-index=\"".concat(slideOriginalIndex, "\"]:not(.").concat(swiper.params.slideDuplicateClass, ")"));
+            swiper.lazy.loadInSlide(originalSlide.index(), false);
+          } else {
+            var duplicatedSlide = swiper.$wrapperEl.children(".".concat(swiper.params.slideDuplicateClass, "[data-swiper-slide-index=\"").concat(slideOriginalIndex, "\"]"));
+            swiper.lazy.loadInSlide(duplicatedSlide.index(), false);
+          }
+        }
+
+        swiper.emit('lazyImageReady', $slideEl[0], $imageEl[0]);
+
+        if (swiper.params.autoHeight) {
+          swiper.updateAutoHeight();
+        }
+      });
+      swiper.emit('lazyImageLoad', $slideEl[0], $imageEl[0]);
+    });
+  },
+  load: function load() {
+    var swiper = this;
+    var $wrapperEl = swiper.$wrapperEl,
+        swiperParams = swiper.params,
+        slides = swiper.slides,
+        activeIndex = swiper.activeIndex;
+    var isVirtual = swiper.virtual && swiperParams.virtual.enabled;
+    var params = swiperParams.lazy;
+    var slidesPerView = swiperParams.slidesPerView;
+
+    if (slidesPerView === 'auto') {
+      slidesPerView = 0;
+    }
+
+    function slideExist(index) {
+      if (isVirtual) {
+        if ($wrapperEl.children(".".concat(swiperParams.slideClass, "[data-swiper-slide-index=\"").concat(index, "\"]")).length) {
+          return true;
+        }
+      } else if (slides[index]) return true;
+
+      return false;
+    }
+
+    function slideIndex(slideEl) {
+      if (isVirtual) {
+        return dom(slideEl).attr('data-swiper-slide-index');
+      }
+
+      return dom(slideEl).index();
+    }
+
+    if (!swiper.lazy.initialImageLoaded) swiper.lazy.initialImageLoaded = true;
+
+    if (swiper.params.watchSlidesVisibility) {
+      $wrapperEl.children(".".concat(swiperParams.slideVisibleClass)).each(function (slideEl) {
+        var index = isVirtual ? dom(slideEl).attr('data-swiper-slide-index') : dom(slideEl).index();
+        swiper.lazy.loadInSlide(index);
+      });
+    } else if (slidesPerView > 1) {
+      for (var i = activeIndex; i < activeIndex + slidesPerView; i += 1) {
+        if (slideExist(i)) swiper.lazy.loadInSlide(i);
+      }
+    } else {
+      swiper.lazy.loadInSlide(activeIndex);
+    }
+
+    if (params.loadPrevNext) {
+      if (slidesPerView > 1 || params.loadPrevNextAmount && params.loadPrevNextAmount > 1) {
+        var amount = params.loadPrevNextAmount;
+        var spv = slidesPerView;
+        var maxIndex = Math.min(activeIndex + spv + Math.max(amount, spv), slides.length);
+        var minIndex = Math.max(activeIndex - Math.max(spv, amount), 0); // Next Slides
+
+        for (var _i = activeIndex + slidesPerView; _i < maxIndex; _i += 1) {
+          if (slideExist(_i)) swiper.lazy.loadInSlide(_i);
+        } // Prev Slides
+
+
+        for (var _i2 = minIndex; _i2 < activeIndex; _i2 += 1) {
+          if (slideExist(_i2)) swiper.lazy.loadInSlide(_i2);
+        }
+      } else {
+        var nextSlide = $wrapperEl.children(".".concat(swiperParams.slideNextClass));
+        if (nextSlide.length > 0) swiper.lazy.loadInSlide(slideIndex(nextSlide));
+        var prevSlide = $wrapperEl.children(".".concat(swiperParams.slidePrevClass));
+        if (prevSlide.length > 0) swiper.lazy.loadInSlide(slideIndex(prevSlide));
+      }
+    }
+  },
+  checkInViewOnLoad: function checkInViewOnLoad() {
+    var window = ssr_window_esm_getWindow();
+    var swiper = this;
+    if (!swiper || swiper.destroyed) return;
+    var $scrollElement = swiper.params.lazy.scrollingElement ? dom(swiper.params.lazy.scrollingElement) : dom(window);
+    var isWindow = $scrollElement[0] === window;
+    var scrollElementWidth = isWindow ? window.innerWidth : $scrollElement[0].offsetWidth;
+    var scrollElementHeight = isWindow ? window.innerHeight : $scrollElement[0].offsetHeight;
+    var swiperOffset = swiper.$el.offset();
+    var rtl = swiper.rtlTranslate;
+    var inView = false;
+    if (rtl) swiperOffset.left -= swiper.$el[0].scrollLeft;
+    var swiperCoord = [[swiperOffset.left, swiperOffset.top], [swiperOffset.left + swiper.width, swiperOffset.top], [swiperOffset.left, swiperOffset.top + swiper.height], [swiperOffset.left + swiper.width, swiperOffset.top + swiper.height]];
+
+    for (var i = 0; i < swiperCoord.length; i += 1) {
+      var point = swiperCoord[i];
+
+      if (point[0] >= 0 && point[0] <= scrollElementWidth && point[1] >= 0 && point[1] <= scrollElementHeight) {
+        if (point[0] === 0 && point[1] === 0) continue; // eslint-disable-line
+
+        inView = true;
+      }
+    }
+
+    if (inView) {
+      swiper.lazy.load();
+      $scrollElement.off('scroll', swiper.lazy.checkInViewOnLoad);
+    } else if (!swiper.lazy.scrollHandlerAttached) {
+      swiper.lazy.scrollHandlerAttached = true;
+      $scrollElement.on('scroll', swiper.lazy.checkInViewOnLoad);
+    }
+  }
+};
+/* harmony default export */ const lazy = ({
+  name: 'lazy',
+  params: {
+    lazy: {
+      checkInView: false,
+      enabled: false,
+      loadPrevNext: false,
+      loadPrevNextAmount: 1,
+      loadOnTransitionStart: false,
+      scrollingElement: '',
+      elementClass: 'swiper-lazy',
+      loadingClass: 'swiper-lazy-loading',
+      loadedClass: 'swiper-lazy-loaded',
+      preloaderClass: 'swiper-lazy-preloader'
+    }
+  },
+  create: function create() {
+    var swiper = this;
+    bindModuleMethods(swiper, {
+      lazy: lazy_objectSpread({
+        initialImageLoaded: false
+      }, Lazy)
+    });
+  },
+  on: {
+    beforeInit: function beforeInit(swiper) {
+      if (swiper.params.lazy.enabled && swiper.params.preloadImages) {
+        swiper.params.preloadImages = false;
+      }
+    },
+    init: function init(swiper) {
+      if (swiper.params.lazy.enabled && !swiper.params.loop && swiper.params.initialSlide === 0) {
+        if (swiper.params.lazy.checkInView) {
+          swiper.lazy.checkInViewOnLoad();
+        } else {
+          swiper.lazy.load();
+        }
+      }
+    },
+    scroll: function scroll(swiper) {
+      if (swiper.params.freeMode && !swiper.params.freeModeSticky) {
+        swiper.lazy.load();
+      }
+    },
+    'scrollbarDragMove resize _freeModeNoMomentumRelease': function lazyLoad(swiper) {
+      if (swiper.params.lazy.enabled) {
+        swiper.lazy.load();
+      }
+    },
+    transitionStart: function transitionStart(swiper) {
+      if (swiper.params.lazy.enabled) {
+        if (swiper.params.lazy.loadOnTransitionStart || !swiper.params.lazy.loadOnTransitionStart && !swiper.lazy.initialImageLoaded) {
+          swiper.lazy.load();
+        }
+      }
+    },
+    transitionEnd: function transitionEnd(swiper) {
+      if (swiper.params.lazy.enabled && !swiper.params.lazy.loadOnTransitionStart) {
+        swiper.lazy.load();
+      }
+    },
+    slideChange: function slideChange(swiper) {
+      if (swiper.params.lazy.enabled && swiper.params.cssMode) {
+        swiper.lazy.load();
+      }
+    }
+  }
+});
+;// CONCATENATED MODULE: ./src/components/swiper/third-party/Swiper/src/components/keyboard/keyboard.js
+
+
+function keyboard_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function keyboard_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? keyboard_ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : keyboard_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+
+
+
+var Keyboard = {
+  handle: function handle(event) {
+    var swiper = this;
+    var window = ssr_window_esm_getWindow();
+    var document = getDocument();
+    var rtl = swiper.rtlTranslate;
+    var e = event;
+    if (e.originalEvent) e = e.originalEvent; // jquery fix
+
+    var kc = e.keyCode || e.charCode;
+    var pageUpDown = swiper.params.keyboard.pageUpDown;
+    var isPageUp = pageUpDown && kc === 33;
+    var isPageDown = pageUpDown && kc === 34;
+    var isArrowLeft = kc === 37;
+    var isArrowRight = kc === 39;
+    var isArrowUp = kc === 38;
+    var isArrowDown = kc === 40; // Directions locks
+
+    if (!swiper.allowSlideNext && (swiper.isHorizontal() && isArrowRight || swiper.isVertical() && isArrowDown || isPageDown)) {
+      return false;
+    }
+
+    if (!swiper.allowSlidePrev && (swiper.isHorizontal() && isArrowLeft || swiper.isVertical() && isArrowUp || isPageUp)) {
+      return false;
+    }
+
+    if (e.shiftKey || e.altKey || e.ctrlKey || e.metaKey) {
+      return undefined;
+    }
+
+    if (document.activeElement && document.activeElement.nodeName && (document.activeElement.nodeName.toLowerCase() === 'input' || document.activeElement.nodeName.toLowerCase() === 'textarea')) {
+      return undefined;
+    }
+
+    if (swiper.params.keyboard.onlyInViewport && (isPageUp || isPageDown || isArrowLeft || isArrowRight || isArrowUp || isArrowDown)) {
+      var inView = false; // Check that swiper should be inside of visible area of window
+
+      if (swiper.$el.parents(".".concat(swiper.params.slideClass)).length > 0 && swiper.$el.parents(".".concat(swiper.params.slideActiveClass)).length === 0) {
+        return undefined;
+      }
+
+      var $el = swiper.$el;
+      var swiperWidth = $el[0].clientWidth;
+      var swiperHeight = $el[0].clientHeight;
+      var windowWidth = window.innerWidth;
+      var windowHeight = window.innerHeight;
+      var swiperOffset = swiper.$el.offset();
+      if (rtl) swiperOffset.left -= swiper.$el[0].scrollLeft;
+      var swiperCoord = [[swiperOffset.left, swiperOffset.top], [swiperOffset.left + swiperWidth, swiperOffset.top], [swiperOffset.left, swiperOffset.top + swiperHeight], [swiperOffset.left + swiperWidth, swiperOffset.top + swiperHeight]];
+
+      for (var i = 0; i < swiperCoord.length; i += 1) {
+        var point = swiperCoord[i];
+
+        if (point[0] >= 0 && point[0] <= windowWidth && point[1] >= 0 && point[1] <= windowHeight) {
+          if (point[0] === 0 && point[1] === 0) continue; // eslint-disable-line
+
+          inView = true;
+        }
+      }
+
+      if (!inView) return undefined;
+    }
+
+    if (swiper.isHorizontal()) {
+      if (isPageUp || isPageDown || isArrowLeft || isArrowRight) {
+        if (e.preventDefault) e.preventDefault();else e.returnValue = false;
+      }
+
+      if ((isPageDown || isArrowRight) && !rtl || (isPageUp || isArrowLeft) && rtl) swiper.slideNext();
+      if ((isPageUp || isArrowLeft) && !rtl || (isPageDown || isArrowRight) && rtl) swiper.slidePrev();
+    } else {
+      if (isPageUp || isPageDown || isArrowUp || isArrowDown) {
+        if (e.preventDefault) e.preventDefault();else e.returnValue = false;
+      }
+
+      if (isPageDown || isArrowDown) swiper.slideNext();
+      if (isPageUp || isArrowUp) swiper.slidePrev();
+    }
+
+    swiper.emit('keyPress', kc);
+    return undefined;
+  },
+  enable: function enable() {
+    var swiper = this;
+    var document = getDocument();
+    if (swiper.keyboard.enabled) return;
+    dom(document).on('keydown', swiper.keyboard.handle);
+    swiper.keyboard.enabled = true;
+  },
+  disable: function disable() {
+    var swiper = this;
+    var document = getDocument();
+    if (!swiper.keyboard.enabled) return;
+    dom(document).off('keydown', swiper.keyboard.handle);
+    swiper.keyboard.enabled = false;
+  }
+};
+/* harmony default export */ const keyboard = ({
+  name: 'keyboard',
+  params: {
+    keyboard: {
+      enabled: false,
+      onlyInViewport: true,
+      pageUpDown: true
+    }
+  },
+  create: function create() {
+    var swiper = this;
+    bindModuleMethods(swiper, {
+      keyboard: keyboard_objectSpread({
+        enabled: false
+      }, Keyboard)
+    });
+  },
+  on: {
+    init: function init(swiper) {
+      if (swiper.params.keyboard.enabled) {
+        swiper.keyboard.enable();
+      }
+    },
+    destroy: function destroy(swiper) {
+      if (swiper.keyboard.enabled) {
+        swiper.keyboard.disable();
+      }
+    }
+  }
+});
+;// CONCATENATED MODULE: ./src/components/swiper/third-party/Swiper/src/components/history/history.js
+
+
+function history_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function history_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? history_ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : history_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+
+
+var History = {
+  init: function init() {
+    var swiper = this;
+    var window = ssr_window_esm_getWindow();
+    if (!swiper.params.history) return;
+
+    if (!window.history || !window.history.pushState) {
+      swiper.params.history.enabled = false;
+      swiper.params.hashNavigation.enabled = true;
+      return;
+    }
+
+    var history = swiper.history;
+    history.initialized = true;
+    history.paths = History.getPathValues(swiper.params.url);
+    if (!history.paths.key && !history.paths.value) return;
+    history.scrollToSlide(0, history.paths.value, swiper.params.runCallbacksOnInit);
+
+    if (!swiper.params.history.replaceState) {
+      window.addEventListener('popstate', swiper.history.setHistoryPopState);
+    }
+  },
+  destroy: function destroy() {
+    var swiper = this;
+    var window = ssr_window_esm_getWindow();
+
+    if (!swiper.params.history.replaceState) {
+      window.removeEventListener('popstate', swiper.history.setHistoryPopState);
+    }
+  },
+  setHistoryPopState: function setHistoryPopState() {
+    var swiper = this;
+    swiper.history.paths = History.getPathValues(swiper.params.url);
+    swiper.history.scrollToSlide(swiper.params.speed, swiper.history.paths.value, false);
+  },
+  getPathValues: function getPathValues(urlOverride) {
+    var window = ssr_window_esm_getWindow();
+    var location;
+
+    if (urlOverride) {
+      location = new URL(urlOverride);
+    } else {
+      location = window.location;
+    }
+
+    var pathArray = location.pathname.slice(1).split('/').filter(function (part) {
+      return part !== '';
+    });
+    var total = pathArray.length;
+    var key = pathArray[total - 2];
+    var value = pathArray[total - 1];
+    return {
+      key: key,
+      value: value
+    };
+  },
+  setHistory: function setHistory(key, index) {
+    var swiper = this;
+    var window = ssr_window_esm_getWindow();
+    if (!swiper.history.initialized || !swiper.params.history.enabled) return;
+    var location;
+
+    if (swiper.params.url) {
+      location = new URL(swiper.params.url);
+    } else {
+      location = window.location;
+    }
+
+    var slide = swiper.slides.eq(index);
+    var value = History.slugify(slide.attr('data-history'));
+
+    if (swiper.params.history.root.length > 0) {
+      var root = swiper.params.history.root;
+      if (root[root.length - 1] === '/') root = root.slice(0, root.length - 1);
+      value = "".concat(root, "/").concat(key, "/").concat(value);
+    } else if (!location.pathname.includes(key)) {
+      value = "".concat(key, "/").concat(value);
+    }
+
+    var currentState = window.history.state;
+
+    if (currentState && currentState.value === value) {
+      return;
+    }
+
+    if (swiper.params.history.replaceState) {
+      window.history.replaceState({
+        value: value
+      }, null, value);
+    } else {
+      window.history.pushState({
+        value: value
+      }, null, value);
+    }
+  },
+  slugify: function slugify(text) {
+    return text.toString().replace(/\s+/g, '-').replace(/[^\w-]+/g, '').replace(/--+/g, '-').replace(/^-+/, '').replace(/-+$/, '');
+  },
+  scrollToSlide: function scrollToSlide(speed, value, runCallbacks) {
+    var swiper = this;
+
+    if (value) {
+      for (var i = 0, length = swiper.slides.length; i < length; i += 1) {
+        var slide = swiper.slides.eq(i);
+        var slideHistory = History.slugify(slide.attr('data-history'));
+
+        if (slideHistory === value && !slide.hasClass(swiper.params.slideDuplicateClass)) {
+          var index = slide.index();
+          swiper.slideTo(index, speed, runCallbacks);
+        }
+      }
+    } else {
+      swiper.slideTo(0, speed, runCallbacks);
+    }
+  }
+};
+/* harmony default export */ const history_history = ({
+  name: 'history',
+  params: {
+    history: {
+      enabled: false,
+      root: '',
+      replaceState: false,
+      key: 'slides'
+    }
+  },
+  create: function create() {
+    var swiper = this;
+    bindModuleMethods(swiper, {
+      history: history_objectSpread({}, History)
+    });
+  },
+  on: {
+    init: function init(swiper) {
+      if (swiper.params.history.enabled) {
+        swiper.history.init();
+      }
+    },
+    destroy: function destroy(swiper) {
+      if (swiper.params.history.enabled) {
+        swiper.history.destroy();
+      }
+    },
+    'transitionEnd _freeModeNoMomentumRelease': function transitionEnd_freeModeNoMomentumRelease(swiper) {
+      if (swiper.history.initialized) {
+        swiper.history.setHistory(swiper.params.history.key, swiper.activeIndex);
+      }
+    },
+    slideChange: function slideChange(swiper) {
+      if (swiper.history.initialized && swiper.params.cssMode) {
+        swiper.history.setHistory(swiper.params.history.key, swiper.activeIndex);
+      }
+    }
+  }
+});
+;// CONCATENATED MODULE: ./src/components/swiper/third-party/Swiper/src/components/hash-navigation/hash-navigation.js
+
+
+function hash_navigation_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function hash_navigation_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? hash_navigation_ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : hash_navigation_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+
+
+
+var HashNavigation = {
+  onHashCange: function onHashCange() {
+    var swiper = this;
+    var document = getDocument();
+    swiper.emit('hashChange');
+    var newHash = document.location.hash.replace('#', '');
+    var activeSlideHash = swiper.slides.eq(swiper.activeIndex).attr('data-hash');
+
+    if (newHash !== activeSlideHash) {
+      var newIndex = swiper.$wrapperEl.children(".".concat(swiper.params.slideClass, "[data-hash=\"").concat(newHash, "\"]")).index();
+      if (typeof newIndex === 'undefined') return;
+      swiper.slideTo(newIndex);
+    }
+  },
+  setHash: function setHash() {
+    var swiper = this;
+    var window = ssr_window_esm_getWindow();
+    var document = getDocument();
+    if (!swiper.hashNavigation.initialized || !swiper.params.hashNavigation.enabled) return;
+
+    if (swiper.params.hashNavigation.replaceState && window.history && window.history.replaceState) {
+      window.history.replaceState(null, null, "#".concat(swiper.slides.eq(swiper.activeIndex).attr('data-hash')) || 0);
+      swiper.emit('hashSet');
+    } else {
+      var slide = swiper.slides.eq(swiper.activeIndex);
+      var hash = slide.attr('data-hash') || slide.attr('data-history');
+      document.location.hash = hash || '';
+      swiper.emit('hashSet');
+    }
+  },
+  init: function init() {
+    var swiper = this;
+    var document = getDocument();
+    var window = ssr_window_esm_getWindow();
+    if (!swiper.params.hashNavigation.enabled || swiper.params.history && swiper.params.history.enabled) return;
+    swiper.hashNavigation.initialized = true;
+    var hash = document.location.hash.replace('#', '');
+
+    if (hash) {
+      var speed = 0;
+
+      for (var i = 0, length = swiper.slides.length; i < length; i += 1) {
+        var slide = swiper.slides.eq(i);
+        var slideHash = slide.attr('data-hash') || slide.attr('data-history');
+
+        if (slideHash === hash && !slide.hasClass(swiper.params.slideDuplicateClass)) {
+          var index = slide.index();
+          swiper.slideTo(index, speed, swiper.params.runCallbacksOnInit, true);
+        }
+      }
+    }
+
+    if (swiper.params.hashNavigation.watchState) {
+      dom(window).on('hashchange', swiper.hashNavigation.onHashCange);
+    }
+  },
+  destroy: function destroy() {
+    var swiper = this;
+    var window = ssr_window_esm_getWindow();
+
+    if (swiper.params.hashNavigation.watchState) {
+      dom(window).off('hashchange', swiper.hashNavigation.onHashCange);
+    }
+  }
+};
+/* harmony default export */ const hash_navigation = ({
+  name: 'hash-navigation',
+  params: {
+    hashNavigation: {
+      enabled: false,
+      replaceState: false,
+      watchState: false
+    }
+  },
+  create: function create() {
+    var swiper = this;
+    bindModuleMethods(swiper, {
+      hashNavigation: hash_navigation_objectSpread({
+        initialized: false
+      }, HashNavigation)
+    });
+  },
+  on: {
+    init: function init(swiper) {
+      if (swiper.params.hashNavigation.enabled) {
+        swiper.hashNavigation.init();
+      }
+    },
+    destroy: function destroy(swiper) {
+      if (swiper.params.hashNavigation.enabled) {
+        swiper.hashNavigation.destroy();
+      }
+    },
+    'transitionEnd _freeModeNoMomentumRelease': function transitionEnd_freeModeNoMomentumRelease(swiper) {
+      if (swiper.hashNavigation.initialized) {
+        swiper.hashNavigation.setHash();
+      }
+    },
+    slideChange: function slideChange(swiper) {
+      if (swiper.hashNavigation.initialized && swiper.params.cssMode) {
+        swiper.hashNavigation.setHash();
+      }
+    }
+  }
+});
+;// CONCATENATED MODULE: ./src/components/swiper/third-party/Swiper/src/components/effect-flip/effect-flip.js
+
+
+function effect_flip_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function effect_flip_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? effect_flip_ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : effect_flip_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+
+
+var Flip = {
+  setTranslate: function setTranslate() {
+    var swiper = this;
+    var slides = swiper.slides,
+        rtl = swiper.rtlTranslate;
+
+    for (var i = 0; i < slides.length; i += 1) {
+      var $slideEl = slides.eq(i);
+      var progress = $slideEl[0].progress;
+
+      if (swiper.params.flipEffect.limitRotation) {
+        progress = Math.max(Math.min($slideEl[0].progress, 1), -1);
+      }
+
+      var offset = $slideEl[0].swiperSlideOffset;
+      var rotate = -180 * progress;
+      var rotateY = rotate;
+      var rotateX = 0;
+      var tx = -offset;
+      var ty = 0;
+
+      if (!swiper.isHorizontal()) {
+        ty = tx;
+        tx = 0;
+        rotateX = -rotateY;
+        rotateY = 0;
+      } else if (rtl) {
+        rotateY = -rotateY;
+      }
+
+      $slideEl[0].style.zIndex = -Math.abs(Math.round(progress)) + slides.length;
+
+      if (swiper.params.flipEffect.slideShadows) {
+        // Set shadows
+        var shadowBefore = swiper.isHorizontal() ? $slideEl.find('.swiper-slide-shadow-left') : $slideEl.find('.swiper-slide-shadow-top');
+        var shadowAfter = swiper.isHorizontal() ? $slideEl.find('.swiper-slide-shadow-right') : $slideEl.find('.swiper-slide-shadow-bottom');
+
+        if (shadowBefore.length === 0) {
+          shadowBefore = dom("<div class=\"swiper-slide-shadow-".concat(swiper.isHorizontal() ? 'left' : 'top', "\"></div>"));
+          $slideEl.append(shadowBefore);
+        }
+
+        if (shadowAfter.length === 0) {
+          shadowAfter = dom("<div class=\"swiper-slide-shadow-".concat(swiper.isHorizontal() ? 'right' : 'bottom', "\"></div>"));
+          $slideEl.append(shadowAfter);
+        }
+
+        if (shadowBefore.length) shadowBefore[0].style.opacity = Math.max(-progress, 0);
+        if (shadowAfter.length) shadowAfter[0].style.opacity = Math.max(progress, 0);
+      }
+
+      $slideEl.transform("translate3d(".concat(tx, "px, ").concat(ty, "px, 0px) rotateX(").concat(rotateX, "deg) rotateY(").concat(rotateY, "deg)"));
+    }
+  },
+  setTransition: function setTransition(duration) {
+    var swiper = this;
+    var slides = swiper.slides,
+        activeIndex = swiper.activeIndex,
+        $wrapperEl = swiper.$wrapperEl;
+    slides.transition(duration).find('.swiper-slide-shadow-top, .swiper-slide-shadow-right, .swiper-slide-shadow-bottom, .swiper-slide-shadow-left').transition(duration);
+
+    if (swiper.params.virtualTranslate && duration !== 0) {
+      var eventTriggered = false; // eslint-disable-next-line
+
+      slides.eq(activeIndex).transitionEnd(function onTransitionEnd() {
+        if (eventTriggered) return;
+        if (!swiper || swiper.destroyed) return; // if (!$(this).hasClass(swiper.params.slideActiveClass)) return;
+
+        eventTriggered = true;
+        swiper.animating = false;
+        var triggerEvents = ['webkitTransitionEnd', 'transitionend'];
+
+        for (var i = 0; i < triggerEvents.length; i += 1) {
+          $wrapperEl.trigger(triggerEvents[i]);
+        }
+      });
+    }
+  }
+};
+/* harmony default export */ const effect_flip = ({
+  name: 'effect-flip',
+  params: {
+    flipEffect: {
+      slideShadows: true,
+      limitRotation: true
+    }
+  },
+  create: function create() {
+    var swiper = this;
+    bindModuleMethods(swiper, {
+      flipEffect: effect_flip_objectSpread({}, Flip)
+    });
+  },
+  on: {
+    beforeInit: function beforeInit(swiper) {
+      if (swiper.params.effect !== 'flip') return;
+      swiper.classNames.push("".concat(swiper.params.containerModifierClass, "flip"));
+      swiper.classNames.push("".concat(swiper.params.containerModifierClass, "3d"));
+      var overwriteParams = {
+        slidesPerView: 1,
+        slidesPerColumn: 1,
+        slidesPerGroup: 1,
+        watchSlidesProgress: true,
+        spaceBetween: 0,
+        virtualTranslate: true
+      };
+      utils_extend(swiper.params, overwriteParams);
+      utils_extend(swiper.originalParams, overwriteParams);
+    },
+    setTranslate: function setTranslate(swiper) {
+      if (swiper.params.effect !== 'flip') return;
+      swiper.flipEffect.setTranslate();
+    },
+    setTransition: function setTransition(swiper, duration) {
+      if (swiper.params.effect !== 'flip') return;
+      swiper.flipEffect.setTransition(duration);
+    }
+  }
+});
+;// CONCATENATED MODULE: ./src/components/swiper/third-party/Swiper/src/components/effect-fade/effect-fade.js
+
+
+function effect_fade_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function effect_fade_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? effect_fade_ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : effect_fade_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+
+var Fade = {
+  setTranslate: function setTranslate() {
+    var swiper = this;
+    var slides = swiper.slides;
+
+    for (var i = 0; i < slides.length; i += 1) {
+      var $slideEl = swiper.slides.eq(i);
+      var offset = $slideEl[0].swiperSlideOffset;
+      var tx = -offset;
+      if (!swiper.params.virtualTranslate) tx -= swiper.translate;
+      var ty = 0;
+
+      if (!swiper.isHorizontal()) {
+        ty = tx;
+        tx = 0;
+      }
+
+      var slideOpacity = swiper.params.fadeEffect.crossFade ? Math.max(1 - Math.abs($slideEl[0].progress), 0) : 1 + Math.min(Math.max($slideEl[0].progress, -1), 0);
+      $slideEl.css({
+        opacity: slideOpacity
+      }).transform("translate3d(".concat(tx, "px, ").concat(ty, "px, 0px)"));
+    }
+  },
+  setTransition: function setTransition(duration) {
+    var swiper = this;
+    var slides = swiper.slides,
+        $wrapperEl = swiper.$wrapperEl;
+    slides.transition(duration);
+
+    if (swiper.params.virtualTranslate && duration !== 0) {
+      var eventTriggered = false;
+      slides.transitionEnd(function () {
+        if (eventTriggered) return;
+        if (!swiper || swiper.destroyed) return;
+        eventTriggered = true;
+        swiper.animating = false;
+        var triggerEvents = ['webkitTransitionEnd', 'transitionend'];
+
+        for (var i = 0; i < triggerEvents.length; i += 1) {
+          $wrapperEl.trigger(triggerEvents[i]);
+        }
+      });
+    }
+  }
+};
+/* harmony default export */ const effect_fade = ({
+  name: 'effect-fade',
+  params: {
+    fadeEffect: {
+      crossFade: false
+    }
+  },
+  create: function create() {
+    var swiper = this;
+    bindModuleMethods(swiper, {
+      fadeEffect: effect_fade_objectSpread({}, Fade)
+    });
+  },
+  on: {
+    beforeInit: function beforeInit(swiper) {
+      if (swiper.params.effect !== 'fade') return;
+      swiper.classNames.push("".concat(swiper.params.containerModifierClass, "fade"));
+      var overwriteParams = {
+        slidesPerView: 1,
+        slidesPerColumn: 1,
+        slidesPerGroup: 1,
+        watchSlidesProgress: true,
+        spaceBetween: 0,
+        virtualTranslate: true
+      };
+      utils_extend(swiper.params, overwriteParams);
+      utils_extend(swiper.originalParams, overwriteParams);
+    },
+    setTranslate: function setTranslate(swiper) {
+      if (swiper.params.effect !== 'fade') return;
+      swiper.fadeEffect.setTranslate();
+    },
+    setTransition: function setTransition(swiper, duration) {
+      if (swiper.params.effect !== 'fade') return;
+      swiper.fadeEffect.setTransition(duration);
+    }
+  }
+});
+;// CONCATENATED MODULE: ./src/components/swiper/third-party/Swiper/src/components/effect-cube/effect-cube.js
+
+
+function effect_cube_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function effect_cube_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? effect_cube_ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : effect_cube_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+
+
+var Cube = {
+  setTranslate: function setTranslate() {
+    var swiper = this;
+    var $el = swiper.$el,
+        $wrapperEl = swiper.$wrapperEl,
+        slides = swiper.slides,
+        swiperWidth = swiper.width,
+        swiperHeight = swiper.height,
+        rtl = swiper.rtlTranslate,
+        swiperSize = swiper.size,
+        UixBrowser = swiper.UixBrowser;
+    var params = swiper.params.cubeEffect;
+    var isHorizontal = swiper.isHorizontal();
+    var isVirtual = swiper.virtual && swiper.params.virtual.enabled;
+    var wrapperRotate = 0;
+    var $cubeShadowEl;
+
+    if (params.shadow) {
+      if (isHorizontal) {
+        $cubeShadowEl = $wrapperEl.find('.swiper-cube-shadow');
+
+        if ($cubeShadowEl.length === 0) {
+          $cubeShadowEl = dom('<div class="swiper-cube-shadow"></div>');
+          $wrapperEl.append($cubeShadowEl);
+        }
+
+        $cubeShadowEl.css({
+          height: "".concat(swiperWidth, "px")
+        });
+      } else {
+        $cubeShadowEl = $el.find('.swiper-cube-shadow');
+
+        if ($cubeShadowEl.length === 0) {
+          $cubeShadowEl = dom('<div class="swiper-cube-shadow"></div>');
+          $el.append($cubeShadowEl);
+        }
+      }
+    }
+
+    for (var i = 0; i < slides.length; i += 1) {
+      var $slideEl = slides.eq(i);
+      var slideIndex = i;
+
+      if (isVirtual) {
+        slideIndex = parseInt($slideEl.attr('data-swiper-slide-index'), 10);
+      }
+
+      var slideAngle = slideIndex * 90;
+      var round = Math.floor(slideAngle / 360);
+
+      if (rtl) {
+        slideAngle = -slideAngle;
+        round = Math.floor(-slideAngle / 360);
+      }
+
+      var progress = Math.max(Math.min($slideEl[0].progress, 1), -1);
+      var tx = 0;
+      var ty = 0;
+      var tz = 0;
+
+      if (slideIndex % 4 === 0) {
+        tx = -round * 4 * swiperSize;
+        tz = 0;
+      } else if ((slideIndex - 1) % 4 === 0) {
+        tx = 0;
+        tz = -round * 4 * swiperSize;
+      } else if ((slideIndex - 2) % 4 === 0) {
+        tx = swiperSize + round * 4 * swiperSize;
+        tz = swiperSize;
+      } else if ((slideIndex - 3) % 4 === 0) {
+        tx = -swiperSize;
+        tz = 3 * swiperSize + swiperSize * 4 * round;
+      }
+
+      if (rtl) {
+        tx = -tx;
+      }
+
+      if (!isHorizontal) {
+        ty = tx;
+        tx = 0;
+      }
+
+      var transform = "rotateX(".concat(isHorizontal ? 0 : -slideAngle, "deg) rotateY(").concat(isHorizontal ? slideAngle : 0, "deg) translate3d(").concat(tx, "px, ").concat(ty, "px, ").concat(tz, "px)");
+
+      if (progress <= 1 && progress > -1) {
+        wrapperRotate = slideIndex * 90 + progress * 90;
+        if (rtl) wrapperRotate = -slideIndex * 90 - progress * 90;
+      }
+
+      $slideEl.transform(transform);
+
+      if (params.slideShadows) {
+        // Set shadows
+        var shadowBefore = isHorizontal ? $slideEl.find('.swiper-slide-shadow-left') : $slideEl.find('.swiper-slide-shadow-top');
+        var shadowAfter = isHorizontal ? $slideEl.find('.swiper-slide-shadow-right') : $slideEl.find('.swiper-slide-shadow-bottom');
+
+        if (shadowBefore.length === 0) {
+          shadowBefore = dom("<div class=\"swiper-slide-shadow-".concat(isHorizontal ? 'left' : 'top', "\"></div>"));
+          $slideEl.append(shadowBefore);
+        }
+
+        if (shadowAfter.length === 0) {
+          shadowAfter = dom("<div class=\"swiper-slide-shadow-".concat(isHorizontal ? 'right' : 'bottom', "\"></div>"));
+          $slideEl.append(shadowAfter);
+        }
+
+        if (shadowBefore.length) shadowBefore[0].style.opacity = Math.max(-progress, 0);
+        if (shadowAfter.length) shadowAfter[0].style.opacity = Math.max(progress, 0);
+      }
+    }
+
+    $wrapperEl.css({
+      '-webkit-transform-origin': "50% 50% -".concat(swiperSize / 2, "px"),
+      '-moz-transform-origin': "50% 50% -".concat(swiperSize / 2, "px"),
+      '-ms-transform-origin': "50% 50% -".concat(swiperSize / 2, "px"),
+      'transform-origin': "50% 50% -".concat(swiperSize / 2, "px")
+    });
+
+    if (params.shadow) {
+      if (isHorizontal) {
+        $cubeShadowEl.transform("translate3d(0px, ".concat(swiperWidth / 2 + params.shadowOffset, "px, ").concat(-swiperWidth / 2, "px) rotateX(90deg) rotateZ(0deg) scale(").concat(params.shadowScale, ")"));
+      } else {
+        var shadowAngle = Math.abs(wrapperRotate) - Math.floor(Math.abs(wrapperRotate) / 90) * 90;
+        var multiplier = 1.5 - (Math.sin(shadowAngle * 2 * Math.PI / 360) / 2 + Math.cos(shadowAngle * 2 * Math.PI / 360) / 2);
+        var scale1 = params.shadowScale;
+        var scale2 = params.shadowScale / multiplier;
+        var offset = params.shadowOffset;
+        $cubeShadowEl.transform("scale3d(".concat(scale1, ", 1, ").concat(scale2, ") translate3d(0px, ").concat(swiperHeight / 2 + offset, "px, ").concat(-swiperHeight / 2 / scale2, "px) rotateX(-90deg)"));
+      }
+    }
+
+    var zFactor = browser.isSafari || browser.isWebView ? -swiperSize / 2 : 0;
+    $wrapperEl.transform("translate3d(0px,0,".concat(zFactor, "px) rotateX(").concat(swiper.isHorizontal() ? 0 : wrapperRotate, "deg) rotateY(").concat(swiper.isHorizontal() ? -wrapperRotate : 0, "deg)"));
+  },
+  setTransition: function setTransition(duration) {
+    var swiper = this;
+    var $el = swiper.$el,
+        slides = swiper.slides;
+    slides.transition(duration).find('.swiper-slide-shadow-top, .swiper-slide-shadow-right, .swiper-slide-shadow-bottom, .swiper-slide-shadow-left').transition(duration);
+
+    if (swiper.params.cubeEffect.shadow && !swiper.isHorizontal()) {
+      $el.find('.swiper-cube-shadow').transition(duration);
+    }
+  }
+};
+/* harmony default export */ const effect_cube = ({
+  name: 'effect-cube',
+  params: {
+    cubeEffect: {
+      slideShadows: true,
+      shadow: true,
+      shadowOffset: 20,
+      shadowScale: 0.94
+    }
+  },
+  create: function create() {
+    var swiper = this;
+    bindModuleMethods(swiper, {
+      cubeEffect: effect_cube_objectSpread({}, Cube)
+    });
+  },
+  on: {
+    beforeInit: function beforeInit(swiper) {
+      if (swiper.params.effect !== 'cube') return;
+      swiper.classNames.push("".concat(swiper.params.containerModifierClass, "cube"));
+      swiper.classNames.push("".concat(swiper.params.containerModifierClass, "3d"));
+      var overwriteParams = {
+        slidesPerView: 1,
+        slidesPerColumn: 1,
+        slidesPerGroup: 1,
+        watchSlidesProgress: true,
+        resistanceRatio: 0,
+        spaceBetween: 0,
+        centeredSlides: false,
+        virtualTranslate: true
+      };
+      utils_extend(swiper.params, overwriteParams);
+      utils_extend(swiper.originalParams, overwriteParams);
+    },
+    setTranslate: function setTranslate(swiper) {
+      if (swiper.params.effect !== 'cube') return;
+      swiper.cubeEffect.setTranslate();
+    },
+    setTransition: function setTransition(swiper, duration) {
+      if (swiper.params.effect !== 'cube') return;
+      swiper.cubeEffect.setTransition(duration);
+    }
+  }
+});
+;// CONCATENATED MODULE: ./src/components/swiper/third-party/Swiper/src/components/effect-coverflow/effect-coverflow.js
+
+
+function effect_coverflow_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function effect_coverflow_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? effect_coverflow_ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : effect_coverflow_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+
+
+var Coverflow = {
+  setTranslate: function setTranslate() {
+    var swiper = this;
+    var swiperWidth = swiper.width,
+        swiperHeight = swiper.height,
+        slides = swiper.slides,
+        slidesSizesGrid = swiper.slidesSizesGrid;
+    var params = swiper.params.coverflowEffect;
+    var isHorizontal = swiper.isHorizontal();
+    var transform = swiper.translate;
+    var center = isHorizontal ? -transform + swiperWidth / 2 : -transform + swiperHeight / 2;
+    var rotate = isHorizontal ? params.rotate : -params.rotate;
+    var translate = params.depth; // Each slide offset from center
+
+    for (var i = 0, length = slides.length; i < length; i += 1) {
+      var $slideEl = slides.eq(i);
+      var slideSize = slidesSizesGrid[i];
+      var slideOffset = $slideEl[0].swiperSlideOffset;
+      var offsetMultiplier = (center - slideOffset - slideSize / 2) / slideSize * params.modifier;
+      var rotateY = isHorizontal ? rotate * offsetMultiplier : 0;
+      var rotateX = isHorizontal ? 0 : rotate * offsetMultiplier; // var rotateZ = 0
+
+      var translateZ = -translate * Math.abs(offsetMultiplier);
+      var stretch = params.stretch; // Allow percentage to make a relative stretch for responsive sliders
+
+      if (typeof stretch === 'string' && stretch.indexOf('%') !== -1) {
+        stretch = parseFloat(params.stretch) / 100 * slideSize;
+      }
+
+      var translateY = isHorizontal ? 0 : stretch * offsetMultiplier;
+      var translateX = isHorizontal ? stretch * offsetMultiplier : 0;
+      var scale = 1 - (1 - params.scale) * Math.abs(offsetMultiplier); // Fix for ultra small values
+
+      if (Math.abs(translateX) < 0.001) translateX = 0;
+      if (Math.abs(translateY) < 0.001) translateY = 0;
+      if (Math.abs(translateZ) < 0.001) translateZ = 0;
+      if (Math.abs(rotateY) < 0.001) rotateY = 0;
+      if (Math.abs(rotateX) < 0.001) rotateX = 0;
+      if (Math.abs(scale) < 0.001) scale = 0;
+      var slideTransform = "translate3d(".concat(translateX, "px,").concat(translateY, "px,").concat(translateZ, "px)  rotateX(").concat(rotateX, "deg) rotateY(").concat(rotateY, "deg) scale(").concat(scale, ")");
+      $slideEl.transform(slideTransform);
+      $slideEl[0].style.zIndex = -Math.abs(Math.round(offsetMultiplier)) + 1;
+
+      if (params.slideShadows) {
+        // Set shadows
+        var $shadowBeforeEl = isHorizontal ? $slideEl.find('.swiper-slide-shadow-left') : $slideEl.find('.swiper-slide-shadow-top');
+        var $shadowAfterEl = isHorizontal ? $slideEl.find('.swiper-slide-shadow-right') : $slideEl.find('.swiper-slide-shadow-bottom');
+
+        if ($shadowBeforeEl.length === 0) {
+          $shadowBeforeEl = dom("<div class=\"swiper-slide-shadow-".concat(isHorizontal ? 'left' : 'top', "\"></div>"));
+          $slideEl.append($shadowBeforeEl);
+        }
+
+        if ($shadowAfterEl.length === 0) {
+          $shadowAfterEl = dom("<div class=\"swiper-slide-shadow-".concat(isHorizontal ? 'right' : 'bottom', "\"></div>"));
+          $slideEl.append($shadowAfterEl);
+        }
+
+        if ($shadowBeforeEl.length) $shadowBeforeEl[0].style.opacity = offsetMultiplier > 0 ? offsetMultiplier : 0;
+        if ($shadowAfterEl.length) $shadowAfterEl[0].style.opacity = -offsetMultiplier > 0 ? -offsetMultiplier : 0;
+      }
+    }
+  },
+  setTransition: function setTransition(duration) {
+    var swiper = this;
+    swiper.slides.transition(duration).find('.swiper-slide-shadow-top, .swiper-slide-shadow-right, .swiper-slide-shadow-bottom, .swiper-slide-shadow-left').transition(duration);
+  }
+};
+/* harmony default export */ const effect_coverflow = ({
+  name: 'effect-coverflow',
+  params: {
+    coverflowEffect: {
+      rotate: 50,
+      stretch: 0,
+      depth: 100,
+      scale: 1,
+      modifier: 1,
+      slideShadows: true
+    }
+  },
+  create: function create() {
+    var swiper = this;
+    bindModuleMethods(swiper, {
+      coverflowEffect: effect_coverflow_objectSpread({}, Coverflow)
+    });
+  },
+  on: {
+    beforeInit: function beforeInit(swiper) {
+      if (swiper.params.effect !== 'coverflow') return;
+      swiper.classNames.push("".concat(swiper.params.containerModifierClass, "coverflow"));
+      swiper.classNames.push("".concat(swiper.params.containerModifierClass, "3d"));
+      swiper.params.watchSlidesProgress = true;
+      swiper.originalParams.watchSlidesProgress = true;
+    },
+    setTranslate: function setTranslate(swiper) {
+      if (swiper.params.effect !== 'coverflow') return;
+      swiper.coverflowEffect.setTranslate();
+    },
+    setTransition: function setTransition(swiper, duration) {
+      if (swiper.params.effect !== 'coverflow') return;
+      swiper.coverflowEffect.setTransition(duration);
+    }
+  }
+});
+;// CONCATENATED MODULE: ./src/components/swiper/third-party/Swiper/src/components/controller/controller.js
+
+
+function controller_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function controller_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? controller_ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : controller_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+/* eslint no-bitwise: ["error", { "allow": [">>"] }] */
+
+var Controller = {
+  LinearSpline: function LinearSpline(x, y) {
+    var binarySearch = function search() {
+      var maxIndex;
+      var minIndex;
+      var guess;
+      return function (array, val) {
+        minIndex = -1;
+        maxIndex = array.length;
+
+        while (maxIndex - minIndex > 1) {
+          guess = maxIndex + minIndex >> 1;
+
+          if (array[guess] <= val) {
+            minIndex = guess;
+          } else {
+            maxIndex = guess;
+          }
+        }
+
+        return maxIndex;
+      };
+    }();
+
+    this.x = x;
+    this.y = y;
+    this.lastIndex = x.length - 1; // Given an x value (x2), return the expected y2 value:
+    // (x1,y1) is the known point before given value,
+    // (x3,y3) is the known point after given value.
+
+    var i1;
+    var i3;
+
+    this.interpolate = function interpolate(x2) {
+      if (!x2) return 0; // Get the indexes of x1 and x3 (the array indexes before and after given x2):
+
+      i3 = binarySearch(this.x, x2);
+      i1 = i3 - 1; // We have our indexes i1 & i3, so we can calculate already:
+      // y2 := ((x2−x1) × (y3−y1)) ÷ (x3−x1) + y1
+
+      return (x2 - this.x[i1]) * (this.y[i3] - this.y[i1]) / (this.x[i3] - this.x[i1]) + this.y[i1];
+    };
+
+    return this;
+  },
+  // xxx: for now i will just save one spline function to to
+  getInterpolateFunction: function getInterpolateFunction(c) {
+    var swiper = this;
+
+    if (!swiper.controller.spline) {
+      swiper.controller.spline = swiper.params.loop ? new Controller.LinearSpline(swiper.slidesGrid, c.slidesGrid) : new Controller.LinearSpline(swiper.snapGrid, c.snapGrid);
+    }
+  },
+  setTranslate: function setTranslate(_setTranslate, byController) {
+    var swiper = this;
+    var controlled = swiper.controller.control;
+    var multiplier;
+    var controlledTranslate;
+    var Swiper = swiper.constructor;
+
+    function setControlledTranslate(c) {
+      // this will create an Interpolate function based on the snapGrids
+      // x is the Grid of the scrolled scroller and y will be the controlled scroller
+      // it makes sense to create this only once and recall it for the interpolation
+      // the function does a lot of value caching for performance
+      var translate = swiper.rtlTranslate ? -swiper.translate : swiper.translate;
+
+      if (swiper.params.controller.by === 'slide') {
+        swiper.controller.getInterpolateFunction(c); // i am not sure why the values have to be multiplicated this way, tried to invert the snapGrid
+        // but it did not work out
+
+        controlledTranslate = -swiper.controller.spline.interpolate(-translate);
+      }
+
+      if (!controlledTranslate || swiper.params.controller.by === 'container') {
+        multiplier = (c.maxTranslate() - c.minTranslate()) / (swiper.maxTranslate() - swiper.minTranslate());
+        controlledTranslate = (translate - swiper.minTranslate()) * multiplier + c.minTranslate();
+      }
+
+      if (swiper.params.controller.inverse) {
+        controlledTranslate = c.maxTranslate() - controlledTranslate;
+      }
+
+      c.updateProgress(controlledTranslate);
+      c.setTranslate(controlledTranslate, swiper);
+      c.updateActiveIndex();
+      c.updateSlidesClasses();
+    }
+
+    if (Array.isArray(controlled)) {
+      for (var i = 0; i < controlled.length; i += 1) {
+        if (controlled[i] !== byController && controlled[i] instanceof Swiper) {
+          setControlledTranslate(controlled[i]);
+        }
+      }
+    } else if (controlled instanceof Swiper && byController !== controlled) {
+      setControlledTranslate(controlled);
+    }
+  },
+  setTransition: function setTransition(duration, byController) {
+    var swiper = this;
+    var Swiper = swiper.constructor;
+    var controlled = swiper.controller.control;
+    var i;
+
+    function setControlledTransition(c) {
+      c.setTransition(duration, swiper);
+
+      if (duration !== 0) {
+        c.transitionStart();
+
+        if (c.params.autoHeight) {
+          nextTick(function () {
+            c.updateAutoHeight();
+          });
+        }
+
+        c.$wrapperEl.transitionEnd(function () {
+          if (!controlled) return;
+
+          if (c.params.loop && swiper.params.controller.by === 'slide') {
+            c.loopFix();
+          }
+
+          c.transitionEnd();
+        });
+      }
+    }
+
+    if (Array.isArray(controlled)) {
+      for (i = 0; i < controlled.length; i += 1) {
+        if (controlled[i] !== byController && controlled[i] instanceof Swiper) {
+          setControlledTransition(controlled[i]);
+        }
+      }
+    } else if (controlled instanceof Swiper && byController !== controlled) {
+      setControlledTransition(controlled);
+    }
+  }
+};
+/* harmony default export */ const controller = ({
+  name: 'controller',
+  params: {
+    controller: {
+      control: undefined,
+      inverse: false,
+      by: 'slide' // or 'container'
+
+    }
+  },
+  create: function create() {
+    var swiper = this;
+    bindModuleMethods(swiper, {
+      controller: controller_objectSpread({
+        control: swiper.params.controller.control
+      }, Controller)
+    });
+  },
+  on: {
+    update: function update(swiper) {
+      if (!swiper.controller.control) return;
+
+      if (swiper.controller.spline) {
+        swiper.controller.spline = undefined;
+        delete swiper.controller.spline;
+      }
+    },
+    resize: function resize(swiper) {
+      if (!swiper.controller.control) return;
+
+      if (swiper.controller.spline) {
+        swiper.controller.spline = undefined;
+        delete swiper.controller.spline;
+      }
+    },
+    observerUpdate: function observerUpdate(swiper) {
+      if (!swiper.controller.control) return;
+
+      if (swiper.controller.spline) {
+        swiper.controller.spline = undefined;
+        delete swiper.controller.spline;
+      }
+    },
+    setTranslate: function setTranslate(swiper, translate, byController) {
+      if (!swiper.controller.control) return;
+      swiper.controller.setTranslate(translate, byController);
+    },
+    setTransition: function setTransition(swiper, duration, byController) {
+      if (!swiper.controller.control) return;
+      swiper.controller.setTransition(duration, byController);
+    }
+  }
+});
+;// CONCATENATED MODULE: ./src/components/swiper/third-party/Swiper/src/components/autoplay/autoplay.js
+
+
+function autoplay_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function autoplay_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? autoplay_ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : autoplay_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+/* eslint no-underscore-dangle: "off" */
+
+
+var Autoplay = {
+  run: function run() {
+    var swiper = this;
+    var $activeSlideEl = swiper.slides.eq(swiper.activeIndex);
+    var delay = swiper.params.autoplay.delay;
+
+    if ($activeSlideEl.attr('data-swiper-autoplay')) {
+      delay = $activeSlideEl.attr('data-swiper-autoplay') || swiper.params.autoplay.delay;
+    }
+
+    clearTimeout(swiper.autoplay.timeout);
+    swiper.autoplay.timeout = nextTick(function () {
+      var autoplayResult;
+
+      if (swiper.params.autoplay.reverseDirection) {
+        if (swiper.params.loop) {
+          swiper.loopFix();
+          autoplayResult = swiper.slidePrev(swiper.params.speed, true, true);
+          swiper.emit('autoplay');
+        } else if (!swiper.isBeginning) {
+          autoplayResult = swiper.slidePrev(swiper.params.speed, true, true);
+          swiper.emit('autoplay');
+        } else if (!swiper.params.autoplay.stopOnLastSlide) {
+          autoplayResult = swiper.slideTo(swiper.slides.length - 1, swiper.params.speed, true, true);
+          swiper.emit('autoplay');
+        } else {
+          swiper.autoplay.stop();
+        }
+      } else if (swiper.params.loop) {
+        swiper.loopFix();
+        autoplayResult = swiper.slideNext(swiper.params.speed, true, true);
+        swiper.emit('autoplay');
+      } else if (!swiper.isEnd) {
+        autoplayResult = swiper.slideNext(swiper.params.speed, true, true);
+        swiper.emit('autoplay');
+      } else if (!swiper.params.autoplay.stopOnLastSlide) {
+        autoplayResult = swiper.slideTo(0, swiper.params.speed, true, true);
+        swiper.emit('autoplay');
+      } else {
+        swiper.autoplay.stop();
+      }
+
+      if (swiper.params.cssMode && swiper.autoplay.running) swiper.autoplay.run();else if (autoplayResult === false) {
+        swiper.autoplay.run();
+      }
+    }, delay);
+  },
+  start: function start() {
+    var swiper = this;
+    if (typeof swiper.autoplay.timeout !== 'undefined') return false;
+    if (swiper.autoplay.running) return false;
+    swiper.autoplay.running = true;
+    swiper.emit('autoplayStart');
+    swiper.autoplay.run();
+    return true;
+  },
+  stop: function stop() {
+    var swiper = this;
+    if (!swiper.autoplay.running) return false;
+    if (typeof swiper.autoplay.timeout === 'undefined') return false;
+
+    if (swiper.autoplay.timeout) {
+      clearTimeout(swiper.autoplay.timeout);
+      swiper.autoplay.timeout = undefined;
+    }
+
+    swiper.autoplay.running = false;
+    swiper.emit('autoplayStop');
+    return true;
+  },
+  pause: function pause(speed) {
+    var swiper = this;
+    if (!swiper.autoplay.running) return;
+    if (swiper.autoplay.paused) return;
+    if (swiper.autoplay.timeout) clearTimeout(swiper.autoplay.timeout);
+    swiper.autoplay.paused = true;
+
+    if (speed === 0 || !swiper.params.autoplay.waitForTransition) {
+      swiper.autoplay.paused = false;
+      swiper.autoplay.run();
+    } else {
+      swiper.$wrapperEl[0].addEventListener('transitionend', swiper.autoplay.onTransitionEnd);
+      swiper.$wrapperEl[0].addEventListener('webkitTransitionEnd', swiper.autoplay.onTransitionEnd);
+    }
+  },
+  onVisibilityChange: function onVisibilityChange() {
+    var swiper = this;
+    var document = getDocument();
+
+    if (document.visibilityState === 'hidden' && swiper.autoplay.running) {
+      swiper.autoplay.pause();
+    }
+
+    if (document.visibilityState === 'visible' && swiper.autoplay.paused) {
+      swiper.autoplay.run();
+      swiper.autoplay.paused = false;
+    }
+  },
+  onTransitionEnd: function onTransitionEnd(e) {
+    var swiper = this;
+    if (!swiper || swiper.destroyed || !swiper.$wrapperEl) return;
+    if (e.target !== swiper.$wrapperEl[0]) return;
+    swiper.$wrapperEl[0].removeEventListener('transitionend', swiper.autoplay.onTransitionEnd);
+    swiper.$wrapperEl[0].removeEventListener('webkitTransitionEnd', swiper.autoplay.onTransitionEnd);
+    swiper.autoplay.paused = false;
+
+    if (!swiper.autoplay.running) {
+      swiper.autoplay.stop();
+    } else {
+      swiper.autoplay.run();
+    }
+  }
+};
+/* harmony default export */ const autoplay = ({
+  name: 'autoplay',
+  params: {
+    autoplay: {
+      enabled: false,
+      delay: 3000,
+      waitForTransition: true,
+      disableOnInteraction: true,
+      stopOnLastSlide: false,
+      reverseDirection: false
+    }
+  },
+  create: function create() {
+    var swiper = this;
+    bindModuleMethods(swiper, {
+      autoplay: autoplay_objectSpread(autoplay_objectSpread({}, Autoplay), {}, {
+        running: false,
+        paused: false
+      })
+    });
+  },
+  on: {
+    init: function init(swiper) {
+      if (swiper.params.autoplay.enabled) {
+        swiper.autoplay.start();
+        var document = getDocument();
+        document.addEventListener('visibilitychange', swiper.autoplay.onVisibilityChange);
+      }
+    },
+    beforeTransitionStart: function beforeTransitionStart(swiper, speed, internal) {
+      if (swiper.autoplay.running) {
+        if (internal || !swiper.params.autoplay.disableOnInteraction) {
+          swiper.autoplay.pause(speed);
+        } else {
+          swiper.autoplay.stop();
+        }
+      }
+    },
+    sliderFirstMove: function sliderFirstMove(swiper) {
+      if (swiper.autoplay.running) {
+        if (swiper.params.autoplay.disableOnInteraction) {
+          swiper.autoplay.stop();
+        } else {
+          swiper.autoplay.pause();
+        }
+      }
+    },
+    touchEnd: function touchEnd(swiper) {
+      if (swiper.params.cssMode && swiper.autoplay.paused && !swiper.params.autoplay.disableOnInteraction) {
+        swiper.autoplay.run();
+      }
+    },
+    destroy: function destroy(swiper) {
+      if (swiper.autoplay.running) {
+        swiper.autoplay.stop();
+      }
+
+      var document = getDocument();
+      document.removeEventListener('visibilitychange', swiper.autoplay.onVisibilityChange);
+    }
+  }
+});
+;// CONCATENATED MODULE: ./src/components/swiper/third-party/Swiper/src/components/a11y/a11y.js
+
+
+function a11y_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function a11y_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? a11y_ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : a11y_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+
+
+var A11y = {
+  getRandomNumber: function getRandomNumber() {
+    var size = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 16;
+
+    var randomChar = function randomChar() {
+      return Math.round(16 * Math.random()).toString(16);
+    };
+
+    return 'x'.repeat(size).replace(/x/g, randomChar);
+  },
+  makeElFocusable: function makeElFocusable($el) {
+    $el.attr('tabIndex', '0');
+    return $el;
+  },
+  makeElNotFocusable: function makeElNotFocusable($el) {
+    $el.attr('tabIndex', '-1');
+    return $el;
+  },
+  addElRole: function addElRole($el, role) {
+    $el.attr('role', role);
+    return $el;
+  },
+  addElRoleDescription: function addElRoleDescription($el, description) {
+    $el.attr('aria-roledescription', description);
+    return $el;
+  },
+  addElControls: function addElControls($el, controls) {
+    $el.attr('aria-controls', controls);
+    return $el;
+  },
+  addElLabel: function addElLabel($el, label) {
+    $el.attr('aria-label', label);
+    return $el;
+  },
+  addElId: function addElId($el, id) {
+    $el.attr('id', id);
+    return $el;
+  },
+  addElLive: function addElLive($el, live) {
+    $el.attr('aria-live', live);
+    return $el;
+  },
+  disableEl: function disableEl($el) {
+    $el.attr('aria-disabled', true);
+    return $el;
+  },
+  enableEl: function enableEl($el) {
+    $el.attr('aria-disabled', false);
+    return $el;
+  },
+  onEnterOrSpaceKey: function onEnterOrSpaceKey(e) {
+    if (e.keyCode !== 13 && e.keyCode !== 32) return;
+    var swiper = this;
+    var params = swiper.params.a11y;
+    var $targetEl = dom(e.target);
+
+    if (swiper.navigation && swiper.navigation.$nextEl && $targetEl.is(swiper.navigation.$nextEl)) {
+      if (!(swiper.isEnd && !swiper.params.loop)) {
+        swiper.slideNext();
+      }
+
+      if (swiper.isEnd) {
+        swiper.a11y.notify(params.lastSlideMessage);
+      } else {
+        swiper.a11y.notify(params.nextSlideMessage);
+      }
+    }
+
+    if (swiper.navigation && swiper.navigation.$prevEl && $targetEl.is(swiper.navigation.$prevEl)) {
+      if (!(swiper.isBeginning && !swiper.params.loop)) {
+        swiper.slidePrev();
+      }
+
+      if (swiper.isBeginning) {
+        swiper.a11y.notify(params.firstSlideMessage);
+      } else {
+        swiper.a11y.notify(params.prevSlideMessage);
+      }
+    }
+
+    if (swiper.pagination && $targetEl.is(classesToSelector(swiper.params.pagination.bulletClass))) {
+      $targetEl[0].click();
+    }
+  },
+  notify: function notify(message) {
+    var swiper = this;
+    var notification = swiper.a11y.liveRegion;
+    if (notification.length === 0) return;
+    notification.html('');
+    notification.html(message);
+  },
+  updateNavigation: function updateNavigation() {
+    var swiper = this;
+    if (swiper.params.loop || !swiper.navigation) return;
+    var _swiper$navigation = swiper.navigation,
+        $nextEl = _swiper$navigation.$nextEl,
+        $prevEl = _swiper$navigation.$prevEl;
+
+    if ($prevEl && $prevEl.length > 0) {
+      if (swiper.isBeginning) {
+        swiper.a11y.disableEl($prevEl);
+        swiper.a11y.makeElNotFocusable($prevEl);
+      } else {
+        swiper.a11y.enableEl($prevEl);
+        swiper.a11y.makeElFocusable($prevEl);
+      }
+    }
+
+    if ($nextEl && $nextEl.length > 0) {
+      if (swiper.isEnd) {
+        swiper.a11y.disableEl($nextEl);
+        swiper.a11y.makeElNotFocusable($nextEl);
+      } else {
+        swiper.a11y.enableEl($nextEl);
+        swiper.a11y.makeElFocusable($nextEl);
+      }
+    }
+  },
+  updatePagination: function updatePagination() {
+    var swiper = this;
+    var params = swiper.params.a11y;
+
+    if (swiper.pagination && swiper.params.pagination.clickable && swiper.pagination.bullets && swiper.pagination.bullets.length) {
+      swiper.pagination.bullets.each(function (bulletEl) {
+        var $bulletEl = dom(bulletEl);
+        swiper.a11y.makeElFocusable($bulletEl);
+
+        if (!swiper.params.pagination.renderBullet) {
+          swiper.a11y.addElRole($bulletEl, 'button');
+          swiper.a11y.addElLabel($bulletEl, params.paginationBulletMessage.replace(/\{\{index\}\}/, $bulletEl.index() + 1));
+        }
+      });
+    }
+  },
+  init: function init() {
+    var swiper = this;
+    var params = swiper.params.a11y;
+    swiper.$el.append(swiper.a11y.liveRegion); // Container
+
+    var $containerEl = swiper.$el;
+
+    if (params.containerRoleDescriptionMessage) {
+      swiper.a11y.addElRoleDescription($containerEl, params.containerRoleDescriptionMessage);
+    }
+
+    if (params.containerMessage) {
+      swiper.a11y.addElLabel($containerEl, params.containerMessage);
+    } // Wrapper
+
+
+    var $wrapperEl = swiper.$wrapperEl;
+    var wrapperId = $wrapperEl.attr('id') || "swiper-wrapper-".concat(swiper.a11y.getRandomNumber(16));
+    var live;
+    swiper.a11y.addElId($wrapperEl, wrapperId);
+
+    if (swiper.params.autoplay && swiper.params.autoplay.enabled) {
+      live = 'off';
+    } else {
+      live = 'polite';
+    }
+
+    swiper.a11y.addElLive($wrapperEl, live); // Slide
+
+    if (params.itemRoleDescriptionMessage) {
+      swiper.a11y.addElRoleDescription(dom(swiper.slides), params.itemRoleDescriptionMessage);
+    }
+
+    swiper.a11y.addElRole(dom(swiper.slides), params.slideRole);
+    swiper.slides.each(function (slideEl) {
+      var $slideEl = dom(slideEl);
+      var ariaLabelMessage = params.slideLabelMessage.replace(/\{\{index\}\}/, $slideEl.index() + 1).replace(/\{\{slidesLength\}\}/, swiper.slides.length);
+      swiper.a11y.addElLabel($slideEl, ariaLabelMessage);
+    }); // Navigation
+
+    var $nextEl;
+    var $prevEl;
+
+    if (swiper.navigation && swiper.navigation.$nextEl) {
+      $nextEl = swiper.navigation.$nextEl;
+    }
+
+    if (swiper.navigation && swiper.navigation.$prevEl) {
+      $prevEl = swiper.navigation.$prevEl;
+    }
+
+    if ($nextEl && $nextEl.length) {
+      swiper.a11y.makeElFocusable($nextEl);
+
+      if ($nextEl[0].tagName !== 'BUTTON') {
+        swiper.a11y.addElRole($nextEl, 'button');
+        $nextEl.on('keydown', swiper.a11y.onEnterOrSpaceKey);
+      }
+
+      swiper.a11y.addElLabel($nextEl, params.nextSlideMessage);
+      swiper.a11y.addElControls($nextEl, wrapperId);
+    }
+
+    if ($prevEl && $prevEl.length) {
+      swiper.a11y.makeElFocusable($prevEl);
+
+      if ($prevEl[0].tagName !== 'BUTTON') {
+        swiper.a11y.addElRole($prevEl, 'button');
+        $prevEl.on('keydown', swiper.a11y.onEnterOrSpaceKey);
+      }
+
+      swiper.a11y.addElLabel($prevEl, params.prevSlideMessage);
+      swiper.a11y.addElControls($prevEl, wrapperId);
+    } // Pagination
+
+
+    if (swiper.pagination && swiper.params.pagination.clickable && swiper.pagination.bullets && swiper.pagination.bullets.length) {
+      swiper.pagination.$el.on('keydown', classesToSelector(swiper.params.pagination.bulletClass), swiper.a11y.onEnterOrSpaceKey);
+    }
+  },
+  destroy: function destroy() {
+    var swiper = this;
+    if (swiper.a11y.liveRegion && swiper.a11y.liveRegion.length > 0) swiper.a11y.liveRegion.remove();
+    var $nextEl;
+    var $prevEl;
+
+    if (swiper.navigation && swiper.navigation.$nextEl) {
+      $nextEl = swiper.navigation.$nextEl;
+    }
+
+    if (swiper.navigation && swiper.navigation.$prevEl) {
+      $prevEl = swiper.navigation.$prevEl;
+    }
+
+    if ($nextEl) {
+      $nextEl.off('keydown', swiper.a11y.onEnterOrSpaceKey);
+    }
+
+    if ($prevEl) {
+      $prevEl.off('keydown', swiper.a11y.onEnterOrSpaceKey);
+    } // Pagination
+
+
+    if (swiper.pagination && swiper.params.pagination.clickable && swiper.pagination.bullets && swiper.pagination.bullets.length) {
+      swiper.pagination.$el.off('keydown', classesToSelector(swiper.params.pagination.bulletClass), swiper.a11y.onEnterOrSpaceKey);
+    }
+  }
+};
+/* harmony default export */ const a11y = ({
+  name: 'a11y',
+  params: {
+    a11y: {
+      enabled: true,
+      notificationClass: 'swiper-notification',
+      prevSlideMessage: 'Previous slide',
+      nextSlideMessage: 'Next slide',
+      firstSlideMessage: 'This is the first slide',
+      lastSlideMessage: 'This is the last slide',
+      paginationBulletMessage: 'Go to slide {{index}}',
+      slideLabelMessage: '{{index}} / {{slidesLength}}',
+      containerMessage: null,
+      containerRoleDescriptionMessage: null,
+      itemRoleDescriptionMessage: null,
+      slideRole: 'group'
+    }
+  },
+  create: function create() {
+    var swiper = this;
+    bindModuleMethods(swiper, {
+      a11y: a11y_objectSpread(a11y_objectSpread({}, A11y), {}, {
+        liveRegion: dom("<span class=\"".concat(swiper.params.a11y.notificationClass, "\" aria-live=\"assertive\" aria-atomic=\"true\"></span>"))
+      })
+    });
+  },
+  on: {
+    afterInit: function afterInit(swiper) {
+      if (!swiper.params.a11y.enabled) return;
+      swiper.a11y.init();
+      swiper.a11y.updateNavigation();
+    },
+    toEdge: function toEdge(swiper) {
+      if (!swiper.params.a11y.enabled) return;
+      swiper.a11y.updateNavigation();
+    },
+    fromEdge: function fromEdge(swiper) {
+      if (!swiper.params.a11y.enabled) return;
+      swiper.a11y.updateNavigation();
+    },
+    paginationUpdate: function paginationUpdate(swiper) {
+      if (!swiper.params.a11y.enabled) return;
+      swiper.a11y.updatePagination();
+    },
+    destroy: function destroy(swiper) {
+      if (!swiper.params.a11y.enabled) return;
+      swiper.a11y.destroy();
+    }
+  }
+});
+;// CONCATENATED MODULE: ./src/components/swiper/third-party/Swiper/src/swiper.js
+// Swiper Class
+ //IMPORT_COMPONENTS
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var components = [virtual, keyboard, mousewheel, navigation, pagination, scrollbar, parallax, zoom, lazy, controller, a11y, history_history, hash_navigation, autoplay, effect_fade, effect_cube, effect_flip, effect_coverflow, thumbs];
+core_class.use(components); //EXPORT
+
+/* harmony default export */ const swiper = (core_class);
+;// CONCATENATED MODULE: ./src/components/swiper/js/index.js
+
+
+
+
+
+/* 
+ *************************************
+ * <!-- Swiper -->
+ *************************************
+ */
+ //IMPORT_DEFAULT
+
+ //IMPORT_COMPONENTS
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ //
+
+
+var SWIPER = function (module, $, window, document) {
+  if (window.SWIPER === null) return false;
+  module.SWIPER = module.SWIPER || {};
+  module.SWIPER.version = '0.0.6';
+
+  module.SWIPER.documentReady = function ($) {
+    $('.uix-swiper').each(function () {
+      var $el = $(this);
+      var actived = $el.data('activated');
+
+      if ((0,esm_typeof/* default */.Z)(actived) === ( true ? "undefined" : 0)) {
+        //Synchronize multiple objects
+        //------------------------------------------
+        if ($el.find('#app-slider1').length > 0) {
+          var swiper2 = new swiper('#app-slider2', {
+            slidesPerView: 5,
+            spaceBetween: 10,
+            allowTouchMove: false
+          });
+          var swiper1 = new swiper('#app-slider1', {
+            slidesPerView: 1,
+            spaceBetween: 10,
+            speed: 1000,
+            pagination: {
+              el: '.swiper-pagination',
+              clickable: true,
+              renderBullet: function renderBullet(index, className) {
+                return '<span class="' + className + '">' + (index + 1) + '</span>';
+              }
+            },
+            navigation: {
+              nextEl: '.swiper-button-next',
+              prevEl: '.swiper-button-prev'
+            },
+            breakpoints: {
+              640: {
+                slidesPerView: 2,
+                spaceBetween: 20
+              },
+              768: {
+                slidesPerView: 4,
+                spaceBetween: 40
+              },
+              1024: {
+                slidesPerView: 5,
+                spaceBetween: 50
+              }
+            }
+          }); //Sync swiper slider
+
+          swiper1.on('slideChange', function () {
+            var index = this.activeIndex;
+            swiper2.slideTo(index, 1000, false);
+          });
+        } //Swiper custom slides transform effect (Parallax effect)
+        //------------------------------------------
+
+
+        if ($el.find('#app-slider3').length > 0) {
+          var interleaveOffset = 0.5;
+          var swiper3 = new swiper('#app-slider3', {
+            slidesPerView: 1,
+            spaceBetween: 0,
+            loop: false,
+            speed: 1000,
+            grabCursor: false,
+            watchSlidesProgress: true,
+            mousewheelControl: false,
+            keyboardControl: false,
+            pagination: {
+              el: '.swiper-pagination',
+              clickable: true,
+              renderBullet: function renderBullet(index, className) {
+                return '<span class="' + className + '">' + (index + 1) + '</span>';
+              }
+            },
+            navigation: {
+              nextEl: '.swiper-button-next',
+              prevEl: '.swiper-button-prev'
+            },
+            on: {
+              progress: function progress(e) {
+                var thisSwiper = this;
+
+                for (var i = 0; i < thisSwiper.slides.length; i++) {
+                  var slideProgress = thisSwiper.slides[i].progress;
+                  var innerOffset = thisSwiper.width * interleaveOffset;
+                  var innerTranslate = slideProgress * innerOffset;
+                  thisSwiper.slides[i].querySelector(".slide-inner").style.transform = "translate3d(" + innerTranslate + "px, 0, 0)"; //console.log( e.passedParams );
+                }
+              },
+              touchStart: function touchStart(e) {
+                var passedParams = e.passedParams;
+                var thisSwiper = this;
+
+                for (var i = 0; i < thisSwiper.slides.length; i++) {
+                  thisSwiper.slides[i].style.transition = "";
+                }
+              },
+              setTransition: function setTransition(e) {
+                var passedParams = e.passedParams;
+                var thisSwiper = this;
+
+                for (var i = 0; i < thisSwiper.slides.length; i++) {
+                  thisSwiper.slides[i].style.transition = passedParams.speed + "ms";
+                  thisSwiper.slides[i].querySelector(".slide-inner").style.transition = passedParams.speed + "ms";
+                }
+              }
+            }
+          }); //AutoPlay
+
+          swiper3.autoplay.start(); //swiper3.autoplay.stop();			
+        } //Swiper custom slides transform effect (Scale Effect without left/right swipe)
+        //------------------------------------------
+
+
+        if ($el.find('#app-slider4').length > 0) {
+          var swiper4 = new swiper('#app-slider4', {
+            slidesPerView: 1,
+            spaceBetween: 0,
+            loop: false,
+            speed: 1000,
+            grabCursor: false,
+            watchSlidesProgress: true,
+            mousewheelControl: false,
+            keyboardControl: false,
+            virtualTranslate: true,
+
+            /* Required */
+            pagination: {
+              el: '.swiper-pagination',
+              clickable: true,
+              renderBullet: function renderBullet(index, className) {
+                return '<span class="' + className + '">' + (index + 1) + '</span>';
+              }
+            },
+            navigation: {
+              nextEl: '.swiper-button-next',
+              prevEl: '.swiper-button-prev'
+            },
+            on: {
+              progress: function progress(translate) {
+                var thisSwiper = this;
+
+                for (var i = 0; i < thisSwiper.slides.length; i++) {
+                  var slideProgress = thisSwiper.slides[i].progress;
+                  console.log(translate.params);
+                }
+              },
+              touchStart: function touchStart(translate) {
+                var params = translate.params;
+                var thisSwiper = this;
+              },
+              setTransition: function setTransition(translate) {
+                var params = translate.params;
+                var thisSwiper = this;
+              },
+              setTranslate: function setTranslate(translate) {
+                var params = translate.params;
+                var thisSwiper = this;
+                /*
+                A weird way to find this out but I've found no other.
+                Checks if the progress on the active slide is 1 or -1 which happens when swiper navigates to next/previous slide on click and keybord navigation.
+                If not then the slider is being dragged, so we get the right index by finding the startTranslate from touchEvents in array of transitions the swiper snaps to.
+                The startTranslate doesn't exist on initial load so we use the initialSlide index instead.
+                */
+
+                var getActiveIndexBeforeTransitionStart = function getActiveIndexBeforeTransitionStart(curSwiper, curSlides) {
+                  var isDragging = !Math.abs(curSlides[curSwiper.activeIndex].progress === 1);
+
+                  if (isDragging) {
+                    return curSwiper.slidesGrid.indexOf(-curSwiper.touchEventsData.startTranslate || curSwiper.params.initialSlide);
+                  } else {
+                    return curSwiper.activeIndex;
+                  }
+                };
+
+                var getDirection = function getDirection(animationProgress) {
+                  if (animationProgress === 0) {
+                    return "NONE";
+                  } else if (animationProgress > 0) {
+                    return "NEXT";
+                  } else {
+                    return "BACK";
+                  }
+                };
+
+                var durationInSeconds = params.speed / 1000; // convert slides object to plain array
+
+                var slides = thisSwiper.slides; // get the index of the slide active before transition start (activeIndex changes halfway when dragging)
+
+                var originIndex = getActiveIndexBeforeTransitionStart(thisSwiper, slides); // get information about animation progress from the active slide - the active slide's value is always -1 to 1.
+
+                /* 
+                every slide has a progress attribute equal to the "distance" from the current active index.
+                */
+
+                var animationProgress = slides[originIndex].progress; // you can then get the drag direction like so:
+
+                var direction = getDirection(animationProgress); // console.log(direction);
+                // do magic with each slide
+
+                slides.map(function (perSlide, index) {
+                  // to put the slides behind each other we have to set their CSS translate accordingly since by default they are arranged in line.
+                  var offset = perSlide.swiperSlideOffset;
+                  var x = -offset;
+                  if (!thisSwiper.params.virtualTranslate) x -= thisSwiper.translate;
+                  var y = 0;
+
+                  if (!thisSwiper.isHorizontal()) {
+                    y = x;
+                    x = 0;
+                  }
+
+                  TweenMax.set(perSlide, {
+                    x: x,
+                    y: y
+                  }); // do our animation stuff!
+
+                  var clip = function clip(val, min, max) {
+                    return Math.max(min, Math.min(val, max));
+                  };
+
+                  var ZOOM_FACTOR = 0.05;
+                  var opacity = Math.max(1 - Math.abs(perSlide.progress), 0);
+                  var clippedProgress = clip(perSlide.progress, -1, 1);
+                  var scale = 1 - ZOOM_FACTOR * clippedProgress; // you can do your CSS animation instead of using tweening.
+
+                  TweenMax.to(perSlide, durationInSeconds, {
+                    scale: scale,
+                    opacity: opacity
+                  });
+                });
+              }
+            }
+          }); //AutoPlay
+
+          swiper4.autoplay.start(); //swiper4.autoplay.stop();			
+        } //Centered Slides
+        //------------------------------------------	
+
+
+        if ($el.find('#app-slider5').length > 0) {
+          var swiper5 = new swiper('#app-slider5', {
+            slidesPerView: 3,
+            spaceBetween: 30,
+            loop: true,
+            speed: 1000,
+            centeredSlides: true,
+            pagination: {
+              el: '.swiper-pagination',
+              clickable: true,
+              renderBullet: function renderBullet(index, className) {
+                return '<span class="' + className + '">' + (index + 1) + '</span>';
+              }
+            },
+            navigation: {
+              nextEl: '.swiper-button-next',
+              prevEl: '.swiper-button-prev'
+            }
+          });
+        } //Display half on both sides
+        //------------------------------------------		
+
+
+        if ($el.find('#app-slider6').length > 0) {
+          var swiper6 = new swiper('#app-slider6', {
+            slidesPerView: 'auto',
+            //Number of slides per view, and it must be "auto"!
+            spaceBetween: 30,
+            loop: true,
+            speed: 1000,
+            centeredSlides: true,
+            //If true, then active slide will be centered, not always on the left side.
+            pagination: {
+              el: '.swiper-pagination',
+              clickable: true,
+              renderBullet: function renderBullet(index, className) {
+                return '<span class="' + className + '">' + (index + 1) + '</span>';
+              }
+            },
+            navigation: {
+              nextEl: '.swiper-button-next',
+              prevEl: '.swiper-button-prev'
+            }
+          });
+        } //Custom Progress Bar
+        //------------------------------------------
+
+
+        if ($el.find('#app-slider7').length > 0) {
+          var cusProgressBar = function cusProgressBar(speed, length, curIndex) {
+            TweenMax.set('#app-slider7__progress', {
+              width: 0,
+              onComplete: function onComplete() {
+                TweenMax.to('#app-slider7__progress', speed / 1000, {
+                  width: '100%'
+                });
+              }
+            });
+            TweenMax.set('#app-slider7__progress2', {
+              width: 100 / length * curIndex + '%',
+              onComplete: function onComplete() {
+                TweenMax.to('#app-slider7__progress2', speed / 1000, {
+                  width: 100 / length * (curIndex + 1) + '%'
+                });
+              }
+            });
+          };
+
+          var swiper7 = new swiper('#app-slider7', {
+            slidesPerView: 1,
+            spaceBetween: 0,
+            loop: false,
+            speed: 3500,
+            grabCursor: false,
+            watchSlidesProgress: true,
+            mousewheelControl: false,
+            keyboardControl: false,
+            pagination: {
+              el: '.swiper-pagination',
+              clickable: true,
+              renderBullet: function renderBullet(index, className) {
+                return '<span class="' + className + '">' + (index + 1) + '</span>';
+              }
+            },
+            navigation: {
+              nextEl: '.swiper-button-next',
+              prevEl: '.swiper-button-prev'
+            },
+            on: {
+              init: function init(e) {
+                var thisSwiper = this;
+                console.log('current index: ' + thisSwiper.activeIndex);
+                cusProgressBar(e.passedParams.speed, thisSwiper.slides.length, thisSwiper.activeIndex);
+              },
+              slideChange: function slideChange(e) {
+                var thisSwiper = this;
+                console.log('current index: ' + thisSwiper.activeIndex);
+                cusProgressBar(e.passedParams.speed, thisSwiper.slides.length, thisSwiper.activeIndex);
+              }
+            }
+          });
+        } //Gallery with center thumbs automatically
+        //------------------------------------------
+
+
+        if ($el.find('#app-slider8').length > 0) {
+          var swiper8 = new swiper('#app-slider8', {
+            spaceBetween: 10,
+            grabCursor: false,
+            loop: true,
+            loopedSlides: 4,
+            autoplay: {
+              delay: 5000
+            },
+            // other parameters
+            on: {
+              click: function click() {
+                /* do something */
+              }
+            },
+            keyboard: {
+              enabled: true,
+              onlyInViewport: false
+            },
+            autoHeight: true,
+            pagination: {
+              el: '.swiper-pagination',
+              clickable: true,
+              renderBullet: function renderBullet(index, className) {
+                return '<span class="' + className + '">' + (index + 1) + '</span>';
+              }
+            },
+            navigation: {
+              nextEl: '.swiper-button-next',
+              prevEl: '.swiper-button-prev'
+            },
+            speed: 1000
+          });
+          /* thumbs */
+
+          var swiper8Thumbs = new swiper('#app-slider8-thumbs', {
+            spaceBetween: 10,
+            centeredSlides: true,
+            slidesPerView: "auto",
+            //If you use it with "auto" value and along with loop: true then you need to specify loopedSlides parameter with amount of slides to loop (duplicate)
+            touchRatio: 0.4,
+            slideToClickedSlide: true,
+            loop: true,
+            loopedSlides: 4,
+            keyboard: {
+              enabled: true,
+              onlyInViewport: false
+            },
+            speed: 1000
+          });
+          /* set conteoller  */
+
+          swiper8.controller.control = swiper8Thumbs;
+          swiper8Thumbs.controller.control = swiper8;
+        } //Gallery with manual triggers
+        //------------------------------------------
+
+
+        if ($el.find('#app-slider9').length > 0) {
+          var swiper9BTN = function swiper9BTN(index, init) {
+            var _btns = $('#app-slider9-triggers > div');
+
+            _btns.removeClass('is-active');
+
+            _btns.eq(index).addClass('is-active');
+
+            if (!init) {
+              swiper9.slideTo(index, 1000);
+            }
+          };
+
+          var swiper9 = new swiper('#app-slider9', _defineProperty({
+            spaceBetween: 10,
+            grabCursor: false,
+            autoplay: {
+              delay: 5000
+            },
+            // other parameters
+            on: {
+              click: function click() {
+                /* do something */
+              }
+            },
+            keyboard: {
+              enabled: true,
+              onlyInViewport: false
+            },
+            autoHeight: true,
+            pagination: {
+              el: '.swiper-pagination',
+              clickable: true,
+              renderBullet: function renderBullet(index, className) {
+                return '<span class="' + className + '">' + (index + 1) + '</span>';
+              }
+            },
+            navigation: {
+              nextEl: '.swiper-button-next',
+              prevEl: '.swiper-button-prev'
+            },
+            speed: 1000
+          }, "on", {
+            init: function init(e) {
+              var thisSwiper = this;
+              swiper9BTN(thisSwiper.activeIndex, true);
+            }
+          })); //Sync swiper slider
+
+          swiper9.on('slideChange', function () {
+            var index = this.activeIndex;
+            swiper9BTN(index, false);
+          });
+          $('#app-slider9-triggers > div').on('click', function () {
+            swiper9BTN($(this).index(), false);
+          });
+        } //------------------------------------------
+        //Prevents front-end javascripts that are activated in the background to repeat loading.
+
+
+        $el.data('activated', 1);
+      } //endif actived
+
+    });
+  };
+
+  module.components.documentReady.push(module.SWIPER.documentReady);
+  return /*#__PURE__*/_createClass(function SWIPER() {
+    _classCallCheck(this, SWIPER);
+
+    this.module = module;
+  });
+}(UixModuleInstance, jQuery, window, document);
+;// CONCATENATED MODULE: ./src/components/_third-party-plugins/THREE/esm/extensions/ShaderRuntime.custom.js
+var defaultThreeUniforms = (/* unused pure expression or super */ null && (['normalMatrix', 'viewMatrix', 'projectionMatrix', 'position', 'normal', 'modelViewMatrix', 'uv', 'uv2', 'modelMatrix']));
+
+function ShaderRuntime() {}
+
+ShaderRuntime.prototype = {
+  mainCamera: null,
+  cubeCameras: {},
+  reserved: {
+    time: null,
+    cameraPosition: null
+  },
+  umap: {
+    "float": {
+      type: 'f',
+      value: 0
+    },
+    "int": {
+      type: 'i',
+      value: 0
+    },
+    vec2: {
+      type: 'v2',
+      value: function value() {
+        return new THREE.Vector2();
+      }
+    },
+    vec3: {
+      type: 'v3',
+      value: function value() {
+        return new THREE.Vector3();
+      }
+    },
+    vec4: {
+      type: 'v4',
+      value: function value() {
+        return new THREE.Vector4();
+      }
+    },
+    samplerCube: {
+      type: 't'
+    },
+    sampler2D: {
+      type: 't'
+    }
+  },
+  getUmap: function getUmap(type) {
+    var value = this.umap[type].value;
+    return typeof value === 'function' ? value() : value;
+  },
+  load: function load(sourceOrSources, callback) {
+    var _this = this;
+
+    var sources = sourceOrSources,
+        onlyOneSource = typeof sourceOrSources === 'string';
+
+    if (onlyOneSource) {
+      sources = [sourceOrSources];
+    }
+
+    var loadedShaders = new Array(sources.length),
+        itemsLoaded = 0;
+
+    var loadSource = function loadSource(index, source) {
+      var loader = new THREE.FileLoader();
+      loader.load(source, function (json) {
+        var parsed;
+
+        try {
+          parsed = JSON.parse(json);
+          delete parsed.id; // Errors if passed to rawshadermaterial :(
+        } catch (e) {
+          throw new Error('Could not parse shader' + source + '! Please verify the URL is correct.');
+        }
+
+        _this.add(parsed.name, parsed);
+
+        loadedShaders[index] = parsed;
+
+        if (++itemsLoaded === sources.length) {
+          callback(onlyOneSource ? loadedShaders[0] : loadedShaders);
+        }
+      });
+    };
+
+    for (var x = 0; x < sources.length; x++) {
+      loadSource(x, sources[x]);
+    }
+  },
+  //Load json code directly
+  loadJSON: function load(sourceOrSources, callback) {
+    var _this = this;
+
+    var sources = sourceOrSources,
+        onlyOneSource = typeof sourceOrSources === 'string';
+
+    if (onlyOneSource) {
+      sources = [sourceOrSources];
+    }
+
+    var loadedShaders = new Array(sources.length),
+        itemsLoaded = 0;
+
+    var loadJSONCode = function loadJSONCode(index, source) {
+      var parsed;
+      parsed = source;
+      delete parsed.id; // Errors if passed to rawshadermaterial :(
+
+      _this.add(parsed.name, parsed);
+
+      loadedShaders[index] = parsed;
+
+      if (++itemsLoaded === sources.length) {
+        callback(onlyOneSource ? loadedShaders[0] : loadedShaders);
+      }
+    };
+
+    for (var x = 0; x < sources.length; x++) {
+      loadJSONCode(x, sources[x]);
+    }
+  },
+  registerCamera: function registerCamera(camera) {
+    if (!(camera instanceof THREE.Camera)) {
+      throw new Error('Cannot register a non-camera as a camera!');
+    }
+
+    this.mainCamera = camera;
+  },
+  registerCubeCamera: function registerCubeCamera(name, camera) {
+    if (!camera.renderTarget) {
+      throw new Error('Cannot register a non-camera as a camera!');
+    }
+
+    this.cubeCameras[name] = camera;
+  },
+  unregisterCamera: function unregisterCamera(name) {
+    if (name in this.cubeCameras) {
+      delete this.cubeCameras[name];
+    } else if (name === this.mainCamera) {
+      delete this.mainCamera;
+    } else {
+      throw new Error('You never registered camera ' + name);
+    }
+  },
+  updateSource: function updateSource(identifier, config, findBy) {
+    findBy = findBy || 'name';
+
+    if (!this.shaderTypes[identifier]) {
+      throw new Error('Runtime Error: Cannot update shader ' + identifier + ' because it has not been added.');
+    }
+
+    var newShaderData = this.add(identifier, config),
+        shader,
+        x;
+
+    for (x = 0; shader = this.runningShaders[x++];) {
+      if (shader[findBy] === identifier) {
+        ShaderRuntime_custom_extend(shader.material, omit(newShaderData, 'id'));
+        shader.material.needsUpdate = true;
+      }
+    }
+  },
+  renameShader: function renameShader(oldName, newName) {
+    var x, shader;
+
+    if (!(oldName in this.shaderTypes)) {
+      throw new Error('Could not rename shader ' + oldName + ' to ' + newName + '. It does not exist.');
+    }
+
+    this.shaderTypes[newName] = this.shaderTypes[oldName];
+    delete this.shaderTypes[oldName];
+
+    for (x = 0; shader = this.runningShaders[x++];) {
+      if (shader.name === oldName) {
+        shader.name = newName;
+      }
+    }
+  },
+  get: function get(identifier) {
+    var shaderType = this.shaderTypes[identifier];
+
+    if (!shaderType.initted) {
+      this.create(identifier);
+    }
+
+    return shaderType.material;
+  },
+  add: function add(shaderName, config) {
+    var newData = clone(config),
+        uniform;
+    newData.fragmentShader = config.fragment;
+    newData.vertexShader = config.vertex;
+    delete newData.fragment;
+    delete newData.vertex;
+
+    for (var uniformName in newData.uniforms) {
+      uniform = newData.uniforms[uniformName];
+
+      if (uniform.value === null) {
+        newData.uniforms[uniformName].value = this.getUmap(uniform.glslType);
+      }
+    }
+
+    if (shaderName in this.shaderTypes) {
+      // maybe not needed? too sleepy, need document
+      ShaderRuntime_custom_extend(this.shaderTypes[shaderName], newData);
+    } else {
+      this.shaderTypes[shaderName] = newData;
+    }
+
+    return newData;
+  },
+  create: function create(identifier) {
+    var shaderType = this.shaderTypes[identifier];
+    var keys = Object.keys(shaderType); // Three's shadermaterial id is not assignable, so filter it out
+
+    var withoutId = {};
+
+    for (var i = 0; i < keys.length; i++) {
+      if (keys[i] !== 'id') {
+        withoutId[keys[i]] = shaderType[keys[i]];
+      }
+    }
+
+    shaderType.material = new THREE.RawShaderMaterial(withoutId);
+    this.runningShaders.push(shaderType);
+    shaderType.init && shaderType.init(shaderType.material);
+    shaderType.material.needsUpdate = true;
+    shaderType.initted = true;
+    return shaderType.material;
+  },
+  updateRuntime: function updateRuntime(identifier, data, findBy) {
+    findBy = findBy || 'name';
+    var shader, x, uniformName, uniform; // This loop does not appear to be a slowdown culprit
+
+    for (x = 0; shader = this.runningShaders[x++];) {
+      if (shader[findBy] === identifier) {
+        for (uniformName in data.uniforms) {
+          if (uniformName in this.reserved) {
+            continue;
+          }
+
+          if (uniformName in shader.material.uniforms) {
+            uniform = data.uniforms[uniformName]; // this is nasty, since the shader serializes
+            // CubeCamera model to string. Maybe not update it at
+            // all?
+
+            if (uniform.type === 't' && typeof uniform.value === 'string') {
+              uniform.value = this.cubeCameras[uniform.value].renderTarget;
+            }
+
+            shader.material.uniforms[uniformName].value = data.uniforms[uniformName].value;
+          }
+        }
+      }
+    }
+  },
+  // Update global shader uniform values
+  updateShaders: function updateShaders(time, obj) {
+    var shader, x;
+    obj = obj || {};
+
+    for (x = 0; shader = this.runningShaders[x++];) {
+      for (var uniform in obj.uniforms) {
+        if (uniform in shader.material.uniforms) {
+          shader.material.uniforms[uniform].value = obj.uniforms[uniform];
+        }
+      }
+
+      if ('cameraPosition' in shader.material.uniforms && this.mainCamera) {
+        shader.material.uniforms.cameraPosition.value = this.mainCamera.position.clone();
+      }
+
+      if ('viewMatrix' in shader.material.uniforms && this.mainCamera) {
+        shader.material.uniforms.viewMatrix.value = this.mainCamera.matrixWorldInverse;
+      }
+
+      if ('time' in shader.material.uniforms) {
+        shader.material.uniforms.time.value = time;
+      }
+    }
+  },
+  shaderTypes: {},
+  runningShaders: []
+}; // Convenience methods so we don't have to include underscore
+
+function ShaderRuntime_custom_extend() {
+  var length = arguments.length,
+      obj = arguments[0];
+
+  if (length < 2) {
+    return obj;
+  }
+
+  for (var index = 1; index < length; index++) {
+    var source = arguments[index],
+        keys = Object.keys(source || {}),
+        l = keys.length;
+
+    for (var i = 0; i < l; i++) {
+      var key = keys[i];
+      obj[key] = source[key];
+    }
+  }
+
+  return obj;
+}
+
+function clone(obj) {
+  return ShaderRuntime_custom_extend({}, obj);
+}
+
+function omit(obj) {
+  var cloned = clone(obj),
+      x,
+      key;
+
+  for (x = 0; key = (_ref = x++ + 1, _ref < 1 || arguments.length <= _ref ? undefined : arguments[_ref]);) {
+    var _ref;
+
+    delete cloned[key];
+  }
+
+  return cloned;
+}
+
+/* harmony default export */ const ShaderRuntime_custom = (ShaderRuntime);
+;// CONCATENATED MODULE: ./src/components/simple-3D-background-three/js/index.js
+
+
+
+/* 
+ *************************************
+ * <!-- 3D Background 1 with three.js -->
+ *************************************
+ */
+
+
+var THREE_BACKGROUND_THREE = function (module, $, window, document) {
+  if (window.THREE_BACKGROUND_THREE === null) return false;
+  module.THREE_BACKGROUND_THREE = module.THREE_BACKGROUND_THREE || {};
+  module.THREE_BACKGROUND_THREE.version = '0.0.5';
+
+  module.THREE_BACKGROUND_THREE.documentReady = function ($) {
+    //Prevent this module from loading in other pages
+    if ($('#3D-background-three-canvas').length == 0 || !Modernizr.webgl) return false;
+    var sceneSubjects = []; // Import objects and animations dynamically
+
+    var MainStage = function () {
+      var windowWidth = window.innerWidth,
+          windowHeight = window.innerHeight;
+      var rendererCanvasID = '3D-background-three-canvas'; // Generate one plane geometries mesh to scene
+      //-------------------------------------	
+
+      var camera,
+          scene,
+          light,
+          renderer,
+          displacementSprite,
+          shaderSprite,
+          clock = new THREE.Clock(); // controls
+
+      var spriteAnim = false;
+      var mouseX = 0,
+          mouseY = 0,
+          windowHalfX = windowWidth / 2,
+          windowHalfY = windowHeight / 2;
+      var targetX = 0.0,
+          targetY = 0.0,
+          angle = 0.0,
+          height = 0.0,
+          target = new THREE.Vector3(); // Load multiple ShaderFrog shaders
+
+      var runtime = new ShaderRuntime_custom();
+      runtime.load([$('#' + rendererCanvasID).data('shader-url')], function (shaders) {
+        // Get the Three.js material you can assign to your objects
+        var material = runtime.get(shaders[0].name);
+        shaderSprite.material = material;
+      });
+
+      function init() {
+        //camera
+        camera = new THREE.PerspectiveCamera(60, windowWidth / windowHeight, 100, 2000000);
+        camera.position.set(0, 100, 2000);
+        runtime.registerCamera(camera); //Scene
+
+        scene = new THREE.Scene(); //HemisphereLight
+
+        scene.add(new THREE.AmbientLight(0x555555));
+        light = new THREE.SpotLight(0xffffff, 1.5);
+        light.position.set(0, 500, 2000);
+        scene.add(light); //WebGL Renderer		
+
+        renderer = new THREE.WebGLRenderer({
+          canvas: document.getElementById(rendererCanvasID),
+          //canvas
+          alpha: true,
+          antialias: true
+        });
+        renderer.setSize(windowWidth, windowHeight); //Add shader background
+
+        var geometry = new THREE.SphereGeometry(5, 32, 32, 0, Math.PI * 2, 0, Math.PI * 2);
+        shaderSprite = new THREE.Mesh(geometry);
+        shaderSprite.scale.setScalar(10000);
+        shaderSprite.renderDepth = 0;
+        scene.add(shaderSprite); // Immediately use the texture for material creation
+
+        var defaultMaterial = new THREE.MeshPhongMaterial({
+          color: 0xffffff,
+          flatShading: true,
+          vertexColors: THREE.VertexColors
+        });
+        displacementSprite = new THREE.Mesh(generateGeometry('sphere', 200), defaultMaterial);
+        scene.add(displacementSprite); // Fires when the window changes
+
+        window.addEventListener('resize', onWindowResize, false);
+        document.addEventListener('mousemove', onDocumentMouseMove, false);
+        document.addEventListener('mousedown', onDocumentMouseDown, false);
+        document.addEventListener('mouseup', onDocumentMouseUp, false);
+      }
+
+      function render() {
+        requestAnimationFrame(render);
+        var objVector = new THREE.Vector3(0, 0.2, 0.1),
+            delta = clock.getDelta();
+
+        if (!spriteAnim) {
+          displacementSprite.rotation.x += delta * objVector.x;
+          displacementSprite.rotation.y += delta * objVector.y;
+          displacementSprite.rotation.z += delta * objVector.z;
+        } //To set a background color.
+
+
+        renderer.setClearColor(0x000000); //update shaders
+
+        runtime.updateShaders(clock.getElapsedTime()); // update camera
+
+        targetX = mouseX * .002;
+        targetY = mouseY * .002;
+        angle += 0.01 * (targetX - angle);
+        height += 0.01 * (targetY - height);
+        var x = -Math.sin(angle * 1.5) * 35;
+        var z = Math.cos(angle * 1.5) * 35;
+        var y = 130 * height + 0;
+        camera.position.set(x, y, z);
+        camera.lookAt(target); //push objects
+
+        /*
+        @Usage: 
+             function CustomObj( scene ) {
+                 const elements = new THREE...;
+                scene.add( elements );
+                 this.update = function( time ) {
+                    elements.rotation.y = time*0.003;
+                }
+            }       
+             sceneSubjects.push( new CustomObj( MainStage.getScene() ) );  
+        */
+
+        for (var i = 0; i < sceneSubjects.length; i++) {
+          sceneSubjects[i].update(clock.getElapsedTime() * 1);
+        } //render the scene to display our scene through the camera's eye.
+
+
+        renderer.render(scene, camera);
+      }
+
+      function onWindowResize() {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      }
+
+      function onDocumentMouseMove(event) {
+        mouseX = event.clientX - windowHalfX;
+        mouseY = event.clientY - windowHalfY;
+      }
+
+      function onDocumentMouseDown(event) {
+        event.preventDefault();
+        spriteAnim = true;
+        mouseX = event.clientX - windowHalfX;
+        mouseY = event.clientY - windowHalfY;
+      }
+
+      function onDocumentMouseUp(event) {
+        event.preventDefault();
+        spriteAnim = false;
+        mouseX = event.clientX - windowHalfX;
+        mouseY = event.clientY - windowHalfY;
+      }
+      /*
+       * Batch generation of geometry
+       *
+       * @param  {String} objectType     - String of geometry type identifier.
+       * @param  {Number} numObjects       - The total number of generated objects.
+       * @return {Void}
+       */
+
+
+      function generateGeometry(objectType, numObjects) {
+        var geometry = new THREE.Geometry();
+
+        var applyVertexColors = function applyVertexColors(g, c) {
+          g.faces.forEach(function (f) {
+            var n = f instanceof THREE.Face3 ? 3 : 4;
+
+            for (var j = 0; j < n; j++) {
+              f.vertexColors[j] = c;
+            }
+          });
+        };
+
+        for (var i = 0; i < numObjects; i++) {
+          var position = new THREE.Vector3();
+          position.x = Math.random() * 10000 - 5000;
+          position.y = Math.random() * 6000 - 3000;
+          position.z = Math.random() * 8000 - 4000;
+          var rotation = new THREE.Euler();
+          rotation.x = Math.random() * 2 * Math.PI;
+          rotation.y = Math.random() * 2 * Math.PI;
+          rotation.z = Math.random() * 2 * Math.PI;
+          var scale = new THREE.Vector3();
+          scale.x = Math.random() * 200 + 100;
+          var geom = void 0;
+          var color = new THREE.Color();
+
+          if (objectType == "cube") {
+            geom = new THREE.BoxGeometry(1, 1, 1);
+            scale.y = Math.random() * 200 + 100;
+            scale.z = Math.random() * 200 + 100;
+            color.setRGB(0, 0, Math.random() + 0.1);
+          } else if (objectType == "sphere") {
+            geom = new THREE.IcosahedronGeometry(1, 1);
+            scale.y = scale.z = scale.x;
+            color.setRGB(0.35, getRandomFloat(0.12, 0.3), 0.2);
+          } else if (objectType == "poly") {
+            geom = new THREE.CylinderGeometry(3, 6, 3, 5, 1);
+            scale.y = Math.random() * 30;
+            scale.z = Math.random() * 30;
+            color.setRGB(Math.random() + 0.1, 0, 0);
+          } // give the geom's vertices a random color, to be displayed
+
+
+          applyVertexColors(geom, color);
+          var object = new THREE.Mesh(geom);
+          object.position.copy(position);
+          object.rotation.copy(rotation);
+          object.scale.copy(scale);
+          object.updateMatrix();
+          geometry.merge(object.geometry, object.matrix);
+        }
+
+        return geometry;
+      } //Generate random number between two numbers
+
+
+      function getRandomFloat(min, max) {
+        return Math.random() * (max - min) + min;
+      } // 
+      //-------------------------------------	
+
+
+      return {
+        init: init,
+        render: render,
+        getRendererCanvasID: function getRendererCanvasID() {
+          return rendererCanvasID;
+        },
+        getScene: function getScene() {
+          return scene;
+        },
+        getCamera: function getCamera() {
+          return camera;
+        }
+      };
+    }();
+
+    MainStage.init();
+    MainStage.render();
+  };
+
+  module.components.documentReady.push(module.THREE_BACKGROUND_THREE.documentReady);
+  return /*#__PURE__*/_createClass(function THREE_BACKGROUND_THREE() {
+    _classCallCheck(this, THREE_BACKGROUND_THREE);
+
+    this.module = module;
+  });
+}(UixModuleInstance, jQuery, window, document);
+;// CONCATENATED MODULE: ./src/components/simple-3D-background-three2/js/shader/fragment-custom.glsl
+/* harmony default export */ const fragment_custom = ("#define GLSLIFY 1\nuniform float time;\n\nuniform sampler2D texture;\n\nvarying vec2 vUv;\n\nvoid main( void ) {\n\n    vec2 position = - 1.0 + 2.0 * vUv;\n\n    float a = atan( position.y, position.x );\n    float r = sqrt( dot( position, position ) );\n\n    vec2 uv;\n    uv.x = cos( a ) / r;\n    uv.y = sin( a ) / r;\n    uv /= 10.0;\n    uv += time * 0.05;\n\n    vec3 color = texture2D( texture, uv ).rgb;\n\n    gl_FragColor = vec4( color * r * 1.5, 1.0 );\n\n}");
+;// CONCATENATED MODULE: ./src/components/simple-3D-background-three2/js/shader/vertex-custom.glsl
+/* harmony default export */ const vertex_custom = ("#define GLSLIFY 1\nvarying vec2 vUv;\n\nvoid main()\n{\n    vUv = uv;\n    vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );\n    gl_Position = projectionMatrix * mvPosition;\n}");
+;// CONCATENATED MODULE: ./src/components/simple-3D-background-three2/js/index.js
+
+
+
+/* 
+ *************************************
+ * <!-- 3D Background 2 with three.js -->
+ *************************************
+ */
+
+
+
+var THREE_BACKGROUND_THREE2 = function (module, $, window, document) {
+  if (window.THREE_BACKGROUND_THREE2 === null) return false;
+  module.THREE_BACKGROUND_THREE2 = module.THREE_BACKGROUND_THREE2 || {};
+  module.THREE_BACKGROUND_THREE2.version = '0.0.4';
+
+  module.THREE_BACKGROUND_THREE2.documentReady = function ($) {
+    //Prevent this module from loading in other pages
+    if ($('#3D-background-three-canvas2').length == 0 || !Modernizr.webgl) return false;
+    var sceneSubjects = []; // Import objects and animations dynamically
+
+    var MainStage = function () {
+      var windowWidth = window.innerWidth,
+          windowHeight = window.innerHeight;
+      var rendererCanvasID = '3D-background-three-canvas2'; // Generate one plane geometries mesh to scene
+      //-------------------------------------	
+
+      var camera,
+          scene,
+          renderer,
+          material,
+          displacementSprite,
+          clock = new THREE.Clock();
+      var mouseVector = new THREE.Vector2();
+      var mouseX = 0;
+      var mouseY = 0;
+
+      function init() {
+        //camera
+        camera = new THREE.PerspectiveCamera(50, windowWidth / windowHeight, .01, 1000);
+        camera.position.set(0, 0, 1.8); //Scene
+
+        scene = new THREE.Scene(); //WebGL Renderer	
+
+        renderer = new THREE.WebGLRenderer({
+          canvas: document.getElementById(rendererCanvasID),
+          //canvas
+          alpha: true,
+          antialias: true
+        });
+        renderer.setSize(windowWidth, windowHeight); // Immediately use the texture for material creation
+
+        material = new THREE.ShaderMaterial({
+          uniforms: {
+            "time": {
+              value: 1.0
+            },
+            "texture": {
+              value: new THREE.TextureLoader().load($('#' + rendererCanvasID).data('filter-texture'))
+            }
+          },
+          fragmentShader: fragment_custom,
+          vertexShader: vertex_custom
+        }); //if use texture
+
+        material.uniforms.texture.value.wrapS = THREE.RepeatWrapping;
+        material.uniforms.texture.value.wrapT = THREE.RepeatWrapping;
+        var geometry = new THREE.SphereGeometry(5, 50, 50, 0, Math.PI * 2, 0, Math.PI * 2);
+        displacementSprite = new THREE.Mesh(geometry, material);
+        scene.add(displacementSprite); // Fires when the window changes
+
+        window.addEventListener('resize', onWindowResize, false);
+        document.addEventListener('mousemove', onDocumentMouseMove, false);
+      }
+
+      function render() {
+        requestAnimationFrame(render);
+        var delta = clock.getDelta(); //To set a background color.
+
+        renderer.setClearColor(0x000000);
+        material.uniforms.time.value += delta * 5; //displacementSprite.rotation.y += delta * 0.5 * 1;
+        //displacementSprite.rotation.x += delta * 0.5 * -1;
+        //push objects
+
+        /*
+        @Usage: 
+             function CustomObj( scene ) {
+                 const elements = new THREE...;
+                scene.add( elements );
+                 this.update = function( time ) {
+                    elements.rotation.y = time*0.003;
+                }
+            }       
+             sceneSubjects.push( new CustomObj( MainStage.getScene() ) );  
+        */
+
+        for (var i = 0; i < sceneSubjects.length; i++) {
+          sceneSubjects[i].update(clock.getElapsedTime() * 1);
+        } //render the scene to display our scene through the camera's eye.
+
+
+        renderer.render(scene, camera);
+      }
+
+      function onWindowResize() {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      }
+
+      function onDocumentMouseMove(event) {
+        var rect = renderer.domElement.getBoundingClientRect();
+        displacementSprite.position.z = (event.clientX - rect.left) / rect.width * 4 - 1;
+      }
+
+      function avgArr(arr) {
+        var total = arr.reduce(function (sum, b) {
+          return sum + b;
+        });
+        return total / arr.length;
+      }
+
+      function maxArr(arr) {
+        return arr.reduce(function (a, b) {
+          return Math.max(a, b);
+        });
+      }
+
+      function degToRad(degrees) {
+        return degrees * Math.PI / 180;
+      }
+
+      function round(n, digits) {
+        return Number(n.toFixed(digits));
+      } // 
+      //-------------------------------------	
+
+
+      return {
+        init: init,
+        render: render,
+        getRendererCanvasID: function getRendererCanvasID() {
+          return rendererCanvasID;
+        },
+        getScene: function getScene() {
+          return scene;
+        },
+        getCamera: function getCamera() {
+          return camera;
+        }
+      };
+    }();
+
+    MainStage.init();
+    MainStage.render();
+  };
+
+  module.components.documentReady.push(module.THREE_BACKGROUND_THREE2.documentReady);
+  return /*#__PURE__*/_createClass(function THREE_BACKGROUND_THREE2() {
+    _classCallCheck(this, THREE_BACKGROUND_THREE2);
+
+    this.module = module;
+  });
+}(UixModuleInstance, jQuery, window, document);
+;// CONCATENATED MODULE: ./src/components/simple-3D-background-three3/js/index.js
+
+
+
+/* 
+ *************************************
+ * <!-- 3D Background 3 with three.js -->
+ *************************************
+ */
+
+var THREE_BACKGROUND_THREE3 = function (module, $, window, document) {
+  if (window.THREE_BACKGROUND_THREE3 === null) return false;
+  module.THREE_BACKGROUND_THREE3 = module.THREE_BACKGROUND_THREE3 || {};
+  module.THREE_BACKGROUND_THREE3.version = '0.0.2';
+
+  module.THREE_BACKGROUND_THREE3.documentReady = function ($) {
+    //Prevent this module from loading in other pages
+    if ($('#3D-background-three-canvas3').length == 0 || !Modernizr.webgl) return false;
+    var sceneSubjects = []; // Import objects and animations dynamically
+
+    var MainStage = function () {
+      var windowWidth = window.innerWidth,
+          windowHeight = window.innerHeight;
+      var rendererCanvasID = '3D-background-three-canvas3'; // Generate one plane geometries mesh to scene
+      //-------------------------------------	
+
+      var camera,
+          scene,
+          renderer,
+          displacementSprite,
+          theta = 0;
+      var mouseVector = new THREE.Vector2(),
+          sphereTarget = new THREE.Euler(),
+          xrad = THREE.Math.degToRad(30),
+          yrad = THREE.Math.degToRad(10);
+
+      function init() {
+        //camera
+        camera = new THREE.PerspectiveCamera(50, windowWidth / windowHeight, .01, 1000);
+        camera.position.set(0, 0, 1.8); //Scene
+
+        scene = new THREE.Scene(); //WebGL Renderer	
+
+        renderer = new THREE.WebGLRenderer({
+          canvas: document.getElementById(rendererCanvasID),
+          //canvas
+          alpha: true,
+          antialias: true
+        });
+        renderer.setSize(windowWidth, windowHeight); // Immediately use the texture for material creation
+
+        var sphereGeo = new THREE.SphereBufferGeometry(2, 12, 12);
+        var sphereMat = new THREE.MeshBasicMaterial({
+          color: 0x494949,
+          wireframe: true
+        });
+        displacementSprite = new THREE.Mesh(sphereGeo, sphereMat);
+        displacementSprite.position.y = -0.2;
+        scene.add(displacementSprite); // Fires when the window changes
+
+        window.addEventListener('resize', onWindowResize, false);
+        document.addEventListener('mousemove', onDocumentMouseMove, false);
+      }
+
+      function render() {
+        requestAnimationFrame(render);
+        theta += 0.1; //To set a background color.
+
+        renderer.setClearColor(0x000000);
+        lerp(displacementSprite.rotation, 'x', sphereTarget.x);
+        lerp(displacementSprite.rotation, 'y', sphereTarget.y); //push objects
+
+        /*
+        @Usage: 
+             function CustomObj( scene ) {
+                 const elements = new THREE...;
+                scene.add( elements );
+                 this.update = function( time ) {
+                    elements.rotation.y = time*0.003;
+                }
+            }       
+             sceneSubjects.push( new CustomObj( MainStage.getScene() ) );  
+        */
+
+        for (var i = 0; i < sceneSubjects.length; i++) {
+          sceneSubjects[i].update(clock.getElapsedTime() * 1);
+        } //render the scene to display our scene through the camera's eye.
+
+
+        renderer.render(scene, camera);
+      }
+
+      function onWindowResize() {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      }
+
+      function onDocumentMouseMove(event) {
+        // NDC -1 to 1
+        var rect = renderer.domElement.getBoundingClientRect();
+        mouseVector.x = (event.clientX - rect.left) / rect.width * 2 - 1;
+        mouseVector.y = (event.clientY - rect.top) / rect.height * -2 + 1;
+        sphereTarget.y = mouseVector.x * xrad;
+        sphereTarget.x = -mouseVector.y * yrad;
+      } //Calculate the interpolation of two vectors
+
+
+      function lerp(object, prop, destination) {
+        if (object && object[prop] !== destination) {
+          object[prop] += (destination - object[prop]) * 0.1;
+
+          if (Math.abs(destination - object[prop]) < 0.001) {
+            object[prop] = destination;
+          }
+        }
+      } // 
+      //-------------------------------------	
+
+
+      return {
+        init: init,
+        render: render,
+        getRendererCanvasID: function getRendererCanvasID() {
+          return rendererCanvasID;
+        },
+        getScene: function getScene() {
+          return scene;
+        },
+        getCamera: function getCamera() {
+          return camera;
+        }
+      };
+    }();
+
+    MainStage.init();
+    MainStage.render();
+  };
+
+  module.components.documentReady.push(module.THREE_BACKGROUND_THREE3.documentReady);
+  return /*#__PURE__*/_createClass(function THREE_BACKGROUND_THREE3() {
+    _classCallCheck(this, THREE_BACKGROUND_THREE3);
+
+    this.module = module;
+  });
+}(UixModuleInstance, jQuery, window, document);
+;// CONCATENATED MODULE: ./src/components/simple-3D-background/js/index.js
+
+
+
+
+/* 
+ *************************************
+ * <!-- 3D Background -->
+ *************************************
+ */
+
+
+var THREE_BACKGROUND = function (module, $, window, document) {
+  if (window.THREE_BACKGROUND === null) return false;
+  module.THREE_BACKGROUND = module.THREE_BACKGROUND || {};
+  module.THREE_BACKGROUND.version = '0.0.4';
+
+  module.THREE_BACKGROUND.documentReady = function ($) {
+    //grab each 3dAnimate element and pass it into the animate function along with the config data
+    $('[data-3d-animate]').each(function (index, element) {
+      var dataConfig = $(element).data('3d-animate');
+
+      if ((0,esm_typeof/* default */.Z)(dataConfig) === ( true ? "undefined" : 0)) {
+        dataConfig = false;
+      }
+
+      if (dataConfig) {
+        element.removeEventListener('mousemove', handleMove);
+        element.removeEventListener('touchmove', handleMove);
+        element.addEventListener('mousemove', handleMove);
+        element.addEventListener('touchmove', handleMove); //
+
+        element.removeEventListener('mouseleave', handleMoveEnd);
+        element.removeEventListener('touchend', handleMoveEnd);
+        element.addEventListener('mouseleave', handleMoveEnd);
+        element.addEventListener('touchend', handleMoveEnd); //pass arguments to addEventListener listener
+
+        element.obj = element;
+        element.itemsTotal = element.children.length;
+        element.config = dataConfig;
+      }
+    });
+
+    function handleMove(e) {
+      var el = e.currentTarget.obj;
+      var itemsTotal = e.currentTarget.itemsTotal;
+      var offsetRes = e.currentTarget.config.offset;
+      var w = el.clientWidth; //including: padding
+
+      var h = el.clientHeight; //including: padding
+
+      var base = 0; //Base offset value.
+
+      var multiple = 0; //The power of target number.
+
+      if (offsetRes) {
+        if (itemsTotal === 1) {
+          base = Math.pow(offsetRes[0], offsetRes[1]);
+        } else {
+          base = offsetRes[0];
+          multiple = offsetRes[1];
+        }
+      }
+
+      var mouseX, mouseY, offsetX, offsetY;
+      var touches = e.touches; //get the absolute position of a mouse
+      //!!! Important: If you do not use window.pageXOffset or window.pageYOffset, 
+      //              the mouse coordinates are relative to the parent element
+
+      if (touches && touches.length) {
+        mouseX = touches[0].clientX + window.pageXOffset;
+        mouseY = touches[0].clientY + window.pageYOffset;
+      } else {
+        mouseX = e.clientX + window.pageXOffset;
+        mouseY = e.clientY + window.pageYOffset;
+      } //Find mouse position relative to element
+      //!!! Important: Using `el.offsetTop` or `el.offsetLeft` is relative, the value may be 0
+
+
+      offsetX = mouseX - $(el).offset().left;
+      offsetY = mouseY - $(el).offset().top; //console.log('mouseX: ', mouseX, ' mouseY: ', mouseY, 'el.offsetLeft: ', $(el).offset().left, ' el.offsetTop: ', $(el).offset().top );
+
+      if (itemsTotal === 1) {
+        /*
+        ////////////////////////////////////////////////////////////
+        ////////////////////////  Only One   ///////////////////////
+        ////////////////////////////////////////////////////////////
+        */
+        // function to run matrix3D effect on block
+        var targetX = mousePosition(offsetX, w, base),
+            targetY = mousePosition(offsetY, h, base);
+        el.style.transform = "rotateX(".concat(targetY, "deg) rotateY(").concat(targetX, "deg)");
+      } else {
+        /*
+        ////////////////////////////////////////////////////////////
+        ////////////////////  Multiple Images   ////////////////////
+        ////////////////////////////////////////////////////////////
+        */
+        // function to run matrix3D effect on block
+        var _targetX = offsetX / w,
+            _targetY = offsetY / h;
+
+        var $items = el.children;
+        Array.prototype.forEach.call($items, function (node, index) {
+          var x = _targetX * (base * Math.pow(multiple, index)),
+              y = _targetY * (base * Math.pow(multiple, index)),
+              z = 0,
+              deg = _targetY * (180 / Math.PI),
+              rotateDeg = deg - 35;
+
+          node.style.transform = "translate(".concat(x, "px ,").concat(y, "px) rotate3d( -1, 1, 0, ").concat(rotateDeg, "deg )");
+        });
+      }
+    }
+
+    function handleMoveEnd(e) {
+      var el = e.currentTarget.obj;
+      var itemsTotal = e.currentTarget.itemsTotal;
+      var resetRes = e.currentTarget.config.reset;
+
+      if (resetRes) {
+        if (itemsTotal === 1) {
+          /*
+          ////////////////////////////////////////////////////////////
+          ////////////////////////  Only One   ///////////////////////
+          ////////////////////////////////////////////////////////////
+          */
+          el.style.transform = "rotateX(0deg) rotateY(0deg)";
+        } else {
+          /*
+          ////////////////////////////////////////////////////////////
+          ////////////////////  Multiple Images   ////////////////////
+          ////////////////////////////////////////////////////////////
+          */
+          var $items = el.children;
+          Array.prototype.forEach.call($items, function (node, index) {
+            node.style.transform = "translate(0,0) rotate3d( -1, 1, 0, 0deg )";
+          });
+        }
+      }
+    } // make some calculations for mouse position
+
+
+    function mousePosition(mousePos, dimension, base) {
+      return Math.floor(mousePos / dimension * (base * 2)) - base;
+    }
+  };
+
+  module.components.documentReady.push(module.THREE_BACKGROUND.documentReady);
+  return /*#__PURE__*/_createClass(function THREE_BACKGROUND() {
+    _classCallCheck(this, THREE_BACKGROUND);
+
+    this.module = module;
+  });
+}(UixModuleInstance, jQuery, window, document);
+;// CONCATENATED MODULE: ./src/components/simple-3D-carousel/js/index.js
+
+
+
+
+/* 
+ *************************************
+ * <!-- 3D Carousel -->
+ *************************************
+ */
+
+
+var THREE_CAROUSEL = function (module, $, window, document) {
+  if (window.THREE_CAROUSEL === null) return false;
+  module.THREE_CAROUSEL = module.THREE_CAROUSEL || {};
+  module.THREE_CAROUSEL.version = '0.0.2';
+
+  module.THREE_CAROUSEL.documentReady = function ($) {
+    $('.uix-3d-carousel').each(function () {
+      var $this = $(this);
+      var $wrapper = $this.find('> ul'),
+          $items = $wrapper.find('> li'),
+          itemCount = $items.length;
+      var dataTiming = $this.data('timing'),
+          dataPrevBtn = $this.data('prev-btn'),
+          dataNextBtn = $this.data('next-btn'),
+          dataDraggable = $this.data('draggable'),
+          autoSwap = null,
+          items = [],
+          startItem = 1,
+          position = 0,
+          leftpos = itemCount,
+          resetCount = itemCount;
+      if ((0,esm_typeof/* default */.Z)(dataTiming) === ( true ? "undefined" : 0)) dataTiming = 5000;
+      if ((0,esm_typeof/* default */.Z)(dataPrevBtn) === ( true ? "undefined" : 0)) dataPrevBtn = ".my-carousel-3d-prev";
+      if ((0,esm_typeof/* default */.Z)(dataNextBtn) === ( true ? "undefined" : 0)) dataNextBtn = ".my-carousel-3d-next";
+      if ((0,esm_typeof/* default */.Z)(dataDraggable) === ( true ? "undefined" : 0)) dataDraggable = false; //Avoid problems caused by insufficient quantity
+      //-------------------------------------		
+
+      if (itemCount == 3) {
+        var $clone3 = $items.eq(1).clone();
+        $items.last().after($clone3);
+      }
+
+      if (itemCount == 2) {
+        var $clone2_1 = $items.eq(0).clone(),
+            $clone2_2 = $items.eq(1).clone();
+        $items.last().after([$clone2_1, $clone2_2]);
+      }
+
+      if (itemCount == 1) {
+        var $clone1_1 = $items.eq(0).clone(),
+            $clone1_2 = $items.eq(0).clone(),
+            $clone1_3 = $items.eq(0).clone();
+        $items.last().after([$clone1_1, $clone1_2, $clone1_3]);
+      } //New objects of items and wrapper
+
+
+      $wrapper = $this.find('> ul');
+      $items = $wrapper.find('> li');
+      itemCount = $items.length;
+      leftpos = itemCount;
+      resetCount = itemCount; //Adding an index to an element makes it easy to query
+      //-------------------------------------	
+
+      $items.each(function (index) {
+        items[index] = $(this).text();
+        $(this).attr('id', index + 1);
+      }); //Pause slideshow and reinstantiate on mouseout
+      //-------------------------------------	
+
+      $wrapper.on('mouseenter', function () {
+        clearInterval(autoSwap);
+      }).on('mouseleave', function () {
+        autoSwap = setInterval(itemUpdates, dataTiming);
+      }); //Initialize the default effect
+      //-------------------------------------	
+
+      itemUpdates('clockwise'); //The matched click events for the element.
+      //-------------------------------------	
+
+      $(dataPrevBtn).on('click', function (e) {
+        e.preventDefault();
+        itemUpdates('clockwise');
+        return false;
+      });
+      $(dataNextBtn).on('click', function (e) {
+        e.preventDefault();
+        itemUpdates('counter-clockwise');
+        return false;
+      });
+      $items.on('click', function (e) {
+        e.preventDefault();
+
+        if ($(this).attr('class') == 'uix-3d-carousel__item uix-3d-carousel__item--left-pos') {
+          itemUpdates('counter-clockwise');
+        } else {
+          itemUpdates('clockwise');
+        }
+      }); //Drag and Drop
+      //-------------------------------------	
+
+      var $dragDropTrigger = $wrapper;
+      var hammerProps = {};
+
+      if (!dataDraggable) {
+        hammerProps = {
+          inputClass: Hammer.TouchInput
+        };
+      } //Mouse event
+      //Hammer.js pan event only for touch devices and not for desktop computer Click+Drag
+
+
+      var direction;
+      var dragDropElement = $dragDropTrigger[0],
+          dragDropMC = new Hammer(dragDropElement, hammerProps); // let the pan gesture support all directions.
+      // this will block the vertical scrolling on a touch-device while on the element
+
+      dragDropMC.get('pan').set({
+        direction: Hammer.DIRECTION_ALL
+      });
+      dragDropMC.on('press panright panleft', function (ev) {
+        //Set the direction in here
+        direction = ev.type;
+      });
+      dragDropMC.on('panend', function (ev) {
+        //Use the direction in here
+        //You know the pan has ended
+        //and you know which action they were taking
+        if (direction == 'panleft') {
+          itemUpdates('clockwise');
+        }
+
+        if (direction == 'panright') {
+          itemUpdates('counter-clockwise');
+        }
+      });
+      /*
+       * Swap Between Images
+       *
+       * @param  {String} action           - Direction of movement, optional: clockwise, counter-clockwise
+       * @return {Void}
+       */
+
+      function itemUpdates(action) {
+        var direction = action; //moving carousel backwards
+
+        if (direction == 'counter-clockwise') {
+          var leftitem = parseFloat($wrapper.find('> li.uix-3d-carousel__item--left-pos').attr('id') - 1);
+
+          if (leftitem == 0) {
+            leftitem = itemCount;
+          }
+
+          $wrapper.find('> li.uix-3d-carousel__item--right-pos').removeClass('uix-3d-carousel__item--right-pos').addClass('uix-3d-carousel__item--back-pos');
+          $wrapper.find('> li.uix-3d-carousel__item--main-pos').removeClass('uix-3d-carousel__item--main-pos').addClass('uix-3d-carousel__item--right-pos');
+          $wrapper.find('> li.uix-3d-carousel__item--left-pos').removeClass('uix-3d-carousel__item--left-pos').addClass('uix-3d-carousel__item--main-pos');
+          $wrapper.find('> li#' + leftitem + '').removeClass('uix-3d-carousel__item--back-pos').addClass('uix-3d-carousel__item--left-pos');
+          startItem--;
+
+          if (startItem < 1) {
+            startItem = itemCount;
+          }
+        } //moving carousel forward
+
+
+        if (direction == 'clockwise' || direction == '' || direction == null) {
+          var carousel3DPos = function carousel3DPos(dir) {
+            if (dir != 'leftposition') {
+              //increment image list id
+              position++; //if final result is greater than image count, reset position.
+
+              if (startItem + position > resetCount) {
+                position = 1 - startItem;
+              }
+            } //setting the left positioned item
+
+
+            if (dir == 'leftposition') {
+              //left positioned image should always be one left than main positioned image.
+              position = startItem - 1; //reset last image in list to left position if first image is in main position
+
+              if (position < 1) {
+                position = itemCount;
+              }
+            }
+
+            return position;
+          };
+
+          $wrapper.find('> li#' + startItem + '').removeClass('uix-3d-carousel__item--main-pos').addClass('uix-3d-carousel__item--left-pos');
+          $wrapper.find('> li#' + (startItem + carousel3DPos()) + '').removeClass('uix-3d-carousel__item--right-pos').addClass('uix-3d-carousel__item--main-pos');
+          $wrapper.find('> li#' + (startItem + carousel3DPos()) + '').removeClass('uix-3d-carousel__item--back-pos').addClass('uix-3d-carousel__item--right-pos');
+          $wrapper.find('> li#' + carousel3DPos('leftposition') + '').removeClass('uix-3d-carousel__item--left-pos').addClass('uix-3d-carousel__item--back-pos');
+          startItem++;
+          position = 0;
+
+          if (startItem > itemCount) {
+            startItem = 1;
+          }
+        }
+      }
+    });
+  };
+
+  module.components.documentReady.push(module.THREE_CAROUSEL.documentReady);
+  return /*#__PURE__*/_createClass(function THREE_CAROUSEL() {
+    _classCallCheck(this, THREE_CAROUSEL);
+
+    this.module = module;
+  });
+}(UixModuleInstance, jQuery, window, document);
+;// CONCATENATED MODULE: ./src/components/_third-party-plugins/THREE/esm/controls/OrbitControls.js
+/**
+ * @author qiao / https://github.com/qiao
+ * @author mrdoob / http://mrdoob.com
+ * @author alteredq / http://alteredqualia.com/
+ * @author WestLangley / http://github.com/WestLangley
+ * @author erich666 / http://erichaines.com
+ */
+// This set of controls performs orbiting, dollying (zooming), and panning.
+// Unlike TrackballControls, it maintains the "up" direction object.up (+Y by default).
+//
+//    Orbit - left mouse / touch: one-finger move
+//    Zoom - middle mouse, or mousewheel / touch: two-finger spread or squish
+//    Pan - right mouse, or arrow keys / touch: two-finger move
+THREE.OrbitControls = function (object, domElement) {
+  this.object = object;
+  this.domElement = domElement !== undefined ? domElement : document; // Set to false to disable this control
+
+  this.enabled = true; // "target" sets the location of focus, where the object orbits around
+
+  this.target = new THREE.Vector3(); // How far you can dolly in and out ( PerspectiveCamera only )
+
+  this.minDistance = 0;
+  this.maxDistance = Infinity; // How far you can zoom in and out ( OrthographicCamera only )
+
+  this.minZoom = 0;
+  this.maxZoom = Infinity; // How far you can orbit vertically, upper and lower limits.
+  // Range is 0 to Math.PI radians.
+
+  this.minPolarAngle = 0; // radians
+
+  this.maxPolarAngle = Math.PI; // radians
+  // How far you can orbit horizontally, upper and lower limits.
+  // If set, must be a sub-interval of the interval [ - Math.PI, Math.PI ].
+
+  this.minAzimuthAngle = -Infinity; // radians
+
+  this.maxAzimuthAngle = Infinity; // radians
+  // Set to true to enable damping (inertia)
+  // If damping is enabled, you must call controls.update() in your animation loop
+
+  this.enableDamping = false;
+  this.dampingFactor = 0.25; // This option actually enables dollying in and out; left as "zoom" for backwards compatibility.
+  // Set to false to disable zooming
+
+  this.enableZoom = true;
+  this.zoomSpeed = 1.0; // Set to false to disable rotating
+
+  this.enableRotate = true;
+  this.rotateSpeed = 1.0; // Set to false to disable panning
+
+  this.enablePan = true;
+  this.panSpeed = 1.0;
+  this.screenSpacePanning = false; // if true, pan in screen-space
+
+  this.keyPanSpeed = 7.0; // pixels moved per arrow key push
+  // Set to true to automatically rotate around the target
+  // If auto-rotate is enabled, you must call controls.update() in your animation loop
+
+  this.autoRotate = false;
+  this.autoRotateSpeed = 2.0; // 30 seconds per round when fps is 60
+  // Set to false to disable use of the keys
+
+  this.enableKeys = true; // The four arrow keys
+
+  this.keys = {
+    LEFT: 37,
+    UP: 38,
+    RIGHT: 39,
+    BOTTOM: 40
+  }; // Mouse buttons
+
+  this.mouseButtons = {
+    ORBIT: THREE.MOUSE.LEFT,
+    ZOOM: THREE.MOUSE.MIDDLE,
+    PAN: THREE.MOUSE.RIGHT
+  }; // for reset
+
+  this.target0 = this.target.clone();
+  this.position0 = this.object.position.clone();
+  this.zoom0 = this.object.zoom; //
+  // public methods
+  //
+
+  this.getPolarAngle = function () {
+    return spherical.phi;
+  };
+
+  this.getAzimuthalAngle = function () {
+    return spherical.theta;
+  };
+
+  this.saveState = function () {
+    scope.target0.copy(scope.target);
+    scope.position0.copy(scope.object.position);
+    scope.zoom0 = scope.object.zoom;
+  };
+
+  this.reset = function () {
+    scope.target.copy(scope.target0);
+    scope.object.position.copy(scope.position0);
+    scope.object.zoom = scope.zoom0;
+    scope.object.updateProjectionMatrix();
+    scope.dispatchEvent(changeEvent);
+    scope.update();
+    state = STATE.NONE;
+  }; // this method is exposed, but perhaps it would be better if we can make it private...
+
+
+  this.update = function () {
+    var offset = new THREE.Vector3(); // so camera.up is the orbit axis
+
+    var quat = new THREE.Quaternion().setFromUnitVectors(object.up, new THREE.Vector3(0, 1, 0));
+    var quatInverse = quat.clone().inverse();
+    var lastPosition = new THREE.Vector3();
+    var lastQuaternion = new THREE.Quaternion();
+    return function update() {
+      var position = scope.object.position;
+      offset.copy(position).sub(scope.target); // rotate offset to "y-axis-is-up" space
+
+      offset.applyQuaternion(quat); // angle from z-axis around y-axis
+
+      spherical.setFromVector3(offset);
+
+      if (scope.autoRotate && state === STATE.NONE) {
+        rotateLeft(getAutoRotationAngle());
+      }
+
+      spherical.theta += sphericalDelta.theta;
+      spherical.phi += sphericalDelta.phi; // restrict theta to be between desired limits
+
+      spherical.theta = Math.max(scope.minAzimuthAngle, Math.min(scope.maxAzimuthAngle, spherical.theta)); // restrict phi to be between desired limits
+
+      spherical.phi = Math.max(scope.minPolarAngle, Math.min(scope.maxPolarAngle, spherical.phi));
+      spherical.makeSafe();
+      spherical.radius *= scale; // restrict radius to be between desired limits
+
+      spherical.radius = Math.max(scope.minDistance, Math.min(scope.maxDistance, spherical.radius)); // move target to panned location
+
+      scope.target.add(panOffset);
+      offset.setFromSpherical(spherical); // rotate offset back to "camera-up-vector-is-up" space
+
+      offset.applyQuaternion(quatInverse);
+      position.copy(scope.target).add(offset);
+      scope.object.lookAt(scope.target);
+
+      if (scope.enableDamping === true) {
+        sphericalDelta.theta *= 1 - scope.dampingFactor;
+        sphericalDelta.phi *= 1 - scope.dampingFactor;
+        panOffset.multiplyScalar(1 - scope.dampingFactor);
+      } else {
+        sphericalDelta.set(0, 0, 0);
+        panOffset.set(0, 0, 0);
+      }
+
+      scale = 1; // update condition is:
+      // min(camera displacement, camera rotation in radians)^2 > EPS
+      // using small-angle approximation cos(x/2) = 1 - x^2 / 8
+
+      if (zoomChanged || lastPosition.distanceToSquared(scope.object.position) > EPS || 8 * (1 - lastQuaternion.dot(scope.object.quaternion)) > EPS) {
+        scope.dispatchEvent(changeEvent);
+        lastPosition.copy(scope.object.position);
+        lastQuaternion.copy(scope.object.quaternion);
+        zoomChanged = false;
+        return true;
+      }
+
+      return false;
+    };
+  }();
+
+  this.dispose = function () {
+    scope.domElement.removeEventListener('contextmenu', onContextMenu, false);
+    scope.domElement.removeEventListener('mousedown', onMouseDown, false);
+    scope.domElement.removeEventListener('wheel', onMouseWheel, false);
+    scope.domElement.removeEventListener('touchstart', onTouchStart, false);
+    scope.domElement.removeEventListener('touchend', onTouchEnd, false);
+    scope.domElement.removeEventListener('touchmove', onTouchMove, false);
+    document.removeEventListener('mousemove', onMouseMove, false);
+    document.removeEventListener('mouseup', onMouseUp, false);
+    window.removeEventListener('keydown', onKeyDown, false); //scope.dispatchEvent( { type: 'dispose' } ); // should this be added here?
+  }; //
+  // internals
+  //
+
+
+  var scope = this;
+  var changeEvent = {
+    type: 'change'
+  };
+  var startEvent = {
+    type: 'start'
+  };
+  var endEvent = {
+    type: 'end'
+  };
+  var STATE = {
+    NONE: -1,
+    ROTATE: 0,
+    DOLLY: 1,
+    PAN: 2,
+    TOUCH_ROTATE: 3,
+    TOUCH_DOLLY_PAN: 4
+  };
+  var state = STATE.NONE;
+  var EPS = 0.000001; // current position in spherical coordinates
+
+  var spherical = new THREE.Spherical();
+  var sphericalDelta = new THREE.Spherical();
+  var scale = 1;
+  var panOffset = new THREE.Vector3();
+  var zoomChanged = false;
+  var rotateStart = new THREE.Vector2();
+  var rotateEnd = new THREE.Vector2();
+  var rotateDelta = new THREE.Vector2();
+  var panStart = new THREE.Vector2();
+  var panEnd = new THREE.Vector2();
+  var panDelta = new THREE.Vector2();
+  var dollyStart = new THREE.Vector2();
+  var dollyEnd = new THREE.Vector2();
+  var dollyDelta = new THREE.Vector2();
+
+  function getAutoRotationAngle() {
+    return 2 * Math.PI / 60 / 60 * scope.autoRotateSpeed;
+  }
+
+  function getZoomScale() {
+    return Math.pow(0.95, scope.zoomSpeed);
+  }
+
+  function rotateLeft(angle) {
+    sphericalDelta.theta -= angle;
+  }
+
+  function rotateUp(angle) {
+    sphericalDelta.phi -= angle;
+  }
+
+  var panLeft = function () {
+    var v = new THREE.Vector3();
+    return function panLeft(distance, objectMatrix) {
+      v.setFromMatrixColumn(objectMatrix, 0); // get X column of objectMatrix
+
+      v.multiplyScalar(-distance);
+      panOffset.add(v);
+    };
+  }();
+
+  var panUp = function () {
+    var v = new THREE.Vector3();
+    return function panUp(distance, objectMatrix) {
+      if (scope.screenSpacePanning === true) {
+        v.setFromMatrixColumn(objectMatrix, 1);
+      } else {
+        v.setFromMatrixColumn(objectMatrix, 0);
+        v.crossVectors(scope.object.up, v);
+      }
+
+      v.multiplyScalar(distance);
+      panOffset.add(v);
+    };
+  }(); // deltaX and deltaY are in pixels; right and down are positive
+
+
+  var pan = function () {
+    var offset = new THREE.Vector3();
+    return function pan(deltaX, deltaY) {
+      var element = scope.domElement === document ? scope.domElement.body : scope.domElement;
+
+      if (scope.object.isPerspectiveCamera) {
+        // perspective
+        var position = scope.object.position;
+        offset.copy(position).sub(scope.target);
+        var targetDistance = offset.length(); // half of the fov is center to top of screen
+
+        targetDistance *= Math.tan(scope.object.fov / 2 * Math.PI / 180.0); // we use only clientHeight here so aspect ratio does not distort speed
+
+        panLeft(2 * deltaX * targetDistance / element.clientHeight, scope.object.matrix);
+        panUp(2 * deltaY * targetDistance / element.clientHeight, scope.object.matrix);
+      } else if (scope.object.isOrthographicCamera) {
+        // orthographic
+        panLeft(deltaX * (scope.object.right - scope.object.left) / scope.object.zoom / element.clientWidth, scope.object.matrix);
+        panUp(deltaY * (scope.object.top - scope.object.bottom) / scope.object.zoom / element.clientHeight, scope.object.matrix);
+      } else {
+        // camera neither orthographic nor perspective
+        console.warn('WARNING: OrbitControls.js encountered an unknown camera type - pan disabled.');
+        scope.enablePan = false;
+      }
+    };
+  }();
+
+  function dollyIn(dollyScale) {
+    if (scope.object.isPerspectiveCamera) {
+      scale /= dollyScale;
+    } else if (scope.object.isOrthographicCamera) {
+      scope.object.zoom = Math.max(scope.minZoom, Math.min(scope.maxZoom, scope.object.zoom * dollyScale));
+      scope.object.updateProjectionMatrix();
+      zoomChanged = true;
+    } else {
+      console.warn('WARNING: OrbitControls.js encountered an unknown camera type - dolly/zoom disabled.');
+      scope.enableZoom = false;
+    }
+  }
+
+  function dollyOut(dollyScale) {
+    if (scope.object.isPerspectiveCamera) {
+      scale *= dollyScale;
+    } else if (scope.object.isOrthographicCamera) {
+      scope.object.zoom = Math.max(scope.minZoom, Math.min(scope.maxZoom, scope.object.zoom / dollyScale));
+      scope.object.updateProjectionMatrix();
+      zoomChanged = true;
+    } else {
+      console.warn('WARNING: OrbitControls.js encountered an unknown camera type - dolly/zoom disabled.');
+      scope.enableZoom = false;
+    }
+  } //
+  // event callbacks - update the object state
+  //
+
+
+  function handleMouseDownRotate(event) {
+    //console.log( 'handleMouseDownRotate' );
+    rotateStart.set(event.clientX, event.clientY);
+  }
+
+  function handleMouseDownDolly(event) {
+    //console.log( 'handleMouseDownDolly' );
+    dollyStart.set(event.clientX, event.clientY);
+  }
+
+  function handleMouseDownPan(event) {
+    //console.log( 'handleMouseDownPan' );
+    panStart.set(event.clientX, event.clientY);
+  }
+
+  function handleMouseMoveRotate(event) {
+    //console.log( 'handleMouseMoveRotate' );
+    rotateEnd.set(event.clientX, event.clientY);
+    rotateDelta.subVectors(rotateEnd, rotateStart).multiplyScalar(scope.rotateSpeed);
+    var element = scope.domElement === document ? scope.domElement.body : scope.domElement; // rotating across whole screen goes 360 degrees around
+
+    rotateLeft(2 * Math.PI * rotateDelta.x / element.clientWidth); // rotating up and down along whole screen attempts to go 360, but limited to 180
+
+    rotateUp(2 * Math.PI * rotateDelta.y / element.clientHeight);
+    rotateStart.copy(rotateEnd);
+    scope.update();
+  }
+
+  function handleMouseMoveDolly(event) {
+    //console.log( 'handleMouseMoveDolly' );
+    dollyEnd.set(event.clientX, event.clientY);
+    dollyDelta.subVectors(dollyEnd, dollyStart);
+
+    if (dollyDelta.y > 0) {
+      dollyIn(getZoomScale());
+    } else if (dollyDelta.y < 0) {
+      dollyOut(getZoomScale());
+    }
+
+    dollyStart.copy(dollyEnd);
+    scope.update();
+  }
+
+  function handleMouseMovePan(event) {
+    //console.log( 'handleMouseMovePan' );
+    panEnd.set(event.clientX, event.clientY);
+    panDelta.subVectors(panEnd, panStart).multiplyScalar(scope.panSpeed);
+    pan(panDelta.x, panDelta.y);
+    panStart.copy(panEnd);
+    scope.update();
+  }
+
+  function handleMouseUp(event) {// console.log( 'handleMouseUp' );
+  }
+
+  function handleMouseWheel(event) {
+    // console.log( 'handleMouseWheel' );
+    if (event.deltaY < 0) {
+      dollyOut(getZoomScale());
+    } else if (event.deltaY > 0) {
+      dollyIn(getZoomScale());
+    }
+
+    scope.update();
+  }
+
+  function handleKeyDown(event) {
+    //console.log( 'handleKeyDown' );
+    switch (event.keyCode) {
+      case scope.keys.UP:
+        pan(0, scope.keyPanSpeed);
+        scope.update();
+        break;
+
+      case scope.keys.BOTTOM:
+        pan(0, -scope.keyPanSpeed);
+        scope.update();
+        break;
+
+      case scope.keys.LEFT:
+        pan(scope.keyPanSpeed, 0);
+        scope.update();
+        break;
+
+      case scope.keys.RIGHT:
+        pan(-scope.keyPanSpeed, 0);
+        scope.update();
+        break;
+    }
+  }
+
+  function handleTouchStartRotate(event) {
+    //console.log( 'handleTouchStartRotate' );
+    rotateStart.set(event.touches[0].pageX, event.touches[0].pageY);
+  }
+
+  function handleTouchStartDollyPan(event) {
+    //console.log( 'handleTouchStartDollyPan' );
+    if (scope.enableZoom) {
+      var dx = event.touches[0].pageX - event.touches[1].pageX;
+      var dy = event.touches[0].pageY - event.touches[1].pageY;
+      var distance = Math.sqrt(dx * dx + dy * dy);
+      dollyStart.set(0, distance);
+    }
+
+    if (scope.enablePan) {
+      var x = 0.5 * (event.touches[0].pageX + event.touches[1].pageX);
+      var y = 0.5 * (event.touches[0].pageY + event.touches[1].pageY);
+      panStart.set(x, y);
+    }
+  }
+
+  function handleTouchMoveRotate(event) {
+    //console.log( 'handleTouchMoveRotate' );
+    rotateEnd.set(event.touches[0].pageX, event.touches[0].pageY);
+    rotateDelta.subVectors(rotateEnd, rotateStart).multiplyScalar(scope.rotateSpeed);
+    var element = scope.domElement === document ? scope.domElement.body : scope.domElement; // rotating across whole screen goes 360 degrees around
+
+    rotateLeft(2 * Math.PI * rotateDelta.x / element.clientWidth); // rotating up and down along whole screen attempts to go 360, but limited to 180
+
+    rotateUp(2 * Math.PI * rotateDelta.y / element.clientHeight);
+    rotateStart.copy(rotateEnd);
+    scope.update();
+  }
+
+  function handleTouchMoveDollyPan(event) {
+    //console.log( 'handleTouchMoveDollyPan' );
+    if (scope.enableZoom) {
+      var dx = event.touches[0].pageX - event.touches[1].pageX;
+      var dy = event.touches[0].pageY - event.touches[1].pageY;
+      var distance = Math.sqrt(dx * dx + dy * dy);
+      dollyEnd.set(0, distance);
+      dollyDelta.set(0, Math.pow(dollyEnd.y / dollyStart.y, scope.zoomSpeed));
+      dollyIn(dollyDelta.y);
+      dollyStart.copy(dollyEnd);
+    }
+
+    if (scope.enablePan) {
+      var x = 0.5 * (event.touches[0].pageX + event.touches[1].pageX);
+      var y = 0.5 * (event.touches[0].pageY + event.touches[1].pageY);
+      panEnd.set(x, y);
+      panDelta.subVectors(panEnd, panStart).multiplyScalar(scope.panSpeed);
+      pan(panDelta.x, panDelta.y);
+      panStart.copy(panEnd);
+    }
+
+    scope.update();
+  }
+
+  function handleTouchEnd(event) {//console.log( 'handleTouchEnd' );
+  } //
+  // event handlers - FSM: listen for events and reset state
+  //
+
+
+  function onMouseDown(event) {
+    if (scope.enabled === false) return;
+    event.preventDefault();
+
+    switch (event.button) {
+      case scope.mouseButtons.ORBIT:
+        if (scope.enableRotate === false) return;
+        handleMouseDownRotate(event);
+        state = STATE.ROTATE;
+        break;
+
+      case scope.mouseButtons.ZOOM:
+        if (scope.enableZoom === false) return;
+        handleMouseDownDolly(event);
+        state = STATE.DOLLY;
+        break;
+
+      case scope.mouseButtons.PAN:
+        if (scope.enablePan === false) return;
+        handleMouseDownPan(event);
+        state = STATE.PAN;
+        break;
+    }
+
+    if (state !== STATE.NONE) {
+      document.addEventListener('mousemove', onMouseMove, false);
+      document.addEventListener('mouseup', onMouseUp, false);
+      scope.dispatchEvent(startEvent);
+    }
+  }
+
+  function onMouseMove(event) {
+    if (scope.enabled === false) return;
+    event.preventDefault();
+
+    switch (state) {
+      case STATE.ROTATE:
+        if (scope.enableRotate === false) return;
+        handleMouseMoveRotate(event);
+        break;
+
+      case STATE.DOLLY:
+        if (scope.enableZoom === false) return;
+        handleMouseMoveDolly(event);
+        break;
+
+      case STATE.PAN:
+        if (scope.enablePan === false) return;
+        handleMouseMovePan(event);
+        break;
+    }
+  }
+
+  function onMouseUp(event) {
+    if (scope.enabled === false) return;
+    handleMouseUp(event);
+    document.removeEventListener('mousemove', onMouseMove, false);
+    document.removeEventListener('mouseup', onMouseUp, false);
+    scope.dispatchEvent(endEvent);
+    state = STATE.NONE;
+  }
+
+  function onMouseWheel(event) {
+    if (scope.enabled === false || scope.enableZoom === false || state !== STATE.NONE && state !== STATE.ROTATE) return;
+    event.preventDefault();
+    event.stopPropagation();
+    scope.dispatchEvent(startEvent);
+    handleMouseWheel(event);
+    scope.dispatchEvent(endEvent);
+  }
+
+  function onKeyDown(event) {
+    if (scope.enabled === false || scope.enableKeys === false || scope.enablePan === false) return;
+    handleKeyDown(event);
+  }
+
+  function onTouchStart(event) {
+    if (scope.enabled === false) return;
+    event.preventDefault();
+
+    switch (event.touches.length) {
+      case 1:
+        // one-fingered touch: rotate
+        if (scope.enableRotate === false) return;
+        handleTouchStartRotate(event);
+        state = STATE.TOUCH_ROTATE;
+        break;
+
+      case 2:
+        // two-fingered touch: dolly-pan
+        if (scope.enableZoom === false && scope.enablePan === false) return;
+        handleTouchStartDollyPan(event);
+        state = STATE.TOUCH_DOLLY_PAN;
+        break;
+
+      default:
+        state = STATE.NONE;
+    }
+
+    if (state !== STATE.NONE) {
+      scope.dispatchEvent(startEvent);
+    }
+  }
+
+  function onTouchMove(event) {
+    if (scope.enabled === false) return;
+    event.preventDefault();
+    event.stopPropagation();
+
+    switch (event.touches.length) {
+      case 1:
+        // one-fingered touch: rotate
+        if (scope.enableRotate === false) return;
+        if (state !== STATE.TOUCH_ROTATE) return; // is this needed?
+
+        handleTouchMoveRotate(event);
+        break;
+
+      case 2:
+        // two-fingered touch: dolly-pan
+        if (scope.enableZoom === false && scope.enablePan === false) return;
+        if (state !== STATE.TOUCH_DOLLY_PAN) return; // is this needed?
+
+        handleTouchMoveDollyPan(event);
+        break;
+
+      default:
+        state = STATE.NONE;
+    }
+  }
+
+  function onTouchEnd(event) {
+    if (scope.enabled === false) return;
+    handleTouchEnd(event);
+    scope.dispatchEvent(endEvent);
+    state = STATE.NONE;
+  }
+
+  function onContextMenu(event) {
+    if (scope.enabled === false) return;
+    event.preventDefault();
+  } //
+
+
+  scope.domElement.addEventListener('contextmenu', onContextMenu, false);
+  scope.domElement.addEventListener('mousedown', onMouseDown, false);
+  scope.domElement.addEventListener('wheel', onMouseWheel, false);
+  scope.domElement.addEventListener('touchstart', onTouchStart, false);
+  scope.domElement.addEventListener('touchend', onTouchEnd, false);
+  scope.domElement.addEventListener('touchmove', onTouchMove, false);
+  window.addEventListener('keydown', onKeyDown, false); // force an update at start
+
+  this.update();
+};
+
+THREE.OrbitControls.prototype = Object.create(THREE.EventDispatcher.prototype);
+THREE.OrbitControls.prototype.constructor = THREE.OrbitControls;
+Object.defineProperties(THREE.OrbitControls.prototype, {
+  center: {
+    get: function get() {
+      console.warn('THREE.OrbitControls: .center has been renamed to .target');
+      return this.target;
+    }
+  },
+  // backward compatibility
+  noZoom: {
+    get: function get() {
+      console.warn('THREE.OrbitControls: .noZoom has been deprecated. Use .enableZoom instead.');
+      return !this.enableZoom;
+    },
+    set: function set(value) {
+      console.warn('THREE.OrbitControls: .noZoom has been deprecated. Use .enableZoom instead.');
+      this.enableZoom = !value;
+    }
+  },
+  noRotate: {
+    get: function get() {
+      console.warn('THREE.OrbitControls: .noRotate has been deprecated. Use .enableRotate instead.');
+      return !this.enableRotate;
+    },
+    set: function set(value) {
+      console.warn('THREE.OrbitControls: .noRotate has been deprecated. Use .enableRotate instead.');
+      this.enableRotate = !value;
+    }
+  },
+  noPan: {
+    get: function get() {
+      console.warn('THREE.OrbitControls: .noPan has been deprecated. Use .enablePan instead.');
+      return !this.enablePan;
+    },
+    set: function set(value) {
+      console.warn('THREE.OrbitControls: .noPan has been deprecated. Use .enablePan instead.');
+      this.enablePan = !value;
+    }
+  },
+  noKeys: {
+    get: function get() {
+      console.warn('THREE.OrbitControls: .noKeys has been deprecated. Use .enableKeys instead.');
+      return !this.enableKeys;
+    },
+    set: function set(value) {
+      console.warn('THREE.OrbitControls: .noKeys has been deprecated. Use .enableKeys instead.');
+      this.enableKeys = !value;
+    }
+  },
+  staticMoving: {
+    get: function get() {
+      console.warn('THREE.OrbitControls: .staticMoving has been deprecated. Use .enableDamping instead.');
+      return !this.enableDamping;
+    },
+    set: function set(value) {
+      console.warn('THREE.OrbitControls: .staticMoving has been deprecated. Use .enableDamping instead.');
+      this.enableDamping = !value;
+    }
+  },
+  dynamicDampingFactor: {
+    get: function get() {
+      console.warn('THREE.OrbitControls: .dynamicDampingFactor has been renamed. Use .dampingFactor instead.');
+      return this.dampingFactor;
+    },
+    set: function set(value) {
+      console.warn('THREE.OrbitControls: .dynamicDampingFactor has been renamed. Use .dampingFactor instead.');
+      this.dampingFactor = value;
+    }
+  }
+});
+/* harmony default export */ const OrbitControls = (THREE.OrbitControls);
+;// CONCATENATED MODULE: ./src/components/simple-3D-gallery/js/index.js
+
+
+
+
+/* 
+ *************************************
+ * <!-- 3D Gallery with three.js -->
+ *************************************
+ */
+
+
+var THREE_GALLERY = function (module, $, window, document) {
+  if (window.THREE_GALLERY === null) return false;
+  module.THREE_GALLERY = module.THREE_GALLERY || {};
+  module.THREE_GALLERY.version = '0.0.5';
+
+  module.THREE_GALLERY.documentReady = function ($) {
+    //Prevent this module from loading in other pages
+    if ($('#3D-gallery-three-canvas').length == 0 || !Modernizr.webgl) return false;
+    var sceneSubjects = []; // Import objects and animations dynamically
+
+    var MainStage = function () {
+      var windowWidth = window.innerWidth,
+          windowHeight = window.innerHeight;
+      var rendererCanvasID = '3D-gallery-three-canvas'; // Generate one plane geometries mesh to scene
+      //-------------------------------------	
+
+      var camera,
+          controls,
+          scene,
+          light,
+          renderer,
+          displacementSprite,
+          theta = 0;
+      var offsetWidth = 1400,
+          offsetHeight = 933,
+          allImages = [],
+          imgTotal,
+          imagesLoaded = false; // we will keep track of the scroll
+
+      var scrollValue = 0;
+      var lastScrollValue = 0;
+
+      function init() {
+        //camera
+        camera = new THREE.PerspectiveCamera(75, windowWidth / windowHeight, 1, 10000);
+        camera.position.set(0, 0, 1000); //controls
+
+        controls = new THREE.OrbitControls(camera);
+        controls.autoRotate = false;
+        controls.autoRotateSpeed = 0.5;
+        controls.rotateSpeed = 0.5;
+        controls.zoomSpeed = 1.2;
+        controls.panSpeed = 0.8;
+        controls.enableZoom = false;
+        controls.enableDamping = true; // an animation loop is required when either damping or auto-rotation are enabled
+
+        controls.dampingFactor = 0.25;
+        controls.screenSpacePanning = false;
+        controls.minDistance = 100;
+        controls.maxDistance = 500;
+        controls.maxPolarAngle = Math.PI / 2;
+        controls.target.set(30, 167, 81);
+        controls.update(); //Scene
+
+        scene = new THREE.Scene(); //HemisphereLight
+
+        scene.add(new THREE.AmbientLight(0x555555));
+        light = new THREE.SpotLight(0xffffff, 1.5);
+        light.position.set(0, 500, 2000);
+        scene.add(light); //WebGL Renderer	
+
+        renderer = new THREE.WebGLRenderer({
+          canvas: document.getElementById(rendererCanvasID),
+          //canvas
+          alpha: true,
+          antialias: true
+        });
+        renderer.setSize(windowWidth, windowHeight); // Immediately use the texture for material creation
+        // Create a texture loader so we can load our image file
+
+        var imgs = ['https://placekitten.com/2100/2100', 'https://placekitten.com/2200/2200', 'https://placekitten.com/2300/2300', 'https://placekitten.com/2400/2400', 'https://placekitten.com/2500/2500', 'https://placekitten.com/2000/2000', 'https://placekitten.com/1600/1600', 'https://placekitten.com/1650/1650', 'https://placekitten.com/1670/1670', 'https://placekitten.com/1680/1680', 'https://placekitten.com/1700/1700']; //A loader for loading all images from array.
+
+        var loader = new THREE.TextureLoader();
+        loader.crossOrigin = 'anonymous'; //Preload
+
+        imgTotal = imgs.length;
+        var gap = 100,
+            circumference = (offsetWidth + gap) * imgTotal,
+            //get circumference from all images width
+        galleryRadius = circumference / (Math.PI * 2),
+            // C = 2πr = Math.PI * 2 * radius
+        eachItemAngleToRad = Math.PI * 2 / imgTotal; // 360° = 2π = Math.PI * 2
+
+        if (camera.position.length() > galleryRadius) {
+          camera.position.set(0, 0, 0);
+        } //Load images
+
+
+        imgs.forEach(function (element, index) {
+          loadImage(loader, element, index, offsetWidth, offsetHeight, imgTotal, eachItemAngleToRad, galleryRadius, $('#3D-gallery-three-canvas__loader'));
+        }); // Add function to the window that should be resized
+
+        var debounceFuncWindow = UixDebounce(windowUpdate, 50);
+        window.removeEventListener('resize', debounceFuncWindow);
+        window.addEventListener('resize', debounceFuncWindow); // Add function to the element that should be used as the scrollable area.
+
+        var throttleFunc = UixThrottle(scrollUpdate, 5);
+        window.removeEventListener('scroll', throttleFunc);
+        window.removeEventListener('touchmove', throttleFunc);
+        window.addEventListener('scroll', throttleFunc);
+        window.addEventListener('touchmove', throttleFunc);
+        throttleFunc();
+      }
+
+      function render() {
+        requestAnimationFrame(render);
+        theta += 0.1; //To set a background color.
+
+        renderer.setClearColor(0x000000); // listen to scroll to update
+
+        var delta = scrollValue - lastScrollValue; // threshold
+
+        if (delta > 60) {
+          delta = 60;
+        } else if (delta < -60) {
+          delta = -60;
+        }
+
+        camera.position.x = camera.position.x + delta; //check all images loaded
+
+        if ((0,esm_typeof/* default */.Z)(allImages) != ( true ? "undefined" : 0)) {
+          if (!imagesLoaded && allImages.length === imgTotal) {
+            allImages.forEach(function (element) {
+              scene.add(element);
+            });
+            imagesLoaded = true;
+          }
+        } //update camera and controls
+
+
+        controls.update(); //push objects
+
+        /*
+        @Usage: 
+             function CustomObj( scene ) {
+                 const elements = new THREE...;
+                scene.add( elements );
+                 this.update = function( time ) {
+                    elements.rotation.y = time*0.003;
+                }
+            }       
+             sceneSubjects.push( new CustomObj( MainStage.getScene() ) );  
+        */
+
+        for (var i = 0; i < sceneSubjects.length; i++) {
+          sceneSubjects[i].update(clock.getElapsedTime() * 1);
+        } //render the scene to display our scene through the camera's eye.
+
+
+        renderer.render(scene, camera);
+      }
+
+      function windowUpdate() {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      }
+
+      function scrollUpdate() {
+        lastScrollValue = scrollValue;
+        scrollValue = window.pageYOffset;
+        console.log('lastScrollValue: ' + lastScrollValue + ', scrollValue: ' + scrollValue);
+      }
+      /*
+       * Load Image
+       *
+       * @param  {Element} imgLoader       - A loader for loading all images from array.
+       * @param  {String} src             - URL of image.
+       * @param  {Number} index           - Index of image.
+       * @param  {Number} w               - The width of an image, in pixels. 
+       * @param  {Number} h               - The height of an image, in pixels. 
+       * @param  {Number} total           - Total number of preload images.
+       * @param  {Number} itemRadAngle    - An equal radian angle of a sphere for each element.
+       * @param  {Number} radius          - Radius length of the sphere (circumference).
+       * @param  {Element|String} loading         - Progress bar display control.
+       * @return {Void}
+       */
+
+
+      function loadImage(imgLoader, src, index, w, h, total, itemRadAngle, radius, loading) {
+        // load a resource
+        imgLoader.load( // resource URL
+        src, // onLoad callback
+        function (texture) {
+          // in this example we create the material when the texture is loaded
+          var material = new THREE.MeshBasicMaterial({
+            map: texture
+          });
+          var geometry = new THREE.PlaneGeometry(w, h);
+          var mesh = new THREE.Mesh(geometry, material); //LinearFilter, which takes the four closest texels and bilinearly interpolates among them. 
+
+          mesh.minFilter = THREE.LinearFilter;
+          mesh.overdraw = true; //Calculate the position of the image 
+          //X axis: a = sinA * c = Math.sin( rad ) * radius
+          //Z axis: b = cosA * c = Math.cos( rad ) * radius
+
+          mesh.rotation.y = -index * itemRadAngle;
+          mesh.position.set(radius * Math.sin(index * itemRadAngle), 0, -radius * Math.cos(index * itemRadAngle));
+          allImages.push(mesh); //loading
+
+          TweenMax.to(loading, 0.5, {
+            width: Math.round(100 * allImages.length / total) + '%',
+            onComplete: function onComplete() {
+              if ($(this.target).width() >= windowWidth - 50) {
+                TweenMax.to(this.target, 0.5, {
+                  alpha: 0
+                });
+              }
+            }
+          });
+        }, // onProgress callback currently not supported
+        undefined, // onError callback
+        function (err) {
+          console.error('An error happened.');
+        });
+      } // 
+      //-------------------------------------	
+
+
+      return {
+        init: init,
+        render: render,
+        getRendererCanvasID: function getRendererCanvasID() {
+          return rendererCanvasID;
+        },
+        getScene: function getScene() {
+          return scene;
+        },
+        getCamera: function getCamera() {
+          return camera;
+        }
+      };
+    }();
+
+    MainStage.init();
+    MainStage.render();
+  };
+
+  module.components.documentReady.push(module.THREE_GALLERY.documentReady);
+  return /*#__PURE__*/_createClass(function THREE_GALLERY() {
+    _classCallCheck(this, THREE_GALLERY);
+
+    this.module = module;
+  });
+}(UixModuleInstance, jQuery, window, document);
+;// CONCATENATED MODULE: ./src/components/simple-3D-image-transition/js/shader/fragment-custom.glsl
+/* harmony default export */ const shader_fragment_custom = ("#define GLSLIFY 1\nvarying vec2 vUv;\n\nuniform sampler2D texture;\nuniform sampler2D texture2;\nuniform sampler2D disp;\n\n// uniform float time;\n// uniform float _rot;\nuniform float dispFactor;\nuniform float effectFactor;\n\n// vec2 rotate(vec2 v, float a) {\n//  float s = sin(a);\n//  float c = cos(a);\n//  mat2 m = mat2(c, -s, s, c);\n//  return m * v;\n// }\n\nvoid main() {\n\n    vec2 uv = vUv;\n\n    // uv -= 0.5;\n    // vec2 rotUV = rotate(uv, _rot);\n    // uv += 0.5;\n\n    vec4 disp = texture2D(disp, uv);\n\n    vec2 distortedPosition = vec2(uv.x + dispFactor * (disp.r*effectFactor), uv.y);\n    vec2 distortedPosition2 = vec2(uv.x - (1.0 - dispFactor) * (disp.r*effectFactor), uv.y);\n\n    vec4 _texture = texture2D(texture, distortedPosition);\n    vec4 _texture2 = texture2D(texture2, distortedPosition2);\n\n    vec4 finalTexture = mix(_texture, _texture2, dispFactor);\n\n    gl_FragColor = finalTexture;\n    // gl_FragColor = disp;\n}");
+;// CONCATENATED MODULE: ./src/components/simple-3D-image-transition/js/shader/vertex-custom.glsl
+/* harmony default export */ const shader_vertex_custom = ("#define GLSLIFY 1\nvarying vec2 vUv;\nvoid main() {\n  vUv = uv;\n  gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );\n}");
+;// CONCATENATED MODULE: ./src/components/simple-3D-image-transition/js/index.js
+
+
+
+/* 
+ *************************************
+ * <!-- 3D Image Transition with three.js -->
+ *************************************
+ */
+
+
+
+
+var THREE_IMAGE_TRANSITION = function (module, $, window, document) {
+  if (window.THREE_IMAGE_TRANSITION === null) return false;
+  module.THREE_IMAGE_TRANSITION = module.THREE_IMAGE_TRANSITION || {};
+  module.THREE_IMAGE_TRANSITION.version = '0.0.3';
+
+  module.THREE_IMAGE_TRANSITION.documentReady = function ($) {
+    //Prevent this module from loading in other pages
+    if ($('#3D-imagetransition-three-canvas').length == 0 || !Modernizr.webgl) return false;
+    var sceneSubjects = []; // Import objects and animations dynamically
+
+    var MainStage = function () {
+      var windowWidth = window.innerWidth,
+          windowHeight = window.innerHeight;
+      var rendererCanvasID = '3D-imagetransition-three-canvas'; // Generate one plane geometries mesh to scene
+      //-------------------------------------	
+
+      var camera,
+          controls,
+          scene,
+          light,
+          renderer,
+          displacementSprite,
+          theta = 0;
+      var filterMaterial,
+          offsetWidth = $('#' + rendererCanvasID).parent().width(),
+          offsetHeight = $('#' + rendererCanvasID).parent().width() * (550 / 1400);
+
+      function init() {
+        //camera
+        camera = new THREE.PerspectiveCamera(75, windowWidth / windowHeight, 1, 10000);
+        camera.position.set(0, 0, 1000); //controls
+
+        controls = new THREE.OrbitControls(camera);
+        controls.autoRotate = false;
+        controls.autoRotateSpeed = 0.5;
+        controls.rotateSpeed = 0.5;
+        controls.zoomSpeed = 1.2;
+        controls.panSpeed = 0.8;
+        controls.enableZoom = false;
+        controls.enableDamping = true; // an animation loop is required when either damping or auto-rotation are enabled
+
+        controls.dampingFactor = 0.25;
+        controls.screenSpacePanning = false;
+        controls.minDistance = 100;
+        controls.maxDistance = 500;
+        controls.maxPolarAngle = Math.PI / 2;
+        controls.target.set(30, 167, 81);
+        controls.update(); //Scene
+
+        scene = new THREE.Scene(); //HemisphereLight
+
+        scene.add(new THREE.AmbientLight(0x555555));
+        light = new THREE.SpotLight(0xffffff, 1.5);
+        light.position.set(0, 500, 2000);
+        scene.add(light); //WebGL Renderer	
+
+        renderer = new THREE.WebGLRenderer({
+          canvas: document.getElementById(rendererCanvasID),
+          //canvas
+          alpha: true,
+          antialias: true
+        });
+        renderer.setSize(offsetWidth, offsetHeight); // Immediately use the texture for material creation
+        // Create a texture loader so we can load our image file
+
+        var imgs = ['https://placekitten.com/1400/550', 'https://placekitten.com/1410/550'];
+        var loader = new THREE.TextureLoader();
+        loader.crossOrigin = 'anonymous';
+        var texture1 = loader.load(imgs[0]),
+            texture2 = loader.load(imgs[1]),
+            intensity = 1,
+            dispImage = $('#' + rendererCanvasID).data('filter-texture'),
+            //Load displacement image
+        disp = loader.load(dispImage);
+        disp.wrapS = disp.wrapT = THREE.RepeatWrapping;
+        texture1.magFilter = texture2.magFilter = THREE.LinearFilter;
+        texture1.minFilter = texture2.minFilter = THREE.LinearFilter;
+        texture1.anisotropy = renderer.capabilities.getMaxAnisotropy();
+        texture2.anisotropy = renderer.capabilities.getMaxAnisotropy();
+        var geometry = new THREE.PlaneBufferGeometry(offsetWidth, offsetHeight, 1);
+        filterMaterial = new THREE.ShaderMaterial({
+          uniforms: {
+            effectFactor: {
+              type: "f",
+              value: intensity
+            },
+            dispFactor: {
+              type: "f",
+              value: 0.0
+            },
+            texture: {
+              type: "t",
+              value: texture1
+            },
+            texture2: {
+              type: "t",
+              value: texture2
+            },
+            disp: {
+              type: "t",
+              value: disp
+            }
+          },
+          vertexShader: shader_vertex_custom,
+          fragmentShader: shader_fragment_custom,
+          transparent: true,
+          opacity: 1.0
+        });
+        displacementSprite = new THREE.Mesh(geometry, filterMaterial);
+        displacementSprite.position.set(0, 0, 0);
+        scene.add(displacementSprite); // Fires when the window changes
+
+        window.addEventListener('resize', onWindowResize, false); // When the mouse moves, call the given function
+
+        document.getElementById(rendererCanvasID).addEventListener('mouseenter', onDocumentMouseEnter, false);
+        document.getElementById(rendererCanvasID).addEventListener('mouseleave', onDocumentMouseLeave, false);
+      }
+
+      function render() {
+        requestAnimationFrame(render);
+        theta += 0.1; //To set a background color.
+        //renderer.setClearColor( 0x000000 );	
+        //update camera and controls
+
+        controls.update(); //push objects
+
+        /*
+        @Usage: 
+             function CustomObj( scene ) {
+                 const elements = new THREE...;
+                scene.add( elements );
+                 this.update = function( time ) {
+                    elements.rotation.y = time*0.003;
+                }
+            }       
+             sceneSubjects.push( new CustomObj( MainStage.getScene() ) );  
+        */
+
+        for (var i = 0; i < sceneSubjects.length; i++) {
+          sceneSubjects[i].update(clock.getElapsedTime() * 1);
+        } //render the scene to display our scene through the camera's eye.
+
+
+        renderer.render(scene, camera);
+      }
+
+      function onWindowResize() {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      }
+
+      function onDocumentMouseEnter(event) {
+        TweenMax.to(filterMaterial.uniforms.dispFactor, 1.5, {
+          value: 1,
+          ease: Expo.easeOut
+        });
+      }
+
+      function onDocumentMouseLeave(event) {
+        TweenMax.to(filterMaterial.uniforms.dispFactor, 1, {
+          value: 0,
+          ease: Expo.easeOut
+        });
+      } // 
+      //-------------------------------------	
+
+
+      return {
+        init: init,
+        render: render,
+        getRendererCanvasID: function getRendererCanvasID() {
+          return rendererCanvasID;
+        },
+        getScene: function getScene() {
+          return scene;
+        },
+        getCamera: function getCamera() {
+          return camera;
+        }
+      };
+    }();
+
+    MainStage.init();
+    MainStage.render();
+  };
+
+  module.components.documentReady.push(module.THREE_IMAGE_TRANSITION.documentReady);
+  return /*#__PURE__*/_createClass(function THREE_IMAGE_TRANSITION() {
+    _classCallCheck(this, THREE_IMAGE_TRANSITION);
+
+    this.module = module;
+  });
+}(UixModuleInstance, jQuery, window, document);
+;// CONCATENATED MODULE: ./src/components/_third-party-plugins/THREE/esm/loaders/GLTFLoader.js
+/**
+ * @author Rich Tibbett / https://github.com/richtr
+ * @author mrdoob / http://mrdoob.com/
+ * @author Tony Parisi / http://www.tonyparisi.com/
+ * @author Takahiro / https://github.com/takahirox
+ * @author Don McCurdy / https://www.donmccurdy.com
+ */
+THREE.GLTFLoader = function () {
+  function GLTFLoader(manager) {
+    this.manager = manager !== undefined ? manager : THREE.DefaultLoadingManager;
+    this.dracoLoader = null;
+  }
+
+  GLTFLoader.prototype = {
+    constructor: GLTFLoader,
+    crossOrigin: 'Anonymous',
+    load: function load(url, onLoad, onProgress, onError) {
+      var scope = this;
+      var path = this.path !== undefined ? this.path : THREE.LoaderUtils.extractUrlBase(url);
+      var loader = new THREE.FileLoader(scope.manager);
+      loader.setResponseType('arraybuffer');
+      loader.load(url, function (data) {
+        try {
+          scope.parse(data, path, onLoad, onError);
+        } catch (e) {
+          if (onError !== undefined) {
+            onError(e);
+          } else {
+            throw e;
+          }
+        }
+      }, onProgress, onError);
+    },
+    setCrossOrigin: function setCrossOrigin(value) {
+      this.crossOrigin = value;
+      return this;
+    },
+    setPath: function setPath(value) {
+      this.path = value;
+      return this;
+    },
+    setDRACOLoader: function setDRACOLoader(dracoLoader) {
+      this.dracoLoader = dracoLoader;
+      return this;
+    },
+    parse: function parse(data, path, onLoad, onError) {
+      var content;
+      var extensions = {};
+
+      if (typeof data === 'string') {
+        content = data;
+      } else {
+        var magic = THREE.LoaderUtils.decodeText(new Uint8Array(data, 0, 4));
+
+        if (magic === BINARY_EXTENSION_HEADER_MAGIC) {
+          try {
+            extensions[EXTENSIONS.KHR_BINARY_GLTF] = new GLTFBinaryExtension(data);
+          } catch (error) {
+            if (onError) onError(error);
+            return;
+          }
+
+          content = extensions[EXTENSIONS.KHR_BINARY_GLTF].content;
+        } else {
+          content = THREE.LoaderUtils.decodeText(new Uint8Array(data));
+        }
+      }
+
+      var json = JSON.parse(content);
+
+      if (json.asset === undefined || json.asset.version[0] < 2) {
+        if (onError) onError(new Error('THREE.GLTFLoader: Unsupported asset. glTF versions >=2.0 are supported. Use LegacyGLTFLoader instead.'));
+        return;
+      }
+
+      if (json.extensionsUsed) {
+        for (var i = 0; i < json.extensionsUsed.length; ++i) {
+          var extensionName = json.extensionsUsed[i];
+          var extensionsRequired = json.extensionsRequired || [];
+
+          switch (extensionName) {
+            case EXTENSIONS.KHR_LIGHTS:
+              extensions[extensionName] = new GLTFLightsExtension(json);
+              break;
+
+            case EXTENSIONS.KHR_MATERIALS_UNLIT:
+              extensions[extensionName] = new GLTFMaterialsUnlitExtension(json);
+              break;
+
+            case EXTENSIONS.KHR_MATERIALS_PBR_SPECULAR_GLOSSINESS:
+              extensions[extensionName] = new GLTFMaterialsPbrSpecularGlossinessExtension();
+              break;
+
+            case EXTENSIONS.KHR_DRACO_MESH_COMPRESSION:
+              extensions[extensionName] = new GLTFDracoMeshCompressionExtension(json, this.dracoLoader);
+              break;
+
+            case EXTENSIONS.MSFT_TEXTURE_DDS:
+              extensions[EXTENSIONS.MSFT_TEXTURE_DDS] = new GLTFTextureDDSExtension();
+              break;
+
+            default:
+              if (extensionsRequired.indexOf(extensionName) >= 0) {
+                console.warn('THREE.GLTFLoader: Unknown extension "' + extensionName + '".');
+              }
+
+          }
+        }
+      }
+
+      var parser = new GLTFParser(json, extensions, {
+        path: path || this.path || '',
+        crossOrigin: this.crossOrigin,
+        manager: this.manager
+      });
+      parser.parse(function (scene, scenes, cameras, animations, json) {
+        var glTF = {
+          scene: scene,
+          scenes: scenes,
+          cameras: cameras,
+          animations: animations,
+          asset: json.asset,
+          parser: parser,
+          userData: {}
+        };
+        addUnknownExtensionsToUserData(extensions, glTF, json);
+        onLoad(glTF);
+      }, onError);
+    }
+  };
+  /* GLTFREGISTRY */
+
+  function GLTFRegistry() {
+    var objects = {};
+    return {
+      get: function get(key) {
+        return objects[key];
+      },
+      add: function add(key, object) {
+        objects[key] = object;
+      },
+      remove: function remove(key) {
+        delete objects[key];
+      },
+      removeAll: function removeAll() {
+        objects = {};
+      }
+    };
+  }
+  /*********************************/
+
+  /********** EXTENSIONS ***********/
+
+  /*********************************/
+
+
+  var EXTENSIONS = {
+    KHR_BINARY_GLTF: 'KHR_binary_glTF',
+    KHR_DRACO_MESH_COMPRESSION: 'KHR_draco_mesh_compression',
+    KHR_LIGHTS: 'KHR_lights',
+    KHR_MATERIALS_PBR_SPECULAR_GLOSSINESS: 'KHR_materials_pbrSpecularGlossiness',
+    KHR_MATERIALS_UNLIT: 'KHR_materials_unlit',
+    MSFT_TEXTURE_DDS: 'MSFT_texture_dds'
+  };
+  /**
+   * DDS Texture Extension
+   *
+   * Specification: 
+   * https://github.com/KhronosGroup/glTF/tree/master/extensions/2.0/Vendor/MSFT_texture_dds
+   * 
+   */
+
+  function GLTFTextureDDSExtension() {
+    if (!THREE.DDSLoader) {
+      throw new Error('THREE.GLTFLoader: Attempting to load .dds texture without importing THREE.DDSLoader');
+    }
+
+    this.name = EXTENSIONS.MSFT_TEXTURE_DDS;
+    this.ddsLoader = new THREE.DDSLoader();
+  }
+  /**
+   * Lights Extension
+   *
+   * Specification: PENDING
+   */
+
+
+  function GLTFLightsExtension(json) {
+    this.name = EXTENSIONS.KHR_LIGHTS;
+    this.lights = {};
+    var extension = json.extensions && json.extensions[EXTENSIONS.KHR_LIGHTS] || {};
+    var lights = extension.lights || {};
+
+    for (var lightId in lights) {
+      var light = lights[lightId];
+      var lightNode;
+      var color = new THREE.Color().fromArray(light.color);
+
+      switch (light.type) {
+        case 'directional':
+          lightNode = new THREE.DirectionalLight(color);
+          lightNode.target.position.set(0, 0, 1);
+          lightNode.add(lightNode.target);
+          break;
+
+        case 'point':
+          lightNode = new THREE.PointLight(color);
+          break;
+
+        case 'spot':
+          lightNode = new THREE.SpotLight(color); // Handle spotlight properties.
+
+          light.spot = light.spot || {};
+          light.spot.innerConeAngle = light.spot.innerConeAngle !== undefined ? light.spot.innerConeAngle : 0;
+          light.spot.outerConeAngle = light.spot.outerConeAngle !== undefined ? light.spot.outerConeAngle : Math.PI / 4.0;
+          lightNode.angle = light.spot.outerConeAngle;
+          lightNode.penumbra = 1.0 - light.spot.innerConeAngle / light.spot.outerConeAngle;
+          lightNode.target.position.set(0, 0, 1);
+          lightNode.add(lightNode.target);
+          break;
+
+        case 'ambient':
+          lightNode = new THREE.AmbientLight(color);
+          break;
+      }
+
+      if (lightNode) {
+        lightNode.decay = 2;
+
+        if (light.intensity !== undefined) {
+          lightNode.intensity = light.intensity;
+        }
+
+        lightNode.name = light.name || 'light_' + lightId;
+        this.lights[lightId] = lightNode;
+      }
+    }
+  }
+  /**
+   * Unlit Materials Extension (pending)
+   *
+   * PR: https://github.com/KhronosGroup/glTF/pull/1163
+   */
+
+
+  function GLTFMaterialsUnlitExtension(json) {
+    this.name = EXTENSIONS.KHR_MATERIALS_UNLIT;
+  }
+
+  GLTFMaterialsUnlitExtension.prototype.getMaterialType = function (material) {
+    return THREE.MeshBasicMaterial;
+  };
+
+  GLTFMaterialsUnlitExtension.prototype.extendParams = function (materialParams, material, parser) {
+    var pending = [];
+    materialParams.color = new THREE.Color(1.0, 1.0, 1.0);
+    materialParams.opacity = 1.0;
+    var metallicRoughness = material.pbrMetallicRoughness;
+
+    if (metallicRoughness) {
+      if (Array.isArray(metallicRoughness.baseColorFactor)) {
+        var array = metallicRoughness.baseColorFactor;
+        materialParams.color.fromArray(array);
+        materialParams.opacity = array[3];
+      }
+
+      if (metallicRoughness.baseColorTexture !== undefined) {
+        pending.push(parser.assignTexture(materialParams, 'map', metallicRoughness.baseColorTexture.index));
+      }
+    }
+
+    return Promise.all(pending);
+  };
+  /* BINARY EXTENSION */
+
+
+  var BINARY_EXTENSION_BUFFER_NAME = 'binary_glTF';
+  var BINARY_EXTENSION_HEADER_MAGIC = 'glTF';
+  var BINARY_EXTENSION_HEADER_LENGTH = 12;
+  var BINARY_EXTENSION_CHUNK_TYPES = {
+    JSON: 0x4E4F534A,
+    BIN: 0x004E4942
+  };
+
+  function GLTFBinaryExtension(data) {
+    this.name = EXTENSIONS.KHR_BINARY_GLTF;
+    this.content = null;
+    this.body = null;
+    var headerView = new DataView(data, 0, BINARY_EXTENSION_HEADER_LENGTH);
+    this.header = {
+      magic: THREE.LoaderUtils.decodeText(new Uint8Array(data.slice(0, 4))),
+      version: headerView.getUint32(4, true),
+      length: headerView.getUint32(8, true)
+    };
+
+    if (this.header.magic !== BINARY_EXTENSION_HEADER_MAGIC) {
+      throw new Error('THREE.GLTFLoader: Unsupported glTF-Binary header.');
+    } else if (this.header.version < 2.0) {
+      throw new Error('THREE.GLTFLoader: Legacy binary file detected. Use LegacyGLTFLoader instead.');
+    }
+
+    var chunkView = new DataView(data, BINARY_EXTENSION_HEADER_LENGTH);
+    var chunkIndex = 0;
+
+    while (chunkIndex < chunkView.byteLength) {
+      var chunkLength = chunkView.getUint32(chunkIndex, true);
+      chunkIndex += 4;
+      var chunkType = chunkView.getUint32(chunkIndex, true);
+      chunkIndex += 4;
+
+      if (chunkType === BINARY_EXTENSION_CHUNK_TYPES.JSON) {
+        var contentArray = new Uint8Array(data, BINARY_EXTENSION_HEADER_LENGTH + chunkIndex, chunkLength);
+        this.content = THREE.LoaderUtils.decodeText(contentArray);
+      } else if (chunkType === BINARY_EXTENSION_CHUNK_TYPES.BIN) {
+        var byteOffset = BINARY_EXTENSION_HEADER_LENGTH + chunkIndex;
+        this.body = data.slice(byteOffset, byteOffset + chunkLength);
+      } // Clients must ignore chunks with unknown types.
+
+
+      chunkIndex += chunkLength;
+    }
+
+    if (this.content === null) {
+      throw new Error('THREE.GLTFLoader: JSON content not found.');
+    }
+  }
+  /**
+   * DRACO Mesh Compression Extension
+   *
+   * Specification: https://github.com/KhronosGroup/glTF/pull/874
+   */
+
+
+  function GLTFDracoMeshCompressionExtension(json, dracoLoader) {
+    if (!dracoLoader) {
+      throw new Error('THREE.GLTFLoader: No DRACOLoader instance provided.');
+    }
+
+    this.name = EXTENSIONS.KHR_DRACO_MESH_COMPRESSION;
+    this.json = json;
+    this.dracoLoader = dracoLoader;
+  }
+
+  GLTFDracoMeshCompressionExtension.prototype.decodePrimitive = function (primitive, parser) {
+    var json = this.json;
+    var dracoLoader = this.dracoLoader;
+    var bufferViewIndex = primitive.extensions[this.name].bufferView;
+    var gltfAttributeMap = primitive.extensions[this.name].attributes;
+    var threeAttributeMap = {};
+    var attributeNormalizedMap = {};
+    var attributeTypeMap = {};
+
+    for (var attributeName in gltfAttributeMap) {
+      if (!(attributeName in ATTRIBUTES)) continue;
+      threeAttributeMap[ATTRIBUTES[attributeName]] = gltfAttributeMap[attributeName];
+    }
+
+    for (attributeName in primitive.attributes) {
+      if (ATTRIBUTES[attributeName] !== undefined && gltfAttributeMap[attributeName] !== undefined) {
+        var accessorDef = json.accessors[primitive.attributes[attributeName]];
+        var componentType = WEBGL_COMPONENT_TYPES[accessorDef.componentType];
+        attributeTypeMap[ATTRIBUTES[attributeName]] = componentType;
+        attributeNormalizedMap[ATTRIBUTES[attributeName]] = accessorDef.normalized === true;
+      }
+    }
+
+    return parser.getDependency('bufferView', bufferViewIndex).then(function (bufferView) {
+      return new Promise(function (resolve) {
+        dracoLoader.decodeDracoFile(bufferView, function (geometry) {
+          for (var attributeName in geometry.attributes) {
+            var attribute = geometry.attributes[attributeName];
+            var normalized = attributeNormalizedMap[attributeName];
+            if (normalized !== undefined) attribute.normalized = normalized;
+          }
+
+          resolve(geometry);
+        }, threeAttributeMap, attributeTypeMap);
+      });
+    });
+  };
+  /**
+   * Specular-Glossiness Extension
+   *
+   * Specification: https://github.com/KhronosGroup/glTF/tree/master/extensions/2.0/Khronos/KHR_materials_pbrSpecularGlossiness
+   */
+
+
+  function GLTFMaterialsPbrSpecularGlossinessExtension() {
+    return {
+      name: EXTENSIONS.KHR_MATERIALS_PBR_SPECULAR_GLOSSINESS,
+      specularGlossinessParams: ['color', 'map', 'lightMap', 'lightMapIntensity', 'aoMap', 'aoMapIntensity', 'emissive', 'emissiveIntensity', 'emissiveMap', 'bumpMap', 'bumpScale', 'normalMap', 'displacementMap', 'displacementScale', 'displacementBias', 'specularMap', 'specular', 'glossinessMap', 'glossiness', 'alphaMap', 'envMap', 'envMapIntensity', 'refractionRatio'],
+      getMaterialType: function getMaterialType() {
+        return THREE.ShaderMaterial;
+      },
+      extendParams: function extendParams(params, material, parser) {
+        var pbrSpecularGlossiness = material.extensions[this.name];
+        var shader = THREE.ShaderLib['standard'];
+        var uniforms = THREE.UniformsUtils.clone(shader.uniforms);
+        var specularMapParsFragmentChunk = ['#ifdef USE_SPECULARMAP', '	uniform sampler2D specularMap;', '#endif'].join('\n');
+        var glossinessMapParsFragmentChunk = ['#ifdef USE_GLOSSINESSMAP', '	uniform sampler2D glossinessMap;', '#endif'].join('\n');
+        var specularMapFragmentChunk = ['vec3 specularFactor = specular;', '#ifdef USE_SPECULARMAP', '	vec4 texelSpecular = texture2D( specularMap, vUv );', '	texelSpecular = sRGBToLinear( texelSpecular );', '	// reads channel RGB, compatible with a glTF Specular-Glossiness (RGBA) texture', '	specularFactor *= texelSpecular.rgb;', '#endif'].join('\n');
+        var glossinessMapFragmentChunk = ['float glossinessFactor = glossiness;', '#ifdef USE_GLOSSINESSMAP', '	vec4 texelGlossiness = texture2D( glossinessMap, vUv );', '	// reads channel A, compatible with a glTF Specular-Glossiness (RGBA) texture', '	glossinessFactor *= texelGlossiness.a;', '#endif'].join('\n');
+        var lightPhysicalFragmentChunk = ['PhysicalMaterial material;', 'material.diffuseColor = diffuseColor.rgb;', 'material.specularRoughness = clamp( 1.0 - glossinessFactor, 0.04, 1.0 );', 'material.specularColor = specularFactor.rgb;'].join('\n');
+        var fragmentShader = shader.fragmentShader.replace('uniform float roughness;', 'uniform vec3 specular;').replace('uniform float metalness;', 'uniform float glossiness;').replace('#include <roughnessmap_pars_fragment>', specularMapParsFragmentChunk).replace('#include <metalnessmap_pars_fragment>', glossinessMapParsFragmentChunk).replace('#include <roughnessmap_fragment>', specularMapFragmentChunk).replace('#include <metalnessmap_fragment>', glossinessMapFragmentChunk).replace('#include <lights_physical_fragment>', lightPhysicalFragmentChunk);
+        delete uniforms.roughness;
+        delete uniforms.metalness;
+        delete uniforms.roughnessMap;
+        delete uniforms.metalnessMap;
+        uniforms.specular = {
+          value: new THREE.Color().setHex(0x111111)
+        };
+        uniforms.glossiness = {
+          value: 0.5
+        };
+        uniforms.specularMap = {
+          value: null
+        };
+        uniforms.glossinessMap = {
+          value: null
+        };
+        params.vertexShader = shader.vertexShader;
+        params.fragmentShader = fragmentShader;
+        params.uniforms = uniforms;
+        params.defines = {
+          'STANDARD': ''
+        };
+        params.color = new THREE.Color(1.0, 1.0, 1.0);
+        params.opacity = 1.0;
+        var pending = [];
+
+        if (Array.isArray(pbrSpecularGlossiness.diffuseFactor)) {
+          var array = pbrSpecularGlossiness.diffuseFactor;
+          params.color.fromArray(array);
+          params.opacity = array[3];
+        }
+
+        if (pbrSpecularGlossiness.diffuseTexture !== undefined) {
+          pending.push(parser.assignTexture(params, 'map', pbrSpecularGlossiness.diffuseTexture.index));
+        }
+
+        params.emissive = new THREE.Color(0.0, 0.0, 0.0);
+        params.glossiness = pbrSpecularGlossiness.glossinessFactor !== undefined ? pbrSpecularGlossiness.glossinessFactor : 1.0;
+        params.specular = new THREE.Color(1.0, 1.0, 1.0);
+
+        if (Array.isArray(pbrSpecularGlossiness.specularFactor)) {
+          params.specular.fromArray(pbrSpecularGlossiness.specularFactor);
+        }
+
+        if (pbrSpecularGlossiness.specularGlossinessTexture !== undefined) {
+          var specGlossIndex = pbrSpecularGlossiness.specularGlossinessTexture.index;
+          pending.push(parser.assignTexture(params, 'glossinessMap', specGlossIndex));
+          pending.push(parser.assignTexture(params, 'specularMap', specGlossIndex));
+        }
+
+        return Promise.all(pending);
+      },
+      createMaterial: function createMaterial(params) {
+        // setup material properties based on MeshStandardMaterial for Specular-Glossiness
+        var material = new THREE.ShaderMaterial({
+          defines: params.defines,
+          vertexShader: params.vertexShader,
+          fragmentShader: params.fragmentShader,
+          uniforms: params.uniforms,
+          fog: true,
+          lights: true,
+          opacity: params.opacity,
+          transparent: params.transparent
+        });
+        material.isGLTFSpecularGlossinessMaterial = true;
+        material.color = params.color;
+        material.map = params.map === undefined ? null : params.map;
+        material.lightMap = null;
+        material.lightMapIntensity = 1.0;
+        material.aoMap = params.aoMap === undefined ? null : params.aoMap;
+        material.aoMapIntensity = 1.0;
+        material.emissive = params.emissive;
+        material.emissiveIntensity = 1.0;
+        material.emissiveMap = params.emissiveMap === undefined ? null : params.emissiveMap;
+        material.bumpMap = params.bumpMap === undefined ? null : params.bumpMap;
+        material.bumpScale = 1;
+        material.normalMap = params.normalMap === undefined ? null : params.normalMap;
+        if (params.normalScale) material.normalScale = params.normalScale;
+        material.displacementMap = null;
+        material.displacementScale = 1;
+        material.displacementBias = 0;
+        material.specularMap = params.specularMap === undefined ? null : params.specularMap;
+        material.specular = params.specular;
+        material.glossinessMap = params.glossinessMap === undefined ? null : params.glossinessMap;
+        material.glossiness = params.glossiness;
+        material.alphaMap = null;
+        material.envMap = params.envMap === undefined ? null : params.envMap;
+        material.envMapIntensity = 1.0;
+        material.refractionRatio = 0.98;
+        material.extensions.derivatives = true;
+        return material;
+      },
+
+      /**
+       * Clones a GLTFSpecularGlossinessMaterial instance. The ShaderMaterial.copy() method can
+       * copy only properties it knows about or inherits, and misses many properties that would
+       * normally be defined by MeshStandardMaterial.
+       *
+       * This method allows GLTFSpecularGlossinessMaterials to be cloned in the process of
+       * loading a glTF model, but cloning later (e.g. by the user) would require these changes
+       * AND also updating `.onBeforeRender` on the parent mesh.
+       *
+       * @param  {THREE.ShaderMaterial} source
+       * @return {THREE.ShaderMaterial}
+       */
+      cloneMaterial: function cloneMaterial(source) {
+        var target = source.clone();
+        target.isGLTFSpecularGlossinessMaterial = true;
+        var params = this.specularGlossinessParams;
+
+        for (var i = 0, il = params.length; i < il; i++) {
+          target[params[i]] = source[params[i]];
+        }
+
+        return target;
+      },
+      // Here's based on refreshUniformsCommon() and refreshUniformsStandard() in WebGLRenderer.
+      refreshUniforms: function refreshUniforms(renderer, scene, camera, geometry, material, group) {
+        if (material.isGLTFSpecularGlossinessMaterial !== true) {
+          return;
+        }
+
+        var uniforms = material.uniforms;
+        var defines = material.defines;
+        uniforms.opacity.value = material.opacity;
+        uniforms.diffuse.value.copy(material.color);
+        uniforms.emissive.value.copy(material.emissive).multiplyScalar(material.emissiveIntensity);
+        uniforms.map.value = material.map;
+        uniforms.specularMap.value = material.specularMap;
+        uniforms.alphaMap.value = material.alphaMap;
+        uniforms.lightMap.value = material.lightMap;
+        uniforms.lightMapIntensity.value = material.lightMapIntensity;
+        uniforms.aoMap.value = material.aoMap;
+        uniforms.aoMapIntensity.value = material.aoMapIntensity; // uv repeat and offset setting priorities
+        // 1. color map
+        // 2. specular map
+        // 3. normal map
+        // 4. bump map
+        // 5. alpha map
+        // 6. emissive map
+
+        var uvScaleMap;
+
+        if (material.map) {
+          uvScaleMap = material.map;
+        } else if (material.specularMap) {
+          uvScaleMap = material.specularMap;
+        } else if (material.displacementMap) {
+          uvScaleMap = material.displacementMap;
+        } else if (material.normalMap) {
+          uvScaleMap = material.normalMap;
+        } else if (material.bumpMap) {
+          uvScaleMap = material.bumpMap;
+        } else if (material.glossinessMap) {
+          uvScaleMap = material.glossinessMap;
+        } else if (material.alphaMap) {
+          uvScaleMap = material.alphaMap;
+        } else if (material.emissiveMap) {
+          uvScaleMap = material.emissiveMap;
+        }
+
+        if (uvScaleMap !== undefined) {
+          // backwards compatibility
+          if (uvScaleMap.isWebGLRenderTarget) {
+            uvScaleMap = uvScaleMap.texture;
+          }
+
+          var offset;
+          var repeat;
+
+          if (uvScaleMap.matrix !== undefined) {
+            // > r88.
+            if (uvScaleMap.matrixAutoUpdate === true) {
+              offset = uvScaleMap.offset;
+              repeat = uvScaleMap.repeat;
+              var rotation = uvScaleMap.rotation;
+              var center = uvScaleMap.center;
+              uvScaleMap.matrix.setUvTransform(offset.x, offset.y, repeat.x, repeat.y, rotation, center.x, center.y);
+            }
+
+            uniforms.uvTransform.value.copy(uvScaleMap.matrix);
+          } else {
+            // <= r87. Remove when reasonable.
+            offset = uvScaleMap.offset;
+            repeat = uvScaleMap.repeat;
+            uniforms.offsetRepeat.value.set(offset.x, offset.y, repeat.x, repeat.y);
+          }
+        }
+
+        uniforms.envMap.value = material.envMap;
+        uniforms.envMapIntensity.value = material.envMapIntensity;
+        uniforms.flipEnvMap.value = material.envMap && material.envMap.isCubeTexture ? -1 : 1;
+        uniforms.refractionRatio.value = material.refractionRatio;
+        uniforms.specular.value.copy(material.specular);
+        uniforms.glossiness.value = material.glossiness;
+        uniforms.glossinessMap.value = material.glossinessMap;
+        uniforms.emissiveMap.value = material.emissiveMap;
+        uniforms.bumpMap.value = material.bumpMap;
+        uniforms.normalMap.value = material.normalMap;
+        uniforms.displacementMap.value = material.displacementMap;
+        uniforms.displacementScale.value = material.displacementScale;
+        uniforms.displacementBias.value = material.displacementBias;
+
+        if (uniforms.glossinessMap.value !== null && defines.USE_GLOSSINESSMAP === undefined) {
+          defines.USE_GLOSSINESSMAP = ''; // set USE_ROUGHNESSMAP to enable vUv
+
+          defines.USE_ROUGHNESSMAP = '';
+        }
+
+        if (uniforms.glossinessMap.value === null && defines.USE_GLOSSINESSMAP !== undefined) {
+          delete defines.USE_GLOSSINESSMAP;
+          delete defines.USE_ROUGHNESSMAP;
+        }
+      }
+    };
+  }
+  /*********************************/
+
+  /********** INTERPOLATION ********/
+
+  /*********************************/
+  // Spline Interpolation
+  // Specification: https://github.com/KhronosGroup/glTF/blob/master/specification/2.0/README.md#appendix-c-spline-interpolation
+
+
+  function GLTFCubicSplineInterpolant(parameterPositions, sampleValues, sampleSize, resultBuffer) {
+    THREE.Interpolant.call(this, parameterPositions, sampleValues, sampleSize, resultBuffer);
+  }
+
+  ;
+  GLTFCubicSplineInterpolant.prototype = Object.create(THREE.Interpolant.prototype);
+  GLTFCubicSplineInterpolant.prototype.constructor = GLTFCubicSplineInterpolant;
+
+  GLTFCubicSplineInterpolant.prototype.interpolate_ = function (i1, t0, t, t1) {
+    var result = this.resultBuffer;
+    var values = this.sampleValues;
+    var stride = this.valueSize;
+    var stride2 = stride * 2;
+    var stride3 = stride * 3;
+    var td = t1 - t0;
+    var p = (t - t0) / td;
+    var pp = p * p;
+    var ppp = pp * p;
+    var offset1 = i1 * stride3;
+    var offset0 = offset1 - stride3;
+    var s0 = 2 * ppp - 3 * pp + 1;
+    var s1 = ppp - 2 * pp + p;
+    var s2 = -2 * ppp + 3 * pp;
+    var s3 = ppp - pp; // Layout of keyframe output values for CUBICSPLINE animations:
+    //   [ inTangent_1, splineVertex_1, outTangent_1, inTangent_2, splineVertex_2, ... ]
+
+    for (var i = 0; i !== stride; i++) {
+      var p0 = values[offset0 + i + stride]; // splineVertex_k
+
+      var m0 = values[offset0 + i + stride2] * td; // outTangent_k * (t_k+1 - t_k)
+
+      var p1 = values[offset1 + i + stride]; // splineVertex_k+1
+
+      var m1 = values[offset1 + i] * td; // inTangent_k+1 * (t_k+1 - t_k)
+
+      result[i] = s0 * p0 + s1 * m0 + s2 * p1 + s3 * m1;
+    }
+
+    return result;
+  };
+  /*********************************/
+
+  /********** INTERNALS ************/
+
+  /*********************************/
+
+  /* CONSTANTS */
+
+
+  var WEBGL_CONSTANTS = {
+    FLOAT: 5126,
+    //FLOAT_MAT2: 35674,
+    FLOAT_MAT3: 35675,
+    FLOAT_MAT4: 35676,
+    FLOAT_VEC2: 35664,
+    FLOAT_VEC3: 35665,
+    FLOAT_VEC4: 35666,
+    LINEAR: 9729,
+    REPEAT: 10497,
+    SAMPLER_2D: 35678,
+    POINTS: 0,
+    LINES: 1,
+    LINE_LOOP: 2,
+    LINE_STRIP: 3,
+    TRIANGLES: 4,
+    TRIANGLE_STRIP: 5,
+    TRIANGLE_FAN: 6,
+    UNSIGNED_BYTE: 5121,
+    UNSIGNED_SHORT: 5123
+  };
+  var WEBGL_TYPE = {
+    5126: Number,
+    //35674: THREE.Matrix2,
+    35675: THREE.Matrix3,
+    35676: THREE.Matrix4,
+    35664: THREE.Vector2,
+    35665: THREE.Vector3,
+    35666: THREE.Vector4,
+    35678: THREE.Texture
+  };
+  var WEBGL_COMPONENT_TYPES = {
+    5120: Int8Array,
+    5121: Uint8Array,
+    5122: Int16Array,
+    5123: Uint16Array,
+    5125: Uint32Array,
+    5126: Float32Array
+  };
+  var WEBGL_FILTERS = {
+    9728: THREE.NearestFilter,
+    9729: THREE.LinearFilter,
+    9984: THREE.NearestMipMapNearestFilter,
+    9985: THREE.LinearMipMapNearestFilter,
+    9986: THREE.NearestMipMapLinearFilter,
+    9987: THREE.LinearMipMapLinearFilter
+  };
+  var WEBGL_WRAPPINGS = {
+    33071: THREE.ClampToEdgeWrapping,
+    33648: THREE.MirroredRepeatWrapping,
+    10497: THREE.RepeatWrapping
+  };
+  var WEBGL_TEXTURE_FORMATS = {
+    6406: THREE.AlphaFormat,
+    6407: THREE.RGBFormat,
+    6408: THREE.RGBAFormat,
+    6409: THREE.LuminanceFormat,
+    6410: THREE.LuminanceAlphaFormat
+  };
+  var WEBGL_TEXTURE_DATATYPES = {
+    5121: THREE.UnsignedByteType,
+    32819: THREE.UnsignedShort4444Type,
+    32820: THREE.UnsignedShort5551Type,
+    33635: THREE.UnsignedShort565Type
+  };
+  var WEBGL_SIDES = {
+    1028: THREE.BackSide,
+    // Culling front
+    1029: THREE.FrontSide // Culling back
+    //1032: THREE.NoSide   // Culling front and back, what to do?
+
+  };
+  var WEBGL_DEPTH_FUNCS = {
+    512: THREE.NeverDepth,
+    513: THREE.LessDepth,
+    514: THREE.EqualDepth,
+    515: THREE.LessEqualDepth,
+    516: THREE.GreaterEqualDepth,
+    517: THREE.NotEqualDepth,
+    518: THREE.GreaterEqualDepth,
+    519: THREE.AlwaysDepth
+  };
+  var WEBGL_BLEND_EQUATIONS = {
+    32774: THREE.AddEquation,
+    32778: THREE.SubtractEquation,
+    32779: THREE.ReverseSubtractEquation
+  };
+  var WEBGL_BLEND_FUNCS = {
+    0: THREE.ZeroFactor,
+    1: THREE.OneFactor,
+    768: THREE.SrcColorFactor,
+    769: THREE.OneMinusSrcColorFactor,
+    770: THREE.SrcAlphaFactor,
+    771: THREE.OneMinusSrcAlphaFactor,
+    772: THREE.DstAlphaFactor,
+    773: THREE.OneMinusDstAlphaFactor,
+    774: THREE.DstColorFactor,
+    775: THREE.OneMinusDstColorFactor,
+    776: THREE.SrcAlphaSaturateFactor // The followings are not supported by Three.js yet
+    //32769: CONSTANT_COLOR,
+    //32770: ONE_MINUS_CONSTANT_COLOR,
+    //32771: CONSTANT_ALPHA,
+    //32772: ONE_MINUS_CONSTANT_COLOR
+
+  };
+  var WEBGL_TYPE_SIZES = {
+    'SCALAR': 1,
+    'VEC2': 2,
+    'VEC3': 3,
+    'VEC4': 4,
+    'MAT2': 4,
+    'MAT3': 9,
+    'MAT4': 16
+  };
+  var ATTRIBUTES = {
+    POSITION: 'position',
+    NORMAL: 'normal',
+    TEXCOORD_0: 'uv',
+    TEXCOORD0: 'uv',
+    // deprecated
+    TEXCOORD: 'uv',
+    // deprecated
+    TEXCOORD_1: 'uv2',
+    COLOR_0: 'color',
+    COLOR0: 'color',
+    // deprecated
+    COLOR: 'color',
+    // deprecated
+    WEIGHTS_0: 'skinWeight',
+    WEIGHT: 'skinWeight',
+    // deprecated
+    JOINTS_0: 'skinIndex',
+    JOINT: 'skinIndex' // deprecated
+
+  };
+  var PATH_PROPERTIES = {
+    scale: 'scale',
+    translation: 'position',
+    rotation: 'quaternion',
+    weights: 'morphTargetInfluences'
+  };
+  var INTERPOLATION = {
+    CUBICSPLINE: THREE.InterpolateSmooth,
+    // We use custom interpolation GLTFCubicSplineInterpolation for CUBICSPLINE.
+    // KeyframeTrack.optimize() can't handle glTF Cubic Spline output values layout,
+    // using THREE.InterpolateSmooth for KeyframeTrack instantiation to prevent optimization.
+    // See KeyframeTrack.optimize() for the detail.
+    LINEAR: THREE.InterpolateLinear,
+    STEP: THREE.InterpolateDiscrete
+  };
+  var STATES_ENABLES = {
+    2884: 'CULL_FACE',
+    2929: 'DEPTH_TEST',
+    3042: 'BLEND',
+    3089: 'SCISSOR_TEST',
+    32823: 'POLYGON_OFFSET_FILL',
+    32926: 'SAMPLE_ALPHA_TO_COVERAGE'
+  };
+  var ALPHA_MODES = {
+    OPAQUE: 'OPAQUE',
+    MASK: 'MASK',
+    BLEND: 'BLEND'
+  };
+  /* UTILITY FUNCTIONS */
+
+  function resolveURL(url, path) {
+    // Invalid URL
+    if (typeof url !== 'string' || url === '') return ''; // Absolute URL http://,https://,//
+
+    if (/^(https?:)?\/\//i.test(url)) return url; // Data URI
+
+    if (/^data:.*,.*$/i.test(url)) return url; // Blob URL
+
+    if (/^blob:.*$/i.test(url)) return url; // Relative URL
+
+    return path + url;
+  }
+  /**
+   * Specification: https://github.com/KhronosGroup/glTF/blob/master/specification/2.0/README.md#default-material
+   */
+
+
+  function createDefaultMaterial() {
+    return new THREE.MeshStandardMaterial({
+      color: 0xFFFFFF,
+      emissive: 0x000000,
+      metalness: 1,
+      roughness: 1,
+      transparent: false,
+      depthTest: true,
+      side: THREE.FrontSide
+    });
+  }
+
+  function addUnknownExtensionsToUserData(knownExtensions, object, objectDef) {
+    // Add unknown glTF extensions to an object's userData.
+    for (var name in objectDef.extensions) {
+      if (knownExtensions[name] === undefined) {
+        object.userData.gltfExtensions = object.userData.gltfExtensions || {};
+        object.userData.gltfExtensions[name] = objectDef.extensions[name];
+      }
+    }
+  }
+  /**
+   * Specification: https://github.com/KhronosGroup/glTF/blob/master/specification/2.0/README.md#morph-targets
+   *
+   * @param {THREE.Geometry} geometry
+   * @param {Array<GLTF.Target>} targets
+   * @param {Array<THREE.BufferAttribute>} accessors
+   */
+
+
+  function addMorphTargets(geometry, targets, accessors) {
+    var hasMorphPosition = false;
+    var hasMorphNormal = false;
+
+    for (var i = 0, il = targets.length; i < il; i++) {
+      var target = targets[i];
+      if (target.POSITION !== undefined) hasMorphPosition = true;
+      if (target.NORMAL !== undefined) hasMorphNormal = true;
+      if (hasMorphPosition && hasMorphNormal) break;
+    }
+
+    if (!hasMorphPosition && !hasMorphNormal) return;
+    var morphPositions = [];
+    var morphNormals = [];
+
+    for (var i = 0, il = targets.length; i < il; i++) {
+      var target = targets[i];
+      var attributeName = 'morphTarget' + i;
+
+      if (hasMorphPosition) {
+        // Three.js morph position is absolute value. The formula is
+        //   basePosition
+        //     + weight0 * ( morphPosition0 - basePosition )
+        //     + weight1 * ( morphPosition1 - basePosition )
+        //     ...
+        // while the glTF one is relative
+        //   basePosition
+        //     + weight0 * glTFmorphPosition0
+        //     + weight1 * glTFmorphPosition1
+        //     ...
+        // then we need to convert from relative to absolute here.
+        if (target.POSITION !== undefined) {
+          // Cloning not to pollute original accessor
+          var positionAttribute = cloneBufferAttribute(accessors[target.POSITION]);
+          positionAttribute.name = attributeName;
+          var position = geometry.attributes.position;
+
+          for (var j = 0, jl = positionAttribute.count; j < jl; j++) {
+            positionAttribute.setXYZ(j, positionAttribute.getX(j) + position.getX(j), positionAttribute.getY(j) + position.getY(j), positionAttribute.getZ(j) + position.getZ(j));
+          }
+        } else {
+          positionAttribute = geometry.attributes.position;
+        }
+
+        morphPositions.push(positionAttribute);
+      }
+
+      if (hasMorphNormal) {
+        // see target.POSITION's comment
+        var normalAttribute;
+
+        if (target.NORMAL !== undefined) {
+          var normalAttribute = cloneBufferAttribute(accessors[target.NORMAL]);
+          normalAttribute.name = attributeName;
+          var normal = geometry.attributes.normal;
+
+          for (var j = 0, jl = normalAttribute.count; j < jl; j++) {
+            normalAttribute.setXYZ(j, normalAttribute.getX(j) + normal.getX(j), normalAttribute.getY(j) + normal.getY(j), normalAttribute.getZ(j) + normal.getZ(j));
+          }
+        } else {
+          normalAttribute = geometry.attributes.normal;
+        }
+
+        morphNormals.push(normalAttribute);
+      }
+    }
+
+    if (hasMorphPosition) geometry.morphAttributes.position = morphPositions;
+    if (hasMorphNormal) geometry.morphAttributes.normal = morphNormals;
+  }
+  /**
+   * @param {THREE.Mesh} mesh
+   * @param {GLTF.Mesh} meshDef
+   */
+
+
+  function updateMorphTargets(mesh, meshDef) {
+    mesh.updateMorphTargets();
+
+    if (meshDef.weights !== undefined) {
+      for (var i = 0, il = meshDef.weights.length; i < il; i++) {
+        mesh.morphTargetInfluences[i] = meshDef.weights[i];
+      }
+    } // .extras has user-defined data, so check that .extras.targetNames is an array.
+
+
+    if (meshDef.extras && Array.isArray(meshDef.extras.targetNames)) {
+      var targetNames = meshDef.extras.targetNames;
+
+      if (mesh.morphTargetInfluences.length === targetNames.length) {
+        mesh.morphTargetDictionary = {};
+
+        for (var i = 0, il = targetNames.length; i < il; i++) {
+          mesh.morphTargetDictionary[targetNames[i]] = i;
+        }
+      } else {
+        console.warn('THREE.GLTFLoader: Invalid extras.targetNames length. Ignoring names.');
+      }
+    }
+  }
+
+  function isPrimitiveEqual(a, b) {
+    if (a.indices !== b.indices) {
+      return false;
+    }
+
+    return isObjectEqual(a.attributes, b.attributes);
+  }
+
+  function isObjectEqual(a, b) {
+    if (Object.keys(a).length !== Object.keys(b).length) return false;
+
+    for (var key in a) {
+      if (a[key] !== b[key]) return false;
+    }
+
+    return true;
+  }
+
+  function isArrayEqual(a, b) {
+    if (a.length !== b.length) return false;
+
+    for (var i = 0, il = a.length; i < il; i++) {
+      if (a[i] !== b[i]) return false;
+    }
+
+    return true;
+  }
+
+  function getCachedGeometry(cache, newPrimitive) {
+    for (var i = 0, il = cache.length; i < il; i++) {
+      var cached = cache[i];
+      if (isPrimitiveEqual(cached.primitive, newPrimitive)) return cached.promise;
+    }
+
+    return null;
+  }
+
+  function getCachedCombinedGeometry(cache, geometries) {
+    for (var i = 0, il = cache.length; i < il; i++) {
+      var cached = cache[i];
+      if (isArrayEqual(geometries, cached.baseGeometries)) return cached.geometry;
+    }
+
+    return null;
+  }
+
+  function getCachedMultiPassGeometry(cache, geometry, primitives) {
+    for (var i = 0, il = cache.length; i < il; i++) {
+      var cached = cache[i];
+      if (geometry === cached.baseGeometry && isArrayEqual(primitives, cached.primitives)) return cached.geometry;
+    }
+
+    return null;
+  }
+
+  function cloneBufferAttribute(attribute) {
+    if (attribute.isInterleavedBufferAttribute) {
+      var count = attribute.count;
+      var itemSize = attribute.itemSize;
+      var array = attribute.array.slice(0, count * itemSize);
+
+      for (var i = 0; i < count; ++i) {
+        array[i] = attribute.getX(i);
+        if (itemSize >= 2) array[i + 1] = attribute.getY(i);
+        if (itemSize >= 3) array[i + 2] = attribute.getZ(i);
+        if (itemSize >= 4) array[i + 3] = attribute.getW(i);
+      }
+
+      return new THREE.BufferAttribute(array, itemSize, attribute.normalized);
+    }
+
+    return attribute.clone();
+  }
+  /**
+   * Checks if we can build a single Mesh with MultiMaterial from multiple primitives.
+   * Returns true if all primitives use the same attributes/morphAttributes/mode
+   * and also have index. Otherwise returns false.
+   *
+   * @param {Array<GLTF.Primitive>} primitives
+   * @return {Boolean}
+   */
+
+
+  function isMultiPassGeometry(primitives) {
+    if (primitives.length < 2) return false;
+    var primitive0 = primitives[0];
+    var targets0 = primitive0.targets || [];
+    if (primitive0.indices === undefined) return false;
+
+    for (var i = 1, il = primitives.length; i < il; i++) {
+      var primitive = primitives[i];
+      if (primitive0.mode !== primitive.mode) return false;
+      if (primitive.indices === undefined) return false;
+      if (!isObjectEqual(primitive0.attributes, primitive.attributes)) return false;
+      var targets = primitive.targets || [];
+      if (targets0.length !== targets.length) return false;
+
+      for (var j = 0, jl = targets0.length; j < jl; j++) {
+        if (!isObjectEqual(targets0[j], targets[j])) return false;
+      }
+    }
+
+    return true;
+  }
+  /* GLTF PARSER */
+
+
+  function GLTFParser(json, extensions, options) {
+    this.json = json || {};
+    this.extensions = extensions || {};
+    this.options = options || {}; // loader object cache
+
+    this.cache = new GLTFRegistry(); // BufferGeometry caching
+
+    this.primitiveCache = [];
+    this.multiplePrimitivesCache = [];
+    this.multiPassGeometryCache = [];
+    this.textureLoader = new THREE.TextureLoader(this.options.manager);
+    this.textureLoader.setCrossOrigin(this.options.crossOrigin);
+    this.fileLoader = new THREE.FileLoader(this.options.manager);
+    this.fileLoader.setResponseType('arraybuffer');
+  }
+
+  GLTFParser.prototype.parse = function (onLoad, onError) {
+    var json = this.json; // Clear the loader cache
+
+    this.cache.removeAll(); // Mark the special nodes/meshes in json for efficient parse
+
+    this.markDefs(); // Fire the callback on complete
+
+    this.getMultiDependencies(['scene', 'animation', 'camera']).then(function (dependencies) {
+      var scenes = dependencies.scenes || [];
+      var scene = scenes[json.scene || 0];
+      var animations = dependencies.animations || [];
+      var cameras = dependencies.cameras || [];
+      onLoad(scene, scenes, cameras, animations, json);
+    })["catch"](onError);
+  };
+  /**
+   * Marks the special nodes/meshes in json for efficient parse.
+   */
+
+
+  GLTFParser.prototype.markDefs = function () {
+    var nodeDefs = this.json.nodes || [];
+    var skinDefs = this.json.skins || [];
+    var meshDefs = this.json.meshes || [];
+    var meshReferences = {};
+    var meshUses = {}; // Nothing in the node definition indicates whether it is a Bone or an
+    // Object3D. Use the skins' joint references to mark bones.
+
+    for (var skinIndex = 0, skinLength = skinDefs.length; skinIndex < skinLength; skinIndex++) {
+      var joints = skinDefs[skinIndex].joints;
+
+      for (var i = 0, il = joints.length; i < il; i++) {
+        nodeDefs[joints[i]].isBone = true;
+      }
+    } // Meshes can (and should) be reused by multiple nodes in a glTF asset. To
+    // avoid having more than one THREE.Mesh with the same name, count
+    // references and rename instances below.
+    //
+    // Example: CesiumMilkTruck sample model reuses "Wheel" meshes.
+
+
+    for (var nodeIndex = 0, nodeLength = nodeDefs.length; nodeIndex < nodeLength; nodeIndex++) {
+      var nodeDef = nodeDefs[nodeIndex];
+
+      if (nodeDef.mesh !== undefined) {
+        if (meshReferences[nodeDef.mesh] === undefined) {
+          meshReferences[nodeDef.mesh] = meshUses[nodeDef.mesh] = 0;
+        }
+
+        meshReferences[nodeDef.mesh]++; // Nothing in the mesh definition indicates whether it is
+        // a SkinnedMesh or Mesh. Use the node's mesh reference
+        // to mark SkinnedMesh if node has skin.
+
+        if (nodeDef.skin !== undefined) {
+          meshDefs[nodeDef.mesh].isSkinnedMesh = true;
+        }
+      }
+    }
+
+    this.json.meshReferences = meshReferences;
+    this.json.meshUses = meshUses;
+  };
+  /**
+   * Requests the specified dependency asynchronously, with caching.
+   * @param {String} type
+   * @param {Number} index
+   * @return {Promise<Object>}
+   */
+
+
+  GLTFParser.prototype.getDependency = function (type, index) {
+    var cacheKey = type + ':' + index;
+    var dependency = this.cache.get(cacheKey);
+
+    if (!dependency) {
+      switch (type) {
+        case 'scene':
+          dependency = this.loadScene(index);
+          break;
+
+        case 'node':
+          dependency = this.loadNode(index);
+          break;
+
+        case 'mesh':
+          dependency = this.loadMesh(index);
+          break;
+
+        case 'accessor':
+          dependency = this.loadAccessor(index);
+          break;
+
+        case 'bufferView':
+          dependency = this.loadBufferView(index);
+          break;
+
+        case 'buffer':
+          dependency = this.loadBuffer(index);
+          break;
+
+        case 'material':
+          dependency = this.loadMaterial(index);
+          break;
+
+        case 'texture':
+          dependency = this.loadTexture(index);
+          break;
+
+        case 'skin':
+          dependency = this.loadSkin(index);
+          break;
+
+        case 'animation':
+          dependency = this.loadAnimation(index);
+          break;
+
+        case 'camera':
+          dependency = this.loadCamera(index);
+          break;
+
+        default:
+          throw new Error('Unknown type: ' + type);
+      }
+
+      this.cache.add(cacheKey, dependency);
+    }
+
+    return dependency;
+  };
+  /**
+   * Requests all dependencies of the specified type asynchronously, with caching.
+   * @param {String} type
+   * @return {Promise<Array<Object>>}
+   */
+
+
+  GLTFParser.prototype.getDependencies = function (type) {
+    var dependencies = this.cache.get(type);
+
+    if (!dependencies) {
+      var parser = this;
+      var defs = this.json[type + (type === 'mesh' ? 'es' : 's')] || [];
+      dependencies = Promise.all(defs.map(function (def, index) {
+        return parser.getDependency(type, index);
+      }));
+      this.cache.add(type, dependencies);
+    }
+
+    return dependencies;
+  };
+  /**
+   * Requests all multiple dependencies of the specified types asynchronously, with caching.
+   * @param {Array<string>} types
+   * @return {Promise<Object<Array<Object>>>}
+   */
+
+
+  GLTFParser.prototype.getMultiDependencies = function (types) {
+    var results = {};
+    var pendings = [];
+
+    for (var i = 0, il = types.length; i < il; i++) {
+      var type = types[i];
+      var value = this.getDependencies(type);
+      value = value.then(function (key, value) {
+        results[key] = value;
+      }.bind(this, type + (type === 'mesh' ? 'es' : 's')));
+      pendings.push(value);
+    }
+
+    return Promise.all(pendings).then(function () {
+      return results;
+    });
+  };
+  /**
+   * Specification: https://github.com/KhronosGroup/glTF/blob/master/specification/2.0/README.md#buffers-and-buffer-views
+   * @param {Number} bufferIndex
+   * @return {Promise<ArrayBuffer>}
+   */
+
+
+  GLTFParser.prototype.loadBuffer = function (bufferIndex) {
+    var bufferDef = this.json.buffers[bufferIndex];
+    var loader = this.fileLoader;
+
+    if (bufferDef.type && bufferDef.type !== 'arraybuffer') {
+      throw new Error('THREE.GLTFLoader: ' + bufferDef.type + ' buffer type is not supported.');
+    } // If present, GLB container is required to be the first buffer.
+
+
+    if (bufferDef.uri === undefined && bufferIndex === 0) {
+      return Promise.resolve(this.extensions[EXTENSIONS.KHR_BINARY_GLTF].body);
+    }
+
+    var options = this.options;
+    return new Promise(function (resolve, reject) {
+      loader.load(resolveURL(bufferDef.uri, options.path), resolve, undefined, function () {
+        reject(new Error('THREE.GLTFLoader: Failed to load buffer "' + bufferDef.uri + '".'));
+      });
+    });
+  };
+  /**
+   * Specification: https://github.com/KhronosGroup/glTF/blob/master/specification/2.0/README.md#buffers-and-buffer-views
+   * @param {Number} bufferViewIndex
+   * @return {Promise<ArrayBuffer>}
+   */
+
+
+  GLTFParser.prototype.loadBufferView = function (bufferViewIndex) {
+    var bufferViewDef = this.json.bufferViews[bufferViewIndex];
+    return this.getDependency('buffer', bufferViewDef.buffer).then(function (buffer) {
+      var byteLength = bufferViewDef.byteLength || 0;
+      var byteOffset = bufferViewDef.byteOffset || 0;
+      return buffer.slice(byteOffset, byteOffset + byteLength);
+    });
+  };
+  /**
+   * Specification: https://github.com/KhronosGroup/glTF/blob/master/specification/2.0/README.md#accessors
+   * @param {Number} accessorIndex
+   * @return {Promise<THREE.BufferAttribute|THREE.InterleavedBufferAttribute>}
+   */
+
+
+  GLTFParser.prototype.loadAccessor = function (accessorIndex) {
+    var parser = this;
+    var json = this.json;
+    var accessorDef = this.json.accessors[accessorIndex];
+
+    if (accessorDef.bufferView === undefined && accessorDef.sparse === undefined) {
+      // Ignore empty accessors, which may be used to declare runtime
+      // information about attributes coming from another source (e.g. Draco
+      // compression extension).
+      return null;
+    }
+
+    var pendingBufferViews = [];
+
+    if (accessorDef.bufferView !== undefined) {
+      pendingBufferViews.push(this.getDependency('bufferView', accessorDef.bufferView));
+    } else {
+      pendingBufferViews.push(null);
+    }
+
+    if (accessorDef.sparse !== undefined) {
+      pendingBufferViews.push(this.getDependency('bufferView', accessorDef.sparse.indices.bufferView));
+      pendingBufferViews.push(this.getDependency('bufferView', accessorDef.sparse.values.bufferView));
+    }
+
+    return Promise.all(pendingBufferViews).then(function (bufferViews) {
+      var bufferView = bufferViews[0];
+      var itemSize = WEBGL_TYPE_SIZES[accessorDef.type];
+      var TypedArray = WEBGL_COMPONENT_TYPES[accessorDef.componentType]; // For VEC3: itemSize is 3, elementBytes is 4, itemBytes is 12.
+
+      var elementBytes = TypedArray.BYTES_PER_ELEMENT;
+      var itemBytes = elementBytes * itemSize;
+      var byteOffset = accessorDef.byteOffset || 0;
+      var byteStride = json.bufferViews[accessorDef.bufferView].byteStride;
+      var normalized = accessorDef.normalized === true;
+      var array, bufferAttribute; // The buffer is not interleaved if the stride is the item size in bytes.
+
+      if (byteStride && byteStride !== itemBytes) {
+        var ibCacheKey = 'InterleavedBuffer:' + accessorDef.bufferView + ':' + accessorDef.componentType;
+        var ib = parser.cache.get(ibCacheKey);
+
+        if (!ib) {
+          // Use the full buffer if it's interleaved.
+          array = new TypedArray(bufferView); // Integer parameters to IB/IBA are in array elements, not bytes.
+
+          ib = new THREE.InterleavedBuffer(array, byteStride / elementBytes);
+          parser.cache.add(ibCacheKey, ib);
+        }
+
+        bufferAttribute = new THREE.InterleavedBufferAttribute(ib, itemSize, byteOffset / elementBytes, normalized);
+      } else {
+        if (bufferView === null) {
+          array = new TypedArray(accessorDef.count * itemSize);
+        } else {
+          array = new TypedArray(bufferView, byteOffset, accessorDef.count * itemSize);
+        }
+
+        bufferAttribute = new THREE.BufferAttribute(array, itemSize, normalized);
+      } // https://github.com/KhronosGroup/glTF/blob/master/specification/2.0/README.md#sparse-accessors
+
+
+      if (accessorDef.sparse !== undefined) {
+        var itemSizeIndices = WEBGL_TYPE_SIZES.SCALAR;
+        var TypedArrayIndices = WEBGL_COMPONENT_TYPES[accessorDef.sparse.indices.componentType];
+        var byteOffsetIndices = accessorDef.sparse.indices.byteOffset || 0;
+        var byteOffsetValues = accessorDef.sparse.values.byteOffset || 0;
+        var sparseIndices = new TypedArrayIndices(bufferViews[1], byteOffsetIndices, accessorDef.sparse.count * itemSizeIndices);
+        var sparseValues = new TypedArray(bufferViews[2], byteOffsetValues, accessorDef.sparse.count * itemSize);
+
+        if (bufferView !== null) {
+          // Avoid modifying the original ArrayBuffer, if the bufferView wasn't initialized with zeroes.
+          bufferAttribute.setArray(bufferAttribute.array.slice());
+        }
+
+        for (var i = 0, il = sparseIndices.length; i < il; i++) {
+          var index = sparseIndices[i];
+          bufferAttribute.setX(index, sparseValues[i * itemSize]);
+          if (itemSize >= 2) bufferAttribute.setY(index, sparseValues[i * itemSize + 1]);
+          if (itemSize >= 3) bufferAttribute.setZ(index, sparseValues[i * itemSize + 2]);
+          if (itemSize >= 4) bufferAttribute.setW(index, sparseValues[i * itemSize + 3]);
+          if (itemSize >= 5) throw new Error('THREE.GLTFLoader: Unsupported itemSize in sparse BufferAttribute.');
+        }
+      }
+
+      return bufferAttribute;
+    });
+  };
+  /**
+   * Specification: https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#textures
+   * @param {Number} textureIndex
+   * @return {Promise<THREE.Texture>}
+   */
+
+
+  GLTFParser.prototype.loadTexture = function (textureIndex) {
+    var parser = this;
+    var json = this.json;
+    var options = this.options;
+    var textureLoader = this.textureLoader;
+    var URL = window.URL || window.webkitURL;
+    var textureDef = json.textures[textureIndex];
+    var textureExtensions = textureDef.extensions || {};
+    var source;
+
+    if (textureExtensions[EXTENSIONS.MSFT_TEXTURE_DDS]) {
+      source = json.images[textureExtensions[EXTENSIONS.MSFT_TEXTURE_DDS].source];
+    } else {
+      source = json.images[textureDef.source];
+    }
+
+    var sourceURI = source.uri;
+    var isObjectURL = false;
+
+    if (source.bufferView !== undefined) {
+      // Load binary image data from bufferView, if provided.
+      sourceURI = parser.getDependency('bufferView', source.bufferView).then(function (bufferView) {
+        isObjectURL = true;
+        var blob = new Blob([bufferView], {
+          type: source.mimeType
+        });
+        sourceURI = URL.createObjectURL(blob);
+        return sourceURI;
+      });
+    }
+
+    return Promise.resolve(sourceURI).then(function (sourceURI) {
+      // Load Texture resource.
+      var loader = THREE.Loader.Handlers.get(sourceURI);
+
+      if (!loader) {
+        loader = textureExtensions[EXTENSIONS.MSFT_TEXTURE_DDS] ? parser.extensions[EXTENSIONS.MSFT_TEXTURE_DDS].ddsLoader : textureLoader;
+      }
+
+      return new Promise(function (resolve, reject) {
+        loader.load(resolveURL(sourceURI, options.path), resolve, undefined, reject);
+      });
+    }).then(function (texture) {
+      // Clean up resources and configure Texture.
+      if (isObjectURL === true) {
+        URL.revokeObjectURL(sourceURI);
+      }
+
+      texture.flipY = false;
+      if (textureDef.name !== undefined) texture.name = textureDef.name; // .format of dds texture is set in DDSLoader
+
+      if (!textureExtensions[EXTENSIONS.MSFT_TEXTURE_DDS]) {
+        texture.format = textureDef.format !== undefined ? WEBGL_TEXTURE_FORMATS[textureDef.format] : THREE.RGBAFormat;
+      }
+
+      if (textureDef.internalFormat !== undefined && texture.format !== WEBGL_TEXTURE_FORMATS[textureDef.internalFormat]) {
+        console.warn('THREE.GLTFLoader: Three.js does not support texture internalFormat which is different from texture format. ' + 'internalFormat will be forced to be the same value as format.');
+      }
+
+      texture.type = textureDef.type !== undefined ? WEBGL_TEXTURE_DATATYPES[textureDef.type] : THREE.UnsignedByteType;
+      var samplers = json.samplers || {};
+      var sampler = samplers[textureDef.sampler] || {};
+      texture.magFilter = WEBGL_FILTERS[sampler.magFilter] || THREE.LinearFilter;
+      texture.minFilter = WEBGL_FILTERS[sampler.minFilter] || THREE.LinearMipMapLinearFilter;
+      texture.wrapS = WEBGL_WRAPPINGS[sampler.wrapS] || THREE.RepeatWrapping;
+      texture.wrapT = WEBGL_WRAPPINGS[sampler.wrapT] || THREE.RepeatWrapping;
+      return texture;
+    });
+  };
+  /**
+   * Asynchronously assigns a texture to the given material parameters.
+   * @param {Object} materialParams
+   * @param {String} textureName
+   * @param {Number} textureIndex
+   * @return {Promise}
+   */
+
+
+  GLTFParser.prototype.assignTexture = function (materialParams, textureName, textureIndex) {
+    return this.getDependency('texture', textureIndex).then(function (texture) {
+      materialParams[textureName] = texture;
+    });
+  };
+  /**
+   * Specification: https://github.com/KhronosGroup/glTF/blob/master/specification/2.0/README.md#materials
+   * @param {Number} materialIndex
+   * @return {Promise<THREE.Material>}
+   */
+
+
+  GLTFParser.prototype.loadMaterial = function (materialIndex) {
+    var parser = this;
+    var json = this.json;
+    var extensions = this.extensions;
+    var materialDef = this.json.materials[materialIndex];
+    var materialType;
+    var materialParams = {};
+    var materialExtensions = materialDef.extensions || {};
+    var pending = [];
+
+    if (materialExtensions[EXTENSIONS.KHR_MATERIALS_PBR_SPECULAR_GLOSSINESS]) {
+      var sgExtension = extensions[EXTENSIONS.KHR_MATERIALS_PBR_SPECULAR_GLOSSINESS];
+      materialType = sgExtension.getMaterialType(materialDef);
+      pending.push(sgExtension.extendParams(materialParams, materialDef, parser));
+    } else if (materialExtensions[EXTENSIONS.KHR_MATERIALS_UNLIT]) {
+      var kmuExtension = extensions[EXTENSIONS.KHR_MATERIALS_UNLIT];
+      materialType = kmuExtension.getMaterialType(materialDef);
+      pending.push(kmuExtension.extendParams(materialParams, materialDef, parser));
+    } else {
+      // Specification:
+      // https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#metallic-roughness-material
+      materialType = THREE.MeshStandardMaterial;
+      var metallicRoughness = materialDef.pbrMetallicRoughness || {};
+      materialParams.color = new THREE.Color(1.0, 1.0, 1.0);
+      materialParams.opacity = 1.0;
+
+      if (Array.isArray(metallicRoughness.baseColorFactor)) {
+        var array = metallicRoughness.baseColorFactor;
+        materialParams.color.fromArray(array);
+        materialParams.opacity = array[3];
+      }
+
+      if (metallicRoughness.baseColorTexture !== undefined) {
+        pending.push(parser.assignTexture(materialParams, 'map', metallicRoughness.baseColorTexture.index));
+      }
+
+      materialParams.metalness = metallicRoughness.metallicFactor !== undefined ? metallicRoughness.metallicFactor : 1.0;
+      materialParams.roughness = metallicRoughness.roughnessFactor !== undefined ? metallicRoughness.roughnessFactor : 1.0;
+
+      if (metallicRoughness.metallicRoughnessTexture !== undefined) {
+        var textureIndex = metallicRoughness.metallicRoughnessTexture.index;
+        pending.push(parser.assignTexture(materialParams, 'metalnessMap', textureIndex));
+        pending.push(parser.assignTexture(materialParams, 'roughnessMap', textureIndex));
+      }
+    }
+
+    if (materialDef.doubleSided === true) {
+      materialParams.side = THREE.DoubleSide;
+    }
+
+    var alphaMode = materialDef.alphaMode || ALPHA_MODES.OPAQUE;
+
+    if (alphaMode === ALPHA_MODES.BLEND) {
+      materialParams.transparent = true;
+    } else {
+      materialParams.transparent = false;
+
+      if (alphaMode === ALPHA_MODES.MASK) {
+        materialParams.alphaTest = materialDef.alphaCutoff !== undefined ? materialDef.alphaCutoff : 0.5;
+      }
+    }
+
+    if (materialDef.normalTexture !== undefined && materialType !== THREE.MeshBasicMaterial) {
+      pending.push(parser.assignTexture(materialParams, 'normalMap', materialDef.normalTexture.index));
+      materialParams.normalScale = new THREE.Vector2(1, 1);
+
+      if (materialDef.normalTexture.scale !== undefined) {
+        materialParams.normalScale.set(materialDef.normalTexture.scale, materialDef.normalTexture.scale);
+      }
+    }
+
+    if (materialDef.occlusionTexture !== undefined && materialType !== THREE.MeshBasicMaterial) {
+      pending.push(parser.assignTexture(materialParams, 'aoMap', materialDef.occlusionTexture.index));
+
+      if (materialDef.occlusionTexture.strength !== undefined) {
+        materialParams.aoMapIntensity = materialDef.occlusionTexture.strength;
+      }
+    }
+
+    if (materialDef.emissiveFactor !== undefined && materialType !== THREE.MeshBasicMaterial) {
+      materialParams.emissive = new THREE.Color().fromArray(materialDef.emissiveFactor);
+    }
+
+    if (materialDef.emissiveTexture !== undefined && materialType !== THREE.MeshBasicMaterial) {
+      pending.push(parser.assignTexture(materialParams, 'emissiveMap', materialDef.emissiveTexture.index));
+    }
+
+    return Promise.all(pending).then(function () {
+      var material;
+
+      if (materialType === THREE.ShaderMaterial) {
+        material = extensions[EXTENSIONS.KHR_MATERIALS_PBR_SPECULAR_GLOSSINESS].createMaterial(materialParams);
+      } else {
+        material = new materialType(materialParams);
+      }
+
+      if (materialDef.name !== undefined) material.name = materialDef.name; // Normal map textures use OpenGL conventions:
+      // https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#materialnormaltexture
+
+      if (material.normalScale) {
+        material.normalScale.y = -material.normalScale.y;
+      } // baseColorTexture, emissiveTexture, and specularGlossinessTexture use sRGB encoding.
+
+
+      if (material.map) material.map.encoding = THREE.sRGBEncoding;
+      if (material.emissiveMap) material.emissiveMap.encoding = THREE.sRGBEncoding;
+      if (material.specularMap) material.specularMap.encoding = THREE.sRGBEncoding;
+      if (materialDef.extras) material.userData = materialDef.extras;
+      if (materialDef.extensions) addUnknownExtensionsToUserData(extensions, material, materialDef);
+      return material;
+    });
+  };
+  /**
+   * @param  {THREE.BufferGeometry} geometry
+   * @param  {GLTF.Primitive} primitiveDef
+   * @param  {Array<THREE.BufferAttribute>} accessors
+   */
+
+
+  function addPrimitiveAttributes(geometry, primitiveDef, accessors) {
+    var attributes = primitiveDef.attributes;
+
+    for (var gltfAttributeName in attributes) {
+      var threeAttributeName = ATTRIBUTES[gltfAttributeName];
+      var bufferAttribute = accessors[attributes[gltfAttributeName]]; // Skip attributes already provided by e.g. Draco extension.
+
+      if (!threeAttributeName) continue;
+      if (threeAttributeName in geometry.attributes) continue;
+      geometry.setAttribute(threeAttributeName, bufferAttribute);
+    }
+
+    if (primitiveDef.indices !== undefined && !geometry.index) {
+      geometry.setIndex(accessors[primitiveDef.indices]);
+    }
+
+    if (primitiveDef.targets !== undefined) {
+      addMorphTargets(geometry, primitiveDef.targets, accessors);
+    }
+
+    if (primitiveDef.extras !== undefined) {
+      geometry.userData = primitiveDef.extras;
+    }
+  }
+  /**
+   * Specification: https://github.com/KhronosGroup/glTF/blob/master/specification/2.0/README.md#geometry
+   *
+   * Creates BufferGeometries from primitives.
+   * If we can build a single BufferGeometry with .groups from multiple primitives, returns one BufferGeometry.
+   * Otherwise, returns BufferGeometries without .groups as many as primitives.
+   *
+   * @param {Array<Object>} primitives
+   * @return {Promise<Array<THREE.BufferGeometry>>}
+   */
+
+
+  GLTFParser.prototype.loadGeometries = function (primitives) {
+    var parser = this;
+    var extensions = this.extensions;
+    var cache = this.primitiveCache;
+    var isMultiPass = isMultiPassGeometry(primitives);
+    var originalPrimitives;
+
+    if (isMultiPass) {
+      originalPrimitives = primitives; // save original primitives and use later
+      // We build a single BufferGeometry with .groups from multiple primitives
+      // because all primitives share the same attributes/morph/mode and have indices.
+
+      primitives = [primitives[0]]; // Sets .groups and combined indices to a geometry later in this method.
+    }
+
+    return this.getDependencies('accessor').then(function (accessors) {
+      var pending = [];
+
+      for (var i = 0, il = primitives.length; i < il; i++) {
+        var primitive = primitives[i]; // See if we've already created this geometry
+
+        var cached = getCachedGeometry(cache, primitive);
+
+        if (cached) {
+          // Use the cached geometry if it exists
+          pending.push(cached);
+        } else if (primitive.extensions && primitive.extensions[EXTENSIONS.KHR_DRACO_MESH_COMPRESSION]) {
+          // Use DRACO geometry if available
+          var geometryPromise = extensions[EXTENSIONS.KHR_DRACO_MESH_COMPRESSION].decodePrimitive(primitive, parser).then(function (geometry) {
+            addPrimitiveAttributes(geometry, primitive, accessors);
+            return geometry;
+          });
+          cache.push({
+            primitive: primitive,
+            promise: geometryPromise
+          });
+          pending.push(geometryPromise);
+        } else {
+          // Otherwise create a new geometry
+          var geometry = new THREE.BufferGeometry();
+          addPrimitiveAttributes(geometry, primitive, accessors);
+          var geometryPromise = Promise.resolve(geometry); // Cache this geometry
+
+          cache.push({
+            primitive: primitive,
+            promise: geometryPromise
+          });
+          pending.push(geometryPromise);
+        }
+      }
+
+      return Promise.all(pending).then(function (geometries) {
+        if (isMultiPass) {
+          var baseGeometry = geometries[0]; // See if we've already created this combined geometry
+
+          var cache = parser.multiPassGeometryCache;
+          var cached = getCachedMultiPassGeometry(cache, baseGeometry, originalPrimitives);
+          if (cached !== null) return [cached.geometry]; // Cloning geometry because of index override.
+          // Attributes can be reused so cloning by myself here.
+
+          var geometry = new THREE.BufferGeometry();
+          geometry.name = baseGeometry.name;
+          geometry.userData = baseGeometry.userData;
+
+          for (var key in baseGeometry.attributes) {
+            geometry.setAttribute(key, baseGeometry.attributes[key]);
+          }
+
+          for (var key in baseGeometry.morphAttributes) {
+            geometry.morphAttributes[key] = baseGeometry.morphAttributes[key];
+          }
+
+          var indices = [];
+          var offset = 0;
+
+          for (var i = 0, il = originalPrimitives.length; i < il; i++) {
+            var accessor = accessors[originalPrimitives[i].indices];
+
+            for (var j = 0, jl = accessor.count; j < jl; j++) {
+              indices.push(accessor.array[j]);
+            }
+
+            geometry.addGroup(offset, accessor.count, i);
+            offset += accessor.count;
+          }
+
+          geometry.setIndex(indices);
+          cache.push({
+            geometry: geometry,
+            baseGeometry: baseGeometry,
+            primitives: originalPrimitives
+          });
+          return [geometry];
+        } else if (geometries.length > 1 && THREE.BufferGeometryUtils !== undefined) {
+          // Tries to merge geometries with BufferGeometryUtils if possible
+          for (var i = 1, il = primitives.length; i < il; i++) {
+            // can't merge if draw mode is different
+            if (primitives[0].mode !== primitives[i].mode) return geometries;
+          } // See if we've already created this combined geometry
+
+
+          var cache = parser.multiplePrimitivesCache;
+          var cached = getCachedCombinedGeometry(cache, geometries);
+
+          if (cached) {
+            if (cached.geometry !== null) return [cached.geometry];
+          } else {
+            var geometry = THREE.BufferGeometryUtils.mergeBufferGeometries(geometries, true);
+            cache.push({
+              geometry: geometry,
+              baseGeometries: geometries
+            });
+            if (geometry !== null) return [geometry];
+          }
+        }
+
+        return geometries;
+      });
+    });
+  };
+  /**
+   * Specification: https://github.com/KhronosGroup/glTF/blob/master/specification/2.0/README.md#meshes
+   * @param {Number} meshIndex
+   * @return {Promise<THREE.Group|THREE.Mesh|THREE.SkinnedMesh>}
+   */
+
+
+  GLTFParser.prototype.loadMesh = function (meshIndex) {
+    var scope = this;
+    var json = this.json;
+    var extensions = this.extensions;
+    var meshDef = this.json.meshes[meshIndex];
+    return this.getMultiDependencies(['accessor', 'material']).then(function (dependencies) {
+      var primitives = meshDef.primitives;
+      var originalMaterials = [];
+
+      for (var i = 0, il = primitives.length; i < il; i++) {
+        originalMaterials[i] = primitives[i].material === undefined ? createDefaultMaterial() : dependencies.materials[primitives[i].material];
+      }
+
+      return scope.loadGeometries(primitives).then(function (geometries) {
+        var isMultiMaterial = geometries.length === 1 && geometries[0].groups.length > 0;
+        var meshes = [];
+
+        for (var i = 0, il = geometries.length; i < il; i++) {
+          var geometry = geometries[i];
+          var primitive = primitives[i]; // 1. create Mesh
+
+          var mesh;
+          var material = isMultiMaterial ? originalMaterials : originalMaterials[i];
+
+          if (primitive.mode === WEBGL_CONSTANTS.TRIANGLES || primitive.mode === WEBGL_CONSTANTS.TRIANGLE_STRIP || primitive.mode === WEBGL_CONSTANTS.TRIANGLE_FAN || primitive.mode === undefined) {
+            // .isSkinnedMesh isn't in glTF spec. See .markDefs()
+            mesh = meshDef.isSkinnedMesh === true ? new THREE.SkinnedMesh(geometry, material) : new THREE.Mesh(geometry, material);
+
+            if (primitive.mode === WEBGL_CONSTANTS.TRIANGLE_STRIP) {
+              mesh.drawMode = THREE.TriangleStripDrawMode;
+            } else if (primitive.mode === WEBGL_CONSTANTS.TRIANGLE_FAN) {
+              mesh.drawMode = THREE.TriangleFanDrawMode;
+            }
+          } else if (primitive.mode === WEBGL_CONSTANTS.LINES) {
+            mesh = new THREE.LineSegments(geometry, material);
+          } else if (primitive.mode === WEBGL_CONSTANTS.LINE_STRIP) {
+            mesh = new THREE.Line(geometry, material);
+          } else if (primitive.mode === WEBGL_CONSTANTS.LINE_LOOP) {
+            mesh = new THREE.LineLoop(geometry, material);
+          } else if (primitive.mode === WEBGL_CONSTANTS.POINTS) {
+            mesh = new THREE.Points(geometry, material);
+          } else {
+            throw new Error('THREE.GLTFLoader: Primitive mode unsupported: ' + primitive.mode);
+          }
+
+          if (Object.keys(mesh.geometry.morphAttributes).length > 0) {
+            updateMorphTargets(mesh, meshDef);
+          }
+
+          mesh.name = meshDef.name || 'mesh_' + meshIndex;
+          if (geometries.length > 1) mesh.name += '_' + i;
+          if (meshDef.extras !== undefined) mesh.userData = meshDef.extras;
+          meshes.push(mesh); // 2. update Material depending on Mesh and BufferGeometry
+
+          var materials = isMultiMaterial ? mesh.material : [mesh.material];
+          var useVertexColors = geometry.attributes.color !== undefined;
+          var useFlatShading = geometry.attributes.normal === undefined;
+          var useSkinning = mesh.isSkinnedMesh === true;
+          var useMorphTargets = Object.keys(geometry.morphAttributes).length > 0;
+          var useMorphNormals = useMorphTargets && geometry.morphAttributes.normal !== undefined;
+
+          for (var j = 0, jl = materials.length; j < jl; j++) {
+            var material = materials[j];
+
+            if (mesh.isPoints) {
+              var cacheKey = 'PointsMaterial:' + material.uuid;
+              var pointsMaterial = scope.cache.get(cacheKey);
+
+              if (!pointsMaterial) {
+                pointsMaterial = new THREE.PointsMaterial();
+                THREE.Material.prototype.copy.call(pointsMaterial, material);
+                pointsMaterial.color.copy(material.color);
+                pointsMaterial.map = material.map;
+                pointsMaterial.lights = false; // PointsMaterial doesn't support lights yet
+
+                scope.cache.add(cacheKey, pointsMaterial);
+              }
+
+              material = pointsMaterial;
+            } else if (mesh.isLine) {
+              var cacheKey = 'LineBasicMaterial:' + material.uuid;
+              var lineMaterial = scope.cache.get(cacheKey);
+
+              if (!lineMaterial) {
+                lineMaterial = new THREE.LineBasicMaterial();
+                THREE.Material.prototype.copy.call(lineMaterial, material);
+                lineMaterial.color.copy(material.color);
+                lineMaterial.lights = false; // LineBasicMaterial doesn't support lights yet
+
+                scope.cache.add(cacheKey, lineMaterial);
+              }
+
+              material = lineMaterial;
+            } // Clone the material if it will be modified
+
+
+            if (useVertexColors || useFlatShading || useSkinning || useMorphTargets) {
+              var cacheKey = 'ClonedMaterial:' + material.uuid + ':';
+              if (material.isGLTFSpecularGlossinessMaterial) cacheKey += 'specular-glossiness:';
+              if (useSkinning) cacheKey += 'skinning:';
+              if (useVertexColors) cacheKey += 'vertex-colors:';
+              if (useFlatShading) cacheKey += 'flat-shading:';
+              if (useMorphTargets) cacheKey += 'morph-targets:';
+              if (useMorphNormals) cacheKey += 'morph-normals:';
+              var cachedMaterial = scope.cache.get(cacheKey);
+
+              if (!cachedMaterial) {
+                cachedMaterial = material.isGLTFSpecularGlossinessMaterial ? extensions[EXTENSIONS.KHR_MATERIALS_PBR_SPECULAR_GLOSSINESS].cloneMaterial(material) : material.clone();
+                if (useSkinning) cachedMaterial.skinning = true;
+                if (useVertexColors) cachedMaterial.vertexColors = THREE.VertexColors;
+                if (useFlatShading) cachedMaterial.flatShading = true;
+                if (useMorphTargets) cachedMaterial.morphTargets = true;
+                if (useMorphNormals) cachedMaterial.morphNormals = true;
+                scope.cache.add(cacheKey, cachedMaterial);
+              }
+
+              material = cachedMaterial;
+            }
+
+            materials[j] = material; // workarounds for mesh and geometry
+
+            if (material.aoMap && geometry.attributes.uv2 === undefined && geometry.attributes.uv !== undefined) {
+              console.log('THREE.GLTFLoader: Duplicating UVs to support aoMap.');
+              geometry.setAttribute('uv2', new THREE.BufferAttribute(geometry.attributes.uv.array, 2));
+            }
+
+            if (material.isGLTFSpecularGlossinessMaterial) {
+              // for GLTFSpecularGlossinessMaterial(ShaderMaterial) uniforms runtime update
+              mesh.onBeforeRender = extensions[EXTENSIONS.KHR_MATERIALS_PBR_SPECULAR_GLOSSINESS].refreshUniforms;
+            }
+          }
+
+          mesh.material = isMultiMaterial ? materials : materials[0];
+        }
+
+        if (meshes.length === 1) {
+          return meshes[0];
+        }
+
+        var group = new THREE.Group();
+
+        for (var i = 0, il = meshes.length; i < il; i++) {
+          group.add(meshes[i]);
+        }
+
+        return group;
+      });
+    });
+  };
+  /**
+   * Specification: https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#cameras
+   * @param {Number} cameraIndex
+   * @return {Promise<THREE.Camera>}
+   */
+
+
+  GLTFParser.prototype.loadCamera = function (cameraIndex) {
+    var camera;
+    var cameraDef = this.json.cameras[cameraIndex];
+    var params = cameraDef[cameraDef.type];
+
+    if (!params) {
+      console.warn('THREE.GLTFLoader: Missing camera parameters.');
+      return;
+    }
+
+    if (cameraDef.type === 'perspective') {
+      camera = new THREE.PerspectiveCamera(THREE.Math.radToDeg(params.yfov), params.aspectRatio || 1, params.znear || 1, params.zfar || 2e6);
+    } else if (cameraDef.type === 'orthographic') {
+      camera = new THREE.OrthographicCamera(params.xmag / -2, params.xmag / 2, params.ymag / 2, params.ymag / -2, params.znear, params.zfar);
+    }
+
+    if (cameraDef.name !== undefined) camera.name = cameraDef.name;
+    if (cameraDef.extras) camera.userData = cameraDef.extras;
+    return Promise.resolve(camera);
+  };
+  /**
+   * Specification: https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#skins
+   * @param {Number} skinIndex
+   * @return {Promise<Object>}
+   */
+
+
+  GLTFParser.prototype.loadSkin = function (skinIndex) {
+    var skinDef = this.json.skins[skinIndex];
+    var skinEntry = {
+      joints: skinDef.joints
+    };
+
+    if (skinDef.inverseBindMatrices === undefined) {
+      return Promise.resolve(skinEntry);
+    }
+
+    return this.getDependency('accessor', skinDef.inverseBindMatrices).then(function (accessor) {
+      skinEntry.inverseBindMatrices = accessor;
+      return skinEntry;
+    });
+  };
+  /**
+   * Specification: https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#animations
+   * @param {Number} animationIndex
+   * @return {Promise<THREE.AnimationClip>}
+   */
+
+
+  GLTFParser.prototype.loadAnimation = function (animationIndex) {
+    var json = this.json;
+    var animationDef = this.json.animations[animationIndex];
+    return this.getMultiDependencies(['accessor', 'node']).then(function (dependencies) {
+      var tracks = [];
+
+      for (var i = 0, il = animationDef.channels.length; i < il; i++) {
+        var channel = animationDef.channels[i];
+        var sampler = animationDef.samplers[channel.sampler];
+
+        if (sampler) {
+          var target = channel.target;
+          var name = target.node !== undefined ? target.node : target.id; // NOTE: target.id is deprecated.
+
+          var input = animationDef.parameters !== undefined ? animationDef.parameters[sampler.input] : sampler.input;
+          var output = animationDef.parameters !== undefined ? animationDef.parameters[sampler.output] : sampler.output;
+          var inputAccessor = dependencies.accessors[input];
+          var outputAccessor = dependencies.accessors[output];
+          var node = dependencies.nodes[name];
+
+          if (node) {
+            node.updateMatrix();
+            node.matrixAutoUpdate = true;
+            var TypedKeyframeTrack;
+
+            switch (PATH_PROPERTIES[target.path]) {
+              case PATH_PROPERTIES.weights:
+                TypedKeyframeTrack = THREE.NumberKeyframeTrack;
+                break;
+
+              case PATH_PROPERTIES.rotation:
+                TypedKeyframeTrack = THREE.QuaternionKeyframeTrack;
+                break;
+
+              case PATH_PROPERTIES.position:
+              case PATH_PROPERTIES.scale:
+              default:
+                TypedKeyframeTrack = THREE.VectorKeyframeTrack;
+                break;
+            }
+
+            var targetName = node.name ? node.name : node.uuid;
+            var interpolation = sampler.interpolation !== undefined ? INTERPOLATION[sampler.interpolation] : THREE.InterpolateLinear;
+            var targetNames = [];
+
+            if (PATH_PROPERTIES[target.path] === PATH_PROPERTIES.weights) {
+              // node can be THREE.Group here but
+              // PATH_PROPERTIES.weights(morphTargetInfluences) should be
+              // the property of a mesh object under group.
+              node.traverse(function (object) {
+                if (object.isMesh === true && object.morphTargetInfluences) {
+                  targetNames.push(object.name ? object.name : object.uuid);
+                }
+              });
+            } else {
+              targetNames.push(targetName);
+            } // KeyframeTrack.optimize() will modify given 'times' and 'values'
+            // buffers before creating a truncated copy to keep. Because buffers may
+            // be reused by other tracks, make copies here.
+
+
+            for (var j = 0, jl = targetNames.length; j < jl; j++) {
+              var track = new TypedKeyframeTrack(targetNames[j] + '.' + PATH_PROPERTIES[target.path], THREE.AnimationUtils.arraySlice(inputAccessor.array, 0), THREE.AnimationUtils.arraySlice(outputAccessor.array, 0), interpolation); // Here is the trick to enable custom interpolation.
+              // Overrides .createInterpolant in a factory method which creates custom interpolation.
+
+              if (sampler.interpolation === 'CUBICSPLINE') {
+                track.createInterpolant = function InterpolantFactoryMethodGLTFCubicSpline(result) {
+                  // A CUBICSPLINE keyframe in glTF has three output values for each input value,
+                  // representing inTangent, splineVertex, and outTangent. As a result, track.getValueSize()
+                  // must be divided by three to get the interpolant's sampleSize argument.
+                  return new GLTFCubicSplineInterpolant(this.times, this.values, this.getValueSize() / 3, result);
+                }; // Workaround, provide an alternate way to know if the interpolant type is cubis spline to track.
+                // track.getInterpolation() doesn't return valid value for custom interpolant.
+
+
+                track.createInterpolant.isInterpolantFactoryMethodGLTFCubicSpline = true;
+              }
+
+              tracks.push(track);
+            }
+          }
+        }
+      }
+
+      var name = animationDef.name !== undefined ? animationDef.name : 'animation_' + animationIndex;
+      return new THREE.AnimationClip(name, undefined, tracks);
+    });
+  };
+  /**
+   * Specification: https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#nodes-and-hierarchy
+   * @param {Number} nodeIndex
+   * @return {Promise<THREE.Object3D>}
+   */
+
+
+  GLTFParser.prototype.loadNode = function (nodeIndex) {
+    var json = this.json;
+    var extensions = this.extensions;
+    var meshReferences = this.json.meshReferences;
+    var meshUses = this.json.meshUses;
+    var nodeDef = this.json.nodes[nodeIndex];
+    return this.getMultiDependencies(['mesh', 'skin', 'camera', 'light']).then(function (dependencies) {
+      var node; // .isBone isn't in glTF spec. See .markDefs
+
+      if (nodeDef.isBone === true) {
+        node = new THREE.Bone();
+      } else if (nodeDef.mesh !== undefined) {
+        var mesh = dependencies.meshes[nodeDef.mesh];
+        node = mesh.clone(); // for Specular-Glossiness
+
+        if (mesh.isGroup === true) {
+          for (var i = 0, il = mesh.children.length; i < il; i++) {
+            var child = mesh.children[i];
+
+            if (child.material && child.material.isGLTFSpecularGlossinessMaterial === true) {
+              node.children[i].onBeforeRender = child.onBeforeRender;
+            }
+          }
+        } else {
+          if (mesh.material && mesh.material.isGLTFSpecularGlossinessMaterial === true) {
+            node.onBeforeRender = mesh.onBeforeRender;
+          }
+        }
+
+        if (meshReferences[nodeDef.mesh] > 1) {
+          node.name += '_instance_' + meshUses[nodeDef.mesh]++;
+        }
+      } else if (nodeDef.camera !== undefined) {
+        node = dependencies.cameras[nodeDef.camera];
+      } else if (nodeDef.extensions && nodeDef.extensions[EXTENSIONS.KHR_LIGHTS] && nodeDef.extensions[EXTENSIONS.KHR_LIGHTS].light !== undefined) {
+        var lights = extensions[EXTENSIONS.KHR_LIGHTS].lights;
+        node = lights[nodeDef.extensions[EXTENSIONS.KHR_LIGHTS].light];
+      } else {
+        node = new THREE.Object3D();
+      }
+
+      if (nodeDef.name !== undefined) {
+        node.name = THREE.PropertyBinding.sanitizeNodeName(nodeDef.name);
+      }
+
+      if (nodeDef.extras) node.userData = nodeDef.extras;
+      if (nodeDef.extensions) addUnknownExtensionsToUserData(extensions, node, nodeDef);
+
+      if (nodeDef.matrix !== undefined) {
+        var matrix = new THREE.Matrix4();
+        matrix.fromArray(nodeDef.matrix);
+        node.applyMatrix4(matrix);
+      } else {
+        if (nodeDef.translation !== undefined) {
+          node.position.fromArray(nodeDef.translation);
+        }
+
+        if (nodeDef.rotation !== undefined) {
+          node.quaternion.fromArray(nodeDef.rotation);
+        }
+
+        if (nodeDef.scale !== undefined) {
+          node.scale.fromArray(nodeDef.scale);
+        }
+      }
+
+      return node;
+    });
+  };
+  /**
+   * Specification: https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#scenes
+   * @param {Number} sceneIndex
+   * @return {Promise<THREE.Scene>}
+   */
+
+
+  GLTFParser.prototype.loadScene = function () {
+    // scene node hierachy builder
+    function buildNodeHierachy(nodeId, parentObject, json, allNodes, skins) {
+      var node = allNodes[nodeId];
+      var nodeDef = json.nodes[nodeId]; // build skeleton here as well
+
+      if (nodeDef.skin !== undefined) {
+        var meshes = node.isGroup === true ? node.children : [node];
+
+        for (var i = 0, il = meshes.length; i < il; i++) {
+          var mesh = meshes[i];
+          var skinEntry = skins[nodeDef.skin];
+          var bones = [];
+          var boneInverses = [];
+
+          for (var j = 0, jl = skinEntry.joints.length; j < jl; j++) {
+            var jointId = skinEntry.joints[j];
+            var jointNode = allNodes[jointId];
+
+            if (jointNode) {
+              bones.push(jointNode);
+              var mat = new THREE.Matrix4();
+
+              if (skinEntry.inverseBindMatrices !== undefined) {
+                mat.fromArray(skinEntry.inverseBindMatrices.array, j * 16);
+              }
+
+              boneInverses.push(mat);
+            } else {
+              console.warn('THREE.GLTFLoader: Joint "%s" could not be found.', jointId);
+            }
+          }
+
+          mesh.bind(new THREE.Skeleton(bones, boneInverses), mesh.matrixWorld);
+        }
+      } // build node hierachy
+
+
+      parentObject.add(node);
+
+      if (nodeDef.children) {
+        var children = nodeDef.children;
+
+        for (var i = 0, il = children.length; i < il; i++) {
+          var child = children[i];
+          buildNodeHierachy(child, node, json, allNodes, skins);
+        }
+      }
+    }
+
+    return function loadScene(sceneIndex) {
+      var json = this.json;
+      var extensions = this.extensions;
+      var sceneDef = this.json.scenes[sceneIndex];
+      return this.getMultiDependencies(['node', 'skin']).then(function (dependencies) {
+        var scene = new THREE.Scene();
+        if (sceneDef.name !== undefined) scene.name = sceneDef.name;
+        if (sceneDef.extras) scene.userData = sceneDef.extras;
+        if (sceneDef.extensions) addUnknownExtensionsToUserData(extensions, scene, sceneDef);
+        var nodeIds = sceneDef.nodes || [];
+
+        for (var i = 0, il = nodeIds.length; i < il; i++) {
+          buildNodeHierachy(nodeIds[i], scene, json, dependencies.nodes, dependencies.skins);
+        } // Ambient lighting, if present, is always attached to the scene root.
+
+
+        if (sceneDef.extensions && sceneDef.extensions[EXTENSIONS.KHR_LIGHTS] && sceneDef.extensions[EXTENSIONS.KHR_LIGHTS].light !== undefined) {
+          var lights = extensions[EXTENSIONS.KHR_LIGHTS].lights;
+          scene.add(lights[sceneDef.extensions[EXTENSIONS.KHR_LIGHTS].light]);
+        }
+
+        return scene;
+      });
+    };
+  }();
+
+  return GLTFLoader;
+}();
+
+/* harmony default export */ const GLTFLoader = (THREE.GLTFLoader);
+;// CONCATENATED MODULE: ./src/components/simple-3D-model/js/index.js
+
+
+
+
+/* 
+ *************************************
+ * <!-- 3D Model -->
+ *************************************
+ */
+
+
+var THREE_MODEL = function (module, $, window, document) {
+  if (window.THREE_MODEL === null) return false;
+  module.THREE_MODEL = module.THREE_MODEL || {};
+  module.THREE_MODEL.version = '0.0.5';
+
+  module.THREE_MODEL.documentReady = function ($) {
+    //Prevent this module from loading in other pages
+    if ($('#3D-model-canvas').length == 0 || !Modernizr.webgl) return false;
+    var sceneSubjects = []; // Import objects and animations dynamically
+
+    var MainStage = function () {
+      var windowWidth = window.innerWidth,
+          windowHeight = window.innerHeight;
+      var rendererCanvasID = '3D-model-canvas'; // Generate one plane geometries mesh to scene
+      //-------------------------------------	
+
+      var camera,
+          scene,
+          lights = [],
+          renderer,
+          displacementSprite,
+          theta = 0;
+      var mixerGLTF;
+      var radius = 600;
+      var prevTime = Date.now();
+
+      function init() {
+        //=================
+        //camera
+        camera = new THREE.PerspectiveCamera(45, windowWidth / windowHeight, 1, 10000);
+        camera.position.set(0, 0, 100);
+        camera.target = new THREE.Vector3(0, 150, 0); //=================
+        //Scene
+
+        scene = new THREE.Scene(); //=================
+        //Lights
+
+        lights[0] = new THREE.PointLight(0xffffff, 1, 0);
+        lights[1] = new THREE.PointLight(0xffffff, 1, 0);
+        lights[2] = new THREE.DirectionalLight(0xffffff);
+        lights[0].position.set(0, 200, 0);
+        lights[1].position.set(100, 200, 100);
+        lights[2].position.set(120, 200, 0);
+        lights[2].intensity = 0.6;
+        scene.add(lights[0]);
+        scene.add(lights[1]);
+        scene.add(lights[2]); //=================
+        //WebGL Renderer	
+
+        renderer = new THREE.WebGLRenderer({
+          canvas: document.getElementById(rendererCanvasID),
+          //canvas
+          alpha: true,
+          antialias: true
+        });
+        renderer.setSize(windowWidth, windowHeight); //=================
+
+        displacementSprite = new THREE.Object3D();
+        var manager = new THREE.LoadingManager();
+
+        manager.onProgress = function (item, loaded, total) {
+          console.log(item, loaded, total);
+        };
+
+        var textureURL = (0,esm_typeof/* default */.Z)($('#' + rendererCanvasID).data('texture-src')) != ( true ? "undefined" : 0) ? $('#' + rendererCanvasID).data('texture-src') : templateUrl + '/assets/models/gltf/project.jpg';
+        var objURL = (0,esm_typeof/* default */.Z)($('#' + rendererCanvasID).data('model-src')) != ( true ? "undefined" : 0) ? $('#' + rendererCanvasID).data('model-src') : templateUrl + '/assets/models/gltf/project.glb';
+
+        var textureLoader = new THREE.TextureLoader(manager),
+            texture = textureLoader.load(textureURL),
+            onProgress = function onProgress(xhr) {
+          if (xhr.lengthComputable) {
+            var percentComplete = xhr.loaded / xhr.total * 100;
+            console.log(Math.round(percentComplete, 2) + '% downloaded');
+          }
+        },
+            onError = function onError(xhr) {};
+
+        var loader = new THREE.GLTFLoader(manager);
+        loader.crossOrigin = 'anonymous';
+        loader.load(objURL, function (object) {
+          var gltfMesh = object.scene.children[0];
+          object.scene.children[0].traverse(function (child) {
+            if (child instanceof THREE.Mesh) {
+              console.log(child);
+              child.material.emissive = new THREE.Color(0xff6600); // -> color
+
+              child.material.normalMap = texture; // -> map
+
+              child.material.shadowSide = THREE.DoubleSide; // -> side
+
+              child.material.wireframe = false; // -> wireframe
+
+              child.material.emissiveIntensity = 0.5; // -> shininess
+              //Excluding objects from fog
+
+              child.material.fog = false; // -> fog
+              // set castShadow to object
+
+              child.castShadow = true;
+            }
+          });
+          /*
+          If you can not use `object.scene.children[ 0 ]`, use the following code:
+          
+          	const gltfMesh = object.scene;
+          object.scene.traverse( function( child ) {            
+             if ( ( child instanceof THREE.Mesh ) ) { 
+          				child.material = new THREE.MeshPhongMaterial( {
+          							color: 0xdddddd,
+          							shininess: 80,
+          							wireframe: true,
+          							map: mainSceneImgTexture,
+          							side: THREE.DoubleSide,
+          							fog : false //Excluding objects from fog
+          						} );
+          			// set castShadow to object
+          		child.castShadow = true;
+          		}
+          });
+          	
+          */
+
+          displacementSprite.add(gltfMesh);
+          displacementSprite.scale.set(1.2, 1.2, 1.2);
+          displacementSprite.position.y = 100;
+          scene.add(displacementSprite); // set the original position
+
+          displacementSprite.origPos = {
+            x: displacementSprite.position.x,
+            y: displacementSprite.position.y,
+            z: displacementSprite.position.z,
+            rx: displacementSprite.rotation.x,
+            ry: displacementSprite.rotation.y,
+            rz: displacementSprite.rotation.z
+          }; // set animation
+
+          mixerGLTF = new THREE.AnimationMixer(displacementSprite);
+          console.log(mixerGLTF);
+          object.animations.forEach(function (el) {
+            var thisAction = mixerGLTF.clipAction(el);
+            thisAction.setDuration(1);
+
+            if (thisAction.time === 0) {
+              thisAction.time = thisAction.getClip().duration;
+            } //console.log( 'thisAction.time: ' + thisAction.time );
+
+
+            console.log(thisAction);
+            thisAction.paused = false; //thisAction.timeScale = -1; //Reverse Keyframe animation
+
+            thisAction.play();
+          });
+        }, onProgress, onError); //=================
+        // Fires when the window changes
+
+        window.addEventListener('resize', onWindowResize, false);
+      }
+
+      function render() {
+        requestAnimationFrame(render);
+        theta += 0.1;
+        camera.position.x = radius * Math.sin(getRadian(theta));
+        camera.position.z = radius * Math.cos(getRadian(theta));
+        camera.lookAt(camera.target);
+
+        if (mixerGLTF) {
+          var time = Date.now();
+          mixerGLTF.update((time - prevTime) * 0.001);
+          prevTime = time; //
+          //const delta  clock.getDelta();
+          //mixerGLTF.update( delta );
+        } //To set a background color.
+        //renderer.setClearColor( 0x000000 );	
+        //push objects
+
+        /*
+        @Usage: 
+             function CustomObj( scene ) {
+                 const elements = new THREE...;
+                scene.add( elements );
+                 this.update = function( time ) {
+                    elements.rotation.y = time*0.003;
+                }
+            }       
+             sceneSubjects.push( new CustomObj( MainStage.getScene() ) );  
+        */
+
+
+        for (var i = 0; i < sceneSubjects.length; i++) {
+          sceneSubjects[i].update(clock.getElapsedTime() * 1);
+        } //render the scene to display our scene through the camera's eye.
+
+
+        renderer.render(scene, camera);
+      }
+
+      function onWindowResize() {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      }
+      /*
+       * Returns the radian degree .
+       *
+       * @return {Number} deg - Value of degree.
+       * @return {Number}
+       * @usage: 
+          
+          rad = Math.PI / 180 * 30 ;
+       */
+
+
+      function getRadian(deg) {
+        return deg * Math.PI / 180;
+      } // 
+      //-------------------------------------	
+
+
+      return {
+        init: init,
+        render: render,
+        getRendererCanvasID: function getRendererCanvasID() {
+          return rendererCanvasID;
+        },
+        getScene: function getScene() {
+          return scene;
+        },
+        getCamera: function getCamera() {
+          return camera;
+        }
+      };
+    }();
+
+    MainStage.init();
+    MainStage.render();
+  };
+
+  module.components.documentReady.push(module.THREE_MODEL.documentReady);
+  return /*#__PURE__*/_createClass(function THREE_MODEL() {
+    _classCallCheck(this, THREE_MODEL);
+
+    this.module = module;
+  });
+}(UixModuleInstance, jQuery, window, document);
+;// CONCATENATED MODULE: ./src/components/_third-party-plugins/THREE/esm/renderers/CSS3DRenderer.js
+/**
+ * Based on http://www.emagix.net/academic/mscs-project/item/camera-sync-with-css3-and-webgl-threejs
+ * @author mrdoob / http://mrdoob.com/
+ * @author yomotsu / https://yomotsu.net/
+ */
+THREE.CSS3DObject = function (element) {
+  THREE.Object3D.call(this);
+  this.element = element;
+  this.element.style.position = 'absolute';
+  this.addEventListener('removed', function () {
+    if (this.element.parentNode !== null) {
+      this.element.parentNode.removeChild(this.element);
+    }
+  });
+};
+
+THREE.CSS3DObject.prototype = Object.create(THREE.Object3D.prototype);
+THREE.CSS3DObject.prototype.constructor = THREE.CSS3DObject;
+
+THREE.CSS3DSprite = function (element) {
+  THREE.CSS3DObject.call(this, element);
+};
+
+THREE.CSS3DSprite.prototype = Object.create(THREE.CSS3DObject.prototype);
+THREE.CSS3DSprite.prototype.constructor = THREE.CSS3DSprite; //
+
+THREE.CSS3DRenderer = function () {
+  console.log('THREE.CSS3DRenderer', THREE.REVISION);
+
+  var _width, _height;
+
+  var _widthHalf, _heightHalf;
+
+  var matrix = new THREE.Matrix4();
+  var cache = {
+    camera: {
+      fov: 0,
+      style: ''
+    },
+    objects: new WeakMap()
+  };
+  var domElement = document.createElement('div');
+  domElement.style.overflow = 'hidden';
+  this.domElement = domElement;
+  var cameraElement = document.createElement('div');
+  cameraElement.style.WebkitTransformStyle = 'preserve-3d';
+  cameraElement.style.transformStyle = 'preserve-3d';
+  domElement.appendChild(cameraElement);
+  var isIE = /Trident/i.test(navigator.userAgent);
+
+  this.getSize = function () {
+    return {
+      width: _width,
+      height: _height
+    };
+  };
+
+  this.setSize = function (width, height) {
+    _width = width;
+    _height = height;
+    _widthHalf = _width / 2;
+    _heightHalf = _height / 2;
+    domElement.style.width = width + 'px';
+    domElement.style.height = height + 'px';
+    cameraElement.style.width = width + 'px';
+    cameraElement.style.height = height + 'px';
+  };
+
+  function epsilon(value) {
+    return Math.abs(value) < 1e-10 ? 0 : value;
+  }
+
+  function getCameraCSSMatrix(matrix) {
+    var elements = matrix.elements;
+    return 'matrix3d(' + epsilon(elements[0]) + ',' + epsilon(-elements[1]) + ',' + epsilon(elements[2]) + ',' + epsilon(elements[3]) + ',' + epsilon(elements[4]) + ',' + epsilon(-elements[5]) + ',' + epsilon(elements[6]) + ',' + epsilon(elements[7]) + ',' + epsilon(elements[8]) + ',' + epsilon(-elements[9]) + ',' + epsilon(elements[10]) + ',' + epsilon(elements[11]) + ',' + epsilon(elements[12]) + ',' + epsilon(-elements[13]) + ',' + epsilon(elements[14]) + ',' + epsilon(elements[15]) + ')';
+  }
+
+  function getObjectCSSMatrix(matrix, cameraCSSMatrix) {
+    var elements = matrix.elements;
+    var matrix3d = 'matrix3d(' + epsilon(elements[0]) + ',' + epsilon(elements[1]) + ',' + epsilon(elements[2]) + ',' + epsilon(elements[3]) + ',' + epsilon(-elements[4]) + ',' + epsilon(-elements[5]) + ',' + epsilon(-elements[6]) + ',' + epsilon(-elements[7]) + ',' + epsilon(elements[8]) + ',' + epsilon(elements[9]) + ',' + epsilon(elements[10]) + ',' + epsilon(elements[11]) + ',' + epsilon(elements[12]) + ',' + epsilon(elements[13]) + ',' + epsilon(elements[14]) + ',' + epsilon(elements[15]) + ')';
+
+    if (isIE) {
+      return 'translate(-50%,-50%)' + 'translate(' + _widthHalf + 'px,' + _heightHalf + 'px)' + cameraCSSMatrix + matrix3d;
+    }
+
+    return 'translate(-50%,-50%)' + matrix3d;
+  }
+
+  function renderObject(object, camera, cameraCSSMatrix) {
+    if (object instanceof THREE.CSS3DObject) {
+      var style;
+
+      if (object instanceof THREE.CSS3DSprite) {
+        // http://swiftcoder.wordpress.com/2008/11/25/constructing-a-billboard-matrix/
+        matrix.copy(camera.matrixWorldInverse);
+        matrix.transpose();
+        matrix.copyPosition(object.matrixWorld);
+        matrix.scale(object.scale);
+        matrix.elements[3] = 0;
+        matrix.elements[7] = 0;
+        matrix.elements[11] = 0;
+        matrix.elements[15] = 1;
+        style = getObjectCSSMatrix(matrix, cameraCSSMatrix);
+      } else {
+        style = getObjectCSSMatrix(object.matrixWorld, cameraCSSMatrix);
+      }
+
+      var element = object.element;
+      var cachedStyle = cache.objects.get(object);
+
+      if (cachedStyle === undefined || cachedStyle !== style) {
+        element.style.WebkitTransform = style;
+        element.style.transform = style;
+        var objectData = {
+          style: style
+        };
+
+        if (isIE) {
+          objectData.distanceToCameraSquared = getDistanceToSquared(camera, object);
+        }
+
+        cache.objects.set(object, objectData);
+      }
+
+      if (element.parentNode !== cameraElement) {
+        cameraElement.appendChild(element);
+      }
+    }
+
+    for (var i = 0, l = object.children.length; i < l; i++) {
+      renderObject(object.children[i], camera, cameraCSSMatrix);
+    }
+  }
+
+  var getDistanceToSquared = function () {
+    var a = new THREE.Vector3();
+    var b = new THREE.Vector3();
+    return function (object1, object2) {
+      a.setFromMatrixPosition(object1.matrixWorld);
+      b.setFromMatrixPosition(object2.matrixWorld);
+      return a.distanceToSquared(b);
+    };
+  }();
+
+  function filterAndFlatten(scene) {
+    var result = [];
+    scene.traverse(function (object) {
+      if (object instanceof THREE.CSS3DObject) result.push(object);
+    });
+    return result;
+  }
+
+  function zOrder(scene) {
+    var sorted = filterAndFlatten(scene).sort(function (a, b) {
+      var distanceA = cache.objects.get(a).distanceToCameraSquared;
+      var distanceB = cache.objects.get(b).distanceToCameraSquared;
+      return distanceA - distanceB;
+    });
+    var zMax = sorted.length;
+
+    for (var i = 0, l = sorted.length; i < l; i++) {
+      sorted[i].element.style.zIndex = zMax - i;
+    }
+  }
+
+  this.render = function (scene, camera) {
+    var fov = camera.projectionMatrix.elements[5] * _heightHalf;
+
+    if (cache.camera.fov !== fov) {
+      if (camera.isPerspectiveCamera) {
+        domElement.style.WebkitPerspective = fov + 'px';
+        domElement.style.perspective = fov + 'px';
+      }
+
+      cache.camera.fov = fov;
+    }
+
+    scene.updateMatrixWorld();
+    if (camera.parent === null) camera.updateMatrixWorld();
+    var cameraCSSMatrix = camera.isOrthographicCamera ? 'scale(' + fov + ')' + getCameraCSSMatrix(camera.matrixWorldInverse) : 'translateZ(' + fov + 'px)' + getCameraCSSMatrix(camera.matrixWorldInverse);
+    var style = cameraCSSMatrix + 'translate(' + _widthHalf + 'px,' + _heightHalf + 'px)';
+
+    if (cache.camera.style !== style && !isIE) {
+      cameraElement.style.WebkitTransform = style;
+      cameraElement.style.transform = style;
+      cache.camera.style = style;
+    }
+
+    renderObject(scene, camera, cameraCSSMatrix);
+
+    if (isIE) {
+      // IE10 and 11 does not support 'preserve-3d'.
+      // Thus, z-order in 3D will not work.
+      // We have to calc z-order manually and set CSS z-index for IE.
+      // FYI: z-index can't handle object intersection
+      zOrder(scene);
+    }
+  };
+};
+
+/* harmony default export */ const CSS3DRenderer = (THREE.CSS3DObject);
+;// CONCATENATED MODULE: ./src/components/simple-3D-pages/js/index.js
+
+
+
+/* 
+ *************************************
+ * <!-- 3D Pages -->
+ *************************************
+ */
+
+/**
+ * module.THREE_PAGES
+ * 
+ * @requires ./examples/assets/js/min/three.min.js
+ * @requires ./src/plugins/THREE
+ */
+
+
+
+var THREE_PAGES = function (module, $, window, document) {
+  if (window.THREE_PAGES === null) return false;
+  module.THREE_PAGES = module.THREE_PAGES || {};
+  module.THREE_PAGES.version = '0.0.2';
+
+  module.THREE_PAGES.documentReady = function ($) {
+    //Prevent this module from loading in other pages
+    if ($('#3D-renderer').length == 0 || !Modernizr.webgl) return false;
+    var sceneSubjects = []; // Import objects and animations dynamically
+
+    var MainStage = function () {
+      var windowWidth = window.innerWidth,
+          windowHeight = window.innerHeight;
+      var viewRenderer = '3D-renderer'; // Generate one plane geometries mesh to scene
+      //-------------------------------------	
+
+      var camera,
+          controls,
+          scene,
+          light,
+          renderer,
+          clock = new THREE.Clock();
+
+      function init() {
+        //camera
+        camera = new THREE.PerspectiveCamera(45, windowWidth / windowHeight, 1, 10000);
+        camera.position.set(0, 0, -1000); //controls
+
+        controls = new THREE.OrbitControls(camera);
+        controls.rotateSpeed = 0.5;
+        controls.zoomSpeed = 1.2;
+        controls.panSpeed = 0.8;
+        controls.enableZoom = true;
+        controls.enableDamping = true; // an animation loop is required when either damping or auto-rotation are enabled
+
+        controls.dampingFactor = 0.25;
+        controls.screenSpacePanning = false;
+        controls.minDistance = 1000;
+        controls.maxDistance = 1500;
+        controls.maxPolarAngle = Math.PI / 2; //Scene
+
+        scene = new THREE.Scene(); //HemisphereLight
+
+        light = new THREE.HemisphereLight(0xffbf67, 0x15c6ff);
+        scene.add(light); //WebGL Renderer
+
+        renderer = new THREE.WebGLRenderer({
+          alpha: true,
+          antialias: true
+        });
+        renderer.setClearColor(0xffffff, 0);
+        renderer.setSize(windowWidth - 50, windowHeight - 50);
+        renderer.domElement.style.zIndex = 5;
+        document.getElementById(viewRenderer).appendChild(renderer.domElement); //Add HTML elements to scene
+
+        var target = $('#html3D-view').clone(),
+            pages = target.find('.html3D-view-content');
+        pages.each(function () {
+          var el = new THREE.CSS3DObject($.parseHTML($(this)[0].outerHTML)[0]);
+          el.position.x = $(this).data('position-x') || 0;
+          el.position.y = $(this).data('position-y') || 0;
+          el.position.z = $(this).data('position-z') || 0;
+          el.rotation.x = $(this).data('rotation-x') || 0;
+          el.rotation.y = $(this).data('rotation-y') || 3.14159265358979;
+          el.rotation.z = $(this).data('rotation-z') || 0;
+          scene.add(el);
+        }); //CSS3D Renderer
+
+        renderer = new THREE.CSS3DRenderer();
+        renderer.setSize(windowWidth, windowHeight);
+        renderer.domElement.style.position = 'absolute';
+        renderer.domElement.style.top = 0;
+        document.getElementById(viewRenderer).appendChild(renderer.domElement); // Fires when the window changes
+
+        window.addEventListener('resize', onWindowResize, false);
+      }
+
+      function render() {
+        requestAnimationFrame(render);
+        var delta = clock.getDelta(); //update camera and controls
+
+        controls.update(); //push objects
+
+        /*
+        @Usage: 
+             function CustomObj( scene ) {
+                 const elements = new THREE...;
+                scene.add( elements );
+                 this.update = function( time ) {
+                    elements.rotation.y = time*0.003;
+                }
+            }       
+             sceneSubjects.push( new CustomObj( MainStage.getScene() ) );  
+        */
+
+        for (var i = 0; i < sceneSubjects.length; i++) {
+          sceneSubjects[i].update(clock.getElapsedTime() * 1);
+        } //render the scene to display our scene through the camera's eye.
+
+
+        renderer.render(scene, camera);
+      }
+
+      function onWindowResize() {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      } // 
+      //-------------------------------------	
+
+
+      return {
+        init: init,
+        render: render,
+        getRendererCanvasID: function getRendererCanvasID() {
+          return rendererCanvasID;
+        },
+        getScene: function getScene() {
+          return scene;
+        },
+        getCamera: function getCamera() {
+          return camera;
+        }
+      };
+    }();
+
+    MainStage.init();
+    MainStage.render();
+  };
+
+  module.components.documentReady.push(module.THREE_PAGES.documentReady);
+  return /*#__PURE__*/_createClass(function THREE_PAGES() {
+    _classCallCheck(this, THREE_PAGES);
+
+    this.module = module;
+  });
+}(UixModuleInstance, jQuery, window, document);
+;// CONCATENATED MODULE: ./src/components/simple-3D-particle-effect/js/index.js
+
+
+
+
+/* 
+ *************************************
+ * <!-- 3D Particle Effect -->
+ *************************************
+ */
+
+/**
+ * module.THREE_PARTICLE
+ * 
+ * @requires ./examples/assets/js/min/three.min.js
+ * @requires ./src/plugins/THREE
+ */
+
+var THREE_PARTICLE = function (module, $, window, document) {
+  if (window.THREE_PARTICLE === null) return false;
+  module.THREE_PARTICLE = module.THREE_PARTICLE || {};
+  module.THREE_PARTICLE.version = '0.0.6';
+
+  module.THREE_PARTICLE.documentReady = function ($) {
+    //Prevent this module from loading in other pages
+    if ($('#3D-particle-effect-canvas').length == 0 || !Modernizr.webgl) return false;
+    var sceneSubjects = []; // Import objects and animations dynamically
+
+    var MainStage = function () {
+      var windowWidth = window.innerWidth,
+          windowHeight = window.innerHeight;
+      var rendererCanvasID = '3D-particle-effect-canvas';
+      var renderer,
+          texture,
+          scene,
+          camera,
+          particles,
+          imagedata,
+          clock = new THREE.Clock(),
+          mouseX = 0,
+          mouseY = 0,
+          isMouseDown = true,
+          lastMousePos = {
+        x: 0,
+        y: 0
+      },
+          windowHalfX = windowWidth / 2,
+          windowHalfY = windowHeight / 2; //background
+
+      var backgroundBg = 0xCE3A3E;
+      var backgroundPlane = 0xDE510E; // Light from scene ready
+
+      var sceneForLightPlane, sceneForSpotLight, sceneForAmbientLight; // camera data
+
+      var fieldOfView, aspectRatio, nearPlane, farPlane;
+      var dist, vFOV, visibleHeight, visibleWidth;
+      var xLimit, yLimit;
+      var maxTargetZ = 200; //particle rotation
+
+      var particleRotation;
+      var centerVector = new THREE.Vector3(0, 0, 0);
+      var previousTime = 0;
+
+      function init() {
+        //==================================
+        //==================================
+        //camera
+        fieldOfView = 60;
+        aspectRatio = windowWidth / windowHeight;
+        nearPlane = 1; // the camera won't "see" any object placed in front of this plane
+
+        farPlane = 10000; // the camera wont't see any object placed further than this plane 
+
+        camera = new THREE.PerspectiveCamera(fieldOfView, aspectRatio, nearPlane, farPlane);
+        camera.position.set(0, 65, -500);
+        camera.lookAt(centerVector); // convert the field of view to radians
+
+        var ang = fieldOfView / 2 * Math.PI / 180; // calculate the max y position seen by the camera related to the maxTargetZ position, I start by calculating the y limit because fielOfView is a vertical field of view. I then calculate the x Limit
+
+        yLimit = (camera.position.z + maxTargetZ) * Math.tan(ang); // this is a formula I found, don't ask me why it works, it just does :) 
+        // Calculate the max x position seen by the camera related to the y Limit position
+
+        xLimit = yLimit * camera.aspect; // Fit plane to screen
+
+        dist = 1000;
+        vFOV = THREE.Math.degToRad(camera.fov); // convert vertical fov to radians
+
+        visibleHeight = 2 * Math.tan(vFOV / 2) * dist; // visible height
+
+        visibleWidth = visibleHeight * camera.aspect; // visible width   
+        //console.log( 'visibleWidth:' + visibleWidth + ', visibleHeight: ' + visibleHeight + ', xLimit: ' + xLimit + ', yLimit: ' + yLimit );
+        //==================================
+        //==================================
+        //Scene
+
+        scene = new THREE.Scene();
+        scene.fog = new THREE.Fog(backgroundBg, 0.0025, 650); // Used to cover the light plane
+        //==================================
+        //==================================
+        //Light from scene ready
+        // Light plane  
+
+        sceneForLightPlane = new THREE.Mesh(new THREE.CircleGeometry(1000, 32), new THREE.MeshPhongMaterial({
+          emissive: backgroundPlane,
+          side: THREE.DoubleSide
+        }));
+        sceneForLightPlane.receiveShadow = true;
+        sceneForLightPlane.position.set(0, -101, 5);
+        sceneForLightPlane.rotation.x = getRadian(-95);
+        scene.add(sceneForLightPlane); // Spot Light
+
+        var spotLightColor = 0xffffff,
+            spotLightIntensity = 2,
+            spotLightDistance = 1200,
+            spotLightAngle = getRadian(50),
+            spotLightPenumbra = 1,
+            spotLightDecay = 1;
+        sceneForSpotLight = new THREE.SpotLight(spotLightColor, spotLightIntensity, spotLightDistance, spotLightAngle, spotLightPenumbra, spotLightDecay);
+        sceneForSpotLight.position.set(5, 320, 5); // Setting the y-axis bond angle is critical
+
+        sceneForSpotLight.castShadow = true;
+        sceneForSpotLight.shadow.mapSize.width = 1024;
+        sceneForSpotLight.shadow.mapSize.height = 1024;
+        sceneForSpotLight.shadow.camera.near = 0.5;
+        sceneForSpotLight.shadow.camera.far = 31;
+        scene.add(sceneForSpotLight); //console.log( sceneForSpotLight );
+
+        /*
+        const spotLightHelper = new THREE.SpotLightHelper( sceneForSpotLight );
+        scene.add( spotLightHelper );   
+        */
+        // Ambient Light
+
+        sceneForAmbientLight = new THREE.AmbientLight(0xffffff, 0.08);
+        scene.add(sceneForAmbientLight); //==================================
+        //==================================
+        //WebGL Renderer		
+
+        renderer = new THREE.WebGLRenderer({
+          canvas: document.getElementById(rendererCanvasID),
+          //canvas
+          alpha: true,
+          antialias: true
+        });
+        renderer.setSize(windowWidth, windowHeight);
+        renderer.shadowMap.enabled = true;
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap; // instantiate a loader
+
+        var loader = new THREE.TextureLoader(); // load a resource
+
+        loader.load( // resource URL
+        $('#' + rendererCanvasID).data('img-src'), // onLoad callback
+        function (texture) {
+          // in this example we create the material when the texture is loaded
+          // Get data from an image
+          imagedata = getImageData(texture.image); // Immediately use the texture for material creation
+
+          var geometry = new THREE.Geometry();
+          var material = new THREE.PointsMaterial({
+            size: 3,
+            color: 0xffffff,
+            sizeAttenuation: false,
+            fog: false //Excluding objects from fog
+
+          });
+
+          for (var y = 0, y2 = imagedata.height; y < y2; y += 2) {
+            for (var x = 0, x2 = imagedata.width; x < x2; x += 2) {
+              if (imagedata.data[x * 4 + y * 4 * imagedata.width + 3] > 128) {
+                // The array of vertices holds the position of every vertex in the model.
+                var vertex = new THREE.Vector3();
+                vertex.x = Math.random() * 1000 - 500;
+                vertex.y = Math.random() * 1000 - 500;
+                vertex.z = -Math.random() * 500;
+                vertex.destination = {
+                  x: x - imagedata.width / 2,
+                  y: -y + imagedata.height / 2,
+                  z: 0
+                };
+                vertex.speed = Math.random() / 200 + 0.015;
+                geometry.vertices.push(vertex);
+              }
+            }
+          }
+
+          particles = new THREE.Points(geometry, material);
+          scene.add(particles);
+          particles.scale.setScalar(0.7);
+          particles.position.y = 50;
+          particles.position.z = 70;
+          particles.rotation.y = getRadian(180); // set castShadow to object
+
+          particles.castShadow = true;
+        }, // onProgress callback currently not supported
+        undefined, // onError callback
+        function (err) {
+          console.error('An error happened.');
+        }); // add particle rotation
+
+        particleRotation = new THREE.Object3D();
+        scene.add(particleRotation);
+        var geometryPR = new THREE.TetrahedronGeometry(2, 0),
+            materialPR = new THREE.MeshPhongMaterial({
+          color: 0xffffff,
+          emissive: 0xffffff,
+          shininess: 80,
+          flatShading: true
+        });
+
+        for (var i = 0; i < 750; i++) {
+          var mesh = new THREE.Mesh(geometryPR, materialPR);
+          mesh.position.set(Math.random() - 0.5, Math.random() - 0.5, Math.random() - 0.5).normalize();
+          mesh.position.multiplyScalar(90 + Math.random() * 700);
+          mesh.rotation.set(Math.random() * 2, Math.random() * 2, Math.random() * 2);
+          particleRotation.add(mesh); // set castShadow to object
+
+          mesh.castShadow = true;
+        } //----
+
+
+        document.addEventListener('mousemove', onDocumentMouseMove, false);
+        document.addEventListener('touchstart', onDocumentTouchStart, UixBrowser.supportsPassive ? {
+          passive: true
+        } : false);
+        document.addEventListener('touchmove', onDocumentTouchMove, UixBrowser.supportsPassive ? {
+          passive: true
+        } : false);
+        document.addEventListener('mousedown', onDocumentMouseDown, false);
+        document.addEventListener('mouseup', onDocumentMouseUp, false); // Fires when the window changes
+
+        window.addEventListener('resize', onWindowResize, false);
+      }
+
+      function render() {
+        requestAnimationFrame(render);
+        var delta = clock.getDelta(),
+            thickness = 40; //---
+        // 
+        // To set a background color.
+
+        renderer.setClearColor(backgroundBg); //---
+        // 
+        //Need to add judgment to avoid Cannot read property 'geometry' of undefined
+
+        if ((0,esm_typeof/* default */.Z)(particles) != ( true ? "undefined" : 0)) {
+          var particle;
+
+          for (var i = 0, j = particles.geometry.vertices.length; i < j; i++) {
+            particle = particles.geometry.vertices[i];
+            particle.x += (particle.destination.x - particle.x) * particle.speed;
+            particle.y += (particle.destination.y - particle.y) * particle.speed;
+            particle.z += (particle.destination.z - particle.z) * particle.speed;
+          }
+
+          if (delta - previousTime > thickness) {
+            var index = Math.floor(Math.random() * particles.geometry.vertices.length);
+            var particle1 = particles.geometry.vertices[index];
+            var particle2 = particles.geometry.vertices[particles.geometry.vertices.length - index];
+            TweenMax.to(particle, Math.random() * 2 + 1, {
+              x: particle2.x,
+              y: particle2.y,
+              ease: Power2.easeInOut
+            });
+            TweenMax.to(particle2, Math.random() * 2 + 1, {
+              x: particle1.x,
+              y: particle1.y,
+              ease: Power2.easeInOut
+            });
+            previousTime = delta;
+          }
+
+          particles.geometry.verticesNeedUpdate = true;
+        }
+
+        if (!isMouseDown) {
+          camera.position.x += (0 - camera.position.x) * 0.06;
+          camera.position.y += (0 - camera.position.y) * 0.06;
+        }
+
+        camera.position.x += (mouseX - camera.position.x) * 0.09;
+        camera.position.y += (-mouseY - camera.position.y) * 0.09;
+        if (camera.position.y < -60) camera.position.y = -60;
+        camera.lookAt(centerVector); //particle rotation
+
+        particleRotation.rotation.x += 0.0000;
+        particleRotation.rotation.y -= 0.0040; //---
+        // 
+        //push objects
+
+        /*
+        @Usage: 
+             function CustomObj( scene ) {
+                 const elements = new THREE...;
+                scene.add( elements );
+                 this.update = function( time ) {
+                    elements.rotation.y = time*0.003;
+                }
+            }       
+             sceneSubjects.push( new CustomObj( MainStage.getScene() ) );  
+        */
+
+        for (var _i = 0; _i < sceneSubjects.length; _i++) {
+          sceneSubjects[_i].update(clock.getElapsedTime() * 1);
+        } //---
+        // 
+        //render the scene to display our scene through the camera's eye.
+
+
+        renderer.render(scene, camera);
+      }
+
+      function onWindowResize() {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      }
+
+      function onDocumentMouseMove(event) {
+        mouseX = event.clientX - windowHalfX;
+        mouseY = event.clientY - windowHalfY;
+
+        if (isMouseDown) {
+          camera.position.x += (event.clientX - lastMousePos.x) / 100;
+          camera.position.y -= (event.clientY - lastMousePos.y) / 100;
+          camera.lookAt(centerVector);
+          lastMousePos = {
+            x: event.clientX,
+            y: event.clientY
+          };
+        }
+      }
+
+      function onDocumentTouchStart(event) {
+        if (event.touches.length == 1) {
+          event.preventDefault();
+          mouseX = event.touches[0].pageX - windowHalfX;
+          mouseY = event.touches[0].pageY - windowHalfY;
+        }
+      }
+
+      function onDocumentTouchMove(event) {
+        if (event.touches.length == 1) {
+          event.preventDefault();
+          mouseX = event.touches[0].pageX - windowHalfX;
+          mouseY = event.touches[0].pageY - windowHalfY;
+        }
+      }
+
+      function onDocumentMouseUp() {
+        isMouseDown = false;
+      }
+
+      function onDocumentMouseDown(event) {
+        isMouseDown = true;
+        lastMousePos = {
+          x: event.clientX,
+          y: event.clientY
+        };
+      }
+      /*
+       * Get Image Data when Draw Image To Canvas
+       *
+       * @param  {!Element} image         - Overridden with a record type holding data, width and height.
+       * @return {Object}                 - The image data via JSON.
+       */
+
+
+      function getImageData(image) {
+        var canvas = document.createElement('canvas');
+        canvas.width = image.width;
+        canvas.height = image.height;
+        var ctx = canvas.getContext('2d');
+        ctx.drawImage(image, 0, 0);
+        return ctx.getImageData(0, 0, image.width, image.height);
+      }
+      /*
+       * Get Object Coordinate, Width and Height From Screen
+       * Note: No data may be acquired without delay !!
+       *
+      * @param  {THREE.Mesh} obj                           - Mesh object.
+       * @param  {THREE.PerspectiveCamera} camera           - Mesh object.
+      * @param  {Number} rendererWidth                     - Width of renderer.
+       * @param  {Number} rendererHeight                    - Height of renderer.
+       * @param  {String} type                              - Build type.
+       * @return {JSON}
+       */
+
+      /* @usage: 
+         const screenPos = nestedObjectToScreenXYZAndWH( displacementSprite , camera, renderer.domElement.width, renderer.domElement.height );
+        */
+
+
+      function nestedObjectToScreenXYZAndWH(obj, camera, rendererWidth, rendererHeight) {
+        var vector = new THREE.Vector3();
+        vector.setFromMatrixPosition(obj.matrixWorld);
+        var widthHalf = rendererWidth / 2;
+        var heightHalf = rendererHeight / 2;
+        var aspect = rendererHeight / rendererWidth;
+        vector.project(camera);
+        vector.x = vector.x * widthHalf + widthHalf;
+        vector.y = -(vector.y * heightHalf) + heightHalf; //compute bounding box after
+
+        var boxInfo = new THREE.Box3().setFromObject(obj).getSize(new THREE.Vector3()); //Change it to fit the width and height of the stage based on the current value
+
+        var ratioFixedNum = 7; //correction
+
+        return {
+          position: vector,
+          width: (boxInfo.x * ratioFixedNum * aspect).toFixed(2),
+          height: (boxInfo.y * ratioFixedNum * aspect).toFixed(2)
+        };
+      }
+      /*
+       * Generate random number between two numbers
+       *
+       * @return {Number}
+       */
+
+
+      function getRandomFloat(min, max) {
+        return Math.random() * (max - min) + min;
+      }
+      /*
+       * Returns the degree from radian.
+       *
+       * @return {Number} rad - Value of radian.
+       * @return {Number}
+       * @usage: 
+       
+         angle = rad / ( Math.PI / 180 )  = rad * ( 180/Math.PI );
+       */
+
+
+      function getDegree(rad) {
+        return rad / Math.PI * 180;
+      }
+      /*
+       * Returns the radian degree .
+       *
+       * @return {Number} deg - Value of degree.
+       * @return {Number}
+       * @usage: 
+          
+          rad = Math.PI / 180 * 30 ;
+       */
+
+
+      function getRadian(deg) {
+        return deg * Math.PI / 180;
+      }
+      /*
+       * Convert three.js scene rotation to polar coordinates
+       *
+       * @return {Number} deg - Value of degree.
+       * @return {Number}
+       * @usage: 
+       
+          x = r * cos（θ）
+          y = r * sin（θ）  
+       */
+
+
+      function getPolarCoord(x, y, z) {
+        var nx = Math.cos(x) * Math.cos(y) * z,
+            nz = Math.cos(x) * Math.sin(y) * z,
+            ny = Math.sin(x) * z;
+        return new THREE.Vector3(nx, ny, nz);
+      } // 
+      //-------------------------------------	
+
+
+      return {
+        init: init,
+        render: render,
+        getRendererCanvasID: function getRendererCanvasID() {
+          return rendererCanvasID;
+        },
+        getScene: function getScene() {
+          return scene;
+        },
+        getCamera: function getCamera() {
+          return camera;
+        }
+      };
+    }();
+
+    MainStage.init();
+    MainStage.render();
+  };
+
+  module.components.documentReady.push(module.THREE_PARTICLE.documentReady);
+  return /*#__PURE__*/_createClass(function THREE_PARTICLE() {
+    _classCallCheck(this, THREE_PARTICLE);
+
+    this.module = module;
+  });
+}(UixModuleInstance, jQuery, window, document);
+;// CONCATENATED MODULE: ./src/components/simple-3D-sphere-three/js/index.js
+
+
+
+/* 
+ *************************************
+ * <!-- 3D Sphere Rotation -->
+ *************************************
+ */
+
+/**
+ * module.THREE_SPHERE_THREE
+ * 
+ * @requires ./examples/assets/js/min/three.min.js
+ * @requires ./src/plugins/THREE
+ */
+
+
+var THREE_SPHERE_THREE = function (module, $, window, document) {
+  if (window.THREE_SPHERE_THREE === null) return false;
+  module.THREE_SPHERE_THREE = module.THREE_SPHERE_THREE || {};
+  module.THREE_SPHERE_THREE.version = '0.0.2';
+
+  module.THREE_SPHERE_THREE.documentReady = function ($) {
+    //Prevent this module from loading in other pages
+    if ($('#3D-sphere-three-canvas').length == 0 || !Modernizr.webgl) return false;
+    var sceneSubjects = []; // Import objects and animations dynamically
+
+    var MainStage = function () {
+      var windowWidth = window.innerWidth,
+          windowHeight = window.innerHeight;
+      var rendererCanvasID = '3D-sphere-three-canvas'; // Generate one plane geometries mesh to scene
+      //-------------------------------------	
+
+      var camera, controls, scene, light, renderer, displacementSprite;
+
+      function init() {
+        // camera
+        camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 1, 100);
+        camera.position.set(0, -46, 18); // controls
+
+        controls = new THREE.OrbitControls(camera);
+        controls.minDistance = 10;
+        controls.maxDistance = 50; //Scene
+
+        scene = new THREE.Scene(); //HemisphereLight
+
+        scene.add(new THREE.AmbientLight(0x555555));
+        light = new THREE.SpotLight(0xffffff, 1.5);
+        light.position.set(0, 500, 2000);
+        scene.add(light); //WebGL Renderer		
+
+        renderer = new THREE.WebGLRenderer({
+          canvas: document.getElementById(rendererCanvasID),
+          //canvas
+          alpha: true,
+          antialias: true
+        });
+        renderer.setSize(windowWidth, windowHeight); // axes
+        //scene.add( new THREE.AxisHelper( 20 ) );
+        // geometry
+
+        var geometry = new THREE.SphereGeometry(3, 32, 32); // material, we create the material when the texture is loaded
+
+        var loader = new THREE.TextureLoader();
+        loader.crossOrigin = 'anonymous';
+        var texture = loader.load('https://placekitten.com/1650/1650'),
+            material = new THREE.MeshBasicMaterial({
+          map: texture
+        }); // parent
+
+        displacementSprite = new THREE.Object3D();
+        scene.add(displacementSprite); // pivots
+
+        var pivot1 = new THREE.Object3D(),
+            pivot2 = new THREE.Object3D(),
+            pivot3 = new THREE.Object3D();
+        pivot1.rotation.z = 0;
+        pivot2.rotation.z = 2 * Math.PI / 3;
+        pivot3.rotation.z = 4 * Math.PI / 3;
+        displacementSprite.add(pivot1);
+        displacementSprite.add(pivot2);
+        displacementSprite.add(pivot3); // mesh
+
+        var mesh1 = new THREE.Mesh(geometry, material),
+            mesh2 = new THREE.Mesh(geometry, material),
+            mesh3 = new THREE.Mesh(geometry, material);
+        mesh1.position.y = 5;
+        mesh2.position.y = 15;
+        mesh3.position.y = 25;
+        pivot1.add(mesh1);
+        pivot2.add(mesh2);
+        pivot3.add(mesh3); // Fires when the window changes
+
+        window.addEventListener('resize', onWindowResize, false);
+      }
+
+      function render() {
+        requestAnimationFrame(render);
+        displacementSprite.rotation.z += 0.01; //update camera and controls
+
+        controls.update(); //push objects
+
+        /*
+        @Usage: 
+             function CustomObj( scene ) {
+                 const elements = new THREE...;
+                scene.add( elements );
+                 this.update = function( time ) {
+                    elements.rotation.y = time*0.003;
+                }
+            }       
+             sceneSubjects.push( new CustomObj( MainStage.getScene() ) );  
+        */
+
+        for (var i = 0; i < sceneSubjects.length; i++) {
+          sceneSubjects[i].update(clock.getElapsedTime() * 1);
+        } //render the scene to display our scene through the camera's eye.
+
+
+        renderer.render(scene, camera);
+      }
+
+      function onWindowResize() {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      } // 
+      //-------------------------------------	
+
+
+      return {
+        init: init,
+        render: render,
+        getRendererCanvasID: function getRendererCanvasID() {
+          return rendererCanvasID;
+        },
+        getScene: function getScene() {
+          return scene;
+        },
+        getCamera: function getCamera() {
+          return camera;
+        }
+      };
+    }();
+
+    MainStage.init();
+    MainStage.render();
+  };
+
+  module.components.documentReady.push(module.THREE_SPHERE_THREE.documentReady);
+  return /*#__PURE__*/_createClass(function THREE_SPHERE_THREE() {
+    _classCallCheck(this, THREE_SPHERE_THREE);
+
+    this.module = module;
+  });
+}(UixModuleInstance, jQuery, window, document);
+;// CONCATENATED MODULE: ./src/components/simple-3D-obj-anim-interaction/js/index.js
+
+
+
+/* 
+ *************************************
+ * <!-- 3D Object Anim When Click -->
+ *************************************
+ */
+
+
+var THREE_OBJ_ANIM_INTERACTION = function (module, $, window, document) {
+  if (window.THREE_OBJ_ANIM_INTERACTION === null) return false;
+  module.THREE_OBJ_ANIM_INTERACTION = module.THREE_OBJ_ANIM_INTERACTION || {};
+  module.THREE_OBJ_ANIM_INTERACTION.version = '0.0.3';
+
+  module.THREE_OBJ_ANIM_INTERACTION.documentReady = function ($) {
+    //Prevent this module from loading in other pages
+    if ($('#3D-object-buttonevent-canvas').length == 0 || !Modernizr.webgl) return false;
+    var sceneSubjects = []; // Import objects and animations dynamically
+
+    var MainStage = function () {
+      var windowWidth = window.innerWidth,
+          windowHeight = window.innerHeight;
+      var rendererCanvasID = '3D-object-buttonevent-canvas';
+      var renderer, scene, controls, camera, targetObj, parent, material, segLength;
+      var radius = 3,
+          height = 6,
+          segments = 200; //segments must be even
+
+      function init() {
+        // Create a camera, which defines where we're looking at.		
+        renderer = new THREE.WebGLRenderer({
+          canvas: document.getElementById(rendererCanvasID),
+          //canvas
+          alpha: true,
+          antialias: true
+        });
+        renderer.setSize(windowWidth, windowHeight); //Scene
+
+        scene = new THREE.Scene(); //camera
+
+        camera = new THREE.PerspectiveCamera(70, windowWidth / windowHeight, 1, 100);
+        camera.position.set(1, 1, 22); //controls
+
+        controls = new THREE.OrbitControls(camera, renderer.domElement);
+        controls.addEventListener('change', function () {
+          renderer.render(scene, camera);
+        }, false);
+        controls.enableZoom = false;
+        controls.enablePan = false; // Immediately use the texture for material creation
+
+        material = new THREE.MeshPhongMaterial({
+          color: 0xEB6D35,
+          specular: 0xEB6D35,
+          shininess: 15,
+          flatShading: THREE.FlatShading,
+          side: THREE.DoubleSide,
+          transparent: true,
+          opacity: .8
+        }); //HemisphereLight
+
+        var light1 = new THREE.DirectionalLight(0xffffff);
+        light1.position.set(-5, 10, 10);
+        var light2 = new THREE.PointLight(0xffffff, .7, 0);
+        light2.position.set(5, 5, -5);
+        scene.add(light1, light2); //put the target object inside a parent object so the manipulation is easier
+
+        parent = new THREE.Object3D();
+        addObject();
+        parent.position.set(-radius, height / 2, 0);
+        parent.rotation.y = Math.PI;
+        scene.add(parent);
+        renderer.render(scene, camera);
+      }
+
+      function addObject() {
+        var geo = new THREE.Geometry();
+        segLength = Math.PI * 2 * radius / segments;
+        geo.vertices.push(new THREE.Vector3(0, height / 2, 0));
+        geo.vertices.push(new THREE.Vector3(0, -height / 2, 0));
+
+        for (var i = 0; i < Math.floor(segments / 2); i++) {
+          geo.vertices.push(new THREE.Vector3(0, height / 2, segLength * i));
+          geo.vertices.push(new THREE.Vector3(0, -height / 2, segLength * i));
+          geo.vertices.push(new THREE.Vector3(0, height / 2, -segLength * i));
+          geo.vertices.push(new THREE.Vector3(0, -height / 2, -segLength * i));
+        }
+
+        geo.faces.push(new THREE.Face3(0, 1, 2));
+        geo.faces.push(new THREE.Face3(1, 2, 3));
+        geo.faces.push(new THREE.Face3(0, 1, 4));
+        geo.faces.push(new THREE.Face3(1, 4, 5));
+
+        for (var _i = 1; _i < Math.floor(segments / 2); _i++) {
+          geo.faces.push(new THREE.Face3(2 + (_i - 1) * 4, 3 + (_i - 1) * 4, 6 + (_i - 1) * 4));
+          geo.faces.push(new THREE.Face3(3 + (_i - 1) * 4, 6 + (_i - 1) * 4, 7 + (_i - 1) * 4));
+          geo.faces.push(new THREE.Face3(4 + (_i - 1) * 4, 5 + (_i - 1) * 4, 8 + (_i - 1) * 4));
+          geo.faces.push(new THREE.Face3(5 + (_i - 1) * 4, 8 + (_i - 1) * 4, 9 + (_i - 1) * 4));
+        }
+
+        targetObj = new THREE.Mesh(geo, material);
+        parent.add(targetObj);
+      }
+
+      function render() {
+        requestAnimationFrame(render); //upodate object
+
+        targetObj.geometry.verticesNeedUpdate = true; //update camera and controls
+
+        controls.update(); //push objects
+
+        /*
+        @Usage: 
+             function CustomObj( scene ) {
+                 const elements = new THREE...;
+                scene.add( elements );
+                 this.update = function( time ) {
+                    elements.rotation.y = time*0.003;
+                }
+            }       
+             sceneSubjects.push( new CustomObj( MainStage.getScene() ) );  
+        */
+
+        for (var i = 0; i < sceneSubjects.length; i++) {
+          sceneSubjects[i].update(clock.getElapsedTime() * 1);
+        } //render the scene to display our scene through the camera's eye.
+
+
+        renderer.render(scene, camera);
+      }
+
+      $('#3D-object-button1').on('click', function (e) {
+        e.preventDefault();
+        var theta = 55,
+            x = camera.position.x,
+            z = camera.position.z,
+            moveX = x * Math.cos(theta) - z * Math.sin(theta),
+            moveZ = z * Math.cos(theta) + x * Math.sin(theta);
+        TweenMax.to(camera.position, 1.5, {
+          x: moveX,
+          z: moveZ,
+          ease: Power0.easeNone,
+          onUpdate: function onUpdate() {}
+        });
+      });
+      $('#3D-object-button2').on('click', function (e) {
+        e.preventDefault(); //1. tween the first segment of each side
+
+        var w = targetObj.geometry.vertices;
+        w[2].x = w[3].x = w[4].x = w[5].x = -Math.sin(0) * segLength;
+        w[2].z = w[3].z = Math.cos(0) * segLength;
+        w[4].z = w[5].z = -Math.cos(0) * segLength; //2. rest of the vertex can now refer to the fourth previous vertex, their reference in the algorithm
+
+        for (var i = 6; i < w.length; i++) {
+          //which segment from the origin the vertex belongs to
+          var vIndex = i,
+              segIndex = Math.floor((vIndex + 2) / 4),
+              negate = vIndex / 4 === Math.floor(vIndex / 4) || (vIndex - 1) / 4 === Math.floor((vIndex - 1) / 4) ? -1 : 1;
+          var tx = w[vIndex - 4].x - Math.sin(vIndex * (negate * (2 * segIndex - 1))) * segLength * negate;
+          var tz = w[vIndex - 4].z + Math.cos(vIndex * (negate * (2 * segIndex - 1))) * segLength * negate;
+          TweenMax.to(w[vIndex], 1.5, {
+            x: tx,
+            z: tz,
+            ease: Power0.easeNone,
+            onUpdate: function onUpdate() {}
+          });
+        }
+      });
+      $('#3D-object-button3').on('click', function (e) {
+        e.preventDefault();
+        var scaleTo = Math.floor(Math.random() * Math.floor(3));
+        TweenMax.to(targetObj.scale, 1.5, {
+          x: scaleTo,
+          y: scaleTo,
+          z: scaleTo,
+          ease: Power0.easeNone,
+          onUpdate: function onUpdate() {}
+        });
+      }); // 
+      //-------------------------------------	
+
+      return {
+        init: init,
+        render: render,
+        getRendererCanvasID: function getRendererCanvasID() {
+          return rendererCanvasID;
+        },
+        getScene: function getScene() {
+          return scene;
+        },
+        getCamera: function getCamera() {
+          return camera;
+        }
+      };
+    }();
+
+    MainStage.init();
+    MainStage.render();
+  };
+
+  module.components.documentReady.push(module.THREE_OBJ_ANIM_INTERACTION.documentReady);
+  return /*#__PURE__*/_createClass(function THREE_OBJ_ANIM_INTERACTION() {
+    _classCallCheck(this, THREE_OBJ_ANIM_INTERACTION);
+
+    this.module = module;
+  });
+}(UixModuleInstance, jQuery, window, document);
+;// CONCATENATED MODULE: ./src/components/simple-3D-mouse-interaction/js/index.js
+
+
+
+/* 
+ *************************************
+ * <!-- 3D Mouse Interaction with three.js -->
+ *************************************
+ */
+
+
+var THREE_MOUSE_INTERACTION = function (module, $, window, document) {
+  if (window.THREE_MOUSE_INTERACTION === null) return false;
+  module.THREE_MOUSE_INTERACTION = module.THREE_MOUSE_INTERACTION || {};
+  module.THREE_MOUSE_INTERACTION.version = '0.0.4';
+
+  module.THREE_MOUSE_INTERACTION.documentReady = function ($) {
+    //Prevent this module from loading in other pages
+    if ($('#3D-mouseinteraction-three-canvas').length == 0 || !Modernizr.webgl) return false;
+    var sceneSubjects = []; // Import objects and animations dynamically
+
+    var MainStage = function () {
+      var windowWidth = window.innerWidth,
+          windowHeight = window.innerHeight;
+      var rendererCanvasID = '3D-mouseinteraction-three-canvas'; // Generate one plane geometries mesh to scene
+      //-------------------------------------	
+
+      var camera,
+          controls,
+          scene,
+          light,
+          renderer,
+          displacementSprite,
+          radius = 100,
+          theta = 0,
+          clickEnabled = false;
+      var mouseVector = new THREE.Vector2();
+      var raycaster,
+          intersects,
+          INTERSECTED,
+          nucleus,
+          atoms = [];
+
+      function init() {
+        //=================
+        //camera
+        camera = new THREE.PerspectiveCamera(75, windowWidth / windowHeight, 1, 10000);
+        camera.position.set(0, 0, 1300); //=================
+        //controls
+
+        controls = new THREE.OrbitControls(camera);
+        controls.autoRotate = false;
+        controls.autoRotateSpeed = 0.5;
+        controls.rotateSpeed = 0.5;
+        controls.zoomSpeed = 1.2;
+        controls.panSpeed = 0.8;
+        controls.enableZoom = true;
+        controls.enableDamping = true; // an animation loop is required when either damping or auto-rotation are enabled
+
+        controls.dampingFactor = 0.25;
+        controls.screenSpacePanning = false;
+        controls.minDistance = 100;
+        controls.maxDistance = 500;
+        controls.maxPolarAngle = Math.PI / 2;
+        controls.target.set(30, 167, 81);
+        controls.update(); //=================
+        //Scene
+
+        scene = new THREE.Scene(); //=================
+        //HemisphereLight
+
+        scene.add(new THREE.AmbientLight(0x555555));
+        light = new THREE.SpotLight(0xffffff, 1.5);
+        light.position.set(0, 500, 2000);
+        scene.add(light); //=================
+        //WebGL Renderer	
+
+        renderer = new THREE.WebGLRenderer({
+          canvas: document.getElementById(rendererCanvasID),
+          //canvas
+          alpha: true,
+          antialias: true
+        });
+        renderer.setSize(windowWidth, windowHeight); //=================
+        // Immediately use the texture for material creation
+
+        generateGeometry('poly', 15); //=================
+        // Fires when the window changes
+
+        window.addEventListener('resize', onWindowResize, false); //=================
+        // When the mouse moves, call the given function
+
+        raycaster = new THREE.Raycaster();
+        document.addEventListener('mousemove', onDocumentMouseMove, false);
+        document.getElementById(rendererCanvasID).addEventListener('click', onDocumentMouseDown, false);
+        document.addEventListener('mouseup', onDocumentMouseUp, false);
+      }
+
+      function render() {
+        requestAnimationFrame(render);
+        theta += 0.1; //To set a background color.
+
+        renderer.setClearColor(0x000000); //++++++++++++++++++++++++++++++++++++++
+        //++++++++++++++++++++++++++++++++++++++
+        //Mouse interactions
+
+        raycaster.setFromCamera(mouseVector, camera);
+        intersects = raycaster.intersectObjects(atoms); //intersects = raycaster.intersectObjects( scene.children );
+
+        if (intersects.length > 0) {
+          if (INTERSECTED != intersects[0].object) {
+            // restore previous intersection object (if it exists) to its original color
+            if (INTERSECTED) INTERSECTED.material.emissive.setHex(INTERSECTED.currentHex);
+            INTERSECTED = intersects[0].object;
+            INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();
+            INTERSECTED.material.emissive.setHex(0xff0000);
+          }
+        } else {
+          // restore previous intersection object (if it exists) to its original color
+          if (INTERSECTED) INTERSECTED.material.emissive.setHex(INTERSECTED.currentHex); //by setting current intersection object to "nothing"
+
+          INTERSECTED = null;
+        } //update camera and controls
+
+
+        controls.update(); //push objects
+
+        /*
+        @Usage: 
+             function CustomObj( scene ) {
+                 const elements = new THREE...;
+                scene.add( elements );
+                 this.update = function( time ) {
+                    elements.rotation.y = time*0.003;
+                }
+            }       
+             sceneSubjects.push( new CustomObj( MainStage.getScene() ) );  
+        */
+
+        for (var i = 0; i < sceneSubjects.length; i++) {
+          sceneSubjects[i].update(clock.getElapsedTime() * 1);
+        } //render the scene to display our scene through the camera's eye.
+
+
+        renderer.render(scene, camera);
+      }
+
+      function onWindowResize() {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      }
+
+      function onDocumentMouseMove(event) {
+        event.preventDefault();
+        mouseVector.x = event.clientX / window.innerWidth * 2 - 1;
+        mouseVector.y = -(event.clientY / window.innerHeight) * 2 + 1;
+      }
+
+      function onDocumentMouseDown(event) {
+        event.preventDefault();
+        mouseVector.x = event.clientX / window.innerWidth * 2 - 1;
+        mouseVector.y = -(event.clientY / window.innerHeight) * 2 + 1;
+        clickEnabled = true; //++++++++++++++++++++++++++++++++++++++
+        //++++++++++++++++++++++++++++++++++++++
+        //Mouse interactions
+
+        raycaster.setFromCamera(mouseVector, camera);
+        intersects = raycaster.intersectObjects(atoms); //intersects = raycaster.intersectObjects( scene.children );
+
+        if (intersects.length > 0 && intersects[0].object.name.indexOf('nucleus') >= 0) {
+          var _obj = intersects[0].object;
+          console.log(_obj.name); //---Change object size
+          //				if ( typeof intersects[ 0 ] != typeof undefined ) {
+          //					const obj = intersects[ 0 ].object;
+          //
+          //
+          //					TweenMax.to( obj.scale, 1, {
+          //						x: '+=' + ( 200 - obj.scale.x ) * 0.05,
+          //						y: '+=' + ( 200 - obj.scale.y ) * 0.05,
+          //						z: '+=' + ( 200 - obj.scale.z ) * 0.05
+          //					});	
+          //
+          //
+          //					obj.updateMatrix();	
+          //	
+          //				}
+          //---Change object position
+
+          var targetAtomPos = _obj.position;
+          console.log(targetAtomPos); // targetAtomPos.tween.pause();
+
+          var destinationPos = targetAtomPos.clone();
+          TweenMax.to(controls.target, 2, {
+            x: destinationPos.x,
+            y: destinationPos.y,
+            z: destinationPos.z
+          });
+          TweenMax.to(camera.position, 2, {
+            x: destinationPos.x,
+            y: destinationPos.y,
+            z: destinationPos.z + 100,
+            onUpdate: function onUpdate() {
+              camera.up.set(0, 1, 0);
+              camera.updateProjectionMatrix();
+            },
+            onComplete: function onComplete() {
+              // get object new coordinates
+              var screenData = nestedObjectToScreenXYZAndWH(_obj, camera, renderer.domElement.width, renderer.domElement.height);
+              console.log("Current object coordinates: {x: ".concat(screenData.position.x, ", y: ").concat(screenData.position.y, ", z: ").concat(screenData.position.z, " }"));
+            }
+          });
+        } else {
+          //Change object position
+          TweenMax.to(controls.target, 2, {
+            x: 0,
+            y: 0,
+            z: 0,
+            onComplete: function onComplete() {
+              TweenMax.resumeAll();
+            }
+          });
+        }
+      }
+
+      function onDocumentMouseUp(event) {
+        event.preventDefault();
+        mouseVector.x = event.clientX / window.innerWidth * 2 - 1;
+        mouseVector.y = -(event.clientY / window.innerHeight) * 2 + 1;
+        theta = 0;
+        clickEnabled = false;
+      }
+      /*
+       * Batch generation of geometry
+       *
+       * @param  {String} objectType     - String of geometry type identifier.
+       * @param  {Number} numObjects       - The total number of generated objects.
+       * @return {Void}
+       */
+
+
+      function generateGeometry(objectType, numObjects) {
+        //set color
+        var applyVertexColors = function applyVertexColors(g, c) {
+          g.faces.forEach(function (f) {
+            var n = f instanceof THREE.Face3 ? 3 : 4;
+
+            for (var j = 0; j < n; j++) {
+              f.vertexColors[j] = c;
+            }
+          });
+        };
+
+        for (var i = 0; i < numObjects; i++) {
+          var geometry = void 0;
+
+          if (objectType == "cube") {
+            geometry = new THREE.BoxGeometry(1, 1, 1);
+          } else if (objectType == "sphere") {
+            geometry = new THREE.IcosahedronGeometry(1, 1);
+          } else if (objectType == "poly") {
+            geometry = new THREE.CylinderGeometry(3, 6, 3, 5, 1);
+          }
+
+          var position = new THREE.Vector3();
+          position.x = Math.random() * 500;
+          position.y = Math.random() * 400;
+          position.z = Math.random() * 300;
+          var rotation = new THREE.Euler();
+          rotation.x = Math.random() * 2 * Math.PI;
+          rotation.y = Math.random() * 2 * Math.PI;
+          rotation.z = Math.random() * 2 * Math.PI;
+          var scale = new THREE.Vector3(); // give the geom's vertices a random color, to be displayed
+
+          var color = new THREE.Color();
+          color.setRGB(Math.random(), Math.random(), Math.random());
+          applyVertexColors(geometry, color); // Immediately use the texture for material creation
+
+          var defaultMaterial = new THREE.MeshPhongMaterial({
+            color: 0xffffff,
+            flatShading: true,
+            vertexColors: THREE.VertexColors
+          });
+          displacementSprite = new THREE.Mesh(geometry, defaultMaterial);
+          displacementSprite.name = 'nucleus-' + i;
+          displacementSprite.position.x = Math.random() * 800 - 400;
+          displacementSprite.position.y = Math.random() * 800 - 400;
+          displacementSprite.position.z = Math.random() * 800 - 400;
+          displacementSprite.rotation.x = Math.random() * 2 * Math.PI;
+          displacementSprite.rotation.y = Math.random() * 2 * Math.PI;
+          displacementSprite.rotation.z = Math.random() * 2 * Math.PI;
+          displacementSprite.scale.x = Math.random() + 5;
+          displacementSprite.scale.y = Math.random() + 5;
+          displacementSprite.scale.z = Math.random() + 5;
+          scene.add(displacementSprite);
+          atoms.push(displacementSprite);
+        }
+      }
+      /*
+       * Get Object Coordinate, Width and Height From Screen
+       * Note: No data may be acquired without delay !!
+       *
+      * @param  {THREE.Mesh} obj                           - Mesh object.
+       * @param  {THREE.PerspectiveCamera} camera           - Mesh object.
+      * @param  {Number} rendererWidth                     - Width of renderer.
+       * @param  {Number} rendererHeight                    - Height of renderer.
+       * @param  {String} type                              - Build type.
+       * @return {JSON}
+       */
+
+      /* @usage: 
+         const screenPos = nestedObjectToScreenXYZAndWH( displacementSprite , camera, renderer.domElement.width, renderer.domElement.height );
+        */
+
+
+      function nestedObjectToScreenXYZAndWH(obj, camera, rendererWidth, rendererHeight) {
+        var vector = new THREE.Vector3();
+        vector.setFromMatrixPosition(obj.matrixWorld);
+        var widthHalf = rendererWidth / 2;
+        var heightHalf = rendererHeight / 2;
+        var aspect = rendererHeight / rendererWidth;
+        vector.project(camera);
+        vector.x = vector.x * widthHalf + widthHalf;
+        vector.y = -(vector.y * heightHalf) + heightHalf; //compute bounding box after
+
+        var boxInfo = new THREE.Box3().setFromObject(obj).getSize(new THREE.Vector3()); //Change it to fit the width and height of the stage based on the current value
+
+        var ratioFixedNum = 7; //correction
+
+        return {
+          position: vector,
+          width: (boxInfo.x * ratioFixedNum * aspect).toFixed(2),
+          height: (boxInfo.y * ratioFixedNum * aspect).toFixed(2)
+        };
+      }
+      /*
+       * Generate random number between two numbers
+       *
+       * @return {Number}
+       */
+
+
+      function getRandomFloat(min, max) {
+        return Math.random() * (max - min) + min;
+      }
+      /*
+       * Returns the degree from radian.
+       *
+       * @return {Number} rad - Value of radian.
+       * @return {Number}
+       * @usage: 
+       
+         angle = rad / ( Math.PI / 180 )  = rad * ( 180/Math.PI );
+       */
+
+
+      function getDegree(rad) {
+        return rad / Math.PI * 180;
+      }
+      /*
+       * Returns the radian degree .
+       *
+       * @return {Number} deg - Value of degree.
+       * @return {Number}
+       * @usage: 
+          
+          rad = Math.PI / 180 * 30 ;
+       */
+
+
+      function getRadian(deg) {
+        return deg * Math.PI / 180;
+      }
+      /*
+       * Convert three.js scene rotation to polar coordinates
+       *
+       * @return {Number} deg - Value of degree.
+       * @return {Number}
+       * @usage: 
+       
+          x = r * cos（θ）
+          y = r * sin（θ）  
+       */
+
+
+      function getPolarCoord(x, y, z) {
+        var nx = Math.cos(x) * Math.cos(y) * z,
+            nz = Math.cos(x) * Math.sin(y) * z,
+            ny = Math.sin(x) * z;
+        return new THREE.Vector3(nx, ny, nz);
+      } // 
+      //-------------------------------------	
+
+
+      return {
+        init: init,
+        render: render,
+        getRendererCanvasID: function getRendererCanvasID() {
+          return rendererCanvasID;
+        },
+        getScene: function getScene() {
+          return scene;
+        },
+        getCamera: function getCamera() {
+          return camera;
+        }
+      };
+    }();
+
+    MainStage.init();
+    MainStage.render();
+  };
+
+  module.components.documentReady.push(module.THREE_MOUSE_INTERACTION.documentReady);
+  return /*#__PURE__*/_createClass(function THREE_MOUSE_INTERACTION() {
+    _classCallCheck(this, THREE_MOUSE_INTERACTION);
+
+    this.module = module;
+  });
+}(UixModuleInstance, jQuery, window, document);
+;// CONCATENATED MODULE: ./src/components/simple-3D-mouse-interaction2/js/index.js
+
+
+
+/* 
+ *************************************
+ * <!-- 3D Mouse Interaction with three.js -->
+ *************************************
+ */
+
+var THREE_MOUSE_INTERACTION2 = function (module, $, window, document) {
+  if (window.THREE_MOUSE_INTERACTION2 === null) return false;
+  module.THREE_MOUSE_INTERACTION2 = module.THREE_MOUSE_INTERACTION2 || {};
+  module.THREE_MOUSE_INTERACTION2.version = '0.0.5';
+
+  module.THREE_MOUSE_INTERACTION2.documentReady = function ($) {
+    //Prevent this module from loading in other pages
+    if ($('#3D-mouseinteraction2-three-canvas').length == 0 || !Modernizr.webgl) return false;
+    var sceneSubjects = []; // Import objects and animations dynamically
+
+    var MainStage = function () {
+      var windowWidth = window.innerWidth,
+          windowHeight = window.innerHeight;
+      var rendererCanvasID = '3D-mouseinteraction2-three-canvas'; // Generate one plane geometries mesh to scene
+      //-------------------------------------	
+
+      var camera,
+          scene,
+          light,
+          renderer,
+          displacementSprite,
+          theta = 0,
+          clickEnabled = false; // controls
+
+      var scroller = new CameraScroller({
+        direction: "y"
+      }); // mouse
+
+      var mouseVector = new THREE.Vector2();
+      var raycaster,
+          intersects,
+          INTERSECTED,
+          nucleus,
+          atoms = [];
+
+      function init() {
+        //camera
+        camera = new THREE.PerspectiveCamera(70, windowWidth / windowHeight, 1, 50000);
+        camera.position.set(0, 0, 20000); //Scene
+
+        scene = new THREE.Scene(); //HemisphereLight
+
+        scene.add(new THREE.AmbientLight(0x555555));
+        light = new THREE.SpotLight(0xffffff, 1.5);
+        light.position.set(0, 500, 2000);
+        scene.add(light); //WebGL Renderer		
+
+        renderer = new THREE.WebGLRenderer({
+          canvas: document.getElementById(rendererCanvasID),
+          //canvas
+          alpha: true,
+          antialias: true
+        });
+        renderer.setSize(windowWidth, windowHeight);
+        scroller.init(renderer.domElement); // Immediately use the texture for material creation
+
+        generateGeometry(500); // Fires when the window changes
+
+        window.addEventListener('resize', onWindowResize, false); // When the mouse moves, call the given function
+
+        raycaster = new THREE.Raycaster();
+        document.addEventListener('mousemove', onDocumentMouseMove, false);
+        document.getElementById(rendererCanvasID).addEventListener('click', onDocumentMouseDown, false);
+        document.addEventListener('mouseup', onDocumentMouseUp, false);
+      }
+
+      function render() {
+        requestAnimationFrame(render); //To set a background color.
+
+        renderer.setClearColor(0x000000); //update controls
+
+        camera.position.y = scroller.getScrollPosY() * 10000; //Mouse interactions
+
+        raycaster.setFromCamera(mouseVector, camera);
+        intersects = raycaster.intersectObjects(atoms); //intersects = raycaster.intersectObjects( scene.children );
+
+        if (intersects.length > 0) {
+          if (INTERSECTED != intersects[0].object) {
+            // restore previous intersection object (if it exists) to its original color
+            if (INTERSECTED) INTERSECTED.material.emissive.setHex(INTERSECTED.currentHex);
+            INTERSECTED = intersects[0].object;
+            INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();
+            INTERSECTED.material.emissive.setHex(0xff0000);
+          }
+        } else {
+          // restore previous intersection object (if it exists) to its original color
+          if (INTERSECTED) INTERSECTED.material.emissive.setHex(INTERSECTED.currentHex); //by setting current intersection object to "nothing"
+
+          INTERSECTED = null;
+        } //push objects
+
+        /*
+        @Usage: 
+             function CustomObj( scene ) {
+                 const elements = new THREE...;
+                scene.add( elements );
+                 this.update = function( time ) {
+                    elements.rotation.y = time*0.003;
+                }
+            }       
+             sceneSubjects.push( new CustomObj( MainStage.getScene() ) );  
+        */
+
+
+        for (var i = 0; i < sceneSubjects.length; i++) {
+          sceneSubjects[i].update(clock.getElapsedTime() * 1);
+        } //render the scene to display our scene through the camera's eye.
+
+
+        renderer.render(scene, camera);
+      }
+
+      function onWindowResize() {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      }
+
+      function onDocumentMouseMove(event) {
+        event.preventDefault();
+        mouseVector.x = event.clientX / window.innerWidth * 2 - 1;
+        mouseVector.y = -(event.clientY / window.innerHeight) * 2 + 1;
+      }
+
+      function onDocumentMouseDown(event) {
+        event.preventDefault();
+        mouseVector.x = event.clientX / window.innerWidth * 2 - 1;
+        mouseVector.y = -(event.clientY / window.innerHeight) * 2 + 1;
+        clickEnabled = true; //Mouse interactions
+
+        raycaster.setFromCamera(mouseVector, camera);
+        intersects = raycaster.intersectObjects(atoms); //intersects = raycaster.intersectObjects( scene.children );
+
+        if (intersects.length > 0 && intersects[0].object.name.indexOf('nucleus') >= 0) {
+          var _obj = intersects[0].object;
+          var targetAtomPos = _obj.position;
+          console.log(targetAtomPos); // targetAtomPos.tween.pause();
+
+          var destinationPos = targetAtomPos.clone(); // jump to new position
+          // y movement via scroller object
+          // x and z movement via TWEEN
+
+          scroller.targetPosition = _obj.position.y / 10000;
+          var targetPos = {
+            x: _obj.position.x,
+            y: _obj.position.y,
+            z: _obj.position.z + 1100
+          };
+          TweenMax.to(targetPos, 2, {
+            x: destinationPos.x,
+            y: destinationPos.y,
+            z: destinationPos.z
+          });
+          TweenMax.to(camera.position, 2, {
+            x: destinationPos.x,
+            y: destinationPos.y,
+            z: destinationPos.z + 1000,
+            onUpdate: function onUpdate() {
+              camera.up.set(0, 1, 0);
+              camera.updateProjectionMatrix();
+            },
+            onComplete: function onComplete() {
+              // get object new coordinates
+              var screenData = nestedObjectToScreenXYZAndWH(_obj, camera, renderer.domElement.width, renderer.domElement.height);
+              console.log("Current object coordinates: {x: ".concat(screenData.position.x, ", y: ").concat(screenData.position.y, ", z: ").concat(screenData.position.z, " }"));
+            }
+          });
+        } else {
+          //restore scroller position
+          scroller.targetPosition = 0; //restore camera position
+
+          TweenMax.to(camera.position, 2, {
+            x: 0,
+            y: 0,
+            z: 20000,
+            onComplete: function onComplete() {
+              TweenMax.resumeAll();
+            }
+          });
+        }
+      }
+
+      function onDocumentMouseUp(event) {
+        event.preventDefault();
+        mouseVector.x = event.clientX / window.innerWidth * 2 - 1;
+        mouseVector.y = -(event.clientY / window.innerHeight) * 2 + 1;
+        theta = 0;
+        clickEnabled = false;
+      }
+      /*
+       * Batch generation of geometry
+       *
+       * @param  {Number} numObjects       - The total number of generated objects.
+       * @return {Void}
+       */
+
+
+      function generateGeometry(numObjects) {
+        var geometry = new THREE.Geometry();
+
+        var applyVertexColors = function applyVertexColors(g, c) {
+          g.faces.forEach(function (f) {
+            var n = f instanceof THREE.Face3 ? 3 : 4;
+
+            for (var j = 0; j < n; j++) {
+              f.vertexColors[j] = c;
+            }
+          });
+        };
+
+        for (var i = 0; i < numObjects; i++) {
+          var geom = void 0;
+          var color = new THREE.Color();
+          var position = new THREE.Vector3();
+          position.x = -9000 + i % 10 * 2000;
+          position.y = -9000 + Math.floor(i % 100 / 10) * 2000;
+          position.z = -1000 + Math.floor(i / 100) * 2000;
+          var rotation = new THREE.Euler();
+          rotation.x = 0;
+          rotation.y = 0;
+          rotation.z = 0;
+          var scale = new THREE.Vector3();
+          scale.x = 1200;
+          scale.y = 600;
+          scale.z = 200;
+          geom = new THREE.BoxGeometry(1, 1, 1);
+          color.setRGB(0, 0, Math.random() + 0.1); // give the geom's vertices a random color, to be displayed
+
+          applyVertexColors(geom, color); // Immediately use the texture for material creation
+
+          var defaultMaterial = new THREE.MeshPhongMaterial({
+            color: 0xffffff,
+            flatShading: true,
+            vertexColors: THREE.VertexColors
+          });
+          displacementSprite = new THREE.Mesh(geom, defaultMaterial);
+          scene.add(displacementSprite);
+          var object = new THREE.Mesh(geom);
+          displacementSprite.name = 'nucleus-' + i;
+          displacementSprite.position.copy(position);
+          displacementSprite.rotation.copy(rotation);
+          displacementSprite.scale.copy(scale);
+          displacementSprite.updateMatrix();
+          scene.add(displacementSprite);
+          atoms.push(displacementSprite);
+        }
+      }
+      /*
+       * CameraSroller
+       * Scrolls the camera vertically (up/down) by mouse, scrollwhell and touch
+       * including a velocity based animation
+       */
+
+
+      function CameraScroller(options) {
+        this.targetPosition = 0;
+        this.targetPositionOnMouseDown = 0;
+        this.mouseY = 0;
+        this.mouseYOnMouseDown = 0;
+        this.scrollPosY = 0;
+        this.domElem = undefined;
+
+        this.init = function (domEl) {
+          this.domElem = domEl;
+          this.domElem.addEventListener('mousedown', this.onDocumentMouseDown, false);
+          this.domElem.addEventListener('touchstart', this.onDocumentTouchStart, UixBrowser.supportsPassive ? {
+            passive: true
+          } : false);
+          this.domElem.addEventListener('touchmove', this.onDocumentTouchMove, UixBrowser.supportsPassive ? {
+            passive: true
+          } : false);
+          this.domElem.addEventListener('wheel', this.onDocumentMousewheel, UixBrowser.supportsPassive ? {
+            passive: true
+          } : false);
+        };
+
+        this.onDocumentMouseDown = function (event) {
+          event.preventDefault();
+          this.domElem.addEventListener('mousemove', this.onDocumentMouseMove, false);
+          this.domElem.addEventListener('mouseup', this.onDocumentMouseUp, false);
+          this.domElem.addEventListener('mouseout', this.onDocumentMouseOut, false);
+          this.mouseYOnMouseDown = event.clientY;
+          this.targetPositionOnMouseDown = this.targetPosition;
+        }.bind(this);
+
+        this.onDocumentMouseMove = function (event) {
+          this.mouseY = event.clientY;
+          this.targetPosition = this.targetPositionOnMouseDown + (this.mouseY - this.mouseYOnMouseDown) * 0.02;
+        }.bind(this);
+
+        this.onDocumentMouseUp = function (event) {
+          this.domElem.removeEventListener('mousemove', this.onDocumentMouseMove, false);
+          this.domElem.removeEventListener('mouseup', this.onDocumentMouseUp, false);
+          this.domElem.removeEventListener('mouseout', this.onDocumentMouseOut, false);
+        }.bind(this);
+
+        this.onDocumentMouseOut = function (event) {
+          this.domElem.removeEventListener('mousemove', this.onDocumentMouseMove, false);
+          this.domElem.removeEventListener('mouseup', this.onDocumentMouseUp, false);
+          this.domElem.removeEventListener('mouseout', this.onDocumentMouseOut, false);
+        }.bind(this);
+
+        this.onDocumentTouchStart = function (event) {
+          if (event.touches.length == 1) {
+            event.preventDefault();
+            this.mouseYOnMouseDown = event.touches[0].pageY;
+            this.targetPositionOnMouseDown = this.targetPosition;
+          }
+        }.bind(this);
+
+        this.onDocumentTouchMove = function (event) {
+          if (event.touches.length == 1) {
+            event.preventDefault();
+            this.mouseY = event.touches[0].pageY;
+            this.targetPosition = this.targetPositionOnMouseDown + (this.mouseY - this.mouseYOnMouseDown) * 0.02;
+          }
+        }.bind(this);
+
+        this.onDocumentMousewheel = function (event) {
+          this.targetPosition = this.targetPosition + event.wheelDeltaY * 0.005;
+        }.bind(this);
+
+        this.getScrollPosY = function () {
+          this.scrollPosY = this.scrollPosY + (this.targetPosition - this.scrollPosY) * 0.05; // 0.05=long scroll delay, 0.15=short delay
+
+          return this.scrollPosY;
+        }.bind(this);
+      }
+      /*
+       * Get Object Coordinate, Width and Height From Screen
+       * Note: No data may be acquired without delay !!
+       *
+      * @param  {THREE.Mesh} obj                           - Mesh object.
+       * @param  {THREE.PerspectiveCamera} camera           - Mesh object.
+      * @param  {Number} rendererWidth                     - Width of renderer.
+       * @param  {Number} rendererHeight                    - Height of renderer.
+       * @param  {String} type                              - Build type.
+       * @return {JSON}
+       */
+
+      /* @usage: 
+         const screenPos = nestedObjectToScreenXYZAndWH( displacementSprite , camera, renderer.domElement.width, renderer.domElement.height );
+        */
+
+
+      function nestedObjectToScreenXYZAndWH(obj, camera, rendererWidth, rendererHeight) {
+        var vector = new THREE.Vector3();
+        vector.setFromMatrixPosition(obj.matrixWorld);
+        var widthHalf = rendererWidth / 2;
+        var heightHalf = rendererHeight / 2;
+        var aspect = rendererHeight / rendererWidth;
+        vector.project(camera);
+        vector.x = vector.x * widthHalf + widthHalf;
+        vector.y = -(vector.y * heightHalf) + heightHalf; //compute bounding box after
+
+        var boxInfo = new THREE.Box3().setFromObject(obj).getSize(new THREE.Vector3()); //Change it to fit the width and height of the stage based on the current value
+
+        var ratioFixedNum = 7; //correction
+
+        return {
+          position: vector,
+          width: (boxInfo.x * ratioFixedNum * aspect).toFixed(2),
+          height: (boxInfo.y * ratioFixedNum * aspect).toFixed(2)
+        };
+      }
+      /*
+       * Generate random number between two numbers
+       *
+       * @return {Number}
+       */
+
+
+      function getRandomFloat(min, max) {
+        return Math.random() * (max - min) + min;
+      }
+      /*
+       * Returns the degree from radian.
+       *
+       * @return {Number} rad - Value of radian.
+       * @return {Number}
+       * @usage: 
+       
+         angle = rad / ( Math.PI / 180 )  = rad * ( 180/Math.PI );
+       */
+
+
+      function getDegree(rad) {
+        return rad / Math.PI * 180;
+      }
+      /*
+       * Returns the radian degree .
+       *
+       * @return {Number} deg - Value of degree.
+       * @return {Number}
+       * @usage: 
+          
+          rad = Math.PI / 180 * 30 ;
+       */
+
+
+      function getRadian(deg) {
+        return deg * Math.PI / 180;
+      }
+      /*
+       * Convert three.js scene rotation to polar coordinates
+       *
+       * @return {Number} deg - Value of degree.
+       * @return {Number}
+       * @usage: 
+       
+          x = r * cos（θ）
+          y = r * sin（θ）  
+       */
+
+
+      function getPolarCoord(x, y, z) {
+        var nx = Math.cos(x) * Math.cos(y) * z,
+            nz = Math.cos(x) * Math.sin(y) * z,
+            ny = Math.sin(x) * z;
+        return new THREE.Vector3(nx, ny, nz);
+      } // 
+      //-------------------------------------	
+
+
+      return {
+        init: init,
+        render: render,
+        getRendererCanvasID: function getRendererCanvasID() {
+          return rendererCanvasID;
+        },
+        getScene: function getScene() {
+          return scene;
+        },
+        getCamera: function getCamera() {
+          return camera;
+        }
+      };
+    }();
+
+    MainStage.init();
+    MainStage.render();
+  };
+
+  module.components.documentReady.push(module.THREE_MOUSE_INTERACTION2.documentReady);
+  return /*#__PURE__*/_createClass(function THREE_MOUSE_INTERACTION2() {
+    _classCallCheck(this, THREE_MOUSE_INTERACTION2);
+
+    this.module = module;
+  });
+}(UixModuleInstance, jQuery, window, document);
+;// CONCATENATED MODULE: ./src/components/_third-party-plugins/THREE/esm/modifiers/ExplodeModifier.js
+/**
+ * Make all faces use unique vertices
+ * so that each face can be separated from others
+ *
+ * @author alteredq / http://alteredqualia.com/
+ */
+THREE.ExplodeModifier = function () {};
+
+THREE.ExplodeModifier.prototype.modify = function (geometry) {
+  var vertices = [];
+
+  for (var i = 0, il = geometry.faces.length; i < il; i++) {
+    var n = vertices.length;
+    var face = geometry.faces[i];
+    var a = face.a;
+    var b = face.b;
+    var c = face.c;
+    var va = geometry.vertices[a];
+    var vb = geometry.vertices[b];
+    var vc = geometry.vertices[c];
+    vertices.push(va.clone());
+    vertices.push(vb.clone());
+    vertices.push(vc.clone());
+    face.a = n;
+    face.b = n + 1;
+    face.c = n + 2;
+  }
+
+  geometry.vertices = vertices;
+};
+
+/* harmony default export */ const ExplodeModifier = (THREE.ExplodeModifier);
+;// CONCATENATED MODULE: ./src/components/simple-3D-shatter-slider/js/index.js
+
+
+
+
+/* 
+ *************************************
+ * <!-- 3D Shatter Slider -->
+ *************************************
+ */
+
+/**
+ * module.THREE_SHATTER_SLIDER
+ * 
+ * @requires ./examples/assets/js/min/three.min.js
+ * @requires ./src/plugins/THREE
+ */
+
+
+
+
+var THREE_SHATTER_SLIDER = function (module, $, window, document) {
+  if (window.THREE_SHATTER_SLIDER === null) return false;
+  module.THREE_SHATTER_SLIDER = module.THREE_SHATTER_SLIDER || {};
+  module.THREE_SHATTER_SLIDER.version = '0.1.0';
+
+  module.THREE_SHATTER_SLIDER.documentReady = function ($) {
+    //Prevent this module from loading in other pages
+    if ($('.uix-3d-slider--shatter').length == 0 || !Modernizr.webgl) return false;
+    var sceneSubjects = []; // Import objects and animations dynamically
+
+    var MainStage = function () {
+      var windowWidth = window.innerWidth,
+          windowHeight = window.innerHeight;
+      var $sliderWrapper = $('.uix-3d-slider--shatter'),
+          //Basic webGL renderers 
+      renderLoaderID = 'uix-3d-slider--shatter__loader',
+          rendererOuterID = 'uix-3d-slider--shatter__canvas-container',
+          rendererCanvasID = 'uix-3d-slider--shatter__canvas';
+      var animSpeed = 1000; // Generate one plane geometries mesh to scene
+      //-------------------------------------	
+
+      var camera,
+          controls,
+          scene,
+          light,
+          renderer,
+          material,
+          displacementSprite,
+          theta = 0;
+      var offsetWidth = 475,
+          //Set the display width of the objects in the Stage
+      offsetHeight = 375,
+          //Set the display height of the objects in the Stage
+      allSources = [],
+          objTotal,
+          objLoaded = false;
+      var sources = [];
+      var isAnimating = false; // constants
+
+      var activeSlider = 0;
+
+      function wrapperInit() {
+        $sliderWrapper.each(function () {
+          var $this = $(this);
+          var $items = $this.find('.uix-3d-slider--shatter__item'),
+              $first = $items.first(),
+              itemsTotal = $items.length,
+              activated = $this.data('activated');
+
+          if ((0,esm_typeof/* default */.Z)(activated) === ( true ? "undefined" : 0) || activated === 0) {
+            //Get parameter configuration from the data-* attribute of HTML
+            var dataControlsPagination = $this.data('controls-pagination'),
+                dataControlsArrows = $this.data('controls-arrows'),
+                dataFilterTexture = $this.data('filter-texture'),
+                dataDraggable = $this.data('draggable'),
+                dataDraggableCursor = $this.data('draggable-cursor'),
+                dataSpeed = $this.data('speed'),
+                dataCountTotal = $this.data('count-total'),
+                dataCountCur = $this.data('count-now');
+            if ((0,esm_typeof/* default */.Z)(dataControlsPagination) === ( true ? "undefined" : 0)) dataControlsPagination = '.uix-3d-slider--shatter__pagination';
+            if ((0,esm_typeof/* default */.Z)(dataControlsArrows) === ( true ? "undefined" : 0) || dataControlsArrows == false) dataControlsArrows = '.uix-3d-slider--shatter__arrows';
+            if ((0,esm_typeof/* default */.Z)(dataLoop) === ( true ? "undefined" : 0)) dataLoop = false;
+            if ((0,esm_typeof/* default */.Z)(dataFilterTexture) === ( true ? "undefined" : 0) || !dataFilterTexture || dataFilterTexture == '') dataFilterTexture = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+            if ((0,esm_typeof/* default */.Z)(dataDraggable) === ( true ? "undefined" : 0)) dataDraggable = false;
+            if ((0,esm_typeof/* default */.Z)(dataDraggableCursor) === ( true ? "undefined" : 0)) dataDraggableCursor = 'move'; //Autoplay parameters
+
+            var dataAuto = $this.data('auto'),
+                dataTiming = $this.data('timing'),
+                dataLoop = $this.data('loop');
+            if ((0,esm_typeof/* default */.Z)(dataAuto) === ( true ? "undefined" : 0)) dataAuto = false;
+            if ((0,esm_typeof/* default */.Z)(dataTiming) === ( true ? "undefined" : 0)) dataTiming = 10000;
+            if ((0,esm_typeof/* default */.Z)(dataLoop) === ( true ? "undefined" : 0)) dataLoop = false; //Autoplay times
+
+            var playTimes; //A function called "timer" once every second (like a digital watch).
+
+            $this[0].animatedSlides; //If arrows does not exist on the page, it will be added by default, 
+            //and the drag and drop function will be activated.
+
+            if ($(dataControlsArrows).length == 0) {
+              $('body').prepend('<div style="display:none;" class="uix-3d-slider--shatter__arrows ' + dataControlsArrows.replace('#', '').replace('.', '') + '"><a href="#" class="uix-3d-slider--shatter__arrows--prev"></a><a href="#" class="uix-3d-slider--shatter__arrows--next"></a></div>');
+            } //Prevent bubbling
+
+
+            if (itemsTotal == 1) {
+              $(dataControlsPagination).hide();
+              $(dataControlsArrows).hide();
+            } //Initialize the controlers classes
+            //-------------------------------------	
+
+
+            $(dataControlsPagination).find('ul > li').first().addClass('is-active'); //Initialize the wrapper width and height
+            //-------------------------------------	
+
+            $this.css('height', windowHeight + 'px'); //Load slides to canvas
+            //-------------------------------------	
+
+            if ($('#' + rendererCanvasID).length == 0) {
+              $this.prepend('<div id="' + rendererOuterID + '" class="uix-3d-slider--shatter__canvas-container"><canvas id="' + rendererCanvasID + '"></canvas></div>');
+            } //Get the animation speed
+            //-------------------------------------	
+
+
+            if ((0,esm_typeof/* default */.Z)(dataSpeed) != ( true ? "undefined" : 0) && dataSpeed != false) {
+              animSpeed = dataSpeed;
+            } //Initialize the first item container
+            //-------------------------------------		
+
+
+            $items.addClass('next');
+            $first.addClass('is-active'); //Add identifiers for the first and last items
+            //-------------------------------------		
+
+            $items.last().addClass('last');
+            $items.first().addClass('first'); //Get all images and videos
+            //-------------------------------------		
+
+            $items.each(function () {
+              var _item = $(this);
+
+              if (_item.find('video').length > 0) {
+                //Returns the dimensions (intrinsic height and width ) of the video
+                var video = document.getElementById(_item.find('video').attr('id'));
+
+                var videoURL = _item.find('source:first').attr('src');
+
+                if ((0,esm_typeof/* default */.Z)(videoURL) === ( true ? "undefined" : 0)) videoURL = _item.attr('src');
+
+                if ((0,esm_typeof/* default */.Z)(videoURL) != ( true ? "undefined" : 0)) {
+                  sources.push({
+                    "url": videoURL,
+                    "id": _item.find('video').attr('id'),
+                    "type": 'video'
+                  });
+                }
+              } else {
+                var imgURL = _item.find('img').attr('src');
+
+                if ((0,esm_typeof/* default */.Z)(imgURL) != ( true ? "undefined" : 0)) {
+                  sources.push({
+                    "url": imgURL,
+                    "id": 'img-' + UixGUID.create(),
+                    "type": 'img'
+                  });
+                }
+              }
+            }); //Pagination dots 
+            //-------------------------------------	
+
+            var _dot = '',
+                _dotActive = '';
+            _dot += '<ul>';
+
+            for (var i = 0; i < itemsTotal; i++) {
+              _dotActive = i == 0 ? 'class="is-active"' : '';
+              _dot += '<li ' + _dotActive + ' data-index="' + i + '"><a href="javascript:"></a></li>';
+            }
+
+            _dot += '</ul>';
+            if ($(dataControlsPagination).html() == '') $(dataControlsPagination).html(_dot); //Fire the slider transtion with buttons
+
+            $(dataControlsPagination).find('ul > li').off('click').on('click', function (e) {
+              e.preventDefault(); //Prevent buttons' events from firing multiple times
+
+              var $btn = $(this);
+              if ($btn.attr('aria-disabled') == 'true') return false;
+              $(dataControlsPagination).find('ul > li').attr('aria-disabled', 'true');
+              $(dataControlsPagination).find('ul > li').delay(animSpeed).queue(function (next) {
+                $(dataControlsPagination).find('ul > li').attr('aria-disabled', 'false');
+                next();
+              }); //
+
+              var slideCurId = $(dataControlsPagination).find('ul > li.is-active').index(),
+                  slideNextId = $(this).index(); //Determine the direction
+
+              var curDir = 'prev';
+
+              if ($(this).attr('data-index') > slideCurId) {
+                curDir = 'next';
+              } //Transition Between Slides
+
+
+              sliderUpdates(slideCurId, slideNextId, curDir, dataCountTotal, dataCountCur, dataControlsPagination, dataControlsArrows, dataLoop); //Pause the auto play event
+
+              clearInterval($this[0].animatedSlides);
+            }); //Next/Prev buttons
+            //-------------------------------------		
+
+            var _prev = $(dataControlsArrows).find('.uix-3d-slider--shatter__arrows--prev'),
+                _next = $(dataControlsArrows).find('.uix-3d-slider--shatter__arrows--next');
+
+            $(dataControlsArrows).find('a').attr('href', 'javascript:');
+            $(dataControlsArrows).find('a').removeClass('is-disabled');
+
+            if (!dataLoop) {
+              _prev.addClass('is-disabled');
+            }
+
+            _prev.off('click').on('click', function (e) {
+              e.preventDefault(); //Prevent buttons' events from firing multiple times
+
+              if ($(this).attr('aria-disabled') == 'true') return false;
+              $(this).attr('aria-disabled', 'true');
+              $(this).delay(animSpeed).queue(function (next) {
+                $(this).attr('aria-disabled', 'false');
+                next();
+              }); //
+
+              var slideCurId = $items.filter('.is-active').index(),
+                  slideNextId = parseFloat($items.filter('.is-active').index()) - 1; //Transition Between Slides
+
+              sliderUpdates(slideCurId, slideNextId, 'prev', dataCountTotal, dataCountCur, dataControlsPagination, dataControlsArrows, dataLoop); //Pause the auto play event
+
+              clearInterval($this[0].animatedSlides);
+            });
+
+            _next.off('click').on('click', function (e) {
+              e.preventDefault(); //Prevent buttons' events from firing multiple times
+
+              if ($(this).attr('aria-disabled') == 'true') return false;
+              $(this).attr('aria-disabled', 'true');
+              $(this).delay(animSpeed).queue(function (next) {
+                $(this).attr('aria-disabled', 'false');
+                next();
+              }); //
+
+              var slideCurId = $items.filter('.is-active').index(),
+                  slideNextId = parseFloat($items.filter('.is-active').index()) + 1; //Transition Between Slides
+
+              sliderUpdates(slideCurId, slideNextId, 'next', dataCountTotal, dataCountCur, dataControlsPagination, dataControlsArrows, dataLoop); //Pause the auto play event
+
+              clearInterval($this[0].animatedSlides);
+            }); //Autoplay Slider
+            //-------------------------------------		
+
+
+            if (dataAuto && !isNaN(parseFloat(dataTiming)) && isFinite(dataTiming)) {
+              sliderAutoPlay(playTimes, dataTiming, dataLoop, $this, dataCountTotal, dataCountCur, dataControlsPagination, dataControlsArrows);
+
+              var autoplayEnter = function autoplayEnter() {
+                clearInterval($this[0].animatedSlides);
+              };
+
+              var autoplayLeave = function autoplayLeave() {
+                sliderAutoPlay(playTimes, dataTiming, dataLoop, $this, dataCountTotal, dataCountCur, dataControlsPagination, dataControlsArrows);
+              }; // Do not use the `off()` method, otherwise it will cause the second mouseenter to be invalid
+
+
+              $this.on('mouseenter', autoplayEnter);
+              $this.on('mouseleave', autoplayLeave); // To determine if it is a touch screen.
+
+              if (Modernizr.touchevents) {
+                $this.on('pointerenter', autoplayEnter);
+                $this.on('pointerleave', autoplayLeave);
+              }
+            } //Prevents front-end javascripts that are activated with AJAX to repeat loading.
+
+
+            $this.data('activated', 1);
+          } //endif activated
+
+        }); // end each				
+      }
+
+      function init() {
+        //Core 3D stage begin
+        //-------------------------------------		
+        //camera
+        camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 10, 2500); // FlyCamera // FlyControls
+
+        camera.movementSpeed = 100.0;
+        camera.rollSpeed = 0.5;
+        camera.position.y = 60;
+        camera.position.z = 500; //Scene
+
+        scene = new THREE.Scene(); //HemisphereLight
+
+        scene.add(new THREE.AmbientLight(0x555555));
+        light = new THREE.SpotLight(0xffffff, 1.5);
+        light.position.set(0, 0, 2000);
+        scene.add(light); //WebGL Renderer	
+        // create a render and set the size
+
+        renderer = new THREE.WebGLRenderer({
+          canvas: document.getElementById(rendererCanvasID),
+          //canvas
+          alpha: true,
+          antialias: true
+        });
+        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.setSize(window.innerWidth, window.innerHeight); //controls
+
+        controls = new THREE.OrbitControls(camera, renderer.domElement);
+        controls.autoRotate = false;
+        controls.autoRotateSpeed = 0.5;
+        controls.rotateSpeed = 0.5;
+        controls.zoomSpeed = 1.2;
+        controls.panSpeed = 0.8;
+        controls.enableZoom = false;
+        controls.target.set(0, 0, 0);
+        controls.update(); //A loader for loading all images from array.
+
+        var loader = new THREE.TextureLoader();
+        loader.crossOrigin = 'anonymous'; //Preload
+
+        objTotal = sources.length;
+        sources.forEach(function (element, index) {
+          if (element.type == 'img') {
+            loader.load( // resource URL
+            element.url, // onLoad callback
+            function (texture) {
+              loadSource(texture, index, offsetWidth, offsetHeight, objTotal, $('#' + renderLoaderID));
+            }, // onProgress callback currently not supported
+            undefined, // onError callback
+            function (err) {
+              console.error('An error happened.');
+            });
+          } else {
+            var texture = new THREE.VideoTexture(document.getElementById(element.id));
+            texture.minFilter = THREE.LinearFilter;
+            texture.magFilter = THREE.LinearFilter;
+            texture.format = THREE.RGBFormat; // pause the video
+
+            texture.image.autoplay = true;
+            texture.image.loop = true;
+            texture.image.currentTime = 0;
+            texture.image.muted = false;
+            texture.image.pause();
+            loadSource(texture, index, offsetWidth, offsetHeight, objTotal, $('#' + renderLoaderID));
+          }
+        }); // Fires when the window changes
+
+        window.addEventListener('resize', onWindowResize, false);
+      }
+
+      function render() {
+        requestAnimationFrame(render);
+        theta += 0.1; //To set a background color.
+        //renderer.setClearColor( 0x000000 );	
+        //Animating Three.js vertices
+
+        allSources.forEach(function (element, index) {
+          element.geometry.verticesNeedUpdate = true;
+        }); //check all images loaded
+
+        if ((0,esm_typeof/* default */.Z)(allSources) != ( true ? "undefined" : 0)) {
+          if (!objLoaded && allSources.length === objTotal) {
+            allSources.forEach(function (element, index) {
+              scene.add(element); //if the first object is video and play it
+
+              if (index == 0) {
+                var videoObCur = element.material.map.image;
+
+                if (videoObCur.localName == 'video') {
+                  videoObCur.autoplay = true;
+                  videoObCur.currentTime = 0;
+                  videoObCur.muted = true;
+                  videoObCur.play();
+                }
+              } //initialize all objects
+
+
+              if (index > 0) {
+                var fragment = element.geometry.vertices;
+
+                for (var i = 0; i < fragment.length; i++) {
+                  var pos = new THREE.Vector3();
+
+                  var _final = Math.random();
+
+                  pos.x = Math.random();
+                  pos.y = Math.random() * (50 * i);
+                  pos.z = Math.random() * -300;
+                  fragment[i].x = pos.x;
+                  fragment[i].y = pos.y;
+                  fragment[i].z = pos.z;
+                }
+              }
+
+              console.log(element);
+            });
+            objLoaded = true;
+          }
+        } //update camera and controls
+
+
+        controls.update(); //push objects
+
+        /*
+        @Usage: 
+             function CustomObj( scene ) {
+                 const elements = new THREE...;
+                scene.add( elements );
+                 this.update = function( time ) {
+                    elements.rotation.y = time*0.003;
+                }
+            }       
+             sceneSubjects.push( new CustomObj( MainStage.getScene() ) );  
+        */
+
+        for (var i = 0; i < sceneSubjects.length; i++) {
+          sceneSubjects[i].update(clock.getElapsedTime() * 1);
+        } //render the scene to display our scene through the camera's eye.
+
+
+        renderer.render(scene, camera);
+      }
+
+      function onWindowResize() {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      }
+      /*
+       * Load Source
+       *
+       * @param  {Three.MeshBasicMaterial.map} texture         - Returns a new texture object which can directly be used for material creation.
+       * @param  {Number} index           - Index of image or video.
+       * @param  {Number} w               - The width of an image or video, in pixels. 
+       * @param  {Number} h               - The height of an image or video, in pixels. 
+       * @param  {Number} total           - Total number of preload images or video.
+       * @param  {Element|String} loading         - Progress bar display control.
+       * @return {Void}
+       */
+
+
+      function loadSource(texture, index, w, h, total, loading) {
+        var imgW = w,
+            imgH = h; // Immediately use the texture for material creation
+        // Create a texture loader so we can load our image file
+
+        material = new THREE.MeshBasicMaterial({
+          map: texture
+        });
+        var geometryExplode = new THREE.BoxGeometry(imgW, imgH, 13),
+            displacementSprite = new THREE.Mesh(geometryExplode, material);
+        displacementSprite.minFilter = THREE.LinearFilter;
+        displacementSprite.overdraw = true;
+        displacementSprite.position.set(0, 0, 0);
+        geometryExplode.center(); // Shattering Images
+
+        var explodeModifier = new THREE.ExplodeModifier();
+        explodeModifier.modify(geometryExplode); // add some additional vars to the
+        // fragments to ensure we can do physics
+        // and so on
+
+        for (var i = 0; i < geometryExplode.vertices.length; i++) {
+          var fragment = geometryExplode.vertices[i];
+          fragment.origPos = {
+            x: fragment.x,
+            y: fragment.y,
+            z: fragment.z
+          };
+        }
+
+        allSources.push(displacementSprite); //loading
+
+        TweenMax.to(loading, 0.5, {
+          width: Math.round(100 * allSources.length / total) + '%',
+          onComplete: function onComplete() {
+            if ($(this.target).width() >= windowWidth - 50) {
+              TweenMax.to(this.target, 0.5, {
+                alpha: 0
+              });
+            }
+          }
+        });
+      }
+      /*
+      * Trigger slider autoplay
+      *
+      * @param  {Function} playTimes            - Number of times.
+      * @param  {Number} timing                 - Autoplay interval.
+      * @param  {Boolean} loop                  - Gives the slider a seamless infinite loop.
+      * @param  {Element} slider                 - Selector of the slider .
+      * @param  {String} countTotalID           - Total number ID or class of counter.
+      * @param  {String} countCurID             - Current number ID or class of counter.
+      * @param  {String} paginationID           - Navigation ID for paging control of each slide.
+      * @param  {String} arrowsID               - Previous/Next arrow navigation ID.
+      * @return {Void}                          - The constructor.
+      */
+
+
+      function sliderAutoPlay(playTimes, timing, loop, slider, countTotalID, countCurID, paginationID, arrowsID) {
+        var items = slider.find('.uix-3d-slider--shatter__item'),
+            total = items.length;
+        slider[0].animatedSlides = setInterval(function () {
+          playTimes = parseFloat(items.filter('.is-active').index());
+          playTimes++;
+
+          if (!loop) {
+            if (playTimes < total && playTimes >= 0) {
+              var slideCurId = items.filter('.is-active').index(),
+                  slideNextId = playTimes;
+              sliderUpdates(slideCurId, slideNextId, 'next', countTotalID, countCurID, paginationID, arrowsID, loop);
+            }
+          } else {
+            if (playTimes == total) playTimes = 0;
+            if (playTimes < 0) playTimes = total - 1;
+
+            var _slideCurId = items.filter('.is-active').index(),
+                _slideNextId = playTimes; //Prevent problems with styles when switching in positive order
+
+
+            if (playTimes == 0) {
+              sliderUpdates(_slideCurId, _slideNextId, 'prev', countTotalID, countCurID, paginationID, arrowsID, loop);
+            } else {
+              sliderUpdates(_slideCurId, _slideNextId, 'next', countTotalID, countCurID, paginationID, arrowsID, loop);
+            }
+          }
+        }, timing);
+      }
+      /*
+       *  Transition Between Slides
+       *
+       * @param  {Number} slideCurId             - Index of current slider.
+       * @param  {Number} slideNextId            - Index of next slider.
+       * @param  {String} dir                    - Switching direction indicator.	 
+                * @param  {String} countTotalID           - Total number ID or class of counter.
+                * @param  {String} countCurID             - Current number ID or class of counter.
+                * @param  {String} paginationID           - Navigation ID for paging control of each slide.
+                * @param  {String} arrowsID               - Previous/Next arrow navigation ID.
+                * @param  {Boolean} loop                  - Gives the slider a seamless infinite loop.
+       * @return {Void}
+       */
+
+
+      function sliderUpdates(slideCurId, slideNextId, dir, countTotalID, countCurID, paginationID, arrowsID, loop) {
+        var $items = $sliderWrapper.find('.uix-3d-slider--shatter__item'),
+            total = $items.length; //Prevent bubbling
+
+        if (total == 1) {
+          $(paginationID).hide();
+          $(arrowsID).hide();
+          return false;
+        }
+
+        if (!isAnimating) {
+          isAnimating = true; //Transition Interception
+          //-------------------------------------
+
+          if (loop) {
+            if (slideCurId > total - 1) slideCurId = 0;
+            if (slideCurId < 0) slideCurId = total - 1; //--
+
+            if (slideNextId < 0) slideNextId = total - 1;
+            if (slideNextId > total - 1) slideNextId = 0;
+          } else {
+            if (slideCurId > total - 1) slideCurId = total - 1;
+            if (slideCurId < 0) slideCurId = 0; //--
+
+            if (slideNextId < 0) slideNextId = 0;
+            if (slideNextId > total - 1) slideNextId = total - 1;
+          } //Get previous and next index of item
+          //-------------------------------------
+
+
+          var $current = $sliderWrapper.find('.uix-3d-slider--shatter__item').eq(slideCurId);
+          var $next = $sliderWrapper.find('.uix-3d-slider--shatter__item').eq(slideNextId);
+          console.log('Current: ' + slideCurId + ' | Next: ' + slideNextId); //Determine the direction and add class to switching direction indicator.
+          //-------------------------------------
+
+          var dirIndicatorClass = '';
+          if (dir == 'prev') dirIndicatorClass = 'prev';
+          if (dir == 'next') dirIndicatorClass = 'next'; //Add transition class to each item
+          //-------------------------------------	
+
+          $items.removeClass('is-active leave prev next').addClass(dirIndicatorClass);
+          $current.addClass('leave');
+          $next.addClass('is-active'); //Add transition class to Controls Pagination
+          //-------------------------------------
+
+          $(paginationID).find('ul > li').removeClass('is-active leave prev next').addClass(dirIndicatorClass);
+          $(paginationID).find('ul > li').eq(slideCurId).addClass('leave');
+          $(paginationID).find('ul > li').eq(slideNextId).addClass('is-active'); //Add transition class to Arrows
+          //-------------------------------------		
+
+          if (!loop) {
+            $(arrowsID).find('a').removeClass('is-disabled');
+            if (slideNextId == total - 1) $(arrowsID).find('.uix-3d-slider--shatter__arrows--next').addClass('is-disabled');
+            if (slideNextId == 0) $(arrowsID).find('.uix-3d-slider--shatter__arrows--prev').addClass('is-disabled');
+          } //Display counter
+          //-------------------------------------
+
+
+          $(countTotalID).text(total);
+          $(countCurID).text(parseFloat(slideCurId) + 1); //Pause all videos
+          //-------------------------------------
+          // pause all videos
+
+          allSources.forEach(function (element, index) {
+            var videoOb = element.material.map.image;
+
+            if (videoOb.localName == 'video') {
+              videoOb.autoplay = false;
+              videoOb.currentTime = 0;
+              videoOb.muted = true;
+              videoOb.pause();
+            }
+          }); //Fire the next object
+          //-------------------------------------
+
+          activeSlider = slideNextId;
+
+          if ((0,esm_typeof/* default */.Z)(allSources[slideNextId]) != ( true ? "undefined" : 0)) {
+            var fragment = allSources[slideNextId].geometry.vertices;
+
+            for (var i = 0; i < fragment.length; i++) {
+              TweenMax.to(fragment[i], 2, {
+                x: fragment[i].origPos.x,
+                y: fragment[i].origPos.y,
+                z: fragment[i].origPos.z,
+                ease: "Expo.easeInOut"
+              });
+            }
+          } // play the video
+
+
+          var videoObCur = allSources[slideNextId].material.map.image;
+
+          if (videoObCur.localName == 'video') {
+            videoObCur.autoplay = true;
+            videoObCur.currentTime = 0;
+            videoObCur.muted = false;
+            videoObCur.play();
+          } //Fire the current object
+          //-------------------------------------
+
+
+          if ((0,esm_typeof/* default */.Z)(allSources[slideCurId]) != ( true ? "undefined" : 0)) {
+            var _fragment = allSources[slideCurId].geometry.vertices;
+
+            for (var _i = 0; _i < _fragment.length; _i++) {
+              var pos = new THREE.Vector3();
+
+              var _final2 = Math.random();
+
+              pos.x = Math.random();
+              pos.y = Math.random() * (50 * _i);
+              pos.z = Math.random() * -300;
+              TweenMax.to(_fragment[_i], 2, {
+                x: pos.x,
+                y: pos.y,
+                z: pos.z,
+                ease: "Expo.easeInOut",
+                onComplete: function onComplete() {
+                  //reset the trigger
+                  isAnimating = false;
+                }
+              });
+            }
+          }
+        } // end isAnimating
+
+      } // 
+      //-------------------------------------	
+
+
+      return {
+        init: init,
+        render: render,
+        wrapperInit: wrapperInit,
+        getRendererCanvasID: function getRendererCanvasID() {
+          return rendererCanvasID;
+        },
+        getScene: function getScene() {
+          return scene;
+        },
+        getCamera: function getCamera() {
+          return camera;
+        }
+      };
+    }();
+
+    MainStage.wrapperInit();
+    MainStage.init();
+    MainStage.render();
+  };
+
+  module.components.documentReady.push(module.THREE_SHATTER_SLIDER.documentReady);
+  return /*#__PURE__*/_createClass(function THREE_SHATTER_SLIDER() {
+    _classCallCheck(this, THREE_SHATTER_SLIDER);
+
+    this.module = module;
+  });
+}(UixModuleInstance, jQuery, window, document);
+;// CONCATENATED MODULE: ./src/components/simple-3D-explosive-particle-slider/js/index.js
+
+
+
+
+/* 
+ *************************************
+ * <!-- 3D Explosive Particle Slider -->
+ *************************************
+ */
+
+
+
+var THREE_EXP_PARTICLE_SLIDER = function (module, $, window, document) {
+  if (window.THREE_EXP_PARTICLE_SLIDER === null) return false;
+  module.THREE_EXP_PARTICLE_SLIDER = module.THREE_EXP_PARTICLE_SLIDER || {};
+  module.THREE_EXP_PARTICLE_SLIDER.version = '0.1.0';
+
+  module.THREE_EXP_PARTICLE_SLIDER.documentReady = function ($) {
+    //Prevent this module from loading in other pages
+    if ($('.uix-3d-slider--expParticle').length == 0 || !Modernizr.webgl) return false;
+    var sceneSubjects = []; // Import objects and animations dynamically
+
+    var MainStage = function () {
+      var windowWidth = window.innerWidth,
+          windowHeight = window.innerHeight;
+      var $sliderWrapper = $('.uix-3d-slider--expParticle'),
+          //Basic webGL renderers 
+      renderLoaderID = 'uix-3d-slider--expParticle__loader',
+          rendererOuterID = 'uix-3d-slider--expParticle__canvas-container',
+          rendererCanvasID = 'uix-3d-slider--expParticle__canvas';
+      var animSpeed = 1000; // Generate one plane geometries mesh to scene
+      //-------------------------------------	
+
+      var camera,
+          controls,
+          scene,
+          light,
+          renderer,
+          material,
+          displacementSprite,
+          clock = new THREE.Clock();
+      var offsetWidth = 475,
+          //Set the display width of the objects in the Stage
+      offsetHeight = 375,
+          //Set the display height of the objects in the Stage
+      allSources = [],
+          objTotal,
+          objLoaded = false;
+      var sources = [];
+      var isAnimating = false; // constants
+
+      var activeSlider = 0;
+      var cube_count,
+          meshes = [],
+          materials = [],
+          xgrid = 25,
+          ygrid = 15;
+
+      function wrapperInit() {
+        $sliderWrapper.each(function () {
+          var $this = $(this);
+          var $items = $this.find('.uix-3d-slider--expParticle__item'),
+              $first = $items.first(),
+              itemsTotal = $items.length,
+              activated = $this.data('activated');
+
+          if ((0,esm_typeof/* default */.Z)(activated) === ( true ? "undefined" : 0) || activated === 0) {
+            //Get parameter configuration from the data-* attribute of HTML
+            var dataControlsPagination = $this.data('controls-pagination'),
+                dataControlsArrows = $this.data('controls-arrows'),
+                dataFilterTexture = $this.data('filter-texture'),
+                dataDraggable = $this.data('draggable'),
+                dataDraggableCursor = $this.data('draggable-cursor'),
+                dataSpeed = $this.data('speed'),
+                dataCountTotal = $this.data('count-total'),
+                dataCountCur = $this.data('count-now');
+            if ((0,esm_typeof/* default */.Z)(dataControlsPagination) === ( true ? "undefined" : 0)) dataControlsPagination = '.uix-3d-slider--expParticle__pagination';
+            if ((0,esm_typeof/* default */.Z)(dataControlsArrows) === ( true ? "undefined" : 0) || dataControlsArrows == false) dataControlsArrows = '.uix-3d-slider--expParticle__arrows';
+            if ((0,esm_typeof/* default */.Z)(dataFilterTexture) === ( true ? "undefined" : 0) || !dataFilterTexture || dataFilterTexture == '') dataFilterTexture = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+            if ((0,esm_typeof/* default */.Z)(dataDraggable) === ( true ? "undefined" : 0)) dataDraggable = false;
+            if ((0,esm_typeof/* default */.Z)(dataDraggableCursor) === ( true ? "undefined" : 0)) dataDraggableCursor = 'move';
+            if ((0,esm_typeof/* default */.Z)(dataCountTotal) === ( true ? "undefined" : 0)) dataCountTotal = 'p.count em.count';
+            if ((0,esm_typeof/* default */.Z)(dataCountCur) === ( true ? "undefined" : 0)) dataCountCur = 'p.count em.current'; //Autoplay parameters
+
+            var dataAuto = $this.data('auto'),
+                dataTiming = $this.data('timing'),
+                dataLoop = $this.data('loop');
+            if ((0,esm_typeof/* default */.Z)(dataAuto) === ( true ? "undefined" : 0)) dataAuto = false;
+            if ((0,esm_typeof/* default */.Z)(dataTiming) === ( true ? "undefined" : 0)) dataTiming = 10000;
+            if ((0,esm_typeof/* default */.Z)(dataLoop) === ( true ? "undefined" : 0)) dataLoop = false; //Autoplay times
+
+            var playTimes; //A function called "timer" once every second (like a digital watch).
+
+            $this[0].animatedSlides; //If arrows does not exist on the page, it will be added by default, 
+            //and the drag and drop function will be activated.
+
+            if ($(dataControlsArrows).length == 0) {
+              $('body').prepend('<div style="display:none;" class="uix-3d-slider--expParticle__arrows ' + dataControlsArrows.replace('#', '').replace('.', '') + '"><a href="#" class="uix-3d-slider--expParticle__arrows--prev"></a><a href="#" class="uix-3d-slider--expParticle__arrows--next"></a></div>');
+            } //Prevent bubbling
+
+
+            if (itemsTotal == 1) {
+              $(dataControlsPagination).hide();
+              $(dataControlsArrows).hide();
+            } //Initialize the controlers classes
+            //-------------------------------------	
+
+
+            $(dataControlsPagination).find('ul > li').first().addClass('is-active'); //Initialize the wrapper width and height
+            //-------------------------------------	
+
+            $this.css('height', windowHeight + 'px'); //Load slides to canvas
+            //-------------------------------------	
+
+            if ($('#' + rendererCanvasID).length == 0) {
+              $this.prepend('<div id="' + rendererOuterID + '" class="uix-3d-slider--expParticle__canvas-container"><canvas id="' + rendererCanvasID + '"></canvas></div>');
+            } //Get the animation speed
+            //-------------------------------------	
+
+
+            if ((0,esm_typeof/* default */.Z)(dataSpeed) != ( true ? "undefined" : 0) && dataSpeed != false) {
+              animSpeed = dataSpeed;
+            } //Initialize the first item container
+            //-------------------------------------		
+
+
+            $items.addClass('next');
+            $first.addClass('is-active'); //Add identifiers for the first and last items
+            //-------------------------------------		
+
+            $items.last().addClass('last');
+            $items.first().addClass('first'); //Get all images and videos
+            //-------------------------------------		
+
+            $items.each(function () {
+              var _item = $(this);
+
+              if (_item.find('video').length > 0) {
+                //Returns the dimensions (intrinsic height and width ) of the video
+                var video = document.getElementById(_item.find('video').attr('id'));
+
+                var videoURL = _item.find('source:first').attr('src');
+
+                if ((0,esm_typeof/* default */.Z)(videoURL) === ( true ? "undefined" : 0)) videoURL = _item.attr('src');
+
+                if ((0,esm_typeof/* default */.Z)(videoURL) != ( true ? "undefined" : 0)) {
+                  sources.push({
+                    "url": videoURL,
+                    "id": _item.find('video').attr('id'),
+                    "type": 'video'
+                  });
+                }
+              } else {
+                var imgURL = _item.find('img').attr('src');
+
+                if ((0,esm_typeof/* default */.Z)(imgURL) != ( true ? "undefined" : 0)) {
+                  sources.push({
+                    "url": imgURL,
+                    "id": 'img-' + UixGUID.create(),
+                    "type": 'img'
+                  });
+                }
+              }
+            }); //Pagination dots 
+            //-------------------------------------	
+
+            var _dot = '',
+                _dotActive = '';
+            _dot += '<ul>';
+
+            for (var i = 0; i < itemsTotal; i++) {
+              _dotActive = i == 0 ? 'class="is-active"' : '';
+              _dot += '<li ' + _dotActive + ' data-index="' + i + '"><a href="javascript:"></a></li>';
+            }
+
+            _dot += '</ul>';
+            if ($(dataControlsPagination).html() == '') $(dataControlsPagination).html(_dot); //Fire the slider transtion with buttons
+
+            $(dataControlsPagination).find('ul > li').off('click').on('click', function (e) {
+              e.preventDefault(); //Prevent buttons' events from firing multiple times
+
+              var $btn = $(this);
+              if ($btn.attr('aria-disabled') == 'true') return false;
+              $(dataControlsPagination).find('ul > li').attr('aria-disabled', 'true');
+              $(dataControlsPagination).find('ul > li').delay(animSpeed).queue(function (next) {
+                $(dataControlsPagination).find('ul > li').attr('aria-disabled', 'false');
+                next();
+              }); //
+
+              var slideCurId = $(dataControlsPagination).find('ul > li.is-active').index(),
+                  slideNextId = $(this).index(); //Determine the direction
+
+              var curDir = 'prev';
+
+              if ($(this).attr('data-index') > slideCurId) {
+                curDir = 'next';
+              } //Transition Between Slides
+
+
+              sliderUpdates(slideCurId, slideNextId, curDir, dataCountTotal, dataCountCur, dataControlsPagination, dataControlsArrows, dataLoop); //Pause the auto play event
+
+              clearInterval($this[0].animatedSlides);
+            }); //Next/Prev buttons
+            //-------------------------------------		
+
+            var _prev = $(dataControlsArrows).find('.uix-3d-slider--expParticle__arrows--prev'),
+                _next = $(dataControlsArrows).find('.uix-3d-slider--expParticle__arrows--next');
+
+            $(dataControlsArrows).find('a').attr('href', 'javascript:');
+            $(dataControlsArrows).find('a').removeClass('is-disabled');
+
+            if (!dataLoop) {
+              _prev.addClass('is-disabled');
+            }
+
+            _prev.off('click').on('click', function (e) {
+              e.preventDefault(); //Prevent buttons' events from firing multiple times
+
+              if ($(this).attr('aria-disabled') == 'true') return false;
+              $(this).attr('aria-disabled', 'true');
+              $(this).delay(animSpeed).queue(function (next) {
+                $(this).attr('aria-disabled', 'false');
+                next();
+              }); //
+
+              var slideCurId = $items.filter('.is-active').index(),
+                  slideNextId = parseFloat($items.filter('.is-active').index()) - 1; //Transition Between Slides
+
+              sliderUpdates(slideCurId, slideNextId, 'prev', dataCountTotal, dataCountCur, dataControlsPagination, dataControlsArrows, dataLoop); //Pause the auto play event
+
+              clearInterval($this[0].animatedSlides);
+            });
+
+            _next.off('click').on('click', function (e) {
+              e.preventDefault(); //Prevent buttons' events from firing multiple times
+
+              if ($(this).attr('aria-disabled') == 'true') return false;
+              $(this).attr('aria-disabled', 'true');
+              $(this).delay(animSpeed).queue(function (next) {
+                $(this).attr('aria-disabled', 'false');
+                next();
+              }); //
+
+              var slideCurId = $items.filter('.is-active').index(),
+                  slideNextId = parseFloat($items.filter('.is-active').index()) + 1; //Transition Between Slides
+
+              sliderUpdates(slideCurId, slideNextId, 'next', dataCountTotal, dataCountCur, dataControlsPagination, dataControlsArrows, dataLoop); //Pause the auto play event
+
+              clearInterval($this[0].animatedSlides);
+            }); //Autoplay Slider
+            //-------------------------------------		
+
+
+            if (dataAuto && !isNaN(parseFloat(dataTiming)) && isFinite(dataTiming)) {
+              sliderAutoPlay(playTimes, dataTiming, dataLoop, $this, dataCountTotal, dataCountCur, dataControlsPagination, dataControlsArrows);
+
+              var autoplayEnter = function autoplayEnter() {
+                clearInterval($this[0].animatedSlides);
+              };
+
+              var autoplayLeave = function autoplayLeave() {
+                sliderAutoPlay(playTimes, dataTiming, dataLoop, $this, dataCountTotal, dataCountCur, dataControlsPagination, dataControlsArrows);
+              }; // Do not use the `off()` method, otherwise it will cause the second mouseenter to be invalid
+
+
+              $this.on('mouseenter', autoplayEnter);
+              $this.on('mouseleave', autoplayLeave); // To determine if it is a touch screen.
+
+              if (Modernizr.touchevents) {
+                $this.on('pointerenter', autoplayEnter);
+                $this.on('pointerleave', autoplayLeave);
+              }
+            } //Prevents front-end javascripts that are activated with AJAX to repeat loading.
+
+
+            $this.data('activated', 1);
+          } //endif activated
+
+        }); // end each				
+      }
+
+      function init() {
+        //Core 3D stage begin
+        //-------------------------------------		
+        //camera
+        camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 10, 2500); // FlyCamera // FlyControls
+
+        camera.movementSpeed = 100.0;
+        camera.rollSpeed = 0.5;
+        camera.position.y = 60;
+        camera.position.z = 500; //Scene
+
+        scene = new THREE.Scene(); //HemisphereLight
+
+        scene.add(new THREE.AmbientLight(0x555555));
+        light = new THREE.SpotLight(0xffffff, 1.5);
+        light.position.set(0, 0, 2000);
+        scene.add(light); //WebGL Renderer	
+        // create a render and set the size
+
+        renderer = new THREE.WebGLRenderer({
+          canvas: document.getElementById(rendererCanvasID),
+          //canvas
+          alpha: true,
+          antialias: true
+        });
+        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.setSize(window.innerWidth, window.innerHeight); //controls
+
+        controls = new THREE.OrbitControls(camera, renderer.domElement);
+        controls.autoRotate = false;
+        controls.autoRotateSpeed = 0.5;
+        controls.rotateSpeed = 0.5;
+        controls.zoomSpeed = 1.2;
+        controls.panSpeed = 0.8;
+        controls.enableZoom = false;
+        controls.target.set(0, 0, 0);
+        controls.update(); //A loader for loading all images from array.
+
+        var loader = new THREE.TextureLoader();
+        loader.crossOrigin = 'anonymous'; //Preload
+
+        objTotal = sources.length;
+        sources.forEach(function (element, index) {
+          if (element.type == 'img') {
+            loader.load( // resource URL
+            element.url, // onLoad callback
+            function (texture) {
+              loadSource(texture, index, offsetWidth, offsetHeight, objTotal, $('#' + renderLoaderID));
+            }, // onProgress callback currently not supported
+            undefined, // onError callback
+            function (err) {
+              console.error('An error happened.');
+            });
+          } else {
+            var texture = new THREE.VideoTexture(document.getElementById(element.id));
+            texture.minFilter = THREE.LinearFilter;
+            texture.magFilter = THREE.LinearFilter;
+            texture.format = THREE.RGBFormat; // pause the video
+
+            texture.image.autoplay = true;
+            texture.image.loop = true;
+            texture.image.currentTime = 0;
+            texture.image.muted = true;
+            texture.image.play();
+            loadSource(texture, index, offsetWidth, offsetHeight, objTotal, $('#' + renderLoaderID));
+          }
+        }); // Fires when the window changes
+
+        window.addEventListener('resize', onWindowResize, false);
+      }
+
+      function render() {
+        requestAnimationFrame(render);
+        var elapsed = clock.getElapsedTime(); //To set a background color.
+        //renderer.setClearColor( 0x000000 );	
+        //Display the destination object
+
+        if ((0,esm_typeof/* default */.Z)(allSources[activeSlider]) != ( true ? "undefined" : 0)) {
+          var objects = allSources[activeSlider].children;
+          var speed = Math.random() * .0002;
+
+          for (var i = 0; i < objects.length; i++) {
+            for (var j = 0; j < objects[i].parent.children.length; j++) {
+              var obj = objects[i].parent.children[j];
+              obj.position.x += (obj.origPos.x - obj.position.x) * speed;
+              obj.position.y += (obj.origPos.y - obj.position.y) * speed;
+              obj.position.z += (obj.origPos.z - obj.position.z) * speed;
+            }
+          }
+        } //Hide inactive objects
+
+
+        allSources.forEach(function (element, index) {
+          if (index != activeSlider) {
+            var _objects = element.children;
+
+            var _speed = Math.random() * .00005;
+
+            for (var _i = 0; _i < _objects.length; _i++) {
+              for (var _j = 0; _j < _objects[_i].parent.children.length; _j++) {
+                var _obj = _objects[_i].parent.children[_j];
+                _obj.position.x += (_obj.targetPos.x - _obj.position.x) * _speed;
+                _obj.position.y += (_obj.targetPos.y - _obj.position.y) * _speed;
+                _obj.position.z += (_obj.targetPos.z - _obj.position.z) * _speed;
+              }
+            }
+          }
+        }); //check all images loaded
+
+        if ((0,esm_typeof/* default */.Z)(allSources) != ( true ? "undefined" : 0)) {
+          if (!objLoaded && allSources.length === objTotal) {
+            allSources.forEach(function (element, index) {
+              scene.add(element);
+              console.log(element);
+            });
+            objLoaded = true;
+          }
+        } //update camera and controls
+
+
+        controls.update(); //push objects
+
+        /*
+        @Usage: 
+             function CustomObj( scene ) {
+                 const elements = new THREE...;
+                scene.add( elements );
+                 this.update = function( time ) {
+                    elements.rotation.y = time*0.003;
+                }
+            }       
+             sceneSubjects.push( new CustomObj( MainStage.getScene() ) );  
+        */
+
+        for (var _i2 = 0; _i2 < sceneSubjects.length; _i2++) {
+          sceneSubjects[_i2].update(clock.getElapsedTime() * 1);
+        } //render the scene to display our scene through the camera's eye.
+
+
+        renderer.render(scene, camera);
+      }
+
+      function onWindowResize() {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      }
+      /*
+       * Load Source
+       *
+       * @param  {Three.MeshBasicMaterial.map} texture         - Returns a new texture object which can directly be used for material creation.
+       * @param  {Number} index           - Index of image or video.
+       * @param  {Number} w               - The width of an image or video, in pixels. 
+       * @param  {Number} h               - The height of an image or video, in pixels. 
+       * @param  {Number} total           - Total number of preload images or video.
+       * @param  {Element|String} loading         - Progress bar display control.
+       * @return {Void}
+       */
+
+
+      function loadSource(texture, index, w, h, total, loading) {
+        var imgW = w,
+            imgH = h; //
+
+        var group = new THREE.Object3D();
+        var i, j, ux, uy, ox, oy, geometry, xsize, ysize;
+        ux = 1 / xgrid;
+        uy = 1 / ygrid;
+        xsize = imgW / xgrid;
+        ysize = imgH / ygrid;
+        cube_count = 0;
+
+        for (i = 0; i < xgrid; i++) {
+          for (j = 0; j < ygrid; j++) {
+            ox = i;
+            oy = j;
+            geometry = new THREE.BoxBufferGeometry(xsize, ysize, xsize);
+            changeUVS(geometry, ux, uy, ox, oy);
+            materials[cube_count] = new THREE.MeshBasicMaterial({
+              map: texture
+            });
+            material = materials[cube_count];
+            displacementSprite = new THREE.Mesh(geometry, material);
+            displacementSprite.position.x = (i - xgrid / 2) * xsize;
+            displacementSprite.position.y = (j - ygrid / 2) * ysize;
+            displacementSprite.position.z = 0;
+            displacementSprite.scale.x = displacementSprite.scale.y = displacementSprite.scale.z = 1;
+            displacementSprite.origPos = {
+              x: displacementSprite.position.x,
+              y: displacementSprite.position.y,
+              z: displacementSprite.position.z
+            }; //hide all
+
+            var newPosX = 4000 * Math.random() * (Math.random() > 0.5 ? 1 : -1);
+            var newPosY = 2000 * Math.random();
+            var newPosZ = 3000 * Math.random();
+            displacementSprite.position.x = newPosX;
+            displacementSprite.position.y = newPosY;
+            displacementSprite.position.z = newPosZ;
+            displacementSprite.targetPos = {
+              x: newPosX,
+              y: newPosY,
+              z: newPosZ
+            }; //
+
+            group.add(displacementSprite); //
+
+            meshes[cube_count] = displacementSprite;
+            cube_count += 1;
+          }
+        }
+
+        allSources.push(group); //loading
+
+        TweenMax.to(loading, 0.5, {
+          width: Math.round(100 * allSources.length / total) + '%',
+          onComplete: function onComplete() {
+            if ($(this.target).width() >= windowWidth - 50) {
+              TweenMax.to(this.target, 0.5, {
+                alpha: 0
+              });
+            }
+          }
+        });
+      }
+
+      function changeUVS(geometry, unitx, unity, offsetx, offsety) {
+        var uvs = geometry.attributes.uv.array;
+
+        for (var i = 0; i < uvs.length; i += 2) {
+          uvs[i] = (uvs[i] + offsetx) * unitx;
+          uvs[i + 1] = (uvs[i + 1] + offsety) * unity;
+        }
+      }
+      /*
+      * Trigger slider autoplay
+      *
+      * @param  {Function} playTimes            - Number of times.
+      * @param  {Number} timing                 - Autoplay interval.
+      * @param  {Boolean} loop                  - Gives the slider a seamless infinite loop.
+      * @param  {Element} slider                 - Selector of the slider .
+      * @param  {String} countTotalID           - Total number ID or class of counter.
+      * @param  {String} countCurID             - Current number ID or class of counter.
+      * @param  {String} paginationID           - Navigation ID for paging control of each slide.
+      * @param  {String} arrowsID               - Previous/Next arrow navigation ID.
+      * @return {Void}                          - The constructor.
+      */
+
+
+      function sliderAutoPlay(playTimes, timing, loop, slider, countTotalID, countCurID, paginationID, arrowsID) {
+        var items = slider.find('.uix-3d-slider--expParticle__item'),
+            total = items.length;
+        slider[0].animatedSlides = setInterval(function () {
+          playTimes = parseFloat(items.filter('.is-active').index());
+          playTimes++;
+
+          if (!loop) {
+            if (playTimes < total && playTimes >= 0) {
+              var slideCurId = items.filter('.is-active').index(),
+                  slideNextId = playTimes;
+              sliderUpdates(slideCurId, slideNextId, 'next', countTotalID, countCurID, paginationID, arrowsID, loop);
+            }
+          } else {
+            if (playTimes == total) playTimes = 0;
+            if (playTimes < 0) playTimes = total - 1;
+
+            var _slideCurId = items.filter('.is-active').index(),
+                _slideNextId = playTimes; //Prevent problems with styles when switching in positive order
+
+
+            if (playTimes == 0) {
+              sliderUpdates(_slideCurId, _slideNextId, 'prev', countTotalID, countCurID, paginationID, arrowsID, loop);
+            } else {
+              sliderUpdates(_slideCurId, _slideNextId, 'next', countTotalID, countCurID, paginationID, arrowsID, loop);
+            }
+          }
+        }, timing);
+      }
+      /*
+       *  Transition Between Slides
+       *
+       * @param  {Number} slideCurId             - Index of current slider.
+       * @param  {Number} slideNextId            - Index of next slider.
+       * @param  {String} dir                    - Switching direction indicator.	 
+                * @param  {String} countTotalID           - Total number ID or class of counter.
+                * @param  {String} countCurID             - Current number ID or class of counter.
+                * @param  {String} paginationID           - Navigation ID for paging control of each slide.
+                * @param  {String} arrowsID               - Previous/Next arrow navigation ID.
+                * @param  {Boolean} loop                  - Gives the slider a seamless infinite loop.
+       * @return {Void}
+       */
+
+
+      function sliderUpdates(slideCurId, slideNextId, dir, countTotalID, countCurID, paginationID, arrowsID, loop) {
+        var $items = $sliderWrapper.find('.uix-3d-slider--expParticle__item'),
+            total = $items.length; //Prevent bubbling
+
+        if (total == 1) {
+          $(paginationID).hide();
+          $(arrowsID).hide();
+          return false;
+        }
+
+        if (!isAnimating) {
+          isAnimating = true; //Transition Interception
+          //-------------------------------------
+
+          if (loop) {
+            if (slideCurId > total - 1) slideCurId = 0;
+            if (slideCurId < 0) slideCurId = total - 1; //--
+
+            if (slideNextId < 0) slideNextId = total - 1;
+            if (slideNextId > total - 1) slideNextId = 0;
+          } else {
+            if (slideCurId > total - 1) slideCurId = total - 1;
+            if (slideCurId < 0) slideCurId = 0; //--
+
+            if (slideNextId < 0) slideNextId = 0;
+            if (slideNextId > total - 1) slideNextId = total - 1;
+          } //Get previous and next index of item
+          //-------------------------------------
+
+
+          var $current = $sliderWrapper.find('.uix-3d-slider--expParticle__item').eq(slideCurId);
+          var $next = $sliderWrapper.find('.uix-3d-slider--expParticle__item').eq(slideNextId);
+          console.log('Current: ' + slideCurId + ' | Next: ' + slideNextId); //Determine the direction and add class to switching direction indicator.
+          //-------------------------------------
+
+          var dirIndicatorClass = '';
+          if (dir == 'prev') dirIndicatorClass = 'prev';
+          if (dir == 'next') dirIndicatorClass = 'next'; //Add transition class to each item
+          //-------------------------------------	
+
+          $items.removeClass('is-active leave prev next').addClass(dirIndicatorClass);
+          $current.addClass('leave');
+          $next.addClass('is-active'); //Add transition class to Controls Pagination
+          //-------------------------------------
+
+          $(paginationID).find('ul > li').removeClass('is-active leave prev next').addClass(dirIndicatorClass);
+          $(paginationID).find('ul > li').eq(slideCurId).addClass('leave');
+          $(paginationID).find('ul > li').eq(slideNextId).addClass('is-active'); //Add transition class to Arrows
+          //-------------------------------------		
+
+          if (!loop) {
+            $(arrowsID).find('a').removeClass('is-disabled');
+            if (slideNextId == total - 1) $(arrowsID).find('.uix-3d-slider--expParticle__arrows--next').addClass('is-disabled');
+            if (slideNextId == 0) $(arrowsID).find('.uix-3d-slider--expParticle__arrows--prev').addClass('is-disabled');
+          } //Display counter
+          //-------------------------------------
+
+
+          $(countTotalID).text(total);
+          $(countCurID).text(parseFloat(slideCurId) + 1); //Fire the next object
+          //-------------------------------------
+
+          activeSlider = slideNextId; //Fire the current object
+          //-------------------------------------
+          //Reset the trigger
+          //-------------------------------------
+
+          isAnimating = false;
+        } // end isAnimating
+
+      } // 
+      //-------------------------------------	
+
+
+      return {
+        init: init,
+        render: render,
+        wrapperInit: wrapperInit,
+        getRendererCanvasID: function getRendererCanvasID() {
+          return rendererCanvasID;
+        },
+        getScene: function getScene() {
+          return scene;
+        },
+        getCamera: function getCamera() {
+          return camera;
+        }
+      };
+    }();
+
+    MainStage.wrapperInit();
+    MainStage.init();
+    MainStage.render();
+  };
+
+  module.components.documentReady.push(module.THREE_EXP_PARTICLE_SLIDER.documentReady);
+  return /*#__PURE__*/_createClass(function THREE_EXP_PARTICLE_SLIDER() {
+    _classCallCheck(this, THREE_EXP_PARTICLE_SLIDER);
+
+    this.module = module;
+  });
+}(UixModuleInstance, jQuery, window, document);
+;// CONCATENATED MODULE: ./src/components/simple-3D-liquid-scrollspy-slider/js/shader/fragment-custom.glsl
+/* harmony default export */ const js_shader_fragment_custom = ("#define GLSLIFY 1\nvarying vec2 vUv;\n\nuniform sampler2D texture;\nuniform sampler2D texture2;\nuniform sampler2D disp;\n\n// uniform float time;\n// uniform float _rot;\nuniform float dispFactor;\nuniform float effectFactor;\n\n// vec2 rotate(vec2 v, float a) {\n//  float s = sin(a);\n//  float c = cos(a);\n//  mat2 m = mat2(c, -s, s, c);\n//  return m * v;\n// }\n\nvoid main() {\n\n    vec2 uv = vUv;\n\n    // uv -= 0.5;\n    // vec2 rotUV = rotate(uv, _rot);\n    // uv += 0.5;\n\n    vec4 disp = texture2D(disp, uv);\n\n    vec2 distortedPosition = vec2(uv.x + dispFactor * (disp.r*effectFactor), uv.y);\n    vec2 distortedPosition2 = vec2(uv.x - (1.0 - dispFactor) * (disp.r*effectFactor), uv.y);\n\n    vec4 _texture = texture2D(texture, distortedPosition);\n    vec4 _texture2 = texture2D(texture2, distortedPosition2);\n\n    vec4 finalTexture = mix(_texture, _texture2, dispFactor);\n\n    gl_FragColor = finalTexture;\n    // gl_FragColor = disp;\n}");
+;// CONCATENATED MODULE: ./src/components/simple-3D-liquid-scrollspy-slider/js/shader/vertex-custom.glsl
+/* harmony default export */ const js_shader_vertex_custom = ("#define GLSLIFY 1\nvarying vec2 vUv;\nvoid main() {\n  vUv = uv;\n  gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );\n}");
+;// CONCATENATED MODULE: ./src/components/simple-3D-liquid-scrollspy-slider/js/index.js
+
+
+
+
+/* 
+ *************************************
+ * <!-- 3D Liquid Scrollspy Slider -->
+ *************************************
+ */
+
+
+
+
+var THREE_LIQUID_SCROLLSPY_SLIDER = function (module, $, window, document) {
+  if (window.THREE_LIQUID_SCROLLSPY_SLIDER === null) return false;
+  module.THREE_LIQUID_SCROLLSPY_SLIDER = module.THREE_LIQUID_SCROLLSPY_SLIDER || {};
+  module.THREE_LIQUID_SCROLLSPY_SLIDER.version = '0.1.4';
+
+  module.THREE_LIQUID_SCROLLSPY_SLIDER.documentReady = function ($) {
+    //Prevent this module from loading in other pages
+    if ($('.uix-3d-slider--liquid-scrollspy').length == 0 || !Modernizr.webgl) return false;
+    var sceneSubjects = []; // Import objects and animations dynamically
+
+    var MainStage = function () {
+      var windowWidth = window.innerWidth,
+          windowHeight = window.innerHeight;
+      var $sliderWrapper = $('.uix-3d-slider--liquid-scrollspy'),
+          //Basic webGL renderers 
+      renderLoaderID = 'uix-3d-slider--liquid-scrollspy__loader',
+          rendererOuterID = 'uix-3d-slider--liquid-scrollspy__canvas-container',
+          rendererCanvasID = 'uix-3d-slider--liquid-scrollspy__canvas';
+      var animSpeed = 1000; // Generate one plane geometries mesh to scene
+      //-------------------------------------	
+
+      var camera,
+          controls,
+          scene,
+          light,
+          renderer,
+          material,
+          displacementSprite,
+          theta = 0;
+      var offsetWidth = 1920,
+          //Set the display width of the objects
+      offsetHeight = 1080,
+          //Set the display height of the objects
+      imgAspect = offsetHeight / offsetWidth;
+      var dispImage;
+      var loader = new THREE.TextureLoader();
+      loader.crossOrigin = 'anonymous';
+      var textures;
+      var sources = [];
+      var isAnimating = false; //scroll spy
+
+      var scrollspyEnabled, scrollspyConfigAutoAnim, scrollspyConfigItems, scrollspyConfigCountTotal, scrollspyConfigCountCur, scrollspyConfigControlsPagination, scrollspyConfigControlsArrows, scrollspyConfigLoop; // constants
+
+      var activeSlider = 0;
+
+      function wrapperInit() {
+        $sliderWrapper.each(function () {
+          var $this = $(this);
+          var $items = $this.find('.uix-3d-slider--liquid-scrollspy__item'),
+              $first = $items.first(),
+              itemsTotal = $items.length,
+              activated = $this.data('activated');
+
+          if ((0,esm_typeof/* default */.Z)(activated) === ( true ? "undefined" : 0) || activated === 0) {
+            //Get parameter configuration from the data-* attribute of HTML
+            var dataControlsPagination = $this.data('controls-pagination'),
+                dataControlsArrows = $this.data('controls-arrows'),
+                dataFilterTexture = $this.data('filter-texture'),
+                dataDraggable = $this.data('draggable'),
+                dataDraggableCursor = $this.data('draggable-cursor'),
+                dataSpeed = $this.data('speed'),
+                dataCountTotal = $this.data('count-total'),
+                dataCountCur = $this.data('count-now'),
+                dataScrollspy = $this.data('scrollspy');
+            if ((0,esm_typeof/* default */.Z)(dataControlsPagination) === ( true ? "undefined" : 0)) dataControlsPagination = '.uix-3d-slider--liquid-scrollspy__pagination';
+            if ((0,esm_typeof/* default */.Z)(dataControlsArrows) === ( true ? "undefined" : 0) || dataControlsArrows == false) dataControlsArrows = '.uix-3d-slider--liquid-scrollspy__arrows';
+            if ((0,esm_typeof/* default */.Z)(dataLoop) === ( true ? "undefined" : 0)) dataLoop = false;
+            if ((0,esm_typeof/* default */.Z)(dataFilterTexture) === ( true ? "undefined" : 0) || !dataFilterTexture || dataFilterTexture == '') dataFilterTexture = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+            if ((0,esm_typeof/* default */.Z)(dataDraggable) === ( true ? "undefined" : 0)) dataDraggable = false;
+            if ((0,esm_typeof/* default */.Z)(dataDraggableCursor) === ( true ? "undefined" : 0)) dataDraggableCursor = 'move';
+            if ((0,esm_typeof/* default */.Z)(dataScrollspy) === ( true ? "undefined" : 0)) dataScrollspy = false; //Autoplay parameters
+
+            var dataAuto = $this.data('auto'),
+                dataTiming = $this.data('timing'),
+                dataLoop = $this.data('loop');
+            if ((0,esm_typeof/* default */.Z)(dataAuto) === ( true ? "undefined" : 0)) dataAuto = false;
+            if ((0,esm_typeof/* default */.Z)(dataTiming) === ( true ? "undefined" : 0)) dataTiming = 10000;
+            if ((0,esm_typeof/* default */.Z)(dataLoop) === ( true ? "undefined" : 0)) dataLoop = false; //Load displacement image
+
+            dispImage = dataFilterTexture; //Autoplay times
+
+            var playTimes; //A function called "timer" once every second (like a digital watch).
+
+            $this[0].animatedSlides; //scroll spy config
+
+            scrollspyEnabled = dataScrollspy;
+            scrollspyConfigAutoAnim = $this[0].animatedSlides;
+            scrollspyConfigItems = $items;
+            scrollspyConfigCountTotal = dataCountTotal;
+            scrollspyConfigCountCur = dataCountCur;
+            scrollspyConfigControlsPagination = dataControlsPagination;
+            scrollspyConfigControlsArrows = dataControlsArrows;
+            scrollspyConfigLoop = dataLoop; //If arrows does not exist on the page, it will be added by default, 
+            //and the drag and drop function will be activated.
+
+            if ($(dataControlsArrows).length == 0) {
+              $('body').prepend('<div style="display:none;" class="uix-3d-slider--liquid-scrollspy__arrows ' + dataControlsArrows.replace('#', '').replace('.', '') + '"><a href="#" class="uix-3d-slider--liquid-scrollspy__arrows--prev"></a><a href="#" class="uix-3d-slider--liquid-scrollspy__arrows--next"></a></div>');
+            } //Prevent bubbling
+
+
+            if (itemsTotal == 1) {
+              $(dataControlsPagination).hide();
+              $(dataControlsArrows).hide();
+            } //Initialize the controlers classes
+            //-------------------------------------	
+
+
+            $(dataControlsPagination).find('ul > li').first().addClass('is-active'); //Initialize the wrapper width and height
+            //-------------------------------------	
+
+            $this.css('height', windowWidth * imgAspect + 'px'); //Load slides to canvas
+            //-------------------------------------	
+
+            if ($('#' + rendererCanvasID).length == 0) {
+              $this.prepend('<div id="' + rendererOuterID + '" class="uix-3d-slider--liquid-scrollspy__canvas-container"><canvas id="' + rendererCanvasID + '"></canvas></div>');
+            } //Get the animation speed
+            //-------------------------------------	
+
+
+            if ((0,esm_typeof/* default */.Z)(dataSpeed) != ( true ? "undefined" : 0) && dataSpeed != false) {
+              animSpeed = dataSpeed;
+            } //Initialize the first item container
+            //-------------------------------------		
+
+
+            $items.addClass('next');
+            $first.addClass('is-active'); //Add identifiers for the first and last items
+            //-------------------------------------		
+
+            $items.last().addClass('last');
+            $items.first().addClass('first'); //Get all images and videos
+            //-------------------------------------		
+
+            $items.each(function () {
+              var _item = $(this);
+
+              if (_item.find('video').length > 0) {
+                //Returns the dimensions (intrinsic height and width ) of the video
+                var video = document.getElementById(_item.find('video').attr('id'));
+
+                var videoURL = _item.find('source:first').attr('src');
+
+                if ((0,esm_typeof/* default */.Z)(videoURL) === ( true ? "undefined" : 0)) videoURL = _item.attr('src');
+
+                if ((0,esm_typeof/* default */.Z)(videoURL) != ( true ? "undefined" : 0)) {
+                  sources.push({
+                    "url": videoURL,
+                    "id": _item.find('video').attr('id'),
+                    "type": 'video'
+                  });
+                }
+              } else {
+                var imgURL = _item.find('img').attr('src');
+
+                if ((0,esm_typeof/* default */.Z)(imgURL) != ( true ? "undefined" : 0)) {
+                  sources.push({
+                    "url": imgURL,
+                    "id": 'img-' + UixGUID.create(),
+                    "type": 'img'
+                  });
+                }
+              }
+            }); //Pagination dots 
+            //-------------------------------------	
+
+            var _dot = '',
+                _dotActive = '';
+            _dot += '<ul>';
+
+            for (var i = 0; i < itemsTotal; i++) {
+              _dotActive = i == 0 ? 'class="is-active"' : '';
+              _dot += '<li ' + _dotActive + ' data-index="' + i + '"><a href="javascript:"></a></li>';
+            }
+
+            _dot += '</ul>';
+            if ($(dataControlsPagination).html() == '') $(dataControlsPagination).html(_dot); //Fire the slider transtion with buttons
+
+            $(dataControlsPagination).find('ul > li').off('click').on('click', function (e) {
+              e.preventDefault(); //Prevent buttons' events from firing multiple times
+
+              var $btn = $(this);
+              if ($btn.attr('aria-disabled') == 'true') return false;
+              $(dataControlsPagination).find('ul > li').attr('aria-disabled', 'true');
+              $(dataControlsPagination).find('ul > li').delay(animSpeed).queue(function (next) {
+                $(dataControlsPagination).find('ul > li').attr('aria-disabled', 'false');
+                next();
+              }); //
+
+              var slideCurId = $(dataControlsPagination).find('ul > li.is-active').index(),
+                  slideNextId = $(this).index(); //Determine the direction
+
+              var curDir = 'prev';
+
+              if ($(this).attr('data-index') > slideCurId) {
+                curDir = 'next';
+              } //Transition Between Slides
+
+
+              sliderUpdates(slideCurId, slideNextId, curDir, dataCountTotal, dataCountCur, dataControlsPagination, dataControlsArrows, dataLoop); //Pause the auto play event
+
+              clearInterval($this[0].animatedSlides);
+            }); //Next/Prev buttons
+            //-------------------------------------		
+
+            var _prev = $(dataControlsArrows).find('.uix-3d-slider--liquid-scrollspy__arrows--prev'),
+                _next = $(dataControlsArrows).find('.uix-3d-slider--liquid-scrollspy__arrows--next');
+
+            $(dataControlsArrows).find('a').attr('href', 'javascript:');
+            $(dataControlsArrows).find('a').removeClass('is-disabled');
+
+            if (!dataLoop) {
+              _prev.addClass('is-disabled');
+            }
+
+            _prev.off('click').on('click', function (e) {
+              e.preventDefault(); //Prevent buttons' events from firing multiple times
+
+              if ($(this).attr('aria-disabled') == 'true') return false;
+              $(this).attr('aria-disabled', 'true');
+              $(this).delay(animSpeed).queue(function (next) {
+                $(this).attr('aria-disabled', 'false');
+                next();
+              }); //
+
+              var slideCurId = $items.filter('.is-active').index(),
+                  slideNextId = parseFloat($items.filter('.is-active').index()) - 1; //Transition Between Slides
+
+              sliderUpdates(slideCurId, slideNextId, 'prev', dataCountTotal, dataCountCur, dataControlsPagination, dataControlsArrows, dataLoop); //Pause the auto play event
+
+              clearInterval($this[0].animatedSlides);
+            });
+
+            _next.off('click').on('click', function (e) {
+              e.preventDefault(); //Prevent buttons' events from firing multiple times
+
+              if ($(this).attr('aria-disabled') == 'true') return false;
+              $(this).attr('aria-disabled', 'true');
+              $(this).delay(animSpeed).queue(function (next) {
+                $(this).attr('aria-disabled', 'false');
+                next();
+              }); //
+
+              var slideCurId = $items.filter('.is-active').index(),
+                  slideNextId = parseFloat($items.filter('.is-active').index()) + 1; //Transition Between Slides
+
+              sliderUpdates(slideCurId, slideNextId, 'next', dataCountTotal, dataCountCur, dataControlsPagination, dataControlsArrows, dataLoop); //Pause the auto play event
+
+              clearInterval($this[0].animatedSlides);
+            }); //Autoplay Slider
+            //-------------------------------------		
+
+
+            if (dataAuto && !isNaN(parseFloat(dataTiming)) && isFinite(dataTiming)) {
+              sliderAutoPlay(playTimes, dataTiming, dataLoop, $this, dataCountTotal, dataCountCur, dataControlsPagination, dataControlsArrows);
+
+              var autoplayEnter = function autoplayEnter() {
+                clearInterval($this[0].animatedSlides);
+              };
+
+              var autoplayLeave = function autoplayLeave() {
+                sliderAutoPlay(playTimes, dataTiming, dataLoop, $this, dataCountTotal, dataCountCur, dataControlsPagination, dataControlsArrows);
+              }; // Do not use the `off()` method, otherwise it will cause the second mouseenter to be invalid
+
+
+              $this.on('mouseenter', autoplayEnter);
+              $this.on('mouseleave', autoplayLeave); // To determine if it is a touch screen.
+
+              if (Modernizr.touchevents) {
+                $this.on('pointerenter', autoplayEnter);
+                $this.on('pointerleave', autoplayLeave);
+              }
+            } //Prevents front-end javascripts that are activated with AJAX to repeat loading.
+
+
+            $this.data('activated', 1);
+          } //endif activated
+
+        }); // end each				
+      }
+
+      function loadImages() {
+        var promises = [];
+
+        var _loop = function _loop(i) {
+          if (sources[i].type == 'img') {
+            ///////////
+            // IMAGE //
+            ///////////   
+            promises.push(new Promise(function (resolve, reject) {
+              var img = document.createElement("img");
+              img.src = sources[i].url;
+
+              img.onload = function (image) {
+                //loading
+                TweenMax.to("#" + renderLoaderID, 0.5, {
+                  width: Math.round(100 * (i / sources.length)) + '%'
+                }); //Compatible with safari and firefox
+
+                if ((0,esm_typeof/* default */.Z)(image.path) === ( true ? "undefined" : 0)) {
+                  return resolve(image.target.currentSrc);
+                } else {
+                  return resolve(image.path[0].currentSrc);
+                }
+              };
+            }).then(makeThreeTexture));
+          } else {
+            ///////////
+            // VIDEO //
+            ///////////    
+            promises.push(new Promise(function (resolve, reject) {
+              //loading
+              TweenMax.to("#" + renderLoaderID, 0.5, {
+                width: Math.round(100 * (i / sources.length)) + '%'
+              });
+              $('#' + sources[i].id).one('loadedmetadata', resolve);
+              return resolve(sources[i].url);
+            }).then(makeThreeTexture));
+          }
+        };
+
+        for (var i = 0; i < sources.length; i++) {
+          _loop(i);
+        }
+
+        return Promise.all(promises);
+      }
+
+      function makeThreeTexture(url) {
+        var texture;
+
+        if (/[\/.](gif|jpg|jpeg|png)$/i.test(url)) {
+          ///////////
+          // IMAGE //
+          ///////////   
+          texture = loader.load(url);
+        } else {
+          ///////////
+          // VIDEO //
+          ///////////   
+          var video = document.createElement('video');
+          video.src = url;
+          texture = new THREE.VideoTexture(video);
+          texture.minFilter = THREE.LinearFilter;
+          texture.magFilter = THREE.LinearFilter;
+          texture.format = THREE.RGBFormat; // pause the video
+
+          texture.image.autoplay = true;
+          texture.image.loop = true;
+          texture.image.currentTime = 0;
+          texture.image.muted = true;
+          texture.image.play();
+        }
+
+        return texture;
+      }
+
+      function texturesInit() {
+        //Must be placed behind the loadImages()
+        loadImages().then(function (images) {
+          //remove loading
+          TweenMax.to($("#" + renderLoaderID), 0.5, {
+            alpha: 0
+          });
+          init(images);
+          render();
+        });
+      }
+
+      function init(allTextures) {
+        textures = allTextures; //Core 3D stage begin
+        //-------------------------------------		
+        //camera
+
+        camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 10000); // FlyCamera // FlyControls
+
+        camera.position.z = 1000; //Object 1 unit, equal to 1 pixel
+
+        camera.lookAt = new THREE.Vector3(0, 0, 0); // Fit plane to screen
+
+        var dist = 1000,
+            vFOV = THREE.Math.degToRad(camera.fov),
+            // convert vertical fov to radians
+        objHeight = 2 * Math.tan(vFOV / 2) * dist,
+            // visible height
+        objWidth = objHeight * camera.aspect; // visible width   
+        //Scene
+
+        scene = new THREE.Scene(); //HemisphereLight
+
+        scene.add(new THREE.AmbientLight(0x555555));
+        light = new THREE.SpotLight(0xffffff, 1.5);
+        light.position.set(0, 0, 2000);
+        scene.add(light); //WebGL Renderer	
+        // create a render and set the size
+
+        renderer = new THREE.WebGLRenderer({
+          canvas: document.getElementById(rendererCanvasID),
+          //canvas
+          alpha: true,
+          antialias: true
+        });
+        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.setSize(windowWidth, windowHeight); // Immediately use the texture for material creation
+        // Create a texture loader so we can load our image file
+
+        var texture1 = textures[0],
+            texture2 = textures[1],
+            intensity = 1,
+            disp = loader.load(dispImage);
+        disp.wrapS = disp.wrapT = THREE.RepeatWrapping;
+        texture1.magFilter = texture2.magFilter = THREE.LinearFilter;
+        texture1.minFilter = texture2.minFilter = THREE.LinearFilter;
+        texture1.anisotropy = renderer.capabilities.getMaxAnisotropy();
+        texture2.anisotropy = renderer.capabilities.getMaxAnisotropy();
+        var geometry = new THREE.PlaneBufferGeometry(objWidth, objHeight, 1);
+        $('#' + rendererCanvasID).css('height', windowWidth * imgAspect + 'px');
+        geometry.center();
+        material = new THREE.ShaderMaterial({
+          uniforms: {
+            effectFactor: {
+              type: "f",
+              value: intensity
+            },
+            dispFactor: {
+              type: "f",
+              value: 0.0
+            },
+            texture: {
+              type: "t",
+              value: texture1
+            },
+            texture2: {
+              type: "t",
+              value: texture2
+            },
+            disp: {
+              type: "t",
+              value: disp
+            }
+          },
+          vertexShader: js_shader_vertex_custom,
+          fragmentShader: js_shader_fragment_custom,
+          transparent: true,
+          opacity: 1.0
+        });
+        displacementSprite = new THREE.Mesh(geometry, material);
+        displacementSprite.position.set(0, 0, 0);
+        scene.add(displacementSprite); //				TweenMax.to( material.uniforms.dispFactor, 1.5, {
+        //					value: 1,
+        //					ease: Expo.easeOut
+        //				});	
+        //                
+        // Fires when the window changes
+
+        window.addEventListener('resize', onWindowResize, false); // Scrolling interaction with 3D scenes
+
+        window.addEventListener('wheel', onMouseWheel, UixBrowser.supportsPassive ? {
+          passive: true
+        } : false);
+      }
+
+      function render() {
+        requestAnimationFrame(render);
+        theta += 0.1; //To set a background color.
+        //renderer.setClearColor( 0x000000 );	
+        //push objects
+
+        /*
+        @Usage: 
+             function CustomObj( scene ) {
+                 const elements = new THREE...;
+                scene.add( elements );
+                 this.update = function( time ) {
+                    elements.rotation.y = time*0.003;
+                }
+            }       
+             sceneSubjects.push( new CustomObj( MainStage.getScene() ) );  
+        */
+
+        for (var i = 0; i < sceneSubjects.length; i++) {
+          sceneSubjects[i].update(clock.getElapsedTime() * 1);
+        } //render the scene to display our scene through the camera's eye.
+
+
+        renderer.render(scene, camera);
+      }
+
+      function onWindowResize() {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      }
+
+      function onMouseWheel(e) {
+        var scrollPos; //Gets a value that indicates the amount that the mouse wheel has changed.
+
+        var dir,
+            delta,
+            mobileDeltaY = null;
+        var touches = e.touches;
+
+        if (touches && touches.length) {
+          mobileDeltaY = startY - touches[0].pageY;
+          scrollPos = touches[0].pageY;
+        } else {
+          delta = Math.max(-1, Math.min(1, -e.deltaY));
+          scrollPos = e.deltaY;
+        }
+
+        if (mobileDeltaY != null) {
+          if (mobileDeltaY >= 50) {
+            //--- swipe up
+            dir = 'up';
+          }
+
+          if (mobileDeltaY <= -50) {
+            //--- swipe down
+            dir = 'down';
+          }
+        } else {
+          if (delta < 0) {
+            //scroll down
+            dir = 'down';
+          } else {
+            //scroll up
+            dir = 'up';
+          }
+        } //-----
+
+
+        if (scrollspyEnabled) {
+          var slideCurId = scrollspyConfigItems.filter('.is-active').index();
+          var slideNextId;
+
+          if (dir == 'down') {
+            slideNextId = parseFloat(scrollspyConfigItems.filter('.is-active').index()) + 1; //Transition Between Slides
+
+            sliderUpdates(slideCurId, slideNextId, 'next', scrollspyConfigCountTotal, scrollspyConfigCountCur, scrollspyConfigControlsPagination, scrollspyConfigControlsArrows, scrollspyConfigLoop); //Pause the auto play event
+
+            clearInterval(scrollspyConfigAutoAnim);
+          }
+
+          if (dir == 'up') {
+            slideNextId = parseFloat(scrollspyConfigItems.filter('.is-active').index()) - 1; //Transition Between Slides
+
+            sliderUpdates(slideCurId, slideNextId, 'prev', scrollspyConfigCountTotal, scrollspyConfigCountCur, scrollspyConfigControlsPagination, scrollspyConfigControlsArrows, scrollspyConfigLoop); //Pause the auto play event
+
+            clearInterval(scrollspyConfigAutoAnim);
+          }
+        }
+      }
+      /*
+      * Trigger slider autoplay
+      *
+      * @param  {Function} playTimes            - Number of times.
+      * @param  {Number} timing                 - Autoplay interval.
+      * @param  {Boolean} loop                  - Gives the slider a seamless infinite loop.
+      * @param  {Element} slider                 - Selector of the slider .
+      * @param  {String} countTotalID           - Total number ID or class of counter.
+      * @param  {String} countCurID             - Current number ID or class of counter.
+      * @param  {String} paginationID           - Navigation ID for paging control of each slide.
+      * @param  {String} arrowsID               - Previous/Next arrow navigation ID.
+      * @return {Void}                          - The constructor.
+      */
+
+
+      function sliderAutoPlay(playTimes, timing, loop, slider, countTotalID, countCurID, paginationID, arrowsID) {
+        var items = slider.find('.uix-3d-slider--liquid-scrollspy__item'),
+            total = items.length;
+        slider[0].animatedSlides = setInterval(function () {
+          playTimes = parseFloat(items.filter('.is-active').index());
+          playTimes++;
+
+          if (!loop) {
+            if (playTimes < total && playTimes >= 0) {
+              var slideCurId = items.filter('.is-active').index(),
+                  slideNextId = playTimes;
+              sliderUpdates(slideCurId, slideNextId, 'next', countTotalID, countCurID, paginationID, arrowsID, loop);
+            }
+          } else {
+            if (playTimes == total) playTimes = 0;
+            if (playTimes < 0) playTimes = total - 1;
+
+            var _slideCurId = items.filter('.is-active').index(),
+                _slideNextId = playTimes; //Prevent problems with styles when switching in positive order
+
+
+            if (playTimes == 0) {
+              sliderUpdates(_slideCurId, _slideNextId, 'prev', countTotalID, countCurID, paginationID, arrowsID, loop);
+            } else {
+              sliderUpdates(_slideCurId, _slideNextId, 'next', countTotalID, countCurID, paginationID, arrowsID, loop);
+            }
+          }
+        }, timing);
+      }
+      /*
+       *  Transition Between Slides
+       *
+       * @param  {Number} slideCurId             - Index of current slider.
+       * @param  {Number} slideNextId            - Index of next slider.
+       * @param  {String} dir                    - Switching direction indicator.	 
+                * @param  {String} countTotalID           - Total number ID or class of counter.
+                * @param  {String} countCurID             - Current number ID or class of counter.
+                * @param  {String} paginationID           - Navigation ID for paging control of each slide.
+                * @param  {String} arrowsID               - Previous/Next arrow navigation ID.
+                * @param  {Boolean} loop                  - Gives the slider a seamless infinite loop.
+       * @return {Void}
+       */
+
+
+      function sliderUpdates(slideCurId, slideNextId, dir, countTotalID, countCurID, paginationID, arrowsID, loop) {
+        var $items = $sliderWrapper.find('.uix-3d-slider--liquid-scrollspy__item'),
+            total = $items.length; //Prevent bubbling
+
+        if (total == 1) {
+          $(paginationID).hide();
+          $(arrowsID).hide();
+          return false;
+        }
+
+        if (!isAnimating) {
+          isAnimating = true; //Transition Interception
+          //-------------------------------------
+
+          if (loop) {
+            if (slideCurId > total - 1) slideCurId = 0;
+            if (slideCurId < 0) slideCurId = total - 1; //--
+
+            if (slideNextId < 0) slideNextId = total - 1;
+            if (slideNextId > total - 1) slideNextId = 0;
+          } else {
+            if (slideCurId > total - 1) slideCurId = total - 1;
+            if (slideCurId < 0) slideCurId = 0; //--
+
+            if (slideNextId < 0) slideNextId = 0;
+            if (slideNextId > total - 1) slideNextId = total - 1;
+          } //Get previous and next index of item
+          //-------------------------------------
+
+
+          var $current = $sliderWrapper.find('.uix-3d-slider--liquid-scrollspy__item').eq(slideCurId);
+          var $next = $sliderWrapper.find('.uix-3d-slider--liquid-scrollspy__item').eq(slideNextId);
+          console.log('Current: ' + slideCurId + ' | Next: ' + slideNextId); //Determine the direction and add class to switching direction indicator.
+          //-------------------------------------
+
+          var dirIndicatorClass = '';
+          if (dir == 'prev') dirIndicatorClass = 'prev';
+          if (dir == 'next') dirIndicatorClass = 'next'; //Add transition class to each item
+          //-------------------------------------	
+
+          $items.removeClass('is-active leave prev next').addClass(dirIndicatorClass);
+          $current.addClass('leave');
+          $next.addClass('is-active'); //Add transition class to Controls Pagination
+          //-------------------------------------
+
+          $(paginationID).find('ul > li').removeClass('is-active leave prev next').addClass(dirIndicatorClass);
+          $(paginationID).find('ul > li').eq(slideCurId).addClass('leave');
+          $(paginationID).find('ul > li').eq(slideNextId).addClass('is-active'); //Add transition class to Arrows
+          //-------------------------------------		
+
+          if (!loop) {
+            $(arrowsID).find('a').removeClass('is-disabled');
+            if (slideNextId == total - 1) $(arrowsID).find('.uix-3d-slider--liquid-scrollspy__arrows--next').addClass('is-disabled');
+            if (slideNextId == 0) $(arrowsID).find('.uix-3d-slider--liquid-scrollspy__arrows--prev').addClass('is-disabled');
+          } //Display counter
+          //-------------------------------------
+
+
+          $(countTotalID).text(total);
+          $(countCurID).text(parseFloat(slideCurId) + 1); //Fire the next object
+          //-------------------------------------
+
+          activeSlider = slideNextId; //Update Texture
+
+          material.uniforms.texture.value = textures[Math.floor(slideCurId)];
+          material.uniforms.texture2.value = textures[Math.floor(slideNextId)]; //console.log( 'material.uniforms.texture: ' + material.uniforms.texture.value.image.currentSrc );
+          //console.log( 'material.uniforms.texture2: ' + material.uniforms.texture2.value.image.currentSrc );
+
+          TweenMax.to(material.uniforms.dispFactor, 1.5, {
+            value: 1,
+            ease: Expo.easeOut,
+            onComplete: function onComplete() {
+              //Update Texture
+              var tx1ID, tx2ID;
+
+              if (dir == 'prev') {
+                material.uniforms.texture.value = textures[Math.floor(slideCurId)];
+                material.uniforms.texture2.value = textures[Math.floor(slideNextId - 1)];
+
+                if (loop) {
+                  tx1ID = slideNextId;
+                  tx2ID = slideNextId - 1;
+                  if (slideNextId == 0) tx2ID = total - 1;
+                } else {}
+              }
+
+              if (dir == 'next') {
+                material.uniforms.texture.value = textures[Math.floor(slideCurId)];
+                material.uniforms.texture2.value = textures[Math.floor(slideNextId)];
+
+                if (loop) {
+                  tx1ID = slideNextId;
+                  tx2ID = slideNextId + 1;
+                  if (slideNextId == total - 1) tx2ID = 0;
+                } else {}
+              }
+
+              material.uniforms.texture.value = textures[Math.floor(tx1ID)];
+              material.uniforms.texture2.value = textures[Math.floor(tx2ID)]; //console.log( 'New material.uniforms.texture: ' + material.uniforms.texture.value.image.currentSrc );
+              //console.log( 'New material.uniforms.texture2: ' + material.uniforms.texture2.value.image.currentSrc ); 
+              //console.log( '--------------------' );
+
+              TweenMax.set(this.target, {
+                value: 0
+              }); //Reset the trigger
+              //-------------------------------------
+
+              isAnimating = false;
+            }
+          }); //Fire the current object
+          //-------------------------------------
+        } // end isAnimating
+
+      } // 
+      //-------------------------------------	
+
+
+      return {
+        wrapperInit: wrapperInit,
+        texturesInit: texturesInit,
+        getRendererCanvasID: function getRendererCanvasID() {
+          return rendererCanvasID;
+        },
+        getScene: function getScene() {
+          return scene;
+        },
+        getCamera: function getCamera() {
+          return camera;
+        }
+      };
+    }();
+
+    MainStage.wrapperInit(); //step 1
+
+    MainStage.texturesInit(); // step 2
+  };
+
+  module.components.documentReady.push(module.THREE_LIQUID_SCROLLSPY_SLIDER.documentReady);
+  return /*#__PURE__*/_createClass(function THREE_LIQUID_SCROLLSPY_SLIDER() {
+    _classCallCheck(this, THREE_LIQUID_SCROLLSPY_SLIDER);
+
+    this.module = module;
+  });
+}(UixModuleInstance, jQuery, window, document);
+;// CONCATENATED MODULE: ./src/components/_third-party-plugins/THREE/esm/postprocessing/EffectComposer.js
+/**
+ * @author alteredq / http://alteredqualia.com/
+ */
+THREE.EffectComposer = function (renderer, renderTarget) {
+  this.renderer = renderer;
+
+  if (renderTarget === undefined) {
+    var parameters = {
+      minFilter: THREE.LinearFilter,
+      magFilter: THREE.LinearFilter,
+      format: THREE.RGBAFormat,
+      stencilBuffer: false
+    };
+    var size = renderer.getDrawingBufferSize(new THREE.Vector2());
+    renderTarget = new THREE.WebGLRenderTarget(size.width, size.height, parameters);
+    renderTarget.texture.name = 'EffectComposer.rt1';
+  }
+
+  this.renderTarget1 = renderTarget;
+  this.renderTarget2 = renderTarget.clone();
+  this.renderTarget2.texture.name = 'EffectComposer.rt2';
+  this.writeBuffer = this.renderTarget1;
+  this.readBuffer = this.renderTarget2;
+  this.renderToScreen = true;
+  this.passes = []; // dependencies
+
+  if (THREE.CopyShader === undefined) {
+    console.error('THREE.EffectComposer relies on THREE.CopyShader');
+  }
+
+  if (THREE.ShaderPass === undefined) {
+    console.error('THREE.EffectComposer relies on THREE.ShaderPass');
+  }
+
+  this.copyPass = new THREE.ShaderPass(THREE.CopyShader);
+  this._previousFrameTime = Date.now();
+};
+
+Object.assign(THREE.EffectComposer.prototype, {
+  swapBuffers: function swapBuffers() {
+    var tmp = this.readBuffer;
+    this.readBuffer = this.writeBuffer;
+    this.writeBuffer = tmp;
+  },
+  addPass: function addPass(pass) {
+    this.passes.push(pass);
+    var size = this.renderer.getDrawingBufferSize(new THREE.Vector2());
+    pass.setSize(size.width, size.height);
+  },
+  insertPass: function insertPass(pass, index) {
+    this.passes.splice(index, 0, pass);
+  },
+  isLastEnabledPass: function isLastEnabledPass(passIndex) {
+    for (var i = passIndex + 1; i < this.passes.length; i++) {
+      if (this.passes[i].enabled) {
+        return false;
+      }
+    }
+
+    return true;
+  },
+  render: function render(deltaTime) {
+    // deltaTime value is in seconds
+    if (deltaTime === undefined) {
+      deltaTime = (Date.now() - this._previousFrameTime) * 0.001;
+    }
+
+    this._previousFrameTime = Date.now();
+    var currentRenderTarget = this.renderer.getRenderTarget();
+    var maskActive = false;
+    var pass,
+        i,
+        il = this.passes.length;
+
+    for (i = 0; i < il; i++) {
+      pass = this.passes[i];
+      if (pass.enabled === false) continue;
+      pass.renderToScreen = this.renderToScreen && this.isLastEnabledPass(i);
+      pass.render(this.renderer, this.writeBuffer, this.readBuffer, deltaTime, maskActive);
+
+      if (pass.needsSwap) {
+        if (maskActive) {
+          var context = this.renderer.context;
+          context.stencilFunc(context.NOTEQUAL, 1, 0xffffffff);
+          this.copyPass.render(this.renderer, this.writeBuffer, this.readBuffer, deltaTime);
+          context.stencilFunc(context.EQUAL, 1, 0xffffffff);
+        }
+
+        this.swapBuffers();
+      }
+
+      if (THREE.MaskPass !== undefined) {
+        if (pass instanceof THREE.MaskPass) {
+          maskActive = true;
+        } else if (pass instanceof THREE.ClearMaskPass) {
+          maskActive = false;
+        }
+      }
+    }
+
+    this.renderer.setRenderTarget(currentRenderTarget);
+  },
+  reset: function reset(renderTarget) {
+    if (renderTarget === undefined) {
+      var size = this.renderer.getDrawingBufferSize(new THREE.Vector2());
+      renderTarget = this.renderTarget1.clone();
+      renderTarget.setSize(size.width, size.height);
+    }
+
+    this.renderTarget1.dispose();
+    this.renderTarget2.dispose();
+    this.renderTarget1 = renderTarget;
+    this.renderTarget2 = renderTarget.clone();
+    this.writeBuffer = this.renderTarget1;
+    this.readBuffer = this.renderTarget2;
+  },
+  setSize: function setSize(width, height) {
+    this.renderTarget1.setSize(width, height);
+    this.renderTarget2.setSize(width, height);
+
+    for (var i = 0; i < this.passes.length; i++) {
+      this.passes[i].setSize(width, height);
+    }
+  }
+});
+
+THREE.Pass = function () {
+  // if set to true, the pass is processed by the composer
+  this.enabled = true; // if set to true, the pass indicates to swap read and write buffer after rendering
+
+  this.needsSwap = true; // if set to true, the pass clears its buffer before rendering
+
+  this.clear = false; // if set to true, the result of the pass is rendered to screen. This is set automatically by EffectComposer.
+
+  this.renderToScreen = false;
+};
+
+Object.assign(THREE.Pass.prototype, {
+  setSize: function setSize(width, height) {},
+  render: function render(renderer, writeBuffer, readBuffer, deltaTime, maskActive) {
+    console.error('THREE.Pass: .render() must be implemented in derived pass.');
+  }
+}); // Helper for passes that need to fill the viewport with a single quad.
+
+THREE.Pass.FullScreenQuad = function () {
+  var camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+  var geometry = new THREE.PlaneBufferGeometry(2, 2);
+
+  var FullScreenQuad = function FullScreenQuad(material) {
+    this._mesh = new THREE.Mesh(geometry, material);
+  };
+
+  Object.defineProperty(FullScreenQuad.prototype, 'material', {
+    get: function get() {
+      return this._mesh.material;
+    },
+    set: function set(value) {
+      this._mesh.material = value;
+    }
+  });
+  Object.assign(FullScreenQuad.prototype, {
+    render: function render(renderer) {
+      renderer.render(this._mesh, camera);
+    }
+  });
+  return FullScreenQuad;
+}();
+
+/* harmony default export */ const EffectComposer = (THREE.EffectComposer);
+;// CONCATENATED MODULE: ./src/components/_third-party-plugins/THREE/esm/postprocessing/MaskPass.js
+/**
+ * @author alteredq / http://alteredqualia.com/
+ */
+THREE.MaskPass = function (scene, camera) {
+  THREE.Pass.call(this);
+  this.scene = scene;
+  this.camera = camera;
+  this.clear = true;
+  this.needsSwap = false;
+  this.inverse = false;
+};
+
+THREE.MaskPass.prototype = Object.assign(Object.create(THREE.Pass.prototype), {
+  constructor: THREE.MaskPass,
+  render: function render(renderer, writeBuffer, readBuffer, deltaTime, maskActive) {
+    var context = renderer.context;
+    var state = renderer.state; // don't update color or depth
+
+    state.buffers.color.setMask(false);
+    state.buffers.depth.setMask(false); // lock buffers
+
+    state.buffers.color.setLocked(true);
+    state.buffers.depth.setLocked(true); // set up stencil
+
+    var writeValue, clearValue;
+
+    if (this.inverse) {
+      writeValue = 0;
+      clearValue = 1;
+    } else {
+      writeValue = 1;
+      clearValue = 0;
+    }
+
+    state.buffers.stencil.setTest(true);
+    state.buffers.stencil.setOp(context.REPLACE, context.REPLACE, context.REPLACE);
+    state.buffers.stencil.setFunc(context.ALWAYS, writeValue, 0xffffffff);
+    state.buffers.stencil.setClear(clearValue); // draw into the stencil buffer
+
+    renderer.setRenderTarget(readBuffer);
+    if (this.clear) renderer.clear();
+    renderer.render(this.scene, this.camera);
+    renderer.setRenderTarget(writeBuffer);
+    if (this.clear) renderer.clear();
+    renderer.render(this.scene, this.camera); // unlock color and depth buffer for subsequent rendering
+
+    state.buffers.color.setLocked(false);
+    state.buffers.depth.setLocked(false); // only render where stencil is set to 1
+
+    state.buffers.stencil.setFunc(context.EQUAL, 1, 0xffffffff); // draw if == 1
+
+    state.buffers.stencil.setOp(context.KEEP, context.KEEP, context.KEEP);
+  }
+});
+
+THREE.ClearMaskPass = function () {
+  THREE.Pass.call(this);
+  this.needsSwap = false;
+};
+
+THREE.ClearMaskPass.prototype = Object.create(THREE.Pass.prototype);
+Object.assign(THREE.ClearMaskPass.prototype, {
+  render: function render(renderer, writeBuffer, readBuffer, deltaTime, maskActive) {
+    renderer.state.buffers.stencil.setTest(false);
+  }
+});
+/* harmony default export */ const MaskPass = (THREE.MaskPass);
+;// CONCATENATED MODULE: ./src/components/_third-party-plugins/THREE/esm/postprocessing/TexturePass.js
+/**
+ * @author alteredq / http://alteredqualia.com/
+ */
+THREE.TexturePass = function (map, opacity) {
+  THREE.Pass.call(this);
+  if (THREE.CopyShader === undefined) console.error("THREE.TexturePass relies on THREE.CopyShader");
+  var shader = THREE.CopyShader;
+  this.map = map;
+  this.opacity = opacity !== undefined ? opacity : 1.0;
+  this.uniforms = THREE.UniformsUtils.clone(shader.uniforms);
+  this.material = new THREE.ShaderMaterial({
+    uniforms: this.uniforms,
+    vertexShader: shader.vertexShader,
+    fragmentShader: shader.fragmentShader,
+    depthTest: false,
+    depthWrite: false
+  });
+  this.needsSwap = false;
+  this.fsQuad = new THREE.Pass.FullScreenQuad(null);
+};
+
+THREE.TexturePass.prototype = Object.assign(Object.create(THREE.Pass.prototype), {
+  constructor: THREE.TexturePass,
+  render: function render(renderer, writeBuffer, readBuffer, deltaTime, maskActive) {
+    var oldAutoClear = renderer.autoClear;
+    renderer.autoClear = false;
+    this.fsQuad.material = this.material;
+    this.uniforms["opacity"].value = this.opacity;
+    this.uniforms["tDiffuse"].value = this.map;
+    this.material.transparent = this.opacity < 1.0;
+    renderer.setRenderTarget(this.renderToScreen ? null : readBuffer);
+    if (this.clear) renderer.clear();
+    this.fsQuad.render(renderer);
+    renderer.autoClear = oldAutoClear;
+  }
+});
+/* harmony default export */ const TexturePass = (THREE.TexturePass);
+;// CONCATENATED MODULE: ./src/components/_third-party-plugins/THREE/esm/postprocessing/ShaderPass.js
+/**
+ * @author alteredq / http://alteredqualia.com/
+ */
+THREE.ShaderPass = function (shader, textureID) {
+  THREE.Pass.call(this);
+  this.textureID = textureID !== undefined ? textureID : "tDiffuse";
+
+  if (shader instanceof THREE.ShaderMaterial) {
+    this.uniforms = shader.uniforms;
+    this.material = shader;
+  } else if (shader) {
+    this.uniforms = THREE.UniformsUtils.clone(shader.uniforms);
+    this.material = new THREE.ShaderMaterial({
+      defines: Object.assign({}, shader.defines),
+      uniforms: this.uniforms,
+      vertexShader: shader.vertexShader,
+      fragmentShader: shader.fragmentShader
+    });
+  }
+
+  this.fsQuad = new THREE.Pass.FullScreenQuad(this.material);
+};
+
+THREE.ShaderPass.prototype = Object.assign(Object.create(THREE.Pass.prototype), {
+  constructor: THREE.ShaderPass,
+  render: function render(renderer, writeBuffer, readBuffer, deltaTime, maskActive) {
+    if (this.uniforms[this.textureID]) {
+      this.uniforms[this.textureID].value = readBuffer.texture;
+    }
+
+    this.fsQuad.material = this.material;
+
+    if (this.renderToScreen) {
+      renderer.setRenderTarget(null);
+      this.fsQuad.render(renderer);
+    } else {
+      renderer.setRenderTarget(writeBuffer); // TODO: Avoid using autoClear properties, see https://github.com/mrdoob/three.js/pull/15571#issuecomment-465669600
+
+      if (this.clear) renderer.clear(renderer.autoClearColor, renderer.autoClearDepth, renderer.autoClearStencil);
+      this.fsQuad.render(renderer);
+    }
+  }
+});
+/* harmony default export */ const ShaderPass = (THREE.ShaderPass);
+;// CONCATENATED MODULE: ./src/components/_third-party-plugins/THREE/esm/postprocessing/RenderPass.js
+/**
+ * @author alteredq / http://alteredqualia.com/
+ */
+THREE.RenderPass = function (scene, camera, overrideMaterial, clearColor, clearAlpha) {
+  THREE.Pass.call(this);
+  this.scene = scene;
+  this.camera = camera;
+  this.overrideMaterial = overrideMaterial;
+  this.clearColor = clearColor;
+  this.clearAlpha = clearAlpha !== undefined ? clearAlpha : 0;
+  this.clear = true;
+  this.clearDepth = false;
+  this.needsSwap = false;
+};
+
+THREE.RenderPass.prototype = Object.assign(Object.create(THREE.Pass.prototype), {
+  constructor: THREE.RenderPass,
+  render: function render(renderer, writeBuffer, readBuffer, deltaTime, maskActive) {
+    var oldAutoClear = renderer.autoClear;
+    renderer.autoClear = false;
+    this.scene.overrideMaterial = this.overrideMaterial;
+    var oldClearColor, oldClearAlpha;
+
+    if (this.clearColor) {
+      oldClearColor = renderer.getClearColor().getHex();
+      oldClearAlpha = renderer.getClearAlpha();
+      renderer.setClearColor(this.clearColor, this.clearAlpha);
+    }
+
+    if (this.clearDepth) {
+      renderer.clearDepth();
+    }
+
+    renderer.setRenderTarget(this.renderToScreen ? null : readBuffer); // TODO: Avoid using autoClear properties, see https://github.com/mrdoob/three.js/pull/15571#issuecomment-465669600
+
+    if (this.clear) renderer.clear(renderer.autoClearColor, renderer.autoClearDepth, renderer.autoClearStencil);
+    renderer.render(this.scene, this.camera);
+
+    if (this.clearColor) {
+      renderer.setClearColor(oldClearColor, oldClearAlpha);
+    }
+
+    this.scene.overrideMaterial = null;
+    renderer.autoClear = oldAutoClear;
+  }
+});
+/* harmony default export */ const RenderPass = (THREE.RenderPass);
+;// CONCATENATED MODULE: ./src/components/_third-party-plugins/THREE/esm/postprocessing/ClearPass.js
+/**
+ * @author mrdoob / http://mrdoob.com/
+ */
+THREE.ClearPass = function (clearColor, clearAlpha) {
+  THREE.Pass.call(this);
+  this.needsSwap = false;
+  this.clearColor = clearColor !== undefined ? clearColor : 0x000000;
+  this.clearAlpha = clearAlpha !== undefined ? clearAlpha : 0;
+};
+
+THREE.ClearPass.prototype = Object.assign(Object.create(THREE.Pass.prototype), {
+  constructor: THREE.ClearPass,
+  render: function render(renderer, writeBuffer, readBuffer, deltaTime, maskActive) {
+    var oldClearColor, oldClearAlpha;
+
+    if (this.clearColor) {
+      oldClearColor = renderer.getClearColor().getHex();
+      oldClearAlpha = renderer.getClearAlpha();
+      renderer.setClearColor(this.clearColor, this.clearAlpha);
+    }
+
+    renderer.setRenderTarget(this.renderToScreen ? null : readBuffer);
+    renderer.clear();
+
+    if (this.clearColor) {
+      renderer.setClearColor(oldClearColor, oldClearAlpha);
+    }
+  }
+});
+/* harmony default export */ const ClearPass = (THREE.ClearPass);
+;// CONCATENATED MODULE: ./src/components/_third-party-plugins/THREE/esm/shaders/CopyShader.js
+/**
+ * @author alteredq / http://alteredqualia.com/
+ *
+ * Full-screen textured quad shader
+ */
+THREE.CopyShader = {
+  uniforms: {
+    "tDiffuse": {
+      value: null
+    },
+    "opacity": {
+      value: 1.0
+    }
+  },
+  vertexShader: ["varying vec2 vUv;", "void main() {", "vUv = uv;", "gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );", "}"].join("\n"),
+  fragmentShader: ["uniform float opacity;", "uniform sampler2D tDiffuse;", "varying vec2 vUv;", "void main() {", "vec4 texel = texture2D( tDiffuse, vUv );", "gl_FragColor = opacity * texel;", "}"].join("\n")
+};
+/* harmony default export */ const CopyShader = (THREE.CopyShader);
+;// CONCATENATED MODULE: ./src/components/_third-party-plugins/THREE/esm/shaders/ConvolutionShader.js
+/**
+ * @author alteredq / http://alteredqualia.com/
+ *
+ * Convolution shader
+ * ported from o3d sample to WebGL / GLSL
+ * http://o3d.googlecode.com/svn/trunk/samples/convolution.html
+ */
+THREE.ConvolutionShader = {
+  defines: {
+    "KERNEL_SIZE_FLOAT": "25.0",
+    "KERNEL_SIZE_INT": "25"
+  },
+  uniforms: {
+    "tDiffuse": {
+      value: null
+    },
+    "uImageIncrement": {
+      value: new THREE.Vector2(0.001953125, 0.0)
+    },
+    "cKernel": {
+      value: []
+    }
+  },
+  vertexShader: ["uniform vec2 uImageIncrement;", "varying vec2 vUv;", "void main() {", "vUv = uv - ( ( KERNEL_SIZE_FLOAT - 1.0 ) / 2.0 ) * uImageIncrement;", "gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );", "}"].join("\n"),
+  fragmentShader: ["uniform float cKernel[ KERNEL_SIZE_INT ];", "uniform sampler2D tDiffuse;", "uniform vec2 uImageIncrement;", "varying vec2 vUv;", "void main() {", "vec2 imageCoord = vUv;", "vec4 sum = vec4( 0.0, 0.0, 0.0, 0.0 );", "for( int i = 0; i < KERNEL_SIZE_INT; i ++ ) {", "sum += texture2D( tDiffuse, imageCoord ) * cKernel[ i ];", "imageCoord += uImageIncrement;", "}", "gl_FragColor = sum;", "}"].join("\n"),
+  buildKernel: function buildKernel(sigma) {
+    // We lop off the sqrt(2 * pi) * sigma term, since we're going to normalize anyway.
+    function gauss(x, sigma) {
+      return Math.exp(-(x * x) / (2.0 * sigma * sigma));
+    }
+
+    var i,
+        values,
+        sum,
+        halfWidth,
+        kMaxKernelSize = 25,
+        kernelSize = 2 * Math.ceil(sigma * 3.0) + 1;
+    if (kernelSize > kMaxKernelSize) kernelSize = kMaxKernelSize;
+    halfWidth = (kernelSize - 1) * 0.5;
+    values = new Array(kernelSize);
+    sum = 0.0;
+
+    for (i = 0; i < kernelSize; ++i) {
+      values[i] = gauss(i - halfWidth, sigma);
+      sum += values[i];
+    } // normalize the kernel
+
+
+    for (i = 0; i < kernelSize; ++i) {
+      values[i] /= sum;
+    }
+
+    return values;
+  }
+};
+/* harmony default export */ const ConvolutionShader = (THREE.ConvolutionShader);
+;// CONCATENATED MODULE: ./src/components/_third-party-plugins/THREE/esm/postprocessing/BloomPass.js
+/**
+ * @author alteredq / http://alteredqualia.com/
+ */
+THREE.BloomPass = function (strength, kernelSize, sigma, resolution) {
+  THREE.Pass.call(this);
+  strength = strength !== undefined ? strength : 1;
+  kernelSize = kernelSize !== undefined ? kernelSize : 25;
+  sigma = sigma !== undefined ? sigma : 4.0;
+  resolution = resolution !== undefined ? resolution : 256; // render targets
+
+  var pars = {
+    minFilter: THREE.LinearFilter,
+    magFilter: THREE.LinearFilter,
+    format: THREE.RGBAFormat
+  };
+  this.renderTargetX = new THREE.WebGLRenderTarget(resolution, resolution, pars);
+  this.renderTargetX.texture.name = "BloomPass.x";
+  this.renderTargetY = new THREE.WebGLRenderTarget(resolution, resolution, pars);
+  this.renderTargetY.texture.name = "BloomPass.y"; // copy material
+
+  if (THREE.CopyShader === undefined) console.error("THREE.BloomPass relies on THREE.CopyShader");
+  var copyShader = THREE.CopyShader;
+  this.copyUniforms = THREE.UniformsUtils.clone(copyShader.uniforms);
+  this.copyUniforms["opacity"].value = strength;
+  this.materialCopy = new THREE.ShaderMaterial({
+    uniforms: this.copyUniforms,
+    vertexShader: copyShader.vertexShader,
+    fragmentShader: copyShader.fragmentShader,
+    blending: THREE.AdditiveBlending,
+    transparent: true
+  }); // convolution material
+
+  if (THREE.ConvolutionShader === undefined) console.error("THREE.BloomPass relies on THREE.ConvolutionShader");
+  var convolutionShader = THREE.ConvolutionShader;
+  this.convolutionUniforms = THREE.UniformsUtils.clone(convolutionShader.uniforms);
+  this.convolutionUniforms["uImageIncrement"].value = THREE.BloomPass.blurX;
+  this.convolutionUniforms["cKernel"].value = THREE.ConvolutionShader.buildKernel(sigma);
+  this.materialConvolution = new THREE.ShaderMaterial({
+    uniforms: this.convolutionUniforms,
+    vertexShader: convolutionShader.vertexShader,
+    fragmentShader: convolutionShader.fragmentShader,
+    defines: {
+      "KERNEL_SIZE_FLOAT": kernelSize.toFixed(1),
+      "KERNEL_SIZE_INT": kernelSize.toFixed(0)
+    }
+  });
+  this.needsSwap = false;
+  this.fsQuad = new THREE.Pass.FullScreenQuad(null);
+};
+
+THREE.BloomPass.prototype = Object.assign(Object.create(THREE.Pass.prototype), {
+  constructor: THREE.BloomPass,
+  render: function render(renderer, writeBuffer, readBuffer, deltaTime, maskActive) {
+    if (maskActive) renderer.context.disable(renderer.context.STENCIL_TEST); // Render quad with blured scene into texture (convolution pass 1)
+
+    this.fsQuad.material = this.materialConvolution;
+    this.convolutionUniforms["tDiffuse"].value = readBuffer.texture;
+    this.convolutionUniforms["uImageIncrement"].value = THREE.BloomPass.blurX;
+    renderer.setRenderTarget(this.renderTargetX);
+    renderer.clear();
+    this.fsQuad.render(renderer); // Render quad with blured scene into texture (convolution pass 2)
+
+    this.convolutionUniforms["tDiffuse"].value = this.renderTargetX.texture;
+    this.convolutionUniforms["uImageIncrement"].value = THREE.BloomPass.blurY;
+    renderer.setRenderTarget(this.renderTargetY);
+    renderer.clear();
+    this.fsQuad.render(renderer); // Render original scene with superimposed blur to texture
+
+    this.fsQuad.material = this.materialCopy;
+    this.copyUniforms["tDiffuse"].value = this.renderTargetY.texture;
+    if (maskActive) renderer.context.enable(renderer.context.STENCIL_TEST);
+    renderer.setRenderTarget(readBuffer);
+    if (this.clear) renderer.clear();
+    this.fsQuad.render(renderer);
+  }
+});
+THREE.BloomPass.blurX = new THREE.Vector2(0.001953125, 0.0);
+THREE.BloomPass.blurY = new THREE.Vector2(0.0, 0.001953125);
+/* harmony default export */ const BloomPass = (THREE.BloomPass);
+;// CONCATENATED MODULE: ./src/components/_third-party-plugins/THREE/esm/postprocessing/FilmPass.js
+/**
+ * @author alteredq / http://alteredqualia.com/
+ */
+THREE.FilmPass = function (noiseIntensity, scanlinesIntensity, scanlinesCount, grayscale) {
+  THREE.Pass.call(this);
+  if (THREE.FilmShader === undefined) console.error("THREE.FilmPass relies on THREE.FilmShader");
+  var shader = THREE.FilmShader;
+  this.uniforms = THREE.UniformsUtils.clone(shader.uniforms);
+  this.material = new THREE.ShaderMaterial({
+    uniforms: this.uniforms,
+    vertexShader: shader.vertexShader,
+    fragmentShader: shader.fragmentShader
+  });
+  if (grayscale !== undefined) this.uniforms.grayscale.value = grayscale;
+  if (noiseIntensity !== undefined) this.uniforms.nIntensity.value = noiseIntensity;
+  if (scanlinesIntensity !== undefined) this.uniforms.sIntensity.value = scanlinesIntensity;
+  if (scanlinesCount !== undefined) this.uniforms.sCount.value = scanlinesCount;
+  this.fsQuad = new THREE.Pass.FullScreenQuad(this.material);
+};
+
+THREE.FilmPass.prototype = Object.assign(Object.create(THREE.Pass.prototype), {
+  constructor: THREE.FilmPass,
+  render: function render(renderer, writeBuffer, readBuffer, deltaTime
+  /*, maskActive */
+  ) {
+    this.uniforms["tDiffuse"].value = readBuffer.texture;
+    this.uniforms["time"].value += deltaTime;
+
+    if (this.renderToScreen) {
+      renderer.setRenderTarget(null);
+      this.fsQuad.render(renderer);
+    } else {
+      renderer.setRenderTarget(writeBuffer);
+      if (this.clear) renderer.clear();
+      this.fsQuad.render(renderer);
+    }
+  }
+});
+/* harmony default export */ const FilmPass = (THREE.FilmPass);
+;// CONCATENATED MODULE: ./src/components/_third-party-plugins/THREE/esm/shaders/FilmShader.js
+/**
+ * @author alteredq / http://alteredqualia.com/
+ *
+ * Film grain & scanlines shader
+ *
+ * - ported from HLSL to WebGL / GLSL
+ * http://www.truevision3d.com/forums/showcase/staticnoise_colorblackwhite_scanline_shaders-t18698.0.html
+ *
+ * Screen Space Static Postprocessor
+ *
+ * Produces an analogue noise overlay similar to a film grain / TV static
+ *
+ * Original implementation and noise algorithm
+ * Pat 'Hawthorne' Shearon
+ *
+ * Optimized scanlines + noise version with intensity scaling
+ * Georg 'Leviathan' Steinrohder
+ *
+ * This version is provided under a Creative Commons Attribution 3.0 License
+ * http://creativecommons.org/licenses/by/3.0/
+ */
+THREE.FilmShader = {
+  uniforms: {
+    "tDiffuse": {
+      value: null
+    },
+    "time": {
+      value: 0.0
+    },
+    "nIntensity": {
+      value: 0.5
+    },
+    "sIntensity": {
+      value: 0.05
+    },
+    "sCount": {
+      value: 4096
+    },
+    "grayscale": {
+      value: 1
+    }
+  },
+  vertexShader: ["varying vec2 vUv;", "void main() {", "vUv = uv;", "gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );", "}"].join("\n"),
+  fragmentShader: ["#include <common>", // control parameter
+  "uniform float time;", "uniform bool grayscale;", // noise effect intensity value (0 = no effect, 1 = full effect)
+  "uniform float nIntensity;", // scanlines effect intensity value (0 = no effect, 1 = full effect)
+  "uniform float sIntensity;", // scanlines effect count value (0 = no effect, 4096 = full effect)
+  "uniform float sCount;", "uniform sampler2D tDiffuse;", "varying vec2 vUv;", "void main() {", // sample the source
+  "vec4 cTextureScreen = texture2D( tDiffuse, vUv );", // make some noise
+  "float dx = rand( vUv + time );", // add noise
+  "vec3 cResult = cTextureScreen.rgb + cTextureScreen.rgb * clamp( 0.1 + dx, 0.0, 1.0 );", // get us a sine and cosine
+  "vec2 sc = vec2( sin( vUv.y * sCount ), cos( vUv.y * sCount ) );", // add scanlines
+  "cResult += cTextureScreen.rgb * vec3( sc.x, sc.y, sc.x ) * sIntensity;", // interpolate between source and result by intensity
+  "cResult = cTextureScreen.rgb + clamp( nIntensity, 0.0,1.0 ) * ( cResult - cTextureScreen.rgb );", // convert to grayscale if desired
+  "if( grayscale ) {", "cResult = vec3( cResult.r * 0.3 + cResult.g * 0.59 + cResult.b * 0.11 );", "}", "gl_FragColor =  vec4( cResult, cTextureScreen.a );", "}"].join("\n")
+};
+/* harmony default export */ const FilmShader = (THREE.FilmShader);
+;// CONCATENATED MODULE: ./src/components/simple-3D-filmic-effects/js/index.js
+
+
+
+/* 
+ *************************************
+ * <!-- 3D Filmic Effects -->
+ *************************************
+ */
+ //filter basic
+//---------------------
+
+
+
+
+
+
+
+
+ //Extra filter -- film
+//---------------------
+
+ //Extra filter -- film
+//---------------------
+
+
+
+var THREE_FILMIC_EFF = function (module, $, window, document) {
+  if (window.THREE_FILMIC_EFF === null) return false;
+  module.THREE_FILMIC_EFF = module.THREE_FILMIC_EFF || {};
+  module.THREE_FILMIC_EFF.version = '0.0.2';
+
+  module.THREE_FILMIC_EFF.documentReady = function ($) {
+    //Prevent this module from loading in other pages
+    if ($('#3D-filmic-effects-canvas').length == 0 || !Modernizr.webgl) return false;
+    var sceneSubjects = []; // Import objects and animations dynamically
+
+    var MainStage = function () {
+      var windowWidth = window.innerWidth,
+          windowHeight = window.innerHeight;
+      var rendererCanvasID = '3D-filmic-effects-canvas'; // Generate one plane geometries mesh to scene
+      //-------------------------------------	
+
+      var camera,
+          scene,
+          lights = [],
+          renderer,
+          clock = new THREE.Clock();
+      var intersectionPlane;
+      var composer, bloomPass, filmPass;
+
+      function init() {
+        //=================
+        //camera
+        camera = new THREE.PerspectiveCamera(60, windowWidth / windowHeight, 1, 10000);
+        camera.position.set(0, 0, 100);
+        camera.lookAt(new THREE.Vector3(0, 0, 0)); //=================
+        //Scene
+
+        scene = new THREE.Scene(); //=================
+        //Lights
+
+        lights[0] = new THREE.PointLight(0xffffff, 1, 0);
+        lights[1] = new THREE.PointLight(0xffffff, 1, 0);
+        lights[2] = new THREE.DirectionalLight(0xffffff);
+        lights[0].position.set(0, 200, 0);
+        lights[1].position.set(100, 200, 100);
+        lights[2].position.set(120, 200, 0);
+        lights[2].intensity = 0.6;
+        scene.add(lights[0]);
+        scene.add(lights[1]);
+        scene.add(lights[2]); //=================
+        //WebGL Renderer		
+
+        renderer = new THREE.WebGLRenderer({
+          canvas: document.getElementById(rendererCanvasID),
+          //canvas
+          alpha: true,
+          antialias: true
+        });
+        renderer.setSize(windowWidth, windowHeight);
+        renderer.shadowMap.enabled = true;
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap; //=================
+        //add bloom effect
+
+        bloomPass = new THREE.BloomPass(1, // strength
+        25, // kernel size
+        4, // sigma ?
+        256); //add film effect
+
+        filmPass = new THREE.FilmPass(0.35, // noise intensity
+        0.025, // scanline intensity
+        648, // scanline count
+        false); //-----
+
+        var renderPass = new THREE.RenderPass(scene, camera);
+        var effectCopy = new THREE.ShaderPass(THREE.CopyShader);
+        effectCopy.renderToScreen = true;
+        composer = new THREE.EffectComposer(renderer);
+        composer.addPass(renderPass);
+        composer.addPass(bloomPass);
+        composer.addPass(filmPass);
+        composer.addPass(effectCopy); //=================
+
+        var planeGeometry = new THREE.PlaneGeometry(100000, 100000);
+        var planeMaterial = new THREE.MeshNormalMaterial({
+          side: THREE.DoubleSide
+        });
+        intersectionPlane = new THREE.Mesh(planeGeometry, planeMaterial);
+        intersectionPlane.visible = false;
+        scene.add(intersectionPlane);
+        var hoverMaterial = new THREE.MeshNormalMaterial();
+        var neutralMaterial = new THREE.MeshLambertMaterial({
+          color: 0xffcccc
+        });
+        var selectedMaterial = new THREE.MeshBasicMaterial({
+          color: 0x55ff88
+        });
+        var neutralGeometry = new THREE.IcosahedronGeometry(30, 1);
+        var mesh = new THREE.Mesh(neutralGeometry, neutralMaterial);
+        mesh.position.x = 0;
+        mesh.position.y = 0;
+        mesh.position.z = 0;
+        scene.add(mesh); //=================
+        // Fires when the window changes
+
+        window.addEventListener('resize', onWindowResize, false);
+      }
+
+      function render() {
+        requestAnimationFrame(render); //To set a background color.
+
+        renderer.setClearColor(0x000000); //push objects
+
+        /*
+        @Usage: 
+             function CustomObj( scene ) {
+                 const elements = new THREE...;
+                scene.add( elements );
+                 this.update = function( time ) {
+                    elements.rotation.y = time*0.003;
+                }
+            }       
+             sceneSubjects.push( new CustomObj( MainStage.getScene() ) );  
+        */
+
+        for (var i = 0; i < sceneSubjects.length; i++) {
+          sceneSubjects[i].update(clock.getElapsedTime() * 1);
+        } //render the scene with filter
+
+
+        composer.render();
+      }
+
+      function onWindowResize() {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      } // 
+      //-------------------------------------	
+
+
+      return {
+        init: init,
+        render: render,
+        getRendererCanvasID: function getRendererCanvasID() {
+          return rendererCanvasID;
+        },
+        getScene: function getScene() {
+          return scene;
+        },
+        getCamera: function getCamera() {
+          return camera;
+        }
+      };
+    }(); // 
+
+
+    MainStage.init();
+    MainStage.render(); // Add stars to scene
+    //-------------------------------------	
+
+    var starScene = MainStage.getScene();
+    var starCamera = MainStage.getCamera();
+
+    function Stars(scene, terrainSize) {
+      var starsGeometry = new THREE.IcosahedronGeometry(terrainSize, 4); // geometry deformation
+
+      for (var i = 0; i < starsGeometry.vertices.length; i += 1) {
+        var scalar = 1 + Math.random() + Math.random();
+        starsGeometry.vertices[i].multiplyScalar(scalar);
+      }
+
+      var textureLoader = new THREE.TextureLoader();
+      textureLoader.setCrossOrigin("anonymous");
+      var texture = textureLoader.load('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABmJLR0QAAAACAAIUyQ49AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3AUUFhoiw1VdsQAAAB1pVFh0Q29tbWVudAAAAAAAQ3JlYXRlZCB3aXRoIEdJTVBkLmUHAAAIQUlEQVR42u1baW/bRhB9u6Qkx1fiOFGcNCiaAGn//+9pG7RxTie1Y8u2TnL65a0xmcxSlCxbaWECCx6iyZ03b86lgbvtblvbJiKFiBTrnENcMwY9jjsA1rWVt0z54ADgXUcIQf7zADiCBXPc5XEBQDjS394KIOUNCx4ygmsTLAjERP0m5vgKkFUDUd6g4J7wHhgdAJsAppnHBgWIrBqI8hYE935L50n7mwDOtQlYk7CArAqI8gaE985zIBQ0g66JSFp4aQBDRCRcB4RyBcI3CW1/j4YVyQd0uIcStHYAsEBcsWFZEMoVaz2q82iuefcnBkQDgHWCtQJFzDVcx0mWS2hbGrQdG469vyk5Otx7mq7Ne615ZE2ijXm0BiCEICISAewwZE0c4aMR3u5hmFGoURpN63AoCojaMRMLQjKrKYBqlSZQ86E/8fjQCB/nnFszKc0Qh/I6DNaO5i0IDwnoOZXUuBVLmEAFYAZgjy87NQIXmREppL52nxGgAnCRAS7nUL3tCYBdKmkQQqhW4gNMShsAXAL4BOA5gN8AnAD4qgCwgFgTCer9hdrDsKDm31RzANiiaW5ybscAZiv1AU64uwTwkSD0AewDeGNAKBwAogGgQ0Z1jNevlb0HBYLdHlPwgiw64vNCJndYrBw2sd6OCwAfeNwD8Mo4NX1cGq/fUd7fnuvhPS+B+5Rm2AUwBvCZ9L+ao1dpLtsP0NrXNjqkOSQbf+UIUToC2uNew72l4z+e0Q9FCn+khMccX9HOBDKZXlR5fDoeKnMoAPzKa5/VxK0/0FEAAO5RkET7Stm/nu8ugA0CJjTFL4r20SZTTZliuYT27SgUCMkxBjqlXQDvjD/QjjBpOdKOKxPzrd0/pvCiIscXJycJJodY3ASU9uEI7yU6BTX4SYXYLoCXGcp3lG13yICciZS09/u8Ho3N58Lm1dxzviAuoX00mEOkNo4UhTsEwXOG3YwPsOHxgMKnUDmk5msn05zXj1jYBOZVetEZFZnwSGVmv1Bjuhm6p9piJQUbq+ZI5DM2eE2Y4R2rHCEquudKcLluHuA5Qc8cbKw/UxlaQSZ0yJJN0joBcKr+5lz1CUoCWjPhOqNAUYFQm/lIG+GzADTU+cgA4bGgUGHyhM7xIbW+w98eK1qfkxXHBOhSsWHG66NMUhUUENYMGqNBuUQegBZABOMc0/FTAnAAYJspbFQM2KSg50ywjgnCiYrxMVN2t5nvtavB0KLVZUFJtr5LAZ8TgC2CkLYdOrrPzCkmFP6dET73Ti8MXhuANq2ueaGyR8H69AX7dGyb5v09ldMnk3iXabCEOUpp7QiXaYlFE7p0KOuaNHaDdt8n/fsUfov32DWClPwMyYhUcgvtf0Y2pDHh/VPVpJl6LbPWDGDXpzRZms7Be0xaNlQ48xKdgvf1lfb3SPtOprRNawTbBOpE9QmGStiZGuk8mcyI905U7wLcVyIyBVCFEOrvAKD37yoH1TONjKBA6ahrIdPP013fxJiiYcFEFMg6W4yZDrH2OR2z0FITgEqlzmMCeiEi4xCClM7620hExvTA1psX1PwWX7KpihI9mUq1sOpMA3NuJa5aXloYfa5NYszQeUkhx/xdd5LlOmEwTSY9+CJDfX28RSpu0/ntA3hAlolhQZpYpeL/B/Yd3/N9U4f69lhrvZVDW1Qj9lrttLHS+ZQaOac9J/ucZhY89P1nZNulub923ikt59sOANJEMr34JsFrQ9EpNXdCQc5UojNR2qp4fsoa4oT3DciYqaF/3QKI7+bv9QTKBbUvplWtX+wBEKl1ofDvlSndY36QzGBAoQ8Z/08ISGrD/5kRvjYsqhsWTpbKAyTj5a32gxE+OdBtVbunxuUp4/y+mkPS/t8sp9+QNR2+52cAb1XXyGOBFyVk1QDAYYP2+pXqCO3RjpMD+0JKf1QO8R7vHwD4i/cccQz4+0M++wmjzgf1rjb0X6jA8apCu5wVzWJHNA2PfQqfkqRUzXVZE+ySGem4w3WFQ5pKKomT3aeMMp1fEKx0PlOA6P3VgmquJ9gWANsDtAsgpdr3KXxKnqq0UKFA2uDosiTuUeA3KuWtTLzf4LOTsCMAr9W5BUCa4n/rkrGBBcFZ+jogrZPwEzqzmWmI6q7wAYU7V9SWjEYLApZq/wmAP5yMr5X2F02E7Eqt7sSkju22KlxGqiMUTQsrqvx8zGfMjDZrR7Njan2L7wtstf2+TARoBQCXxT0wdBTo0+mJalhOFTvqzNJY4H2lSmm9pbHKsOErtf+Ez3upQGhF/WUZAMMCGOEvGe5mzgKFtzgaTCqby/gqhxGnBOGAz31Bc/ASt+sBQBYEh1r79OIVhf/HEd42MG2zQufvsxYJlh4DvjctkL5gwqQz2tW0xBxTeEThh5zIRSZpqk273LKgcgCoTSUomQwwhcBD+oVn9Amv234rtFA1qEB4QIc3IuUnjn2L4zhhogmc5gZMCV037HUWOGAWecDU+e1NNEWhmhoD2uEM336+EhTt7fpcMGmzNYEK/kdSkinArNO7ZILUFZGdEMJgpQDQD4gSHEbj3hpChP9lWdpsLe/l8k2fyX1zPz+LGYpIEJGYWl8rY0AIYWwAsQ0Tb3U296EkTBpbod2HknNLXVXSr9YHZHyC193x2tPiZJ8jFjyV+hYg96msZLS+nk9lTYiUhuwxt7wGRo8txYKmiu67Bs3aP5bWk8iwwUuk9HZBFjQ1UFcu+EoBmAOEzCm6Zsqhenn8N9d+6H+YyACBzHK1jQQwqznS5H9+aABykzaZpD4Z2mv/i3+amgeIAmZ0m0KvDYCGbYK77W6729ax/Qsf5ETUur8sQgAAAABJRU5ErkJggg==');
+      var starMaterial = new THREE.PointsMaterial({
+        map: texture,
+        color: "#fff",
+        size: 20,
+        blending: THREE.AdditiveBlending,
+        transparent: false
+      });
+      var stars = new THREE.Points(starsGeometry, starMaterial);
+      scene.add(stars);
+
+      this.update = function (time) {
+        stars.rotation.y = time * 0.13;
+      };
+    }
+
+    sceneSubjects.push(new Stars(starScene, 150));
+  };
+
+  module.components.documentReady.push(module.THREE_FILMIC_EFF.documentReady);
+  return /*#__PURE__*/_createClass(function THREE_FILMIC_EFF() {
+    _classCallCheck(this, THREE_FILMIC_EFF);
+
+    this.module = module;
+  });
+}(UixModuleInstance, jQuery, window, document);
+;// CONCATENATED MODULE: ./src/components/simple-3D-simulate-html-layout/js/index.js
+
+
+
+
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = js_unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function js_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return js_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return js_arrayLikeToArray(o, minLen); }
+
+function js_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+/* 
+ *************************************
+ * <!-- Simulate HTML Layout with threejs -->
+ *************************************
+ */
+
+var THREE_SIMULATE_HTML_LAYOUT = function (module, $, window, document) {
+  if (window.THREE_SIMULATE_HTML_LAYOUT === null) return false;
+  module.THREE_SIMULATE_HTML_LAYOUT = module.THREE_SIMULATE_HTML_LAYOUT || {};
+  module.THREE_SIMULATE_HTML_LAYOUT.version = '0.0.2';
+
+  module.THREE_SIMULATE_HTML_LAYOUT.documentReady = function ($) {
+    //Prevent this module from loading in other pages
+    if ($('#app-3D-page-container').length == 0 || !Modernizr.webgl) return false; //=====================================================================================
+    //=====================================================================================
+    //==============================THREE.js===============================================
+    //=====================================================================================
+    //=====================================================================================
+    //=====================================================================================
+    //scroll spy
+
+    var scrollY = 0;
+    var touchStartY = 0;
+    var _event = {
+      y: 0,
+      deltaY: 0
+    };
+    var scrollTrigger = document.getElementById('app-3D-page-container');
+    var maxHeight = (scrollTrigger.clientHeight || scrollTrigger.offsetHeight) - window.innerHeight; // THREE PARAMS
+    //-------------------------------------	
+
+    var camera = null,
+        scene = null,
+        renderer;
+    var clock = new THREE.Clock(),
+        time = 0;
+    var dataBGSources = []; // Loader manager
+
+    var loadingManager = new THREE.LoadingManager();
+
+    loadingManager.onLoad = function () {//console.log( '▶▶▶▶▶ Loading complete! ◀◀◀◀◀◀' );
+    };
+
+    loadingManager.onProgress = function (item, loaded, total) {//console.log( '▶▶▶▶▶ LoadingManager ◀◀◀◀◀◀ ( item: '+item+', loaded: '+loaded+', total: '+total+')' );
+    };
+
+    loadingManager.onError = function (url) {
+      console.log('▶▶▶▶▶ There was an error loading ◀◀◀◀◀◀  ' + url);
+    };
+
+    var loaderImage = new THREE.TextureLoader(loadingManager);
+    loaderImage.crossOrigin = 'anonymous';
+
+    function SubStageInit($rendererInnerCanvas, wrapperHeight, wrapperWidth, offsetLeft) {
+      console.log('wrapperHeight: ' + wrapperHeight); //=================
+      //camera
+
+      camera = new THREE.OrthographicCamera(-wrapperWidth / wrapperHeight / 2, wrapperWidth / wrapperHeight / 2, 1 / 2, -1 / 2, -0.1, 0.1);
+      camera.position.set(0, 0, 0);
+      camera.lookAt(new THREE.Vector3(0, 0, 0)); //=================
+      //Scene
+
+      scene = new THREE.Scene(); //=================
+      //WebGL Renderer		
+
+      renderer = new THREE.WebGLRenderer({
+        alpha: true,
+        antialias: true
+      });
+      renderer.setSize(wrapperWidth, wrapperHeight);
+      renderer.shadowMap = true;
+      renderer.shadowMapSoft = true;
+      $rendererInnerCanvas[0].appendChild(renderer.domElement); //=================
+      // Immediately use the texture for material creation
+
+      var i = 0; //update image data
+
+      document.querySelectorAll('.app-coverWebgl ~ img').forEach(function (thisImg) {
+        dataBGSources.forEach(function (item, i) {
+          if (item.url.indexOf(thisImg.src) >= 0 || thisImg.src == item.url) {
+            item.visibleWidth = thisImg.width;
+            item.visibleHeight = thisImg.height;
+            item.top = thisImg.getBoundingClientRect().top;
+            item.left = thisImg.getBoundingClientRect().left;
+          }
+        });
+      });
+      console.log(dataBGSources);
+      document.querySelectorAll('.app-coverWebgl').forEach(function (thisImg) {
+        var _curURL = thisImg.getAttribute('data-url');
+
+        var ratio; //
+
+        (function (index) {
+          window['tex' + i] = loaderImage.load(_curURL);
+          window['tex' + i].anisotropy = renderer.capabilities.getMaxAnisotropy();
+        })(i); //
+
+
+        dataBGSources.forEach(function (item, i) {
+          if (item.url.indexOf(_curURL) >= 0 || _curURL == item.url) {
+            ratio = wrapperWidth / wrapperHeight;
+
+            var _offsetLeft = offsetLeft / wrapperWidth * ratio;
+
+            window['geometry' + i] = new THREE.BoxBufferGeometry(item.visibleWidth / wrapperHeight, item.visibleHeight / wrapperHeight, 40 / wrapperHeight);
+            window['tex' + i].wrapS = window['tex' + i].wrapT = THREE.RepeatWrapping;
+            window['materiel' + i] = new THREE.MeshBasicMaterial({
+              map: window['tex' + i]
+            });
+            window['materiel' + i].map.minFilter = THREE.LinearFilter;
+            window['mesh' + i] = new THREE.Mesh(window['geometry' + i], window['materiel' + i]);
+            window['mesh' + i].material.transparent = true;
+            window['mesh' + i].position.y = -(item.top + item.visibleHeight / 2) / wrapperHeight + 0.5; // car origine repere est au centre du view
+
+            window['mesh' + i].position.x = (item.left * ratio + item.visibleWidth * ratio / 2) / wrapperWidth - 0.5 * ratio - _offsetLeft; // car origine repere est au centre du view
+            //
+
+            scene.add(window['mesh' + i]); //console.log( window['mesh' + i] );
+          }
+        });
+        i++;
+      }); //=================
+      // Add function to the window that should be resized
+
+      var debounceFuncWindow = UixDebounce(function () {
+        windowUpdate(wrapperWidth, wrapperHeight);
+      }, 50);
+      window.removeEventListener('resize', debounceFuncWindow);
+      window.addEventListener('resize', debounceFuncWindow); //=================
+      // Add function to the element that should be used as the scrollable area.
+
+      var throttleFunc = UixThrottle(scrollUpdate, 5);
+      scrollTrigger.removeEventListener('scroll', throttleFunc);
+      scrollTrigger.removeEventListener('touchmove', throttleFunc);
+      scrollTrigger.addEventListener('scroll', throttleFunc);
+      scrollTrigger.addEventListener('touchmove', throttleFunc);
+      throttleFunc();
+      /*
+      mobile example:
+      scrollTrigger.addEventListener('touchstart', onTouchStart);
+      scrollTrigger.addEventListener('touchmove', onTouchMove);
+      */
+    }
+
+    function SubStageRender() {
+      requestAnimationFrame(SubStageRender); //To set a background color.
+      //renderer.setClearColor( 0x000000 );	
+
+      var delta = clock.getDelta(); //objects animation
+
+      dataBGSources.forEach(function (item, i) {
+        window['mesh' + i].rotation.y = 0.01 * scrollY;
+        window['mesh' + i].rotation.x = 0.004 * scrollY;
+      }); //render the scene to display our scene through the camera's eye.
+
+      renderer.render(scene, camera);
+    }
+
+    function windowUpdate(w, h) {
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+      renderer.setSize(w, h);
+    } //Destroy the 3D rendering process
+
+
+    function destroy3DScene() {
+      console.log('Destroy the 3D rendering process!'); //Clear the animations and scenes
+      //------
+
+      cancelAnimationFrame(SubStageRender);
+      scene.remove(); //Clear the renderer cache, no need to use in this demo
+      //------
+
+      renderer.dispose();
+      renderer.forceContextLoss();
+      renderer.content = null;
+      renderer.domElement = null; //Clear the cache of the current obj object
+      //------
+
+      var cleanMaterial = function cleanMaterial(material) {
+        //console.log('dispose material!')
+        material.dispose(); // dispose textures
+
+        for (var _i = 0, _Object$keys = Object.keys(material); _i < _Object$keys.length; _i++) {
+          var key = _Object$keys[_i];
+          var value = material[key];
+
+          if (value && (0,esm_typeof/* default */.Z)(value) === 'object' && 'minFilter' in value) {
+            //console.log('dispose texture!')
+            value.dispose();
+          }
+        }
+      };
+
+      scene.traverse(function (object) {
+        if (!object.isMesh) return; //console.log('dispose geometry!');
+
+        object.geometry.dispose();
+
+        if (object.material.isMaterial) {
+          cleanMaterial(object.material);
+        } else {
+          // an array of materials
+          var _iterator = _createForOfIteratorHelper(object.material),
+              _step;
+
+          try {
+            for (_iterator.s(); !(_step = _iterator.n()).done;) {
+              var material = _step.value;
+              cleanMaterial(material);
+            }
+          } catch (err) {
+            _iterator.e(err);
+          } finally {
+            _iterator.f();
+          }
+        }
+      });
+    } //=====================================================================================
+    //=====================================================================================
+    //===================================SCROLL ANIMATION==================================
+    //=====================================================================================
+    //=====================================================================================
+    //=====================================================================================
+
+
+    function scrollUpdate(e) {
+      scrollY = scrollTrigger.scrollTop;
+      console.log(scrollTrigger.scrollTop);
+    }
+
+    ;
+    /*
+    mobile example
+    function onTouchStart (e) {
+    	var t = (e.targetTouches) ? e.targetTouches[0] : e;
+    	touchStartY = t.pageY;
+    };
+    	function onTouchMove (e) {
+    	var evt = _event;
+    	var t = (e.targetTouches) ? e.targetTouches[0] : e;
+    	evt.deltaY = (t.pageY - touchStartY) * 5;
+    	touchStartY = t.pageY;
+    	};*/
+    //=====================================================================================
+    //=====================================================================================
+    //===================================IMAGES LOADER====================================
+    //=====================================================================================
+    //=====================================================================================
+    //=====================================================================================
+
+    var sources = []; //Push all images from page
+
+    $('section').find('img').each(function () {
+      sources.push({
+        "url": this.src,
+        "type": 'img'
+      }); //
+
+      dataBGSources.push({
+        w: 0,
+        h: 0,
+        visibleWidth: 0,
+        visibleHeight: 0,
+        top: 0,
+        left: 0,
+        url: this.src
+      });
+    }); //===========
+
+    var loadImages = function loadImages() {
+      var promises = [];
+
+      var _loop = function _loop(i) {
+        if (sources[i].type == 'img') {
+          ///////////
+          // IMAGE //
+          ///////////   
+          promises.push(new Promise(function (resolve, reject) {
+            var img = new Image();
+            img.src = sources[i].url;
+
+            img.onload = function (image) {
+              //Compatible with safari and firefox
+              if ((0,esm_typeof/* default */.Z)(image.path) === ( true ? "undefined" : 0)) {
+                return resolve({
+                  w: 0,
+                  h: 0,
+                  url: image.target.currentSrc
+                });
+              } else {
+                return resolve({
+                  w: image.path[0].naturalWidth,
+                  h: image.path[0].naturalHeight,
+                  url: image.path[0].currentSrc
+                });
+              }
+            };
+          }).then(textureLoaded));
+        }
+      };
+
+      for (var i = 0; i < sources.length; i++) {
+        _loop(i);
+      }
+
+      return Promise.all(promises);
+    };
+
+    var k = 0;
+
+    var textureLoaded = function textureLoaded(data) {
+      //console.log( data );
+      var _curURL = data.url;
+      var _curW = data.w;
+      var _curH = data.h; //update image data
+
+      dataBGSources.forEach(function (item, i) {
+        if (_curURL.indexOf(item.url) >= 0 || _curURL == item.url) {
+          item.w = _curW;
+          item.h = _curH;
+        }
+      });
+      k++;
+      return k;
+    }; //============
+    //images loaded
+    //Must be placed behind the loadImages()
+
+
+    loadImages().then(function (images) {
+      console.log('------images loaded!------'); //in order to calculate a correct height for all images
+
+      setTimeout(function () {
+        //Run 3D rendering process
+        var $innerCanvas = $('#app-3D-page-container').find('.app-innerCanvas');
+        var canvasPosOffsetX = 15;
+        var canvasPosOffsetY = -$('#app-3D-page-container')[0].getBoundingClientRect().top;
+        $innerCanvas.css({
+          'position': 'absolute',
+          'z-index': '-1',
+          'left': 0,
+          'top': canvasPosOffsetY
+        });
+
+        if ($innerCanvas.length > 0) {
+          SubStageInit($innerCanvas, $('#app-3D-page-container').find('.app-work-detail__wrapper').outerHeight(true), $('#app-3D-page-container').find('.app-work-detail__wrapper').outerWidth(true), $('#app-3D-page-container').find('.app-work-detail__wrapper').offset().left - canvasPosOffsetX);
+          SubStageRender();
+        }
+
+        $('#app-3D-page-container').css('overflow-y', 'auto');
+      }, 500);
+    });
+  };
+
+  module.components.documentReady.push(module.THREE_SIMULATE_HTML_LAYOUT.documentReady);
+  return /*#__PURE__*/_createClass(function THREE_SIMULATE_HTML_LAYOUT() {
+    _classCallCheck(this, THREE_SIMULATE_HTML_LAYOUT);
+
+    this.module = module;
+  });
+}(UixModuleInstance, jQuery, window, document);
+;// CONCATENATED MODULE: ./src/components/table/js/basic.js
+
+
+
+
+/* 
+ *************************************
+ * <!-- Responsive Table -->
+ *************************************
+ */
+
+
+var TABLE = function (module, $, window, document) {
+  if (window.TABLE === null) return false;
+  module.TABLE = module.TABLE || {};
+  module.TABLE.version = '0.0.5';
+
+  module.TABLE.documentReady = function ($) {
+    var windowWidth = window.innerWidth,
+        windowHeight = window.innerHeight;
+    /* 
+     ---------------------------
+     Duplicate title
+     ---------------------------
+     */
+
+    $('.js-uix-table--responsive').each(function (index) {
+      var $this = $(this);
+      $this.find(' thead th').each(function (index) {
+        var data = $(this).html().replace(/<span[^>]*>[\s\S]+<\/span>/g, '');
+
+        if ((0,esm_typeof/* default */.Z)($(this).attr('data-table')) === ( true ? "undefined" : 0)) {
+          $(this).attr('data-table', data);
+        }
+      });
+      $this.find(' tbody tr').each(function (index) {
+        $(this).find('> td').each(function (index) {
+          var data = $this.find(' thead th').eq(index).attr('data-table');
+          $(this).attr('data-table', data);
+        });
+      });
+    });
+    /* 
+     ---------------------------
+     With scroll bars
+     ---------------------------
+     */
+
+    tableDataScrolledInit(windowWidth);
+
+    function windowUpdate() {
+      // Check window width has actually changed and it's not just iOS triggering a resize event on scroll
+      if (window.innerWidth != windowWidth) {
+        // Update the window width for next time
+        windowWidth = window.innerWidth; // Do stuff here
+
+        tableDataScrolledInit(windowWidth);
+      }
+    } // Add function to the window that should be resized
+
+
+    var debounceFuncWindow = UixDebounce(windowUpdate, 50);
+    window.removeEventListener('resize', debounceFuncWindow);
+    window.addEventListener('resize', debounceFuncWindow);
+
+    function tableDataScrolledInit(w) {
+      //Add an identifier so that the mobile terminal can compare by row
+      $('.js-uix-table--responsive-scrolled').each(function (index) {
+        var $this = $(this);
+        $this.find(' tbody tr').each(function (index) {
+          $(this).find('> td').each(function (index) {
+            $this.find(' thead th').eq(index).attr('data-table-row', index);
+            $(this).attr('data-table-row', index);
+          });
+        });
+      });
+
+      if (w <= 768) {
+        //get maxHeight of per row
+        $('.js-uix-table--responsive-scrolled').each(function (index) {
+          var $this = $(this);
+          var len = $this.find(' tbody tr').length;
+
+          var _loop = function _loop(i) {
+            var _heights = [];
+            $this.find(' [data-table-row="' + i + '"]').each(function (index) {
+              var tempheight = $(this).outerHeight();
+
+              _heights.push(tempheight);
+            });
+            var maxHeight = Math.max.apply(Math, _heights);
+            $this.find(' [data-table-row="' + i + '"]').css({
+              'height': maxHeight + 'px'
+            });
+          };
+
+          for (var i = 0; i < len; i++) {
+            _loop(i);
+          }
+        });
+      } else {
+        $('.js-uix-table--responsive-scrolled tbody td, .js-uix-table--responsive-scrolled thead th').removeAttr('style');
+      }
+    }
+  };
+
+  module.components.documentReady.push(module.TABLE.documentReady);
+  return /*#__PURE__*/_createClass(function TABLE() {
+    _classCallCheck(this, TABLE);
+
+    this.module = module;
+  });
+}(UixModuleInstance, jQuery, window, document);
+// EXTERNAL MODULE: ./src/components/table/js/fn/sort-elements.js
+var sort_elements = __webpack_require__(782);
+;// CONCATENATED MODULE: ./src/components/table/js/sorter.js
+
+
+
+/* 
+ *************************************
+ * <!-- Table Sorter -->
+ *************************************
+ */
+
+
+
+var TABLE_SORTER = function (module, $, window, document) {
+  if (window.TABLE_SORTER === null) return false;
+  module.TABLE_SORTER = module.TABLE_SORTER || {};
+  module.TABLE_SORTER.version = '0.0.3';
+
+  module.TABLE_SORTER.documentReady = function ($) {
+    $('.js-uix-table-sorter').each(function () {
+      var $sortTable = $(this).find('table'); //add arrows
+
+      $sortTable.find("[data-sort-type]").each(function () {
+        if ($(this).find('.uix-table-sorter').length == 0) {
+          $(this).wrapInner('<span class="uix-table-sorter" />');
+        }
+
+        var $th = $(this),
+            thIndex = $th.index(),
+            thType = $th.data('sort-type');
+        var inverse = false;
+        $th.off('click').on('click', function () {
+          $sortTable.find('tbody td').filter(function () {
+            return $(this).index() === thIndex;
+          }).sortElements(function (a, b) {
+            var txt1 = $.text([a]).replace(/(<([^>]+)>)/ig, ''),
+                txt2 = $.text([b]).replace(/(<([^>]+)>)/ig, ''); //type of number
+
+            if (thType == 'number') {
+              txt1 = Number(txt1.replace(/[^0-9.-]+/g, ''));
+              txt2 = Number(txt2.replace(/[^0-9.-]+/g, ''));
+            } //type of date
+
+
+            if (thType == 'date') {
+              txt1 = new Date(txt1);
+              txt2 = new Date(txt2);
+            } //add filter class
+
+
+            $sortTable.find('tbody tr').addClass('js-uix-newsort');
+
+            if (txt1 > txt2) {
+              if (inverse) {
+                return -1;
+              } else {
+                return 1;
+              }
+            } else {
+              if (inverse) {
+                return 1;
+              } else {
+                return -1;
+              }
+            }
+          }, function () {
+            // parentNode is the element we want to move
+            return this.parentNode;
+          });
+          inverse = !inverse;
+        });
+      });
+    });
+  };
+
+  module.components.documentReady.push(module.TABLE_SORTER.documentReady);
+  return /*#__PURE__*/_createClass(function TABLE_SORTER() {
+    _classCallCheck(this, TABLE_SORTER);
+
+    this.module = module;
+  });
+}(UixModuleInstance, jQuery, window, document);
+;// CONCATENATED MODULE: ./src/components/tabs/js/index.js
+
+
+
+
+/* 
+ *************************************
+ * <!-- Tabs -->
+ *************************************
+ */
+
+
+var TABS = function (module, $, window, document) {
+  if (window.TABS === null) return false;
+  module.TABS = module.TABS || {};
+  module.TABS.version = '0.1.5';
+
+  module.TABS.documentReady = function ($) {
+    $('.uix-tabs').each(function (id) {
+      var $this = $(this);
+      var $li = $this.find('.uix-tabs__nav ul > li'),
+          liWidth = $li.first().outerWidth(),
+          liHeight = $li.first().outerHeight(),
+          liNum = $li.length,
+          $contentbox = $this.find('.uix-tabs__content'),
+          tabBoxID = id;
+      var fullwidth = $this.data('fullwidth'),
+          rotation = $this.data('rotation'),
+          rotationRadius = $this.data('rotation-radius'),
+          rotationWapperDeg = $this.data('rotation-wrapper-angle'),
+          rotationDisplay = $this.data('rotation-display');
+
+      if ((0,esm_typeof/* default */.Z)(fullwidth) != ( true ? "undefined" : 0) && fullwidth == 1) {
+        $li.css('width', 100 / liNum + '%');
+      }
+
+      if ((0,esm_typeof/* default */.Z)(rotation) === ( true ? "undefined" : 0)) {
+        rotation = false;
+      }
+
+      if ((0,esm_typeof/* default */.Z)(rotationWapperDeg) === ( true ? "undefined" : 0)) {
+        rotationWapperDeg = 0;
+      }
+
+      if ((0,esm_typeof/* default */.Z)(rotationDisplay) === ( true ? "undefined" : 0)) {
+        rotationDisplay = 5;
+      }
+
+      $li.each(function (index) {
+        index = index + 1;
+        $(this).attr('href', 'javascript:');
+        $(this).attr('data-tab', tabBoxID + '-tabs-show' + index);
+      });
+      $($contentbox).each(function (index) {
+        index = index + 1;
+        $(this).attr('id', tabBoxID + '-tabs-show' + index);
+      }); // Tab Sliding Effext
+
+      if ($this.find('.uix-tabs__nav ul > li:first .uix-tabs__marker').length == 0) {
+        $this.find('.uix-tabs__nav ul > li:first').prepend('<div class="uix-tabs__marker"></div>');
+      }
+      /*
+      ////////////////////////////////////////////////////////////
+      ////////////////   Rotation Effect   //////////////////
+      ////////////////////////////////////////////////////////////
+      */
+      // angle = rad / ( Math.PI / 180 )  = rad * ( 180/Math.PI );
+      // rad = Math.PI / 180 * 30 ;
+
+
+      if (rotation) {
+        $this.find('.uix-tabs__nav').css({
+          'width': rotationRadius * 2 + 'px'
+        });
+        $this.find('.uix-tabs__nav ul').css({
+          'width': rotationRadius * 2 + 'px',
+          'height': rotationRadius * 2 + 'px',
+          'transform': 'rotate(' + parseFloat(rotationWapperDeg) + 'deg)'
+        }); //Layout components in a circle layout
+
+        var step = 2 * Math.PI / rotationDisplay,
+            pad = $this.find('.uix-tabs__nav ul').width();
+        var angle = 0,
+            transitionDelay = 0;
+        $this.find('.uix-tabs__nav ul > li').each(function () {
+          //Can'nt use arrow function here!!!
+          // 'this' works differently with arrow fucntions
+          var el = $(this),
+              x = rotationRadius * Math.cos(angle) - liWidth / 2,
+              y = rotationRadius * Math.sin(angle) - liHeight / 2;
+          el.css({
+            'transform': 'translate(' + parseFloat(x) + 'px,' + parseFloat(pad / 2 + y) + 'px)',
+            'transition-delay': transitionDelay + "s"
+          }).find('> a').css({
+            'transform': 'rotate(' + parseFloat(-rotationWapperDeg) + 'deg)'
+          });
+          angle += step;
+          transitionDelay += 0.15;
+        }); //Click on the rotation effect
+
+        $this.off('click').on('click', '.uix-tabs__nav ul > li', function (e) {
+          var tabID = $(this).attr('data-tab'),
+              currentIndex = $(this).index(); // the style of the active item
+
+          $this.find('.uix-tabs__nav ul > li').removeClass('is-active');
+          $this.find('.uix-tabs__content').removeClass('is-active');
+          $(this).addClass('is-active');
+          $('#' + tabID).addClass('is-active'); // rotation animation
+
+          var increase = Math.PI * 2 / rotationDisplay,
+              endAngle = currentIndex % rotationDisplay * increase;
+
+          (function turn() {
+            if (Math.abs(endAngle - angle) > 1 / 8) {
+              var sign = endAngle > angle ? 1 : -1;
+              angle = angle + sign / 8;
+              setTimeout(turn, 20);
+            } else {
+              angle = endAngle;
+            }
+
+            $this.find('.uix-tabs__nav ul > li').each(function (index) {
+              var x2 = Math.cos(-Math.PI / 2 + index * increase - angle) * rotationRadius - liWidth / 2,
+                  y2 = Math.sin(-Math.PI / 2 + index * increase - angle) * rotationRadius + liHeight;
+              $(this).css({
+                'transform': 'translate(' + parseFloat(x2) + 'px,' + parseFloat(y2) + 'px)',
+                'transition': 'none',
+                'transition-delay': 0
+              }).find('> a').css({
+                'transform': 'rotate(' + parseFloat(-rotationWapperDeg) + 'deg)'
+              });
+            });
+          })();
+        });
+      }
+      /*
+      ////////////////////////////////////////////////////////////
+      ////////////////////   Default Events   ////////////////////
+      ////////////////////////////////////////////////////////////
+      */
+
+
+      if (!rotation) {
+        $this.off('click').on('click', '.uix-tabs__nav ul > li', function (e) {
+          var tabID = $(this).attr('data-tab'),
+              currentIndex = $(this).index(); // the style of the active item
+
+          $this.find('.uix-tabs__nav ul > li').removeClass('is-active');
+          $this.find('.uix-tabs__content').removeClass('is-active');
+          $(this).addClass('is-active');
+          $('#' + tabID).addClass('is-active'); //sliding marker
+
+          var translateX = currentIndex * 100,
+              liHeight = $this.find('.uix-tabs__nav ul > li:first').outerHeight(),
+              translateY = currentIndex * liHeight;
+
+          if (window.innerWidth <= 768) {
+            $this.find('.uix-tabs__marker').css({
+              'transform': 'translateY( ' + translateY + 'px )'
+            });
+          } else {
+            $this.find('.uix-tabs__marker').css({
+              'transform': 'translateX( ' + translateX + '% )'
+            });
+          }
+
+          return false;
+        });
+      }
+      /*
+      ////////////////////////////////////////////////////////////
+      ////////////////////////   Init Items  /////////////////////
+      ////////////////////////////////////////////////////////////
+      */
+
+
+      $this.find('.uix-tabs__nav ul > li.is-active').trigger('click'); //Active current tab
+
+      var url = window.location.href,
+          locArr,
+          loc,
+          curTab;
+
+      if (url.indexOf('#') >= 0) {
+        locArr = url.split('#');
+        loc = locArr[1];
+        curTab = $('.uix-tabs').find('ul > li:eq(' + loc + ')');
+        curTab.trigger('click');
+      }
+    });
+  };
+
+  module.components.documentReady.push(module.TABS.documentReady);
+  return /*#__PURE__*/_createClass(function TABS() {
+    _classCallCheck(this, TABS);
+
+    this.module = module;
+  });
+}(UixModuleInstance, jQuery, window, document);
+;// CONCATENATED MODULE: ./src/components/team-focus/js/index.js
+
+
+
+
+/* 
+ *************************************
+ * <!-- Team Focus -->
+ *************************************
+ */
+
+
+var TEAM_FOCUS = function (module, $, window, document) {
+  if (window.TEAM_FOCUS === null) return false;
+  module.TEAM_FOCUS = module.TEAM_FOCUS || {};
+  module.TEAM_FOCUS.version = '0.0.4';
+
+  module.TEAM_FOCUS.documentReady = function ($) {
+    var teamFocusContent = '.uix-team-focus',
+        teamFocusMask = '.uix-team-focus__mask';
+    $(teamFocusContent).each(function () {
+      var $this = $(this);
+      var thisID = 'uix-team-focus-' + UixGUID.create(),
+          el = '#' + thisID + '> div';
+      var total = 0;
+      var hoverWidth = $this.data('hover-width'),
+          targetWidth = $this.data('target-width'),
+          // Div over width as a percentage 
+      targetInfo = $this.data('target-info'),
+          // Corresponding character details display
+      closeBtn = $this.data('close-btn');
+      $this.attr('id', thisID);
+
+      if ((0,esm_typeof/* default */.Z)(hoverWidth) === ( true ? "undefined" : 0)) {
+        hoverWidth = 20;
+      }
+
+      if ((0,esm_typeof/* default */.Z)(targetWidth) === ( true ? "undefined" : 0)) {
+        targetWidth = 80;
+      }
+
+      if ((0,esm_typeof/* default */.Z)(closeBtn) === ( true ? "undefined" : 0)) {
+        closeBtn = '.close';
+      }
+
+      if ((0,esm_typeof/* default */.Z)(targetInfo) === ( true ? "undefined" : 0)) {
+        targetInfo = '.uix-team-focus__info';
+      }
+
+      total = $(el).length;
+      TweenMax.set(el, {
+        width: 100 / total + '%'
+      }); //Add an index to each item
+
+      $(el).each(function (index) {
+        $(this).attr('data-index', index);
+      }); //Create item hover overlay effects
+
+      $(el).on('mouseenter', function () {
+        var $cur = $(this),
+            $neighbor = $cur.siblings().not('.focus'); //Get the siblings of each element in the set of matched elements
+
+        TweenMax.to($cur, 0.3, {
+          width: hoverWidth + '%'
+        });
+        TweenMax.to($neighbor, 0.3, {
+          width: (100 - hoverWidth) / (total - 1) + '%'
+        });
+      }); //Display the target item
+
+      $(document).off('click.TEAM_FOCUS').on('click.TEAM_FOCUS', el, function (e) {
+        e.preventDefault();
+        var $cur = $(this),
+            $neighbor = $cur.siblings(),
+            //Get the siblings of each element in the set of matched elements
+        $cloneItem = $cur.clone(); //The mask prevent click and hover
+
+        $(teamFocusMask).show();
+        $(el).removeClass('is-active');
+        $cur.addClass('is-active');
+        var $info = $(targetInfo),
+            cName = $cur.data('name'),
+            cPo = $cur.data('po'),
+            cIntro = $cur.data('intro');
+        TweenMax.set($info, {
+          css: {
+            opacity: 0,
+            display: 'none'
+          },
+          onComplete: function onComplete() {
+            TweenMax.to(this.target, 0.5, {
+              css: {
+                opacity: 1,
+                display: 'block'
+              }
+            });
+          }
+        });
+        $info.find('h4 strong').html(cName);
+        $info.find('h4 em').html(cPo);
+        $info.find('.uix-team-focus__info__text').html(cIntro);
+
+        if (!$cur.hasClass('focus')) {
+          $(el + '.focus').remove();
+          TweenMax.set($cloneItem, {
+            alpha: 0,
+            onComplete: function onComplete() {
+              this.target.prependTo('#' + thisID).addClass('focus');
+            }
+          });
+          TweenMax.to(el, 0.3, {
+            alpha: 1
+          });
+          TweenMax.to($cur, 0.3, {
+            alpha: 0
+          });
+          TweenMax.to($neighbor, 0.3, {
+            alpha: 0.3
+          });
+        }
+      }); //Close the focus item
+
+      $(document).off('click.TEAM_FOCUS_CLOSE').on('click.TEAM_FOCUS_CLOSE', el + '.focus, ' + closeBtn + ', ' + targetInfo + ', ' + teamFocusMask, function (e) {
+        e.preventDefault(); //Remove the mask
+
+        $(teamFocusMask).hide();
+        TweenMax.to(el, 0.3, {
+          width: 100 / total + '%',
+          ease: Back.easeOut
+        });
+        TweenMax.to(el + '.focus', 0.3, {
+          alpha: 0,
+          onComplete: function onComplete() {
+            $(el + '.focus').remove();
+            TweenMax.to(el, 0.3, {
+              alpha: 1
+            });
+          }
+        });
+        var $info = $(targetInfo);
+        TweenMax.to($info, 0.5, {
+          css: {
+            opacity: 0,
+            display: 'none'
+          }
+        });
+        $info.find('h4 strong').html('');
+        $info.find('h4 em').html('');
+        $info.find('.uix-team-focus__info__text').html('');
+      });
+    });
+  };
+
+  module.components.documentReady.push(module.TEAM_FOCUS.documentReady);
+  return /*#__PURE__*/_createClass(function TEAM_FOCUS() {
+    _classCallCheck(this, TEAM_FOCUS);
+
+    this.module = module;
+  });
+}(UixModuleInstance, jQuery, window, document);
+;// CONCATENATED MODULE: ./src/components/text-effect/js/fn/text-anime.js
+
+
+/*
+ * Text Animation
+ *
+ * @param  {String} selectors                - Text wrapper ID or class name.
+ * @return {Void}
+ */
+
+
+(function ($) {
+  $.fn.UixTextEff = function (options) {
+    // This is the easiest way to have default options.
+    var settings = $.extend({
+      selectors: '.letters-eff-fadeInRight',
+      scrollSpy: false
+    }, options);
+    this.each(function () {
+      var customControls = settings.selectors;
+      var scrollSpy = settings.scrollSpy;
+      var $this = $(customControls);
+      var speed = $this.data('text-eff-speed'),
+          txtEff;
+
+      if ((0,esm_typeof/* default */.Z)(speed) === ( true ? "undefined" : 0)) {
+        speed = 1200;
+      } //The data-text-eff attribute must be unique, otherwise it will not execute correctly.
+
+
+      if ($this.length > 1) return false;
+      $this.html($this.text().replace(/([^\x00-\x80]|\w|((?=[\x21-\x7e]+)[^A-Za-z0-9]))/g, "<span class='uix-letter'>$&</span>")); //--------------
+
+      if (customControls.indexOf('fadeInRight') >= 0) {
+        txtEff = anime.timeline({
+          loop: false
+        }).add({
+          targets: customControls + ' .uix-letter',
+          translateX: [40, 0],
+          translateZ: 0,
+          opacity: [0, 1],
+          easing: "easeOutExpo",
+          duration: speed,
+          delay: function delay(el, i) {
+            return 500 + 30 * i;
+          }
+        });
+      } //--------------
+
+
+      if (customControls.indexOf('zoomInDown') >= 0) {
+        txtEff = anime.timeline({
+          loop: false
+        }).add({
+          targets: customControls + ' .uix-letter',
+          scale: [0, 1],
+          duration: speed,
+          elasticity: 600,
+          delay: function delay(el, i) {
+            return 45 * (i + 1);
+          }
+        });
+      } //--------------
+
+
+      if (customControls.indexOf('flyInOut') >= 0) {
+        txtEff = anime.timeline({
+          loop: false
+        }).add({
+          targets: customControls + ' .uix-letter',
+          translateX: [40, 0],
+          translateZ: 0,
+          opacity: [0, 1],
+          easing: "easeOutExpo",
+          duration: speed,
+          delay: function delay(el, i) {
+            return 500 + 30 * i;
+          }
+        });
+      } //--------------
+
+
+      if (customControls.indexOf('fading') >= 0) {
+        txtEff = anime.timeline({
+          loop: false
+        }).add({
+          targets: customControls + ' .uix-letter',
+          opacity: [0, 1],
+          easing: "easeInOutQuad",
+          duration: speed,
+          delay: function delay(el, i) {
+            return 150 * (i + 1);
+          }
+        });
+      } //--------------
+
+
+      if (customControls.indexOf('floatingUp') >= 0) {
+        txtEff = anime.timeline({
+          loop: false
+        }).add({
+          targets: customControls + ' .uix-letter',
+          translateY: ["1.1em", 0],
+          translateZ: 0,
+          duration: speed,
+          delay: function delay(el, i) {
+            return 50 * i;
+          }
+        });
+      } //--------------
+
+
+      if (customControls.indexOf('scaleIn') >= 0) {
+        txtEff = anime.timeline({
+          loop: false
+        }).add({
+          targets: customControls + ' .uix-letter',
+          opacity: [0, 1],
+          scale: [3.5, 1],
+          duration: speed
+        });
+      }
+
+      txtEff.pause();
+
+      if (!scrollSpy) {
+        txtEff.play();
+      } else {
+        var viewport = 1; //
+
+        var scrollUpdate = function scrollUpdate() {
+          var spyTop = $this[0].getBoundingClientRect().top; //Prevent asynchronous loading of repeated calls
+
+          var actived = $this.data('activated');
+
+          if (spyTop < window.innerHeight * viewport) {
+            if ((0,esm_typeof/* default */.Z)(actived) === ( true ? "undefined" : 0)) {
+              txtEff.play(); //Prevents front-end javascripts that are activated in the background to repeat loading.
+
+              $this.data('activated', 1);
+            } //endif actived
+
+          }
+        }; // Add function to the element that should be used as the scrollable area.
+
+
+        var throttleFunc = UixThrottle(scrollUpdate, 5);
+        window.removeEventListener('scroll', throttleFunc);
+        window.removeEventListener('touchmove', throttleFunc);
+        window.addEventListener('scroll', throttleFunc);
+        window.addEventListener('touchmove', throttleFunc); // Prevent calculation errors caused by unloaded completion
+
+        if (document.readyState != 'loading') {
+          throttleFunc();
+        } else if (document.addEventListener) {
+          document.addEventListener('DOMContentLoaded', throttleFunc);
+        } else {
+          document.attachEvent('onreadystatechange', function () {
+            if (document.readyState != 'loading') throttleFunc();
+          });
+        }
+      }
+    });
+  };
+})(jQuery);
+;// CONCATENATED MODULE: ./src/components/text-effect/js/index.js
+
+
+
+/* 
+ *************************************
+ * <!-- Text effect -->
+ *************************************
+ */
+
+/**
+ * module.TEXT_EFFECT
+ * 
+ * @requires ./examples/assets/js/min/anime.min.js
+ * @example 
+
+ //The data-text-eff attribute on the same page cannot be duplicated.
+
+<h3 data-text-eff="letters-eff-flyInOut1" data-text-eff-speed="800">Text Text</h3>
+<h3 data-text-eff="letters-eff-flyInOut2" data-text-eff-speed="800">Text Text</h3>
+<h3 data-text-eff="letters-eff-flyInOut3" data-text-eff-speed="800">Text Text</h3>
+ 
+ */
+
+
+
+var TEXT_EFFECT = function (module, $, window, document) {
+  if (window.TEXT_EFFECT === null) return false;
+  module.TEXT_EFFECT = module.TEXT_EFFECT || {};
+  module.TEXT_EFFECT.version = '0.0.5';
+
+  module.TEXT_EFFECT.pageLoaded = function () {
+    $('[data-text-eff]').each(function (index) {
+      $(document).UixTextEff({
+        selectors: '[data-text-eff="' + $(this).data('text-eff') + '"]',
+        scrollSpy: true
+      });
+    });
+  };
+
+  module.components.pageLoaded.push(module.TEXT_EFFECT.pageLoaded);
+  return /*#__PURE__*/_createClass(function TEXT_EFFECT() {
+    _classCallCheck(this, TEXT_EFFECT);
+
+    this.module = module;
+  });
+}(UixModuleInstance, jQuery, window, document);
+;// CONCATENATED MODULE: ./src/components/timeline/js/index.js
+
+
+
+
+/* 
+ *************************************
+ * <!-- Timeline -->
+ *************************************
+ */
+
+
+var TIMELINE = function (module, $, window, document) {
+  if (window.TIMELINE === null) return false;
+  module.TIMELINE = module.TIMELINE || {};
+  module.TIMELINE.version = '0.1.8';
+
+  module.TIMELINE.pageLoaded = function () {
+    var windowWidth = window.innerWidth,
+        windowHeight = window.innerHeight;
+    /*! 
+     ---------------------------
+           Horizontal Timeline
+     ---------------------------
+     */
+
+    $('.uix-timeline__container-wrapper.js-uix-timeline').each(function () {
+      var $this = $(this);
+      var $container = $this.find('.uix-timeline__container'),
+          $timeline = $container.find('> .uix-timeline');
+      var dir = $this.hasClass('is-vertical') ? 'vertical' : 'horizontal';
+      var dateShowEle = $timeline.data('show-ele');
+
+      if ((0,esm_typeof/* default */.Z)(dateShowEle) === ( true ? "undefined" : 0)) {
+        dateShowEle = '#timeline-number-show';
+      }
+
+      $this.find('.uix-timeline__btn--prev').off('click').on('click', function (e) {
+        e.preventDefault();
+        timelineUpdate($this, null, dateShowEle, true, dir);
+        return false;
+      });
+      $this.find('.uix-timeline__btn--next').off('click').on('click', function (e) {
+        e.preventDefault();
+        timelineUpdate($this, null, dateShowEle, false, dir);
+        return false;
+      });
+      $this.find('.uix-timeline__item .uix-timeline__item__img').off('click').on('click', function (e) {
+        e.preventDefault();
+        timelineUpdate($this, $(this).parent(), dateShowEle, false, dir);
+        return false;
+      }); //Activate the default selection
+
+      timelineUpdate($this, $this.find('.uix-timeline__item.is-active'), dateShowEle, false, dir);
+
+      if ($this.find('.uix-timeline__item.is-active').index() == 0) {
+        $this.find('.uix-timeline__btn--prev').addClass('is-disabled');
+      } // for reversed timeline
+
+
+      if (dir === 'horizontal' && $this.hasClass('is-reversed') && windowWidth > 768) {
+        // Set equal heights
+        var setEqualHeights = function setEqualHeights(el) {
+          var counter = 0;
+
+          for (var i = 0; i < el.length; i++) {
+            var singleHeight = $(el[i]).outerHeight(true);
+
+            if (counter < singleHeight) {
+              counter = singleHeight;
+            }
+          }
+
+          for (var k = 0; k < el.length; k++) {
+            $(el[k]).css('height', counter + 'px');
+          }
+
+          return counter;
+        }; // Reset container height
+
+
+        var infoNewHeight = setEqualHeights($timeline.find('.uix-timeline__item__info'));
+        $container.css({
+          'padding': parseFloat(infoNewHeight + 64) + 'px 0'
+        });
+      }
+    });
+    /*
+     * Method that updates items of timeline
+     *
+     * @param  {Element} obj                 - Wrapper of timeline.
+     * @param  {?Element} iscur              - The current item.
+     * @param  {String} showEle              - Element ID or class name that push the current text.
+     * @param  {Boolean} prev                - Whether to slide forward.
+           * @param  {String} dir                  - Timeline direction.
+     * @return {Void}
+     */
+
+    function timelineUpdate(obj, iscur, showEle, prev, dir) {
+      var itemsTotal = obj.find('.uix-timeline__item').length,
+          tNav = obj.find('.uix-timeline__item'),
+          tLoop = false;
+      var curIndex = obj.find('.uix-timeline__item.is-active').index(),
+          tarIndex; //Check if a value is an object currently
+
+      if (iscur != null && (0,esm_typeof/* default */.Z)(iscur) === 'object') {
+        curIndex = iscur.index();
+        tarIndex = curIndex;
+      } else {
+        if (prev) {
+          tarIndex = curIndex >= 0 ? curIndex - 1 : 0;
+        } else {
+          tarIndex = curIndex < itemsTotal ? curIndex + 1 : itemsTotal - 1;
+        }
+      } //loop the items
+
+
+      obj.find('.uix-timeline__btn--prev, .uix-timeline__btn--next').removeClass('is-disabled');
+
+      if (prev) {
+        //Previous
+        if (tLoop) {
+          if (tarIndex < 0) tarIndex = itemsTotal - 1;
+        } else {
+          if (tarIndex < 0) tarIndex = 0;
+          if (tarIndex == 0) obj.find('.uix-timeline__btn--prev').addClass('is-disabled');
+        }
+      } else {
+        //Next
+        if (tLoop) {
+          if (tarIndex == itemsTotal) tarIndex = 0;
+        } else {
+          if (tarIndex > itemsTotal - 1) tarIndex = itemsTotal - 1;
+          if (tarIndex > itemsTotal - 2) obj.find('.uix-timeline__btn--next').addClass('is-disabled');
+          if (tarIndex == 0) obj.find('.uix-timeline__btn--prev').addClass('is-disabled');
+        }
+      }
+
+      tNav.removeClass('is-active');
+      obj.find('.uix-timeline__item:eq(' + tarIndex + ')').addClass('is-active'); //scroll left
+
+      if (dir === 'horizontal') {
+        var moveWidth = 0;
+
+        for (var i = 0; i < tarIndex; i++) {
+          moveWidth += obj.find('.uix-timeline__item:eq(' + i + ')').width();
+        }
+
+        obj.find('.uix-timeline__container > .uix-timeline').css({
+          'margin-left': -parseFloat(moveWidth) + 'px'
+        });
+      } //scroll top
+
+
+      if (dir == 'vertical') {
+        var moveHeight = 0;
+
+        for (var _i = 0; _i < tarIndex; _i++) {
+          moveHeight += obj.find('.uix-timeline__item:eq(' + _i + ')').outerHeight(true);
+        }
+
+        obj.find('.uix-timeline__container > .uix-timeline').css({
+          'margin-top': -parseFloat(moveHeight) + 'px'
+        });
+      } //Push the current text to element 
+
+
+      $(showEle).text(obj.find('.uix-timeline__item:eq(' + tarIndex + ')').find('.uix-timeline__item__date').text());
+    }
+  };
+
+  module.components.pageLoaded.push(module.TIMELINE.pageLoaded);
+  return /*#__PURE__*/_createClass(function TIMELINE() {
+    _classCallCheck(this, TIMELINE);
+
+    this.module = module;
+  });
+}(UixModuleInstance, jQuery, window, document);
+;// CONCATENATED MODULE: ./src/components/vertical-menu/js/index.js
+
+
+
+/* 
+ *************************************
+ * <!-- Vertical Menu -->
+ *************************************
+ */
+
+
+var VERTICAL_MENU = function (module, $, window, document) {
+  if (window.VERTICAL_MENU === null) return false;
+  module.VERTICAL_MENU = module.VERTICAL_MENU || {};
+  module.VERTICAL_MENU.version = '0.0.6';
+
+  module.VERTICAL_MENU.documentReady = function ($) {
+    var windowWidth = window.innerWidth,
+        windowHeight = window.innerHeight;
+    var ulForDesktop = '.uix-v-menu__container:not(.is-mobile) ul.uix-menu'; // Menu Hover
+
+    var mTop = 15;
+    $(ulForDesktop + ' > li.multi-column > ul li ul').addClass('multi');
+    $(ulForDesktop + ' > li:not(.multi-column) ul, .uix-v-menu__container:not(.is-mobile) li.multi-column > ul.sub-menu > li > ul, ' + ulForDesktop + ' li.multi-column > ul').css('margin-top', mTop + 'px');
+    $(ulForDesktop + ' li').on('mouseenter', function () {
+      TweenMax.set($(this).find(' > ul.sub-menu:not(.multi), .uix-menu__arrow-mega'), {
+        css: {
+          opacity: 0,
+          display: 'block',
+          marginTop: mTop + 'px'
+        },
+        onComplete: function onComplete() {
+          TweenMax.to(this.target, 0.3, {
+            css: {
+              opacity: 1,
+              marginTop: 0
+            },
+            ease: Power2.easeOut
+          });
+        }
+      }); //Calculate whether the total width of a large navigation is greater than the window
+
+      var megaMenuW = $(ulForDesktop + ' > li.multi-column > ul').width(),
+          megaMaxW = parseFloat(windowWidth - $(ulForDesktop).parent().width()),
+          megaMenuCoLength = $(ulForDesktop + ' > li.multi-column > ul > li').length;
+
+      if (megaMenuW > megaMaxW) {
+        $(ulForDesktop + ' > li.multi-column > ul > li').css('width', megaMaxW / megaMenuCoLength + 'px');
+      }
+    }).on('mouseleave', function () {
+      TweenMax.to($(this).find(' > ul.sub-menu:not(.multi), .uix-menu__arrow-mega'), 0.3, {
+        css: {
+          opacity: 0,
+          marginTop: mTop + 'px'
+        },
+        onComplete: function onComplete() {
+          TweenMax.set(this.target, {
+            css: {
+              display: 'none'
+            }
+          });
+        }
+      });
+    }); //Add Sub-menu Arrow
+
+    $(ulForDesktop + ' li').each(function () {
+      if ($(this).find('ul').length > 0) {
+        $(this).prepend('<span class="uix-menu__arrow"></span>');
+      }
+    }); //Monitor the maximum height of the vertical navigation
+
+    menuWrapInit(windowHeight);
+
+    function windowUpdate() {
+      // Check window height has actually changed and it's not just iOS triggering a resize event on scroll
+      if (window.innerHeight != windowHeight) {
+        // Update the window height for next time
+        windowHeight = window.innerHeight; // Do stuff here
+
+        menuWrapInit(windowHeight);
+      }
+    } // Add function to the window that should be resized
+
+
+    var debounceFuncWindow = UixDebounce(windowUpdate, 50);
+    window.removeEventListener('resize', debounceFuncWindow);
+    window.addEventListener('resize', debounceFuncWindow);
+    /*
+     * Monitor the maximum height of the vertical navigation
+     *
+     * @param  {Number} h         - Returns height of browser viewport
+     * @return {Void}
+     */
+
+    function menuWrapInit(h) {
+      var $menuWrap = $('.uix-v-menu__container:not(.is-mobile)'),
+          vMenuTop = 0; //This value is equal to the $vertical-menu-top variable in the SCSS
+
+      var winHeight = h - vMenuTop; //WoedPress spy
+
+      if ($('.admin-bar').length > 0) {
+        winHeight = h - 132;
+      }
+
+      $menuWrap.css({
+        position: 'fixed',
+        height: winHeight + 'px',
+        marginTop: 0
+      });
+
+      function scrollUpdate() {
+        var curULHeight = $('ul.uix-menu').height(),
+            scrolled = $(window).scrollTop();
+
+        if (curULHeight > winHeight) {
+          $menuWrap.css({
+            position: 'absolute',
+            height: curULHeight + 'px'
+          });
+
+          if (scrolled >= curULHeight - winHeight) {
+            $menuWrap.css({
+              position: 'fixed',
+              marginTop: -(curULHeight - winHeight) + 'px'
+            });
+          } else {
+            $menuWrap.css({
+              position: 'absolute',
+              marginTop: 0
+            });
+          }
+        }
+
+        if ($menuWrap.height() < winHeight) {
+          $menuWrap.css({
+            position: 'fixed',
+            height: winHeight + 'px',
+            marginTop: 0
+          });
+        }
+      } // Add function to the element that should be used as the scrollable area.
+
+
+      var throttleFunc = UixThrottle(scrollUpdate, 5);
+      window.removeEventListener('scroll', throttleFunc);
+      window.removeEventListener('touchmove', throttleFunc);
+      window.addEventListener('scroll', throttleFunc);
+      window.addEventListener('touchmove', throttleFunc);
+      throttleFunc();
+    }
+  };
+
+  module.components.documentReady.push(module.VERTICAL_MENU.documentReady);
+  return /*#__PURE__*/_createClass(function VERTICAL_MENU() {
+    _classCallCheck(this, VERTICAL_MENU);
+
+    this.module = module;
+  });
+}(UixModuleInstance, jQuery, window, document);
+;// CONCATENATED MODULE: ./src/components/wordpress/js/index.js
+
+
+
+/* 
+ *************************************
+ * <!-- WordPress Core Scripts -->
+ *************************************
+ */
+
+
+
+
+var WP_CORE = function (module, $, window, document) {
+  if (window.WP_CORE === null) return false;
+  module.WP_CORE = module.WP_CORE || {};
+  module.WP_CORE.version = '0.0.1';
+
+  module.WP_CORE.documentReady = function ($) {
+    /* 
+     ---------------------------
+     Pagination
+     ---------------------------
+     */
+    $('.uix-pagination__container li > span.current').each(function () {
+      $(this).parent('li').addClass('is-active');
+    });
+    /* 
+     ---------------------------
+     Dropdown Categories
+     ---------------------------
+     */
+
+    $('#cat').on('change', function () {
+      var cvalue = $(this).val();
+
+      if (cvalue) {
+        location.href = homeUrl + "/?cat=" + cvalue;
+      }
+
+      return false;
+    });
+  };
+
+  module.components.documentReady.push(module.WP_CORE.documentReady);
+  return /*#__PURE__*/_createClass(function WP_CORE() {
+    _classCallCheck(this, WP_CORE);
+
+    this.module = module;
+  });
+}(UixModuleInstance, jQuery, window, document);
+;// CONCATENATED MODULE: ./src/components/_app-load.js
+/*
+ * Common website functions, Can be called separately in HTML pages or custom JavaScript.
+ *    
+ */
+
+
+
+/*
+ * Import modules from components
+ *    
+ */
+
+/******/
+
+/******/
+
+/* base */
+
+/* Note: The CSS style file has been included by JavaScript files */
+
+
+
+
+
+
+
+
+
+
+/******/
+
+/******/
+
+/* pages */
+
+/* Note: The CSS style file has been included by JavaScript files */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/******/
+
+/******/
+
+/* pages */
+
+/* Note: These modules do not contain JavaScript */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+;// CONCATENATED MODULE: ./src/index.js
+/*
+ * Import modules from components of ES6
+ * 
+ *        
+ */
+
+})();
+
+/******/ })()
+;
+//# sourceMappingURL=js/uix-kit.js.map

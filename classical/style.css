@@ -1,0 +1,219 @@
+@charset "utf-8";
+
+.title {
+    color: green;
+}
+
+/*八卦图*/
+.baguatu {
+	position:relation;
+	height:110px;
+	letter-spacing:-5px;
+	font-size:9px;
+	line-height:20px;
+	float:left;
+	margin-left:3px;
+	margin-right:10px;
+	padding-right: 5px;
+	background-color:yellow;
+	font-family:"宋体";
+}
+
+
+/*标题上下卦名*/
+.baguatext {
+	position:relation;
+	float:left;
+	height:115px;
+	font-size:10px;
+	font-weight:bold;
+	line-height:55px;
+	vertical-align:middle;
+	padding-top:2px;
+	padding-left:2px;
+	padding-right:2px;
+	color:white;
+	background-color:green;
+}
+.mobile .baguatext {
+	/*font-size:32px;*/
+}
+
+/*标题文字*/
+.title3 {
+	position:relation;
+	height:60px;
+	font-size:36px;
+	font-weight:bold;
+	vertical-align:middle;
+	padding-top:4px;
+	padding-left:4px;
+	padding-right:4px;
+	color:white;
+	background-color:green;
+}
+
+big,code {
+	line-height:130%;
+	color:white;
+	background:#0066CC;
+	margin-left:1px;
+	margin-right:1px;
+	padding-left:1px;
+	padding-right:1px;
+	padding-top:2px;
+}
+.guaci big {
+	margin-right:10px;
+}
+
+/*卦辞*/
+.guaci {
+	font-size:13px;
+	font-weight:bold;
+	color:#FF6600;
+}
+.mobile .guaci {
+	/*font-size:24px;*/
+}
+
+.tuan big {
+	margin-right:10px;
+	background:#00897b;
+}
+
+/*彖曰*/
+.tuan {
+	font-size:13px;
+	color:#800000;
+	font-weight:lighter;
+	padding:0;
+	margin:0;
+}
+.mobile .tuan {
+	/*font-size:24px;*/
+	margin:0;
+	margin-top:10px;
+	margin-right:0px;
+	margin-bottom:10px;
+	margin-left:0px;
+}
+.daxiang big {
+	margin-right:10px;
+}
+
+.daxiang {
+	font-size:13px;
+	font-weight:lighter;
+	padding:0;
+	margin:0;
+}
+/*爻辞*/
+.yaoci {
+	font-size:14px;
+	font-weight:bold;
+	line-height:20px;
+	color:blue;
+	margin-left:40px;
+}
+/*.mobile .yaoci {
+	font-size:30px;
+	line-height:45px;
+}*/
+/*----------------------------*/
+/*象曰*/
+.xiang {
+	font-size:13px;
+	color:#0099FF;
+	font-weight:lighter;
+	margin-bottom: 3px;
+}
+.mobile .xiang {
+	/*font-size:23px;*/
+}
+.mobile .xiangci {
+	/*font-size:23px;*/
+}
+
+/*经文*/
+.jingwen {
+	color:#006600;
+	background:#FFFFEC;
+	border:1px dotted #ff8a80;
+	padding:1px;
+	font-size:20px;
+	/*margin-left:2em; */
+	text-align:left;
+	/*margin-right:2em; */
+}
+.mobile .jingwen {
+	font-size:14px;
+    line-height: 20px;
+}
+
+
+/*注释*/
+.comment {
+	font-size:18px;
+	color:DarkSlateGray;
+}
+.comment p {
+	border:1px dashed #bcaaa4;
+	margin-bottom: 0px;
+}
+.mobile .comment {
+	font-size:12px;
+}
+
+/*注释*/
+.commentinner {
+	font-size:18px;
+	color:#3949ab;
+	font-weight:normal;
+	text-decoration:underline;
+	font-style:oblique;
+}
+.mobile .commentinner {
+	font-size:12px;
+}
+
+/*译文*/
+.yiwen {
+	color:Teal;
+}
+.yiwen p {
+	font-size:22px;
+	margin-bottom: 0px;
+	border:1px dashed #bcaaa4;
+}
+.mobile .yiwen p {
+	font-size:12px;
+}
+
+/*解读 谷梁*/
+.jiedu {
+	color: #9e9d24;
+}
+.jiedu p {
+	font-size:24px;
+	margin-bottom: 0px;
+	border:1px dotted #bcaaa4;
+}
+.mobile .jiedu p {
+	font-size:12px;
+}
+/*引用*/
+.yin {
+	font-size:13px;
+	/*color:DimGray;*/
+	color:#FF6600;
+	font-weight:lighter;
+}
+.xiaoxiang {
+	font-size:13px;
+	color:DimGray;
+	font-weight:lighter;
+}
+.mobile .yin {
+	/*font-size:23px;*/
+}

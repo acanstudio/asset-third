@@ -1,0 +1,190 @@
+﻿@charset "utf-8";
+rb {
+	font-size:16px;
+	padding-top:3px;
+}
+rt {
+	font-size:14px;
+	font-family:Arial;
+}
+ruby {
+	padding:0 3px;
+}
+.main {
+	padding:0 0.8em;
+}
+p {
+	line-height:20px;
+	border-top:1px  solid #C0DCC0;
+	text-indent:2em;
+	padding-top:5px;
+	font-size:19px;
+	text-align:left;
+	letter-spacing:1px;
+}
+p:hover {
+	background:#f1f1dd;
+}
+pre {
+	color:black;
+	margin-bottom:0px;
+	font-size:11px;
+	font-weight:light;
+}
+/*---------------*/
+/*经文*/
+.jingwen {
+	color:#006600;
+	background:#FFFFEC;
+	border:1px solid #000000;
+	padding:1px;
+	font-size:20px;
+	/*margin-left:2em;
+	*/
+	text-align:left;
+	/*margin-right:2em;
+	*/
+}
+.mobile .jingwen {
+	font-size:14px;
+}
+.tip {
+	color:brown;
+	cursor:help;
+}
+.disp {
+	display:none;
+}
+/*译文*/
+.yiwen {
+	color:Teal;
+}
+.yiwen p {
+	font-size:22px;
+}
+.mobile .yiwen p {
+	font-size:12px;
+}
+/*解读 谷梁*/
+.jiedu {
+	color:#660000;
+}
+.jiedu p {
+	font-size:24px;
+}
+.mobile .jiedu p {
+	font-size:12px;
+}
+/*注释*/
+.comment {
+	font-size:18px;
+	color:DarkSlateGray;
+}
+.mobile .comment {
+	font-size:24px;
+}
+.mobile .comment p {
+	font-size:12px;
+	margin-bottom: 0.25rem;
+}
+/*注释*/
+.commentinner {
+	font-size:18px;
+	#color:DarkSlateGray;
+	color:#3949ab;
+	font-weight:normal;
+	text-decoration:underline;
+	font-style:oblique;
+}
+.mobile .commentinner {
+	font-size:12px;
+}
+/*注释二，历代大儒中使用,春秋繁露题解用*/
+.zhushi {
+	color:gray;
+	font-size:16px;
+}
+/*引用 公羊*/
+.yinyong {
+	color:#3333CC;
+}
+/*评析 左传*/
+.pingxi {
+	color:#000000;
+}
+/*按钮*/
+.button {
+	border-top:1px solid #ccccff;
+	border-left:1px solid #ccccff;
+	border-right:2px solid #999966;
+	border-bottom:2px solid #999966;
+	margin:2px;
+	padding-top:4px;
+	padding-bottom:2px;
+	color:DarkSlateGray;
+	background:PaleGoldenrod;
+	text-align:center;
+	font-size:11px;
+	/*font-weight:bold;
+	*/
+	line-height:20px;
+	display:inline-block;
+	text-indent:0;
+}
+.mobile .button {
+	font-size:14px;
+	line-height:30px;
+}
+.width6em {
+	width:8em;
+}
+.mobile .width6em {
+	width:4em;
+}
+.width4em {
+	width:4em;
+	cursor:hand;
+}
+.mobile .width4em {
+	width:2em;
+	cursor:hand;
+}
+table {
+	line-height:16px;
+	font-size:14px;
+	font-family:"Microsoft YaHei";
+}
+.b_center {
+	text-align:center;
+	margin:30px 0 5px 0;
+}
+.mobile .b_center {
+	text-align:center;
+	margin:30px 0 30px 0;
+}
+
+
+.uix-floating-side-el {
+    background: #ce3a3e;
+    background: linear-gradient(180deg,#81b0b7 0,#f4fff7);
+    box-shadow: 0 5px 15px 0 rgb(0 0 0 / 7%), 0 15px 35px 0 rgb(50 50 93 / 10%);
+    height: auto;
+    position: absolute;
+    right: 10px;
+    top: 90%;
+    transform: translateY(-50%);
+    width: 58px;
+    z-index: 25;
+}
+
+.uix-floating-side-el a {
+    border-bottom: 1px solid hsla(0,0%,100%,.2);
+    color: #fff;
+    display: inline;
+    font-size: .875rem;
+    margin-left: 30px;
+    padding-bottom: 0.5rem;
+    padding-top: 0.5rem;
+    text-align: center;
+    width: 75px;
+}
