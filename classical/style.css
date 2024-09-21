@@ -192,7 +192,9 @@ big,code {
 
 /*解读 谷梁*/
 .jiedu {
-	color: #9e9d24;
+	/*color: #9e9d24;
+	color: #28a745cc;*/
+    color: #df7e2d;
 }
 .jiedu p {
 	font-size:24px;
