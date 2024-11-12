@@ -710,6 +710,21 @@ var App = function () {
         }
     }
 
+    var handleAskClick = function () {
+        // handle ajax links
+        jQuery('.ask_ajax_btn').on('click', '', function (e) {
+                var url = $(this).attr("ask-url");
+                var currentElem = $(this).attr("ask-elem");
+            console.log(url, 'uuuuuuuuuuuu');
+
+                $.get(url, {}, function (res) {
+                    console.log(currentElem, res, 'oooooooo');
+            $('#' + currentElem).html(res);
+                    console.log(res);
+                });
+            });
+    }
+
     //* END:CORE HANDLERS *//
 
     return {
@@ -744,6 +759,7 @@ var App = function () {
             handlePopovers(); // handles bootstrap popovers
             handleAccordions(); //handles accordions
             handleChoosenSelect(); // handles bootstrap chosen dropdowns     
+            handleAskClick();
 
             App.addResponsiveHandler(handleChoosenSelect); // reinitiate chosen dropdown on main content resize. disable this line if you don't really use chosen dropdowns.
         },
